@@ -1,0 +1,107 @@
+<header>
+  <nav class="navbar mx-0 px-0 navbar-light navbar-sticky s-bg">
+    <div class="container">
+
+       <!-- Brand -->
+       <a routerLink="/index" class="navbar-brand ml-sm-0 mr-auto  permanentmarker s-bg-text p-bg"><strong>Dress Up</strong></a>
+
+       <!--links-->
+      <div class="form-inline ml-md-auto ml-sm-0 mr-sm-0">
+        <div class="md-form my-0">
+            <a  href="#" class="btn btn-rounded btn-sm font-weight-bold signup waves-effect lato">Sign Up <i class="fas fa-user-plus"></i></a>
+            <a  routerLink="/login" class="btn btn-sm btn-rounded login font-weight-bold s-bg s-text waves-effect lato">Log In <i class="fas fa-sign-in-alt"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="mt-3">
+<div class="container belleza">
+  <!-- card -->
+  <div class="card">
+    
+    <!-- card header -->
+    <form id="regForm" class="container w-100 px-0 m-0" [formGroup]="signUpForm" #formDir="ngForm" action="">
+      <div class="card-header w-100 ml-auto mr-auto row s-dark flex-center">
+        <div class="text-center">
+          <h1> Join DressUp </h1>
+          <p *ngIf="welcome" style="font-size: x-large">Welcome {{getbrand.get('brandName').value}}</p>
+        </div>
+      </div>
+    <!-- content -->
+    <div class="card-body row ">
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab form-group col-md-6 offset-md-3 col-sm-12 mb-2" [ngClass]="{'animated': getrole.value === '...','bounceIn': getrole.value === '...'}" *ngIf="currentnum == 0">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item">I am looking for </li>
+            <li class="list-inline-item">
+              <div class="btn-group dropright">
+              <button class="btn btn-sm btn-flat p-bg-text" [class.valid]="getrole.valid" >
+                {{getrole.value}}
+              </button>
+                <button class="btn btn-sm btn-flat dropdown-toggle px-3"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"></button>
+              <div class="dropdown-menu mb-sm-2 raleway" aria-labelledby="dropdownMenu1">
+                <span class="dropdown-item-text">Choose one</span>
+                <a class="dropdown-item" (click)="getrole.setValue('Designers')">Designers</a>
+                <a class="dropdown-item" (click)="getrole.setValue('Clients')">Clients</a>
+              </div>
+            </div>
+            </li>
+
+          </ul>
+    </div>
+      <div class="tab animated bounceInLeft form-group col-md-6 col-sm-12 mb-2"  formGroupName="account" *ngIf="getrole.valid&&currentnum == 0" [class.offset-md-3]="!isbuyer">
+        <ul class="list-inline list-unstyled">
+          <li class="list-inline-item ml-1">Where can we find you?</li>
+          <li class="list-inline-item">
+            <div class="dropdown mb-3">
+              <button class="btn btn-flat px-2 btn-sm dropdown-toggle" [class.valid]="getaddress.valid" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{getaddress.value}}
+              </button>
+              <div class="dropdown-menu mb-sm-3 raleway" aria-labelledby="dropdownMenu2">
+                <span class="dropdown-item-text">Choose one</span>
+                <a class="dropdown-item" (click)="getaddress.setValue('Abuja')">Abuja</a>
+                <a class="dropdown-item" (click)="getaddress.setValue('Ibadan')">Ibadan</a>
+                <a class="dropdown-item" (click)="getaddress.setValue('Kaduna')">Kaduna</a>
+                <a class="dropdown-item" (click)="getaddress.setValue('Lagos')">Lagos</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        Account Info:
+        <p><input class="raleway" type="email" id="email" [class.valid]="getaccount.get('email').valid" formControlName="email" required placeholder="E-mail..." name="email"></p>
+        <input class="raleway" type="password" id="pass" placeholder="Password..." [class.valid]="getaccount.get('password').valid" formControlName="password" required><a id="eye" [class.s-bg-text]="!isShown" (click)="showpass()">show </a> <br>
+        <!--<span class="alert-warning alert " *ngIf="password">{{getaccount.get('password').value}}</span>-->
+        <p class="alert alert-warning">password should be at least 10 characters long and be alphanumeric</p>
+      </div>
+
+      <div class="tab animated bounceInRight card card-body col-md-6 p-bg p-text col-xs-12  mb-2" formGroupName="brand" *ngIf="isbuyer&&!welcome">
+        <p class="text-uppercase font-italic">Tell us about your business...</p>
+        <div class="form-group my-0">
+          <p><input class="raleway" type="text" formControlName="brandName" [class.valid] = "getbrand.get('brandName').value !== '' && getbrand.get('brandName').value !== null && getbrand.get('brandName').valid"  placeholder="Business Name..."></p>
+          <p><input class="raleway" type="text" formControlName="workAddress" [class.valid] = "getbrand.get('workAddress').value !== '' && getbrand.get('workAddress').value !== null && getbrand.get('workAddress').valid"  placeholder="Business Address..."></p>
+          <p class="alert alert-warning">Enter a valid address so we can verify you easier</p>
+        </div>
+        <!--<a class="btn btn-sm s-bg" [class.disabled]="brandvalid||getbrand.invalid||!haschar" (click)="done()">I'm done here</a>-->
+      </div>
+      <!--Done sign up-->
+      <div class="tab animated col-sm-12 bounceIn text-center flex-center" *ngIf="currentnum == 1">
+        <ul class="list-unstyled list-inline">
+          <li class="text-center"> <h1>All Done!</h1> </li>
+          <li class="text-center"> <h3>Now let's get started with finding {{getrole.value}}</h3> </li>
+
+        </ul>
+      </div>
+      <div style="overflow:auto;" class="col-12" [ngClass]="{'mt-sm-2':!isbuyer||isbuyer,'mt-sm-5 mt-md-5':getrole.invalid}">
+        <div style="float:right;">
+          <span class="text-danger font-small font-italic" *ngIf="!activate&&currentnum == 0">All fields are to be filled</span>
+          <button *ngIf="cannext" class="btn btn-sm s-bg s-text lato disabled waves-effect" [class.disabled] = "!activate" type="button" id="nextBtn" (click)="next()">Next</button>
+          <button *ngIf="cansubmit" class="btn btn-sm s-bg s-text lato waves-effect" type="submit" (click)="addUser()">OK!</button>
+        </div>
+      </div>
+    <!-- footer -->
+    </div>
+    </form>
+  </div>
+</div>
+</main>

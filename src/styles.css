@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    overflow-x: hidden;
+}
+/* THEME */
+.p-bg{
+    background-color:  #b0e0e6 !important;
+}
+.p-bg-text{
+color: #b0e0e6 !important;
+}
+.p-light{
+    background-color: #e3ffff !important;
+}
+.p-light-1{
+    background-color: rgba(227, 255, 255, 0.4) !important;
+    /* background-color: brown; */
+}
+.p-light-text{
+    color: #e3ffff !important;
+}
+.p-dark{
+    background-color: #7faeb4 !important;
+}
+.p-dark-text{
+    color: #7faeb4 !important;
+}
+
+.s-bg{
+    background-color:  #9fa8da !important;
+}
+.s-bg-text{
+    color:  #9fa8da !important;
+}
+.s-light{
+    background-color: #d1d9ff !important;
+}
+.s-light-text{
+    color: #d1d9ff !important;
+}
+.s-dark{
+    background-color: #6f79a8 !important;
+}
+.s-dark-text{
+    color: #6f79a8 !important;
+}
+
+.surface{
+    background-color: #6f79a8 !important;
+}
+
+.background{
+    background-color: #ffffff !important;
+}
+
+
+/* TEXT */
+.p-text{
+    color: #000000 !important;
+}
+.s-text{
+    color: #000000 !important;
+}
+.surface-text{
+    color: #000000 !important;
+}
+.background-text{
+    color: #000000 !important;
+}
+
+
+/* FONTS */
+.raleway{
+    font-family: 'Raleway', sans-serif !important;
+}
+.lato{
+    font-family: 'Lato', sans-serif !important;
+}
+.quicksand{
+    font-family: 'Quicksand', sans-serif !important;
+}
+.permanentmarker{
+    font-family: 'Permanent Marker', cursive !important;
+}
+.belleza{
+    font-family: 'Belleza', sans-serif !important;
+}
