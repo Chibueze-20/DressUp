@@ -1,6 +1,13 @@
 .signup{
+<<<<<<< HEAD
   border: 3px solid #9fa8da;
   color: black;
+=======
+    border-style: solid;
+    border-width: 3px;
+    border-color: #9fa8da;
+    color: black;
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
     background-color: white;
 }
 .signup:hover{
@@ -8,7 +15,10 @@
     border-color: #b0e0e6;
     color: white;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
 .login{
     border-style: solid;
     border-width: 3px;
@@ -21,6 +31,13 @@
 /* Style the form */
 #regForm {
     background-color: #ffffff;
+<<<<<<< HEAD
+=======
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
   }
   
   /* Style the input fields */
@@ -28,7 +45,11 @@
     padding: 10px;
     width: 100%;
     font-size: 17px;
+<<<<<<< HEAD
     font-family: Raleway, fantasy;
+=======
+    font-family: Raleway;
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
     border: 1px solid #aaaaaa;
   }
   
@@ -36,6 +57,7 @@
   input.invalid {
     background-color: #ffdddd;
   }
+<<<<<<< HEAD
   .selected{
     color:blue;
   }
@@ -43,6 +65,9 @@
     outline-color: #4CAF50;
     outline-style: solid;
   }
+=======
+  
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
   /* Hide all steps by default: */
   /* .tab {
     display: none;
@@ -52,23 +77,32 @@
   }
   /* Make circles that indicate the steps of the form: */
   .step {
+<<<<<<< HEAD
     height: 25px;
     width: 25px;
+=======
+    height: 15px;
+    width: 15px;
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
     margin: 0 2px;
     background-color: #bbbbbb;
     border: none; 
     border-radius: 50%;
     display: inline-block;
     opacity: 0.5;
+<<<<<<< HEAD
     font-size: medium;
     font-weight: bold;
     color: white;
+=======
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
   }
   
   /* Mark the active step: */
   .step.active {
     opacity: 1;
   }
+<<<<<<< HEAD
 
   /* Mark the step for valid entry*/
   .step.good{
@@ -80,6 +114,9 @@
     background-color: red;
   }
 
+=======
+  
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
   /* Mark the steps that are finished and valid: */
   .step.finish {
     background-color: #4CAF50;
@@ -87,4 +124,8 @@
 
   .wow{
       visibility: hidden;
+<<<<<<< HEAD
   }
+=======
+  }
+>>>>>>> d975a58df8a4f951badebef0d87f2098da57b07e
