@@ -10,6 +10,7 @@ import { ConfirmPasswordDirective } from './sign-up/confirm-password.directive';
 import { LogInComponent } from './log-in/log-in.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { UserserviceService } from './userservice.service';
+import { TailorHomeComponent } from './tailor-home/tailor-home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserserviceService } from './userservice.service';
     LandingComponent,
     SignUpComponent,
     ConfirmPasswordDirective,
-    LogInComponent
+    LogInComponent,
+    TailorHomeComponent
   ],
   imports: [
     BrowserModule,
