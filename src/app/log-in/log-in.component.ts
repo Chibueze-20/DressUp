@@ -27,6 +27,7 @@ export class LogInComponent implements OnInit {
    }
 
   ngOnInit() {
+    alert("Hahahaha!")
   }
 
   design() {
