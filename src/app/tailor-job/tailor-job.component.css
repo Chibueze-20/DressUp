@@ -1,10 +1,5 @@
-
-.icon{
-  height: 50%;
-  width: 50%;
-}
 .in{
-  display: none
+  display: none !important;
 }
 
 @media screen and (max-width:375px){
@@ -12,6 +7,6 @@
     display: block;
   }
   .out{
-    display: none;
+    display: none !important;
   }
 }

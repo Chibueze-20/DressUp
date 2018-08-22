@@ -1,8 +1,8 @@
-<header>
+<header class="mb-5">
   <nav class="bg-white fixed-top">
     <div class="container">
       <div class="row">
-        <a class="navbar-text mr-auto permanentmarker font-weight-bold black-text" style="font-size: x-large">DressUp</a>
+        <a class="navbar-text ml-2 mr-auto permanentmarker font-weight-bold black-text" style="font-size: x-large">DressUp</a>
 
         <div class="form-inline ml-auto">
           <div class="md-form my-0">
@@ -14,18 +14,32 @@
     </div>
   </nav>
 </header>
-<main class="container-fluid">
+<main class="container-fluid ">
+    <app-tailor-job></app-tailor-job>
 
-  <div class="fixed-action-btn" style="bottom: 45px; right: 15px;">
+  <div class="fixed-action-btn in" style="bottom: -8px; right: -9px;">
     <a title="Action" class="btn-floating btn-sm s-bg">
       <i class="fas fa-cog"></i>
     </a>
 
     <ul class="list-unstyled">
-      <li class="my-0 p-0"><a  title="Edit shop" class="btn-floating btn-sm waves-effect red"><i class="far fa-edit"></i></a></li>
+      <li class="my-0 p-0"><a  title="Edit shop" class="btn-floating btn-sm  waves-effect red"><i class="far fa-edit"></i></a></li>
       <li class="my-0 p-0"><a  title="Profile" class="btn-floating btn-sm waves-effect yellow darken-1"><i class="fa fa-user"></i></a></li>
       <li class="my-0 p-0"><a  title="Jobs" class="btn-floating btn-sm waves-effect green"><i class="fas fa-money-bill"></i></a></li>
       <li class="my-0 p-0"><a  title="New product" class="btn-floating btn-sm waves-effect blue"><i class="fas fa-plus"></i></a></li>
+    </ul>
+  </div>
+
+  <div class="fixed-action-btn out" style="bottom: 10px; right: 0px;">
+    <a  title="Action" class="btn-floating btn-lg s-bg">
+      <i class="fas fa-cog"></i>
+    </a>
+
+    <ul class="list-unstyled">
+      <li class="my-0 p-0"><a  title="Edit shop" class="btn-floating  waves-effect red"><i class="far fa-edit"></i></a></li>
+      <li class="my-0 p-0"><a  title="Profile" class="btn-floating  waves-effect yellow darken-1"><i class="fa fa-user"></i></a></li>
+      <li class="my-0 p-0"><a  title="Jobs" class="btn-floating  waves-effect green"><i class="fas fa-money-bill"></i></a></li>
+      <li class="my-0 p-0"><a  title="New product" class="btn-floating  waves-effect blue"><i class="fas fa-plus"></i></a></li>
     </ul>
   </div>
 </main>
