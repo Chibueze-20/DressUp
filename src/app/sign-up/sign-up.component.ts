@@ -11,6 +11,8 @@ import { UserserviceService } from '../userservice.service';
   styleUrls: ['./sign-up.component.css']
 })
 
+
+
 export class SignUpComponent implements OnInit {
   // toggle password characters
   password = false;
@@ -59,12 +61,10 @@ export class SignUpComponent implements OnInit {
     }
   }
   // to go to next flow
-
   next(): void {
     this.currentnum = this.currentnum + 1;
     this.show();
   }
-
 // show password characters
   showpass() {
     this.password = !this.password;
@@ -179,7 +179,6 @@ public get signup() {return this.signUpForm; }
     }
     return false;
   }
-
 
 
 }

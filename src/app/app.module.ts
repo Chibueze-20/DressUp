@@ -8,7 +8,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-
 import { ConfirmPasswordDirective } from './sign-up/confirm-password.directive';
 import { LogInComponent } from './log-in/log-in.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -17,6 +16,9 @@ import { TailorHomeComponent } from './tailor-home/tailor-home.component';
 import { TailorJobComponent } from './tailor-job/tailor-job.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
+import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { CustomizeComponent } from './settings/customize/customize.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     LogInComponent,
     TailorHomeComponent,
     TailorJobComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    TailorProfileComponent,
+    SettingsComponent,
+    CustomizeComponent
   ],
   imports: [
     BrowserModule,
