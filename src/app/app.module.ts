@@ -17,8 +17,9 @@ import { TailorJobComponent } from './tailor-job/tailor-job.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
-import { SettingsComponent } from './settings/settings.component';
-import { CustomizeComponent } from './settings/customize/customize.component';
+import { BidViewComponent } from './bid-view/bid-view.component';
+// import { SettingsComponent } from './settings/settings.component';
+// import { CustomizeComponent } from './settings/customize/customize.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { CustomizeComponent } from './settings/customize/customize.component';
     TailorJobComponent,
     AccountSettingsComponent,
     TailorProfileComponent,
-    SettingsComponent,
-    CustomizeComponent
+    BidViewComponent,
+    // SettingsComponent,
+    // CustomizeComponent
   ],
   imports: [
     BrowserModule,
