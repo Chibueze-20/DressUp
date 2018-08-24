@@ -1,8 +1,8 @@
 export class Schedule {
-  task: string;
-  duration: number;
+  task = '';
+  duration = null;
 
-  constructor(values: Object = {}){
+  constructor(values: Object = {}) {
     Object.assign(this, values);
   }
 }

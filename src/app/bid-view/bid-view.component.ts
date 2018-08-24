@@ -7,13 +7,14 @@ import {Schedule} from '../shared/schedule';
   styleUrls: ['./bid-view.component.css']
 })
 export class BidViewComponent implements OnInit {
-  acceptbid = false;
+  acceptbid = true;
   bidprice: string;
   task: string;
   duration: number;
-  schedules:  Schedule[];
+  totalTimeline = 0;
+  schedules:  Schedule[] = [];
   schedule: Schedule = new Schedule();
-  private temp: Schedule;
+  private temp: Schedule = new Schedule();
   constructor() { }
 
   ngOnInit() {
@@ -24,25 +25,44 @@ export class BidViewComponent implements OnInit {
 
   }
 
+  updatearry(schedulesarr: Schedule[]) {
+    this.schedules = schedulesarr;
+  }
   addSchedule() {
     this.schedules.push(this.schedule);
-    this.schedule = new Schedule();
+    this.totalTimeline = this.totalTimeline + this.schedule.duration;
+     this.schedule = new Schedule();
   }
   removeSchedule(i: number) {
-    this.schedules = this.schedules.filter(schedule => this.schedules.indexOf(schedule) !== i);
+    let temparr: any[];
+    temparr = this.schedules;
+    temparr = temparr.filter(schedule => this.schedules.indexOf(schedule) !== i);
+    this.updatearry(temparr);
   }
   moveScheduleUp(i: number) {
-    this.temp = this.schedules[i];
-    this.schedules[i] = this.schedules[i + 1];
-    this.schedules[i + 1] = this.temp;
+    let temparr: any[];
+    temparr = this.schedules;
+    this.temp = new Schedule({task: temparr[i].task, duration: temparr[i].duration });
+    temparr[i] = temparr[i - 1];
+    temparr[i - 1] = this.temp;
+    this.updatearry(temparr);
   }
   moveScheduleDown(i: number) {
-    this.temp = this.schedules[i];
-    this.schedules[i] = this.schedules[i - 1];
-    this.schedules[i - 1] = this.temp;
+    let temparr: any[];
+    temparr = this.schedules;
+    if (temparr.length > 1) {
+      this.temp = new Schedule({task: temparr[i].task, duration: temparr[i].duration });
+      temparr[i] = temparr[i + 1];
+      temparr[i + 1] = this.temp;
+      this.updatearry(temparr);
+    }
   }
 
   get Schedules() {
     return this.schedules;
+  }
+
+  get timeline() {
+    return this.totalTimeline;
   }
 }
