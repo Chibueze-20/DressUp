@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ConfirmPasswordDirective } from './sign-up/confirm-password.directive';
+import { ConfirmPasswordDirective } from './shared/confirm-password.directive';
 import { LogInComponent } from './log-in/log-in.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { UserserviceService } from './userservice.service';
@@ -18,6 +18,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
 import { BidViewComponent } from './bid-view/bid-view.component';
+import { SettingsAccountComponent } from './settings-account/settings-account.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { CustomizeComponent } from './settings/customize/customize.component';
 
@@ -33,6 +34,7 @@ import { BidViewComponent } from './bid-view/bid-view.component';
     AccountSettingsComponent,
     TailorProfileComponent,
     BidViewComponent,
+    SettingsAccountComponent,
     // SettingsComponent,
     // CustomizeComponent
   ],

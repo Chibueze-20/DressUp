@@ -38,7 +38,8 @@
                 <span class="text-danger text-right font-italic font-small">*Enter a valid E-mail address</span>
               </div>
               <!-- Password -->
-              <input type="password" required [class.error]="client_password.invalid && (client_password.dirty || client_password.touched)" id="LoginFormPassword" formControlName="password" class="form-control mt-4" placeholder="Password...">
+              <input type="password" id="logpass" required [class.error]="client_password.invalid && (client_password.dirty || client_password.touched)"  formControlName="password" class="form-control mt-4" placeholder="Password...">
+              <a id="logeye" [class.s-bg-text]="!isShown" (click)="showpass()">show </a>
               <div class="d-flex justify-content-start" *ngIf="client_password.invalid && (client_password.dirty || client_password.touched)">
                 <span class="text-danger text-right font-italic font-small">*Password must be set</span>
               </div>

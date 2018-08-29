@@ -10,6 +10,7 @@ export function passwordValidator(): ValidatorFn {
   };
 }
 
+
 export function notRequiredButNotEmpty(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
     // const password = document.getElementById('password');

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { passwordValidator } from './confirm-password.directive';
+import { passwordValidator } from '../shared/confirm-password.directive';
 import { UserserviceService } from '../userservice.service';
 
 

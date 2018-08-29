@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {e, p} from '@angular/core/src/render3';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpEvent, HttpEventType} from '@angular/common/http';
+import {Response} from './shared/Response';
+import {T} from '@angular/core/src/render3';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,8 @@ export class UserserviceService {
       .subscribe(res => console.log('Done'));
   }
 
-  userLogin(loginDetails) {
-    this.http.post(this.uri + '/user/login', loginDetails)
-      .subscribe(res => localStorage.setItem('User', JSON.stringify(res)));
+  postData(url, payload) {
+    return this.http.post(url, payload);
   }
 
-  designerLogin(loginDetails) {
-    this.http.post(this.uri + '/designer/login', loginDetails)
-      .subscribe(res => localStorage.setItem('User', JSON.stringify(res)));
-  }
 }

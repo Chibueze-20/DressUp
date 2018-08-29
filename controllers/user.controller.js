@@ -20,8 +20,8 @@ router.get('/hey',function (req,res,next) {
 router.get('/delete/:id',repository.DeleteUserById);
 //update user -put
 router.post('/update/account/:id',repository.updateUserAccountById);
-router.post('update/contact/:id',repository.updateUserContactById);
-router.post('update/names/:id',repository.updateUserNamesById);
-router.post('update/brand/:id',repository.updateUserBrandById);
+router.post('/update/contact/:id',repository.updateUserContactById);
+router.post('/update/names/:id',repository.updateUserNamesById);
+router.post('/update/brand/:id',repository.updateUserBrandById);
 
 module.exports = router;
