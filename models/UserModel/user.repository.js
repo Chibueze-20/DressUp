@@ -83,7 +83,7 @@ exports.updateUserAccountById = function (req, res, next) {
   // console.log(obj);
   User.findOneAndUpdate(query,obj,{new:true}, function (err,user){
     if(err){
-      return res.json({Message: "Unexpected error updating", type: "Error"})
+      return res.json({Message: "Unexpected error updating, invalid details", type: "Error"})
     }
     console.log(user); 
     return res.json(user);
@@ -95,12 +95,25 @@ exports.updateUserContactById = function (req, res, next) {
     if(!user){
       return next(new Error("could not load document"))
     } else {
-      user.Contact.City = req.body.City;
-      user.Contact.State = req.body.State;
-      user.Contact.PhoneNumber = req.body.PhoneNumber;
-      user.Contact.HomeAddress = req.body.HomeAddress;
-      user.Contact.PostAddress = req.body.PostAddress;
-
+      if(req.body){
+        if(req.body.City){
+          user.Contact.City = req.body.City;
+          }
+          if(req.body.State){
+          user.Contact.State = req.body.State;
+          }
+          if(req.body.PhoneNumber){
+          user.Contact.PhoneNumber = req.body.PhoneNumber;
+          }
+          if(req.body.HomeAddress){
+          user.Contact.HomeAddress = req.body.HomeAddress;
+          }
+          if(req.body.PostAddress){
+          user.Contact.PostAddress = req.body.PostAddress;
+          }
+      }else{
+        return res.json({Message: "No Changes", type: "Success"});
+      }
       user.save().then(user => {
         console.log(user);
         res.json(user);
@@ -116,9 +129,19 @@ exports.updateUserNamesById = function (req, res, next) {
     if(!user){
       return next(new Error("could not load document"))
     } else {
-      user.Name.FirstName = req.body.FirstName;
-      user.Name.MiddleName = req.body.MiddleName;
-      user.Name.LastName = req.body.LastName;
+        if(req.body){
+          if(req.body.FirstName){
+          user.Name.FirstName = req.body.FirstName;
+          }
+          if(req.body.MiddleName){
+          user.Name.MiddleName = req.body.MiddleName;
+          }
+          if(req.body.LastName){
+          user.Name.LastName = req.body.LastName;
+          }
+        }else{
+          return res.json({Message: "No Changes", type: "Success"});
+        }
 
       user.save().then(user => {
         console.log(user);
@@ -136,8 +159,16 @@ exports.updateUserBrandById = function (req, res, next) {
     if(!user){
       return next(new Error("could not load document"))
     } else {
-      user.Brand.BrandDescription = req.body.BrandDescription;
-      user.Brand.WorkAddress = req.body.WorkAddress;
+      if(req.body){
+        if(req.body.BrandDescription){
+        user.Brand.BrandDescription = req.body.BrandDescription;
+        }
+        if(req.body.WorkAddress){
+        user.Brand.WorkAddress = req.body.WorkAddress;
+        }
+      }else{
+        return res.json({Message: "No Changes", type: "Success"});
+      }
 
       user.save().then(user => {
         console.log(user);

@@ -1,0 +1,38 @@
+
+
+ul li.list-group-item {
+    background: none !important;
+    border-style: none;
+    border: none;
+    font-size: 20px;
+    color: #ffffff;
+}
+ul li.list-group-item input[type="checkbox"] {
+    -webkit-appearance: button;
+    width: 30px;
+    height: auto;
+    border: 1px solid #ced4da;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+/* ul li.list-group-item input[class="form-control"]{
+    background-color: rgba(0,0,0,.03) !important;
+} */
+.true {
+    background-color: #00c851;
+}
+div.input-group.mb-3 {
+    width: fit-content;
+}
+
+ul li.list-group-item span[name="byom"] {
+    padding-left: 23px !important;
+    padding-right: 30px !important;
+}
+.sizes-list {
+    height: 200px;
+    overflow: auto;
+}
+span.badge {
+    font-size: 12px;
+}

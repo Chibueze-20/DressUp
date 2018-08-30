@@ -14,6 +14,7 @@ mongoose.connect(config.DB,{ useNewUrlParser: true}).then(
 );
 
 const userController = require('./controllers/user.controller');
+const orderRequestController = require('./controllers/OrderRequest.controller');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use(cors())
 var port = process.env.PORT || 4000;
 
 app.use('/user',userController);
+app.use('/order',orderRequestController);
 
 app.listen(port);
 console.log("server listening on port "+port);

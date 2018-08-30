@@ -57,12 +57,22 @@
     <div class="collapse" id="collapseExample1">
       <div class="view">
         <div class=" mt-3 flex-center" *ngIf="contactbool; else contact">
-          <h1 class="text-muted text-center my-2">City: </h1>
-          <h1 class="text-muted text-center my-2">State: </h1>
-          <h1 class="text-muted text-center my-2">Phone Number: </h1>
-          <h1 class="text-muted text-center my-2">Home Address: </h1>
-          <h1 class="text-muted text-center my-2">Post Address: </h1>
-          <button class="btn s-bg s-text lato waves-effect my-4">Update</button>
+          <div>
+            <h4 class="text-muted  my-2">City: <span class="my-0" style="font-size: x-large">{{User.Contact.City}}</span></h4>
+
+            <h4 class="text-muted  my-2">State: <span class="my-0" style="font-size: x-large">{{User.Contact.State}}</span></h4>
+
+            <h4 class="text-muted  my-2">Phone Number: <span class="my-0" style="font-size: x-large">{{User.Contact.PhoneNumber}}</span></h4>
+
+            <h4 class="text-muted  my-2">Home Address: <span class="my-0" style="font-size: x-large">{{User.Contact.HomeAddress}}</span></h4>
+
+            <h4 class="text-muted  my-2">Post Address: <span class="my-0" style="font-size: x-large">{{User.Contact.PostAddress}}</span></h4>
+
+            <div class="flex-center">
+
+              <button class="btn s-bg s-text lato waves-effect my-4" (click)="contacttoggle()">Update</button>
+            </div>
+          </div>
         </div>
         <ng-template #contact>
           <div class=" mt-3">
@@ -107,11 +117,15 @@
     <!-- Collapsible element -->
     <div class="collapse" id="collapseExample2">
       <div class="view">
-        <div class="mt-3 flex-center text-center" *ngIf="namebool; else name">
-          <h1 class="text-muted my-2">First Name:</h1>
-          <h1 class="text-muted my-2">Middle Name:</h1>
-          <h1 class="text-muted my-2">Last Name</h1>
-          <button class="btn s-bg s-text waves-effect my-4">Update</button>
+        <div class="mt-3 flex-center" *ngIf="namebool; else name">
+          <div>
+            <h4 class="text-muted my-2">First Name:</h4>
+            <h4 class="text-muted my-2">Middle Name:</h4>
+            <h4 class="text-muted my-2">Last Name</h4>
+            <div class="flex-center">
+              <button class="btn s-bg s-text waves-effect my-4" (click)="nametoggle()">Update</button>
+            </div>
+          </div>
         </div>
         <ng-template #name>
           <div class=" mt-3">
@@ -153,10 +167,14 @@
     <!-- Collapsible element -->
     <div class="collapse" id="collapseExample3">
       <div class="view">
-        <div class="flex-center mt-3 text-center" *ngIf="brandbool; else brand">
-          <h1 class="text-muted my-2">Bio: </h1>
-          <h1 class="text-muted my-2">Business Address: </h1>
-          <button class="btn s-bg s-text waves-effect my-4">Update</button>
+        <div class="flex-center mt-3" *ngIf="brandbool; else brand">
+          <div>
+            <h2 class="text-muted my-2">Bio</h2>
+            <h4 class="text-muted my-2">Business Address: </h4>
+            <div class="flex-center">
+              <button class="btn s-bg s-text waves-effect my-4" (click)="brandtoggle()">Update</button>
+            </div>
+          </div>
         </div>
         <ng-template #brand>
           <div class=" mt-3">

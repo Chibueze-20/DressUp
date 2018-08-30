@@ -11,6 +11,11 @@ import { TailorHomeComponent } from '../tailor-home/tailor-home.component';
 import { AccountSettingsComponent} from '../account-settings/account-settings.component';
 // import {SettingsComponent} from '../settings/settings.component';
 // import {CustomizeComponent} from '../settings/customize/customize.component';
+import {SettingsComponent} from '../settings/settings.component';
+import {CustomizeComponent} from '../settings/customize/customize.component';
+import { PostsComponent } from '../tailor-profile/posts/posts.component';
+import { PostComponent } from '../tailor-profile/post/post.component';
+import {ViewPostComponent} from '../tailor-profile/posts/view-post/view-post.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'index', pathMatch: 'full'},
@@ -27,6 +32,17 @@ const routes: Routes = [
     // {path: '', redirectTo: 'customize', pathMatch: 'full'},
     // {path: 'customize', component: CustomizeComponent}
   // ]}
+  {path: 'profile', component: TailorProfileComponent, children: [
+    {path: '', redirectTo: 'posts', pathMatch: 'full'},
+    {path: 'posts', component: PostsComponent}
+  ]},
+  {path: 'home', component: TailorHomeComponent},
+  {path: 'settings', component: SettingsComponent, children: [
+    {path: '', redirectTo: 'customize', pathMatch: 'full'},
+    {path: 'customize', component: CustomizeComponent}
+  ]},
+  {path: 'post', component: PostComponent},
+  {path: 'view-post/:id', component: ViewPostComponent}
 ];
 @NgModule({
   imports: [

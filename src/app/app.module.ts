@@ -21,6 +21,12 @@ import { BidViewComponent } from './bid-view/bid-view.component';
 import { SettingsAccountComponent } from './settings-account/settings-account.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { CustomizeComponent } from './settings/customize/customize.component';
+import { SettingsComponent } from './settings/settings.component';
+import { CustomizeComponent } from './settings/customize/customize.component';
+import { PostsComponent } from './tailor-profile/posts/posts.component';
+import { DirectOrderComponent } from './tailor-profile/direct-order/direct-order.component';
+import { PostComponent } from './tailor-profile/post/post.component';
+import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +43,12 @@ import { SettingsAccountComponent } from './settings-account/settings-account.co
     SettingsAccountComponent,
     // SettingsComponent,
     // CustomizeComponent
+    SettingsComponent,
+    CustomizeComponent,
+    PostsComponent,
+    DirectOrderComponent,
+    PostComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,

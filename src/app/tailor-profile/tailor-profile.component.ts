@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tailor-profile.component.css']
 })
 export class TailorProfileComponent implements OnInit {
+  
 
   constructor() { }
 

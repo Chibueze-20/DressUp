@@ -73,10 +73,11 @@ get contactformbool() {
     return this.contactform;
 }
 get contactbool() {
+    // alert(this.contact);
     return this.contact;
 }
 contacttoggle() {
-    this.contact  = !this.contact;
+    this.contact  = false;
 }
 get nameformbool() {
     return this.nameform;
@@ -85,7 +86,7 @@ get namebool() {
     return this.name;
 }
 nametoggle() {
-    this.name = !this.name;
+    this.name = false;
 }
 get brandformbool() {
     return this.brandform;
@@ -94,7 +95,7 @@ get brandbool() {
     return this.brand;
 }
 brandtoggle() {
-    this.brand = !this.brand;
+    this.brand = false;
 }
 get userRole() {
 return this.User.Role;
@@ -131,7 +132,7 @@ updateContactClick() {
     });
 }
 discardContactUpdateClick() {
-    this.contact = false;
+    this.contact = true;
     this.settingsForm.get('Contact').reset();
 
 }
@@ -147,7 +148,7 @@ updateNameClick() {
     });
   }
   discardNameUpdateClick() {
-    this.name = false;
+    this.name = true;
     this.settingsForm.get('Name').reset();
   }
 updateBrandClick() {
@@ -163,7 +164,7 @@ updateBrandClick() {
 
 }
 discardBrandUpdateClick() {
-    this.brand = false;
+    this.brand = true;
     this.settingsForm.get('Brand').reset();
 }
 }
