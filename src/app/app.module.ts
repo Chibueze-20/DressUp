@@ -14,6 +14,10 @@ import { TailorHomeComponent } from './tailor-home/tailor-home.component';
 import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CustomizeComponent } from './settings/customize/customize.component';
+import { PostsComponent } from './tailor-profile/posts/posts.component';
+import { DirectOrderComponent } from './tailor-profile/direct-order/direct-order.component';
+import { PostComponent } from './tailor-profile/post/post.component';
+import { ViewPostComponent } from './posts/view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { CustomizeComponent } from './settings/customize/customize.component';
     TailorHomeComponent,
     TailorProfileComponent,
     SettingsComponent,
-    CustomizeComponent
+    CustomizeComponent,
+    PostsComponent,
+    DirectOrderComponent,
+    PostComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,

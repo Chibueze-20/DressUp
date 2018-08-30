@@ -1,0 +1,91 @@
+<div class="container">
+    
+        <h2>Add a post</h2>
+
+        <div class="row d-flex flex-md-row flex-sm-column">
+            <div class="col-md-6 col-xs-12 d-flex align-items-between">
+            <div class="card bg-primary w-100">
+                <!-- <div class="card-header">
+                    <h3 class="text-black">Upload Image</h3>
+                </div> -->
+
+                <div class="card-body">
+                    <div class="card-img w-100 h-100">
+                        <!-- <img src="../../../assets/images/pete-bellis-396528-unsplash.jpg"> -->
+                    </div>
+                </div>
+                
+                
+                <div class="card-footer w-100 d-flex justify-content-between align-self-end">
+                    <button class="btn-info btn">Remove</button>
+                    <button class="btn btn-primary">Browse</button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Post -->
+            <div class="col-md-6 col-xs-12">
+                <ul class="list-group card bg-primary">
+                    <li class="list-group-item mb-3" id="description">
+                        <label for="description-textarea" class="text-white">Description</label>
+                        <textarea class="form-control " type="text" id="description-textarea"></textarea>
+                    </li>
+                    <li class="list-group-item mb-3 bg-none" id="price">
+                        <label for="price" class="text-white">Price</label>
+                        <input class="form-control " type="number" id="price-input">
+                    </li>
+
+                        <!-- Conditions and Permissions -->
+
+                    <li class="list-group-item mb-3 py-0 d-flex flex-md-row justify-content-md-between" id="permissions-condtions">
+                        <!-- Conditions -->
+
+                            <div class="py-0">
+                                <label for="conditions" class="text-white">Conditions</label>
+
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-primary">BYOM</span>
+                                    </div>
+                                    <input class="waves-effect checkbox" name="byom" type="checkbox" value="byom" #checkbox1 [class.true]="checkbox1.checked" (click)="show(checkbox1.checked)">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend waves-effect">
+                                        <span class="input-group-text bg-primary">Negotiable</span>
+                                    </div>
+                                    <input class="waves-effect checkbox" name="negotiable" type="checkbox" value="negotiable" #checkbox2 [class.true]="checkbox2.checked" (click)="show(checkbox2.checked)">
+                                </div>                  
+                            </div>
+                                        
+                        <!-- Permissions -->
+                            
+                            <div class="py-0">
+                                <label for="permissions" class="text-white">Permissions</label>
+                                <div class="input-group mb-2" id="permissions">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-primary">Free</span>
+                                    </div>
+                                    <input class="waves-effect checkbox" name="free" type="checkbox" value="free" #checkbox3 [class.true]="checkbox3.checked" (click)="show(checkbox1.checked)">
+                                </div>
+                            </div>
+                        
+                    </li>
+
+                    
+                    <li class="list-group-item mb-3" id="size">
+                        <label for="size-input" class="text-white">Size</label>
+                        <input class="form-control" id="size-input">
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary mx-3">Cancel</button>
+                <button class="btn btn-success mx-3">Post</button>
+            </div>
+        </div>
+    
+</div>

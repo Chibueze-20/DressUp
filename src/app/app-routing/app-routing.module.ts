@@ -10,18 +10,24 @@ import { TailorProfileComponent } from '../tailor-profile/tailor-profile.compone
 import { TailorHomeComponent } from '../tailor-home/tailor-home.component';
 import {SettingsComponent} from '../settings/settings.component';
 import {CustomizeComponent} from '../settings/customize/customize.component';
+import { PostsComponent } from '../tailor-profile/posts/posts.component';
+import { PostComponent } from '../tailor-profile/post/post.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: 'index', component: LandingComponent},
   {path: 'login', component: LogInComponent},
   {path: 'register', component: SignUpComponent},
-  {path: 'profile', component: TailorProfileComponent},
+  {path: 'profile', component: TailorProfileComponent, children: [
+    {path: '', redirectTo: 'posts', pathMatch: 'full'},
+    {path: 'posts', component: PostsComponent}
+  ]},
   {path: 'home', component: TailorHomeComponent},
   {path: 'settings', component: SettingsComponent, children: [
     {path: '', redirectTo: 'customize', pathMatch: 'full'},
     {path: 'customize', component: CustomizeComponent}
-  ]}
+  ]},
+  {path: 'post', component: PostComponent}
 ];
 @NgModule({
   imports: [

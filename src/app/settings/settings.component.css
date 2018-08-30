@@ -1,0 +1,33 @@
+/* Styles */
+
+
+/* Colors
+App darker: #868C8C
+App Light: #b0e0e6
+App dark: #7faeb4
+*/
+
+#side-nav {
+    height: 100vh;
+    /* border-right: 2px solid #868C8C; */
+    background-color: #99CCFF;/*#7FAEB4*/;
+    padding-right: 0px;
+    box-shadow: 2px 0px 3px 1px rgba(22, 28, 29, 0.37);
+
+}
+#settings-view {
+    height: 100vh; 
+    overflow-y: auto;
+}
+#main-view {
+    overflow-y: hidden;
+}
+.active {
+    background-color: #e3ffff;
+    font-weight: bold;
+}
+#side-nav button {
+    margin-right: 21px;
+    background-color: #161C1D;
+
+}
