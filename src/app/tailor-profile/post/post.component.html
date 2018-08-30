@@ -26,18 +26,18 @@
             <!-- Post -->
             <div class="col-md-6 col-xs-12">
                 <ul class="list-group card bg-primary">
-                    <li class="list-group-item mb-3" id="description">
+                    <li class="list-group-item " id="description">
                         <label for="description-textarea" class="text-white">Description</label>
                         <textarea class="form-control " type="text" id="description-textarea"></textarea>
                     </li>
-                    <li class="list-group-item mb-3 bg-none" id="price">
+                    <li class="list-group-item  bg-none" id="price">
                         <label for="price" class="text-white">Price</label>
                         <input class="form-control " type="number" id="price-input">
                     </li>
 
                         <!-- Conditions and Permissions -->
 
-                    <li class="list-group-item mb-3 py-0 d-flex flex-md-row justify-content-md-between" id="permissions-condtions">
+                    <li class="list-group-item  py-0 d-flex flex-md-row justify-content-md-between" id="permissions-condtions">
                         <!-- Conditions -->
 
                             <div class="py-0">
@@ -45,13 +45,13 @@
 
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary py-1">BYOM</span>
+                                        <span class="input-group-text bg-primary py-1" name="byom">BYOM</span>
                                     </div>
                                     <input class="waves-effect checkbox" name="byom" type="checkbox" value="byom" #checkbox1 [class.true]="checkbox1.checked" (click)="show(checkbox1.checked)">
                                 </div>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend waves-effect">
-                                        <span class="input-group-text bg-primary py-1">Negotiable</span>
+                                        <span class="input-group-text bg-primary py-1" name="negotiable">Negotiable</span>
                                     </div>
                                     <input class="waves-effect checkbox" name="negotiable" type="checkbox" value="negotiable" #checkbox2 [class.true]="checkbox2.checked" (click)="show(checkbox2.checked)">
                                 </div>                  
@@ -73,8 +73,60 @@
 
                     
                     <li class="list-group-item mb-3" id="size">
-                        <label for="size-input" class="text-white">Size</label>
-                        <input class="form-control" id="size-input">
+                        <label for="size-input" class="text-white"><h4 class="mr-3">Size<span class="badge badge-light mx-3" *ngIf="sizesArray.small.length > 0"id="small"(click)="showSize($event)">small</span><span class="badge badge-light mx-3" *ngIf="sizesArray.medium.length > 0"id="medium"(click)="showSize($event)">medium</span><span class="badge badge-light mx-3" *ngIf="sizesArray.large.length > 0"id="large" (click)="showSize($event)">large</span></h4></label>
+                        
+                        <!-- <div class="sizes" *ngIf="sizes.length > 0"></div> -->
+                       
+                        <div class="d-flex flex-md-row justify-content-between">
+                            <!-- Pick Sizes form -->
+
+                            <div id="sizeForm" style="visibility: hidden">
+
+                                <div class="input-group" id="sizeInputGroup"#thisSize>
+                                    <div class="input-group-prepend">
+                                        <input class="input-group-text text-left"type="text" #sizeName id="sizeName">
+                                    </div>
+                                    <input #sizeValue type="number" id="sizeValue"class="form-control"(keyup.enter)="saveSize(sizeName.value, sizeValue.value, $event.target.parentElement.name)" (keyup.enter)="clear($event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.in</span>
+                                    </div>
+                                </div>
+
+                                <!-- Sizes list -->
+                                <div class="sizes-list" *ngIf="getArray.length > 0">
+                                    <ul class="list-group p-1">
+                                        <li class="list-group-item p-1" *ngFor="let size of getArray">
+                                            
+                                            <span class="input-group-text bg-primary h3"><span class="font-weight-bold mr-4">{{size.name}}: </span>{{size.value}}.in <a class="badge badge-pill badge-danger ml-auto" (click)="getArray.splice(i,1)">&times;</a></span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="d-flex flex-row justify-content-between">
+                                    <button class="btn ml-0" (click)="discardSize($event)">
+                                        Discard
+                                    </button>
+                                    <button class="btn">
+                                        Done
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <!-- Add sizes button -->
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <span class="dropdown-header">Select a size</span>
+                                    <a class="dropdown-item" (click)="addSize($event)" id="small">Small</a>
+                                    <a class="dropdown-item" id="medium" (click)="addSize($event)">Medium</a>
+                                    <a class="dropdown-item" id="large" (click)="addSize($event)">Large</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </li>
                     
                 </ul>

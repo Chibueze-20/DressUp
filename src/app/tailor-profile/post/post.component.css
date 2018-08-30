@@ -19,8 +19,20 @@ ul li.list-group-item input[type="checkbox"] {
     background-color: rgba(0,0,0,.03) !important;
 } */
 .true {
-    background-color: gold;
+    background-color: #00c851;
 }
 div.input-group.mb-3 {
     width: fit-content;
+}
+
+ul li.list-group-item span[name="byom"] {
+    padding-left: 23px !important;
+    padding-right: 30px !important;
+}
+.sizes-list {
+    height: 200px;
+    overflow: auto;
+}
+span.badge {
+    font-size: 12px;
 }
