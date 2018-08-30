@@ -18,7 +18,6 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
 import { BidViewComponent } from './bid-view/bid-view.component';
-import { SettingsAccountComponent } from './settings-account/settings-account.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { CustomizeComponent } from './settings/customize/customize.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -40,7 +39,6 @@ import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.co
     AccountSettingsComponent,
     TailorProfileComponent,
     BidViewComponent,
-    SettingsAccountComponent,
     // SettingsComponent,
     // CustomizeComponent
     SettingsComponent,
