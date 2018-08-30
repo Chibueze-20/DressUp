@@ -21,3 +21,6 @@ ul li.list-group-item input[type="checkbox"] {
 .true {
     background-color: gold;
 }
+div.input-group.mb-3 {
+    width: fit-content;
+}

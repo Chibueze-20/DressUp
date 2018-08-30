@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from './confirm-password.directive';
 import { UserserviceService } from '../userservice.service';
+
 
 @Component({
   selector: 'app-sign-up',

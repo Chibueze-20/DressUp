@@ -124,7 +124,6 @@ exports.updateUserBrandById = function (req, res, next) {
     } else {
       user.Brand.BrandDescription = req.body.description;
       user.Brand.WorkAddress = req.body.address;
-      user.Brand.BrandName = req.body.address;
 
       user.save().then(user => {
         res.json({Message:"update successful",type:"success"});
