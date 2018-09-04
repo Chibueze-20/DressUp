@@ -31,7 +31,8 @@ ul li.list-group-item span[name="byom"] {
 }
 .sizes-list {
     height: 200px;
-    overflow: auto;
+    /* height: fit-content; */
+    overflow-y: auto;
 }
 span.badge {
     font-size: 12px;

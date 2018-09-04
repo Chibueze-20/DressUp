@@ -29,7 +29,7 @@ const routes: Routes = [
     {path: 'customize', component: CustomizeComponent}
   ]},
   {path: 'post', component: PostComponent},
-  {path: 'view-post/:id', component: ViewPostComponent}
+  {path: 'view-post', component: ViewPostComponent}
 ];
 @NgModule({
   imports: [

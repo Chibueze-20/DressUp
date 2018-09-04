@@ -93,9 +93,9 @@
                                 </div>
 
                                 <!-- Sizes list -->
-                                <div class="sizes-list" *ngIf="getArray.length > 0">
+                                <div class="sizes-list" *ngIf="getArray">
                                     <ul class="list-group p-1">
-                                        <li class="list-group-item p-1" *ngFor="let size of getArray">
+                                        <li class="list-group-item p-1" *ngFor="let size of getArray;index as i">
                                             
                                             <span class="input-group-text bg-primary h3"><span class="font-weight-bold mr-4">{{size.name}}: </span>{{size.value}}.in <a class="badge badge-pill badge-danger ml-auto" (click)="getArray.splice(i,1)">&times;</a></span>
                                         </li>
@@ -135,7 +135,7 @@
 
         <div class="row">
             <div class="col-12 d-flex justify-content-end">
-                <button class="btn btn-primary mx-3">Cancel</button>
+                <button class="btn btn-primary mx-3" (click)="goBack()">Cancel</button>
                 <button class="btn btn-success mx-3">Post</button>
             </div>
         </div>

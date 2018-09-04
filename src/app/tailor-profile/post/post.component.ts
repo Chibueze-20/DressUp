@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import {Sizes} from './sizes';
 import {Size} from './sizes';
 
@@ -9,7 +10,7 @@ import {Size} from './sizes';
 })
 export class PostComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location:Location) { }
 
   ngOnInit() {
   }
@@ -31,6 +32,7 @@ showSize(event:Event){
 
 discardSize(event:Event){
   event.target["ownerDocument"].all["sizeForm"].style.visibility = 'hidden';
+  this.sizesArray[`${this.type}`] = [];
 }
 saveSize(name:String, value:Number, sizeType:String){
   this.type = sizeType;
@@ -43,6 +45,13 @@ clear(event:Event){
   event.target["value"] = '';
 }
 get getArray(){
-  return this.sizesArray[`${this.type}`]
+  if(this.sizesArray[`${this.type}`]){
+    return this.sizesArray[`${this.type}`]
+  }
 }
+
+goBack():void{
+  this.location.back();
+}
+
 }

@@ -85,3 +85,133 @@ color: #b0e0e6 !important;
 .belleza{
     font-family: 'Belleza', sans-serif !important;
 }
+
+/* THEMES GAN GAN */
+
+/* 
+Default Theme
+...........................
+
+Dark: #7faeb4;
+Light: #b0e0e6;
+
+*/
+
+.default-theme  nav li {
+    border-bottom: 3px solid #7faeb4!important;
+    color: #7faeb4 !important;
+}
+.default-theme  nav li:hover {
+    border-bottom: 3px solid yellow!important;
+}
+.default-theme  nav li.active {
+    border-bottom: 3px solid yellow !important;
+}
+.default-theme  div.chip:hover {
+    background-color: #b0e0e6!important;
+}
+.default-theme  div.main-header {
+    background-color: #7faeb4 !important;
+}
+.default-theme  .rgba-stylish-strong {
+    background-color: #7faeb4 !important;
+}
+.default-theme #grid-container {
+    background-color: #b0e0e6;
+}
+
+/*
+ Savanna Theme
+ ............
+
+Light: #ecc57c
+Dark: #e5952e
+ 
+*/
+.savanna-theme  nav li {
+    border-bottom: 3px solid #e5952e!important;
+    color: #e5952e !important;
+}
+.savanna-theme  nav li:hover {
+    border-bottom: 3px solid yellow!important;
+}
+.savanna-theme  nav li.active {
+    border-bottom: 3px solid yellow !important;
+}
+.savanna-theme  div.chip:hover {
+    background-color: #ecc57c!important;
+}
+.savanna-theme  div.main-header {
+    background-color: #e5952e !important;
+}
+.savanna-theme  .rgba-stylish-strong {
+    background-color: #e5952e !important;
+}
+.savanna-theme #grid-container {
+    background-color: #ecc57c;
+}
+
+/* 
+Clay Theme
+..............
+
+Dark: #8d3131;
+Light: #ab6865;
+
+*/
+
+.clay-theme  nav li {
+    border-bottom: 3px solid #8d3131!important;
+    color: #8d3131 !important;
+}
+.clay-theme  nav li:hover {
+    border-bottom: 3px solid yellow!important;
+}
+.clay-theme  nav li.active {
+    border-bottom: 3px solid yellow !important;
+}
+.clay-theme  div.chip:hover {
+    background-color: #ab6865!important;
+}
+.clay-theme  div.main-header {
+    background-color: #8d3131 !important;
+}
+.clay-theme  .rgba-stylish-strong {
+    background-color: #8d3131 !important;
+}
+.clay-theme #grid-container {
+    background-color: #ab6865;
+}
+
+
+/*
+ Dark Theme
+..............
+
+Dark: #231f20;
+Light: #4d4d4d;
+
+*/
+
+.dark-theme  nav li {
+    border-bottom: 3px solid #231f20!important;
+    color: #231f20 !important;
+}
+.dark-theme  nav li:hover {
+    border-bottom: 3px solid yellow!important;
+}
+.dark-theme  nav li.active {
+    border-bottom: 3px solid yellow !important;
+}
+.dark-theme  div.chip:hover {
+    background-color: #4d4d4d!important;
+}
+.dark-theme  div.main-header {
+    background-color: #231f20 !important;
+}
+.dark-theme  .rgba-stylish-strong {
+    background-color: #231f20 !important;
+}
+.dark-theme #grid-container {
+    background-color: #4d4d4d;
+}
