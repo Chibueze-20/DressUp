@@ -24,4 +24,8 @@ router.post('/update/contact/:id',repository.updateUserContactById);
 router.post('/update/names/:id',repository.updateUserNamesById);
 router.post('/update/brand/:id',repository.updateUserBrandById);
 
+//custom Sizes
+router.post('/sizes/add/:id',repository.AddCustomSize);
+router.post('/sizes/update/:id',repository.UpdateCustomSize);
+
 module.exports = router;

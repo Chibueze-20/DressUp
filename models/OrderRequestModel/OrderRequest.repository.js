@@ -2,7 +2,11 @@ var OrderRequest = require('./OrderRequest');
 
 
 exports.getAllOrders = function(req,res,next){
-    OrderRequest.find( function(err, users){
+    OrderRequest.find()
+    .sort('desc')
+    .skip(Number(req.params.skip))
+    .limit(20)
+    .exec( function(err, users){
         if(err){
          return  res.send(err);
         }

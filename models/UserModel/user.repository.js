@@ -2,12 +2,13 @@ var User = require('./User');
 //Create
 exports.createUser = function (req,res,next) {
   let newUser = new User(req.body);
-  newUser.save()
-    .then(success =>{
-      res.status(200).json({Message: "User Successfully Added",type:"Success"})
-    }).catch(err =>{
-      res.status(400).json({Message:"unable to save to Database "+err,type:"Error"})
-  });
+  newUser.save(function(err,newPost){
+    if(err){
+        res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
+    }else{
+        res.status(200).json({Message: "User Successfully added",type:"Success"})
+    }
+})
 }
 //Read -all
 exports.getAllUsers = function (req,res,next) {
@@ -180,6 +181,47 @@ exports.updateUserBrandById = function (req, res, next) {
   });
 }
 
+//USERs Custom sizes
+exports.AddCustomSize = function(req,res,next){
+  User.findById(req.params.id,function (err,user) {
+    if(!user){
+      return next(new Error("could not load document"))
+    } else {
+      if(req.body){
+        user.CustomSizes.push(req.body);
+      }else{
+        return res.json({Message: "No Changes", type: "Success"});
+      }
+
+      user.save().then(user => {
+        console.log(user);
+        res.json(user);
+      }).catch(err => {
+        res.status(400).json({Message:"update unsuccessful",type:"Error"});
+      });
+    }
+  });
+}
+exports.UpdateCustomSize = function(req,res,next){
+  User.findById(req.params.id,function (err,user) {
+    if(!user){
+      return next(new Error("could not load document"))
+    } else {
+      if(req.body){
+        user.CustomSizes = req.body;
+      }else{
+        return res.json({Message: "No Changes", type: "Success"});
+      }
+
+      user.save().then(user => {
+        console.log(user);
+        res.json(user);
+      }).catch(err => {
+        res.status(400).json({Message:"update unsuccessful",type:"Error"});
+      });
+    }
+  });
+}
 //Delete -by id
 exports.DeleteUserById = function (req,res,next) {
   User.findByIdAndRemove({_id: req.params.id}, function (err,user) {
