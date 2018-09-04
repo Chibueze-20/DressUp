@@ -13,8 +13,30 @@ export class ViewPostComponent implements OnInit {
 
   ngOnInit() {
   }
+
 goBack() : void{
   this.location.back();
 }
 
+selectedSize:any = 'Small';
+
+show(e){
+  console.log(e);
+}
+
+testSize: any;
+
+toggleEdit(e:Event){
+  if(document.getElementsByClassName('size-input')[0]['readOnly']){
+    document.getElementsByClassName('size-input')[0]['readOnly'] = false;
+    // console.log(document.getElementsByClassName('size-input')[0]['readOnly'])
+    e.target["innerText"] = 'done';
+  }else{
+    document.getElementsByClassName('size-input')[0]['readOnly'] = true;
+    e.target["innerText"] = 'edit';
+  }
+
+
+
+}
 }

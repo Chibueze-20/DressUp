@@ -34,3 +34,16 @@ div.chip img {
 ul li a[role="tab"]  [class="active"]:focus {
     background-color: blueviolet;
 }
+
+a.active div.cardboard-paste {
+    background-color: rgba(85,16,90,0.45) !important;
+    color: #ffffff !important;
+}
+.size-input {
+    width: fit-content;
+    min-width: 20px;
+    height: fit-content;
+    outline: none;
+    border: none;
+
+}
