@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -8,12 +8,12 @@ import {Router} from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor( private route: Router) { }
+  constructor(private location:Location) { }
 
   ngOnInit() {
   }
-  goback() {
-    // Todo: let user go back to home page on click
-    this.route.navigateByUrl('/index');
+  goBack():void{
+    this.location.back();
   }
+
 }

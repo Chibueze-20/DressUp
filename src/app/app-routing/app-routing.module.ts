@@ -41,7 +41,7 @@ const routes: Routes = [
         ]},
     ]},
   {path: 'post', component: PostComponent},
-  {path: 'view-post/:id', component: ViewPostComponent}
+  {path: 'view-post', component: ViewPostComponent}
 ];
 @NgModule({
   imports: [

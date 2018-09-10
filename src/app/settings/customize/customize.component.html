@@ -17,36 +17,36 @@
             <div class="col-5">
                
               <ul class="list-group text-primary">
-                <li class="list-group-item">
-                    Theme 1 
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(0)">
+                    Default Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Default Theme'"></i>
                 </li>
         
-                <li class="list-group-item">
-                    Theme 2
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(1)">
+                    Savanna Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Savanna Theme'"></i>
                 </li>
         
-                <li class="list-group-item">
-                    Theme 3
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(2)">
+                    Clay Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Clay Theme'"></i>
                 </li>
         
-                <li class="list-group-item">
-                    Theme 4
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(3)">
+                    Dark Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Dark Theme'"></i>
                 </li>
         
                 </ul>
               </div>
         
               <!-- Preview Theme -->
-            <div class="col-7">
+              <div class="col-7">
                 <div class="card">
 
-                  <img class="card-img" src="../../../assets/images/theme1_thumbnail.png">
+                  <img class="card-img" src={{_settingsService.getTheme.src}}>
     
-                  <div class="text-muted">
-                      Theme 1
+                  <div class="text-muted card-footer">
+                      {{_settingsService.getTheme.name}}
                   </div>
     
-                  </div>
+                </div>
               </div> 
           </div>
       </div>

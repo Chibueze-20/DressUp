@@ -21,6 +21,7 @@ import { DirectOrderComponent } from './tailor-profile/direct-order/direct-order
 import { PostComponent } from './tailor-profile/post/post.component';
 import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.component';
 import { TailorComponent } from './tailor/tailor.component';
+import { ExtensionsPipe } from './extensions.pipe';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { TailorComponent } from './tailor/tailor.component';
     DirectOrderComponent,
     PostComponent,
     ViewPostComponent,
-    TailorComponent
+    TailorComponent,
+    ExtensionsPipe
   ],
   imports: [
     BrowserModule,

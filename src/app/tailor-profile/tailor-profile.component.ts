@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-tailor-profile',
@@ -8,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class TailorProfileComponent implements OnInit {
   
 
-  constructor() { }
+  constructor(private router:Router, private _settingsService:SettingsService) { }
 
   ngOnInit() {
   }
+  goToSettings(){
+    this.router.navigateByUrl("/settings");
+  }
+  goToAddPost():void{
+    this.router.navigateByUrl("/post");
+  }
+
 
 }

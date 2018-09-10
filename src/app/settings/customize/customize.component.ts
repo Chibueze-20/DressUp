@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../settings.service';
 
 @Component({
   selector: 'app-customize',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomizeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _settingsService:SettingsService) { }
 
   ngOnInit() {
+  }
+  changeTheme(i){
+    this._settingsService.changeTheme(i);
   }
 
 }

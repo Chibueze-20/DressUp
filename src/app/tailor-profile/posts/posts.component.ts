@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-posts',
@@ -11,5 +12,6 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
 }

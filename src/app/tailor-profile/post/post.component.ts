@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import {Sizes} from './sizes';
 import {Size} from './sizes';
 import {UserserviceService} from '../../userservice.service';

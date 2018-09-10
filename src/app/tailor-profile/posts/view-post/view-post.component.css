@@ -1,0 +1,49 @@
+/* 
+
+Each Post has =>
+Description, Price, Conditions, Permissions, Size, Image
+*/
+
+.cardboard-paste {
+    clip-path: polygon(100% 0%, 90% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
+    height: fit-content;
+    width: fit-content;
+}
+.cardboard-paste-size {
+    clip-path: polygon(80% 0%, 100% 50%, 80% 100%, 0% 100%, 0% 50%, 0% 0%);
+    height: fit-content;
+    width: fit-content;
+}
+/* rgba(170, 102,204,0.18) */
+.tab-content {
+    background-color: rgba(170, 102, 204, 0.18);
+    height: 258px;
+}
+div.card-footer {
+    height: 65px;
+}
+div.chip {
+    height: 52px;
+    line-height: 52px;
+    border-radius: 26px;
+}
+div.chip img {
+    height: 52px;
+    width: 52px;
+}
+ul li a[role="tab"]  [class="active"]:focus {
+    background-color: blueviolet;
+}
+
+a.active div.cardboard-paste {
+    background-color: rgba(85,16,90,0.45) !important;
+    color: #ffffff !important;
+}
+.size-input {
+    width: fit-content;
+    min-width: 20px;
+    height: fit-content;
+    outline: none;
+    border: none;
+
+}

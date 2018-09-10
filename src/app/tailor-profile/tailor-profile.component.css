@@ -4,11 +4,7 @@
     margin: 0;
 } 
 
-.rgba-stylish-strong {
-    height: 200px;
-    background-color: #b0e0e6 !important;
 
-}
 .col-md-3 {
     padding-bottom: 30px;
 }
@@ -18,15 +14,7 @@ nav {
 }
 nav li {
     display: inline-block;
-     border-bottom: 3px solid #7faeb4;
-    color: #7faeb4 !important;
     font-weight: bold;
-}
-nav li:hover {
-    border-bottom: 3px solid yellow;
-}
-nav li.active {
-    border-bottom: 3px solid yellow !important;
 }
 .py-1 , .list-group-flush {
     background: none !important;
@@ -45,9 +33,7 @@ div.chip {
     -webkit-animation: background-color 1s;
     animation: background-color 1s;
 }
-div.chip:hover {
-    background-color: #b0e0e6;
-}
+
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
