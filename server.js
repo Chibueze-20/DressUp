@@ -4,7 +4,7 @@ let express = require('express'),
   cors = require('cors'),
   mongoose = require('mongoose'),
   config = require('./config/DB');
-
+  formidable = require('formidable');
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -29,6 +29,19 @@ app.use('/order',orderRequestController);
 app.use('/post',postController);
 app.use('/feedback',feedbackController);
 app.use('/search',searchController);
+app.post('/upload',function(req,res,next){
+  var form = formidable.IncomingForm();
+  form.parse(req);
+  form.on('fileBegin', function (name, file){
+    file.path = __dirname + '/src/assets/images/' + file.name;
+});
+
+form.on('file', function (name, file){
+  console.log(file);
+    console.log('Uploaded ' + file.name);
+});
+  res.send(__dirname+'/src/assets/images');
+})
 app.get('/*',function(req,res,next){res.send("<h1>Nothing to find here hehe..</h1>")})
 
 app.listen(port);

@@ -23,8 +23,11 @@ App dark: #7faeb4
     overflow-y: hidden;
 }
 .active {
-    background-color: #e3ffff;
-    font-weight: bold;
+    background-color: #e3ffff !important;
+}
+.link{
+  color: black !important;
+  font-weight: bold !important;
 }
 #side-nav button {
     margin-right: 21px;

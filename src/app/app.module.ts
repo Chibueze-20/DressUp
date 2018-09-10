@@ -1,10 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import {HttpClientModule} from '@angular/common/http';
-
-
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -15,17 +12,15 @@ import { UserserviceService } from './userservice.service';
 import { TailorHomeComponent } from './tailor-home/tailor-home.component';
 import { TailorJobComponent } from './tailor-job/tailor-job.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-
 import { TailorProfileComponent } from './tailor-profile/tailor-profile.component';
 import { BidViewComponent } from './bid-view/bid-view.component';
-// import { SettingsComponent } from './settings/settings.component';
-// import { CustomizeComponent } from './settings/customize/customize.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CustomizeComponent } from './settings/customize/customize.component';
 import { PostsComponent } from './tailor-profile/posts/posts.component';
 import { DirectOrderComponent } from './tailor-profile/direct-order/direct-order.component';
 import { PostComponent } from './tailor-profile/post/post.component';
 import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.component';
+import { TailorComponent } from './tailor/tailor.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +41,8 @@ import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.co
     PostsComponent,
     DirectOrderComponent,
     PostComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    TailorComponent
   ],
   imports: [
     BrowserModule,

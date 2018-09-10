@@ -1,143 +1,151 @@
+<app-tailor></app-tailor>
 <div class="container">
-    
-        <h2>Add a post</h2>
-
-        <div class="row d-flex flex-md-row flex-sm-column">
-            <div class="col-md-6 col-xs-12 d-flex align-items-between">
-            <div class="card bg-primary w-100">
-                <!-- <div class="card-header">
-                    <h3 class="text-black">Upload Image</h3>
-                </div> -->
-
-                <div class="card-body">
-                    <div class="card-img w-100 h-100">
-                        <!-- <img src="../../../assets/images/pete-bellis-396528-unsplash.jpg"> -->
-                    </div>
+    <div class="card m-0">
+      <!-- Post -->
+      <div  class="col-md-12 card-body m-0 p-0 col-xs-12">
+        <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
+          <li>
+            <p *ngIf="localUrl" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()" >remove</p>
+            <div class="row">
+              <div class="col-md-6 flex-center col-sm-12">
+                <div class="flex-center" *ngIf="localUrl; else uploadblock">
+                  <img class="img-thumbnail"  style="width:55%;max-height: fit-content;border-radius: 42px 0 42px 0" [src]="localUrl" >
                 </div>
-                
-                
-                <div class="card-footer w-100 d-flex justify-content-between align-self-end">
-                    <button class="btn-info btn">Remove</button>
-                    <button class="btn btn-primary">Browse</button>
-                </div>
+                <ng-template #uploadblock>
+                  <div>
+                    <h4 class="h1-responsive">Select picture</h4>
+                    <input class="form-control" type="file" id="file" (change)="showPreviewImage($event)">
+                    <!--<span class="font-italic" *ngIf="localUrl">{{imagesize| number:'1.2-2'}}KB</span>-->
+                    <!--<input type="submit" value="Upload" (click)="uploadImage()"  class="shadow-sm s-bg">-->
+                  </div>
+                </ng-template>
+              </div>
+              <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
+                <li class="list-inline-item" id="title">
+                  <label for="title-input" >Title</label>
+                  <input class="form-control text-uppercase" type="text" id="title-input">
+                </li>
+                <li class="list-inline-item" id="price">
+                  <label for="price-input" >Price</label>
+                  <input class="form-control " type="number" id="price-input">
+                </li>
+                <li id="description">
+                  <label for="description-textarea" >Description</label>
+                  <textarea class="form-control " type="text" id="description-textarea"></textarea>
+                </li>
+              </ul>
             </div>
-            </div>
+          </li>
+          <li>
+            <div class="row my-3">
+              <div class="mb-3 col-md-6 col-sm-12" id="size">
+                <div class="mb-2">
+                  <!--<h4 class="mr-3">Size</h4>-->
+                  <div class="classic-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav tabs-white" role="tablist">
+                      <li class="nav-item ml-0">
+                        <a class="nav-link font-weight-bold p-text"><i class="fas fa-pencil-ruler"></i> Size</a>
+                      </li>
+                      <li class="nav-item ">
+                        <a class="nav-link size-link p-text" id="S"(click)="showSize($event)" data-toggle="tab" href="#panel5" role="tab">Small</a>
+                      </li>
+                      <li class="nav-item bg-white">
+                        <a class="nav-link size-link p-text" data-toggle="tab" id="M"(click)="showSize($event)" href="#panel5" role="tab">Medium</a>
+                      </li>
+                      <li class="nav-item bg-white">
+                        <a class="nav-link size-link p-text" data-toggle="tab" id="L" (click)="showSize($event)" href="#panel5" role="tab">Large</a>
+                      </li>
+                    </ul>
+                    <!-- Tab panels -->
+                    <div style="background-color: beige" class="tab-content">
+                      <!--Panel 1-->
+                      <div class="tab-pane fade in show active" id="panel5" role="tabpanel">
+                        <div class="d-flex flex-md-row  justify-content-between">
+                          <!-- Pick Sizes form -->
 
-            <!-- Post -->
-            <div class="col-md-6 col-xs-12">
-                <ul class="list-group card bg-primary">
-                    <li class="list-group-item " id="description">
-                        <label for="description-textarea" class="text-white">Description</label>
-                        <textarea class="form-control " type="text" id="description-textarea"></textarea>
-                    </li>
-                    <li class="list-group-item  bg-none" id="price">
-                        <label for="price" class="text-white">Price</label>
-                        <input class="form-control " type="number" id="price-input">
-                    </li>
+                          <div id="sizeForm" class="mt-3" style="visibility: hidden">
 
-                        <!-- Conditions and Permissions -->
-
-                    <li class="list-group-item  py-0 d-flex flex-md-row justify-content-md-between" id="permissions-condtions">
-                        <!-- Conditions -->
-
-                            <div class="py-0">
-                                <label for="conditions" class="text-white">Conditions</label>
-
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary py-1" name="byom">BYOM</span>
-                                    </div>
-                                    <input class="waves-effect checkbox" name="byom" type="checkbox" value="byom" #checkbox1 [class.true]="checkbox1.checked" (click)="show(checkbox1.checked)">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend waves-effect">
-                                        <span class="input-group-text bg-primary py-1" name="negotiable">Negotiable</span>
-                                    </div>
-                                    <input class="waves-effect checkbox" name="negotiable" type="checkbox" value="negotiable" #checkbox2 [class.true]="checkbox2.checked" (click)="show(checkbox2.checked)">
-                                </div>                  
-                            </div>
-                                        
-                        <!-- Permissions -->
-                            
-                            <div class="py-0">
-                                <label for="permissions" class="text-white">Permissions</label>
-                                <div class="input-group mb-2" id="permissions">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-primary py-1">Free</span>
-                                    </div>
-                                    <input class="waves-effect checkbox" name="free" type="checkbox" value="free" #checkbox3 [class.true]="checkbox3.checked" (click)="show(checkbox1.checked)">
-                                </div>
-                            </div>
-                        
-                    </li>
-
-                    
-                    <li class="list-group-item mb-3" id="size">
-                        <label for="size-input" class="text-white"><h4 class="mr-3">Size<span class="badge badge-light mx-3" *ngIf="sizesArray.small.length > 0"id="small"(click)="showSize($event)">small</span><span class="badge badge-light mx-3" *ngIf="sizesArray.medium.length > 0"id="medium"(click)="showSize($event)">medium</span><span class="badge badge-light mx-3" *ngIf="sizesArray.large.length > 0"id="large" (click)="showSize($event)">large</span></h4></label>
-                        
-                        <!-- <div class="sizes" *ngIf="sizes.length > 0"></div> -->
-                       
-                        <div class="d-flex flex-md-row justify-content-between">
-                            <!-- Pick Sizes form -->
-
-                            <div id="sizeForm" style="visibility: hidden">
-
-                                <div class="input-group" id="sizeInputGroup"#thisSize>
-                                    <div class="input-group-prepend">
-                                        <input class="input-group-text text-left"type="text" #sizeName id="sizeName">
-                                    </div>
-                                    <input #sizeValue type="number" id="sizeValue"class="form-control"(keyup.enter)="saveSize(sizeName.value, sizeValue.value, $event.target.parentElement.name)" (keyup.enter)="clear($event)">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">.in</span>
-                                    </div>
-                                </div>
-
-                                <!-- Sizes list -->
-                                <div class="sizes-list" *ngIf="getArray.length > 0">
-                                    <ul class="list-group p-1">
-                                        <li class="list-group-item p-1" *ngFor="let size of getArray">
-                                            
-                                            <span class="input-group-text bg-primary h3"><span class="font-weight-bold mr-4">{{size.name}}: </span>{{size.value}}.in <a class="badge badge-pill badge-danger ml-auto" (click)="getArray.splice(i,1)">&times;</a></span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="d-flex flex-row justify-content-between">
-                                    <button class="btn ml-0" (click)="discardSize($event)">
-                                        Discard
-                                    </button>
-                                    <button class="btn">
-                                        Done
-                                    </button>
-                                </div>
-
+                            <div class="input-group" id="sizeInputGroup"#thisSize>
+                              <div class="input-group-prepend bg-white size-text">
+                                <input class="input-group-text text-left"type="text" title="eg waist, wrists, leg length, ..etc" placeholder="area of measurement" #sizeName id="sizeName">
+                              </div>
+                              <input #sizeValue type="number" min="1" placeholder="measurement in inches" id="sizeValue"class="form-control"(keyup.enter)="saveSize(sizeName.value, sizeValue.value, $event.target.parentElement.name)" (keyup.enter)="clear($event)">
+                              <div class="input-group-append">
+                                <span class="input-group-text">.in</span>
+                              </div>
                             </div>
 
-                            <!-- Add sizes button -->
-                            <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Add
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <span class="dropdown-header">Select a size</span>
-                                    <a class="dropdown-item" (click)="addSize($event)" id="small">Small</a>
-                                    <a class="dropdown-item" id="medium" (click)="addSize($event)">Medium</a>
-                                    <a class="dropdown-item" id="large" (click)="addSize($event)">Large</a>
+                            <!-- Sizes list -->
+                            <div class="sizes-list" >
+                              <ul class="list-group p-1" *ngIf="getArray.length > 0; else NoSizes">
+                                <li class="list-group-item p-1" *ngFor="let size of getArray; index as i">
+                                  <span class="input-group-text bg-primary h3">
+                                    <span class="font-weight-bold mr-4">{{size.name}}:</span>{{size.value}}.in
+                                      <a class="badge badge-pill badge-danger ml-auto" (click)="getArray.splice(i,1)">&times;</a>
+                                  </span>
+                                </li>
+                              </ul>
+                              <ng-template #NoSizes>
+                                <div class="flex-center">
+                                <span class="text-center font-weight-bold text-muted font-italic text-uppercase">
+                                  {{noSize}}</span>
                                 </div>
+
+                              </ng-template>
                             </div>
+
+                            <div class="d-flex flex-row justify-content-between">
+                              <button class="btn btn-sm bg-danger ml-0" (click)="discardSize($event)">
+                                Close
+                              </button>
+                              <button class="btn btn-sm bg-success" (click)="saveSize(sizeName.value, sizeValue.value, thisSize.name);clear()">
+                                Add
+                              </button>
+                            </div>
+
+                          </div>
 
                         </div>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              
 
-        <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-                <button class="btn btn-primary mx-3">Cancel</button>
-                <button class="btn btn-success mx-3">Post</button>
+              <!-- Conditions and Permissions -->
+              <div class="py-0 col-md-6 col-sm-12" id="permissions-condtions">
+                <div  class="row py-0">
+                  <ul  class="ul p-0">
+                    <span class="px-2 py-3 d-flex justify-content-center shadow">
+                      <span class="conditions">Conditions</span>
+                  </span>
+                    <li  class="li">
+                      <h4  class="checkbox-text belleza text-uppercase">buy/bring your material</h4>
+                      <input  id="check-1" type="checkbox">
+                      <label  for="check-1"><i  class="fa fa-check"></i></label>
+                    </li>
+                    <li  class="li">
+                      <h4  class="checkbox-text raleway text-uppercase">Negotiable price</h4>
+                      <input  id="check-2" type="checkbox">
+                      <label  for="check-2"><i  class="fa fa-check"></i></label>
+                    </li>
+                    <li  class="li">
+                      <h4  class="checkbox-text raleway text-uppercase">Fixed Schedule</h4>
+                      <input  id="check-3" type="checkbox">
+                      <label  for="check-3"><i  class="fa fa-check"></i></label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+          </li>
+        </ul>
+        <div class="w-100 d-flex justify-content-between align-self-end">
+          <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
+          <button class="btn post-btn btn-success btn-flat">Post</button>
         </div>
-    
+      </div>
+    </div>
 </div>

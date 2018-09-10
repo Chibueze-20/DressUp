@@ -15,24 +15,47 @@ ul li.list-group-item input[type="checkbox"] {
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }
-/* ul li.list-group-item input[class="form-control"]{
-    background-color: rgba(0,0,0,.03) !important;
-} */
+.conditions{
+  font-size: x-large;
+}
 .true {
     background-color: #00c851;
 }
 div.input-group.mb-3 {
     width: fit-content;
 }
-
+/*todo move to styles.css*/
+.cursor-hand{
+  cursor: default !important;
+}
 ul li.list-group-item span[name="byom"] {
     padding-left: 23px !important;
     padding-right: 30px !important;
 }
+.ul{
+  padding-left: 20px!important;
+  padding-right: 20px!important;
+}
 .sizes-list {
-    height: 200px;
+    height: 100px;
     overflow: auto;
 }
 span.badge {
     font-size: 12px;
+}
+@media screen and (max-width:375px){
+  .size-text{
+    width: 50%;
+  }
+}
+@media screen and (max-width:1024px){
+  .ul{
+    padding: 0 !important;
+  }
+}
+.post-btn{
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 50px;
 }

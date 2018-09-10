@@ -23,6 +23,7 @@
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
     "cors": "^2.8.4",
+    "formidable": "^1.2.1",
     "mongoose": "^5.2.7",
     "path": "^0.12.7",
     "rxjs": "^6.0.0",

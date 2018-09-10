@@ -10,16 +10,16 @@
       <!-- Links -->
       <ul class="nav flex-md-column flex-sm-row mt-5">
         <li class="nav-item">
-          <a class="nav-link active">Customize</a>
+          <a class="nav-link link" routerLink="/settings/customize" routerLinkActive="active">Customize</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">
-            Admin Settings
+          <a class="nav-link link" routerLink="/settings/account" routerLinkActive="active">
+            Account Settings
           </a>
         </li>
       </ul>
       <!-- Back button -->
-      <button class="nav-item btn mb-3 px-0">
+      <button (click)="goback()" class="nav-item btn mb-3 px-0">
         Back
       </button>
   </div>

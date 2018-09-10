@@ -13,5 +13,5 @@ button[data-toggle="collapse"]{
 #change-theme div div .card {
     border-radius: 0px;
     text-align: center;
-    background-color: none;
+    background-color: transparent;
 }

@@ -4,14 +4,18 @@
   width: 50%;
 }
 .in{
-  display: none
+  display: none !important;
 }
 
 @media screen and (max-width:375px){
   .in{
-    display: block;
+    display: flex !important;
   }
   .out{
-    display: none;
+    display: none !important;
   }
+}
+
+.menu-btn{
+  padding: .4rem 1rem !important;
 }

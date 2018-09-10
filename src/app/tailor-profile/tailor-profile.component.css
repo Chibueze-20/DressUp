@@ -1,8 +1,7 @@
 .main-header {
     background-image: url("../../assets/images/header-bg.jpeg");
     background-color: #7faeb4;
-    margin: none;
-    margin-top: 52px;
+    margin: 0;
 } 
 
 .rgba-stylish-strong {

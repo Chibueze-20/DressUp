@@ -16,31 +16,30 @@ import {CustomizeComponent} from '../settings/customize/customize.component';
 import { PostsComponent } from '../tailor-profile/posts/posts.component';
 import { PostComponent } from '../tailor-profile/post/post.component';
 import {ViewPostComponent} from '../tailor-profile/posts/view-post/view-post.component';
+import {TailorJobComponent} from '../tailor-job/tailor-job.component';
+import {TailorComponent} from '../tailor/tailor.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: 'index', component: LandingComponent},
   {path: 'login', component: LogInComponent},
   {path: 'register', component: SignUpComponent},
-  {path: 'profile', component: TailorProfileComponent},
-  {path: 'home', component: TailorHomeComponent, children: [
-      {path: '', redirectTo: 'account', pathMatch: 'full'},
-      {path: 'account' , component: AccountSettingsComponent}
-      ]},
-   // {path: 'account' , component: AccountSettingsComponent},
-  // {path: 'settings', component: SettingsComponent, children: [
-    // {path: '', redirectTo: 'customize', pathMatch: 'full'},
-    // {path: 'customize', component: CustomizeComponent}
-  // ]}
-  {path: 'profile', component: TailorProfileComponent, children: [
-    {path: '', redirectTo: 'posts', pathMatch: 'full'},
-    {path: 'posts', component: PostsComponent}
-  ]},
-  {path: 'home', component: TailorHomeComponent},
-  {path: 'settings', component: SettingsComponent, children: [
-    {path: '', redirectTo: 'customize', pathMatch: 'full'},
-    {path: 'customize', component: CustomizeComponent}
-  ]},
+  // Tailor Routes
+  {path: 'tailor', component: TailorComponent, children: [
+      {path: 'home', component: TailorHomeComponent, children: [
+          {path: 'profile', component: TailorProfileComponent, children: [
+              {path: '', redirectTo: 'posts', pathMatch: 'full'},
+              {path: 'posts', component: PostsComponent}
+            ]},
+        ]},
+      {path: 'post/new', component: PostComponent},
+      {path: 'post/:id', component: ViewPostComponent},
+      {path: 'settings', component: SettingsComponent, children: [
+          {path: '', redirectTo: 'customize', pathMatch: 'full'},
+          {path: 'customize', component: CustomizeComponent},
+          {path: 'account', component: AccountSettingsComponent}
+        ]},
+    ]},
   {path: 'post', component: PostComponent},
   {path: 'view-post/:id', component: ViewPostComponent}
 ];

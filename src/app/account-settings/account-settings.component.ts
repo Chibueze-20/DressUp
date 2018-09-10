@@ -121,15 +121,17 @@ discardAccountUpdateclick() {
     this.settingsForm.get('Account').reset();
 }
 updateContactClick() {
+  if (this.contactform === false) {
     this.contactform = true;
-  this.service.postData(this.service.uri + '/update/contact/' + this.Userid, this.settingsForm.get('Contact').value)
-    .subscribe( (res: Response) => {
-      this.contactform = false;
-      this.settingsForm.get('Contact').reset();
-    }, (err: HttpErrorResponse) => {
-      alert(err.error.Message);
-      this.contactform = false;
-    });
+    this.service.postData(this.service.uri + '/update/contact/' + this.Userid, this.settingsForm.get('Contact').value)
+      .subscribe( (res: Response) => {
+        this.contactform = false;
+        this.settingsForm.get('Contact').reset();
+      }, (err: HttpErrorResponse) => {
+        alert(err.error.Message);
+        this.contactform = false;
+      });
+  }
 }
 discardContactUpdateClick() {
     this.contact = true;
@@ -137,30 +139,34 @@ discardContactUpdateClick() {
 
 }
 updateNameClick() {
+  if (this.nameform === false) {
     this.nameform = true;
-  this.service.postData(this.service.uri + '/update/names/' + this.Userid, this.settingsForm.get('Name').value)
-    .subscribe( (res: Response) => {
-      this.nameform = false;
-      this.settingsForm.get('Contact').reset();
-    }, (err: HttpErrorResponse) => {
-      alert(err.error.Message);
-      this.nameform = false;
-    });
+    this.service.postData(this.service.uri + '/update/names/' + this.Userid, this.settingsForm.get('Name').value)
+      .subscribe( (res: Response) => {
+        this.nameform = false;
+        this.settingsForm.get('Name').reset();
+      }, (err: HttpErrorResponse) => {
+        alert(err.error.Message);
+        this.nameform = false;
+      });
+  }
   }
   discardNameUpdateClick() {
     this.name = true;
     this.settingsForm.get('Name').reset();
   }
 updateBrandClick() {
+  if (this.brandform === false) {
     this.brandform = true;
-  this.service.postData(this.service.uri + '/update/brand/' + this.Userid, this.settingsForm.get('Brand').value)
-    .subscribe( (res: Response) => {
-      this.brandform = false;
-      this.settingsForm.get('Contact').reset();
-    }, (err: HttpErrorResponse) => {
-      alert(err.error.Message);
-      this.brandform = false;
-    });
+    this.service.postData(this.service.uri + '/update/brand/' + this.Userid, this.settingsForm.get('Brand').value)
+      .subscribe( (res: Response) => {
+        this.brandform = false;
+        this.settingsForm.get('Brand').reset();
+      }, (err: HttpErrorResponse) => {
+        alert(err.error.Message);
+        this.brandform = false;
+      });
+  }
 
 }
 discardBrandUpdateClick() {
