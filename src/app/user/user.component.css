@@ -1,0 +1,21 @@
+.in{
+    display: none !important;
+  }
+  
+  @media screen and (max-width:375px){
+    .in{
+      display: flex !important;
+    }
+    .out{
+      display: none !important;
+    }
+    .navtext-margin-in{
+        margin-left: .9em !important;
+    }
+  }
+.navtext-margin-in{
+    margin-left: 0px;
+}
+.my-margin-right{
+  margin-right: 5.9em;
+}

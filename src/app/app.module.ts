@@ -25,6 +25,7 @@ import { ExtensionsPipe } from './extensions.pipe';
 import { UserComponent } from './user/user.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
 import { BidComponent } from './user/bid/bid.component';
+import { TailorFeedsComponent } from './user/tailor-feeds/tailor-feeds.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { BidComponent } from './user/bid/bid.component';
     ExtensionsPipe,
     UserComponent,
     UserHomeComponent,
-    BidComponent
+    BidComponent,
+    TailorFeedsComponent
   ],
   imports: [
     BrowserModule,
