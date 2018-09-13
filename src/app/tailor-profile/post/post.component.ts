@@ -11,7 +11,6 @@ import {Navigation} from '../../shared/Navigation';
   styleUrls: ['./post.component.css', '../../../assets/css/checkbox.css']
 })
 export class PostComponent implements OnInit {
-  sizesArray =  new Sizes();
   type: String;
   image: any;
   localUrl: any = null;
@@ -44,7 +43,7 @@ show(e) {
       var reader = new FileReader();
       reader.onload = (event: any) => {
         this.localUrl = event.target.result;
-      }
+      };
       reader.readAsDataURL(event.target.files[0]);
 
     }
@@ -68,88 +67,6 @@ show(e) {
 get imagesize() {
     return this.filesize / 1024;
 }
-addSize(event: Event) {
-  event.target['ownerDocument'].all['sizeForm'].style.visibility = 'visible';
-  event.target['ownerDocument'].all['sizeInputGroup'].name = event.target['id'];
-  this.type = event.target['id'];
-}
-showSize(event: Event) {
-  const s = event.target['id'];
-  if (s === 'S') {
-    this.type = 'small';
-  } else if (s === 'M') {
-    this.type = 'medium';
-  } else if (s === 'L') {
-    this.type = 'large';
-  }
-  event.target['ownerDocument'].all['sizeForm'].style.visibility = 'visible';
-}
-
-discardSize(event: Event) {
-  event.target['ownerDocument'].all['sizeForm'].style.visibility = 'hidden';
-  for ( let i = 0; i < document.getElementsByClassName('size-link').length; i++) {
-    document.getElementsByClassName('size-link').item(i).classList.remove('active');
-    document.getElementsByClassName('size-link').item(i).classList.remove('show');
-  }
-}
-saveSize(name: String, value: Number, sizeType: String) {
-  this.sizesArray[`${this.type}`].push(new Size({name: name, value: value}));
-  console.log(this.sizesArray);
 
 }
-clear(event?: Event) {
-  if (event) {
-    event.target['previousSibling']['children'][0].value = '';
-    event.target['value'] = '';
-  } else {
-    (<HTMLInputElement>document.getElementById('sizeName')).value = '';
-    (<HTMLInputElement>document.getElementById('sizeValue')).value = '';
-  }
-}
 
-get getArray() {
-    if (this.isSmallSize) {
-      return this.SmallSizes;
-    } else if (this.isMediumSize) {
-     return this.MediumSizes;
-    } else if (this.isLargeSize) {
-     return this.LargeSizes;
-    } else {
-      return [];
-    }
-}
-get noSize() {
-  if (this.isSmallSize) {
-    return 'Small sizes';
-  } else if (this.isMediumSize) {
-    return 'Medium Sizes';
-  } else if (this.isLargeSize) {
-    return 'Large Sizes';
-  }
-}
-get isSmallSize() {
-    return this.type === 'small';
-}
-get SmallSizes() {
-    return this.sizesArray.small;
-}
-
-get isMediumSize() {
-    return this.type === 'medium';
-}
-get MediumSizes() {
-    return this.sizesArray.medium;
-}
-get isLargeSize() {
-    return this.type === 'large';
-}
-get LargeSizes() {
-    return this.sizesArray.large;
-}
-get AllSizes() {
-    if (this.sizesArray) {
-      return this.sizesArray.small.length > 0;
-    }
-}
-
-}

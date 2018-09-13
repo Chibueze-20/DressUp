@@ -1,151 +1,239 @@
 <app-tailor></app-tailor>
 <div class="container">
-    <div class="card m-0">
-      <!-- Post -->
-      <div  class="col-md-12 card-body m-0 p-0 col-xs-12">
-        <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
-          <li>
-            <p *ngIf="localUrl" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()" >remove</p>
-            <div class="row">
-              <div class="col-md-6 flex-center col-sm-12">
-                <div class="flex-center" *ngIf="localUrl; else uploadblock">
-                  <img class="img-thumbnail"  style="width:55%;max-height: fit-content;border-radius: 42px 0 42px 0" [src]="localUrl" >
-                </div>
-                <ng-template #uploadblock>
-                  <div>
-                    <h4 class="h1-responsive">Select picture</h4>
-                    <input class="form-control" type="file" id="file" (change)="showPreviewImage($event)">
-                    <!--<span class="font-italic" *ngIf="localUrl">{{imagesize| number:'1.2-2'}}KB</span>-->
-                    <!--<input type="submit" value="Upload" (click)="uploadImage()"  class="shadow-sm s-bg">-->
-                  </div>
-                </ng-template>
+  <div class="card m-0">
+    <!-- Post -->
+    <div class="col-md-12 card-body m-0 p-0 col-xs-12">
+      <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
+        <li>
+          <p *ngIf="localUrl" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()">remove</p>
+          <div class="row">
+            <div class="col-md-6 flex-center col-sm-12">
+              <div class="flex-center" *ngIf="localUrl; else uploadblock">
+                <img class="img-thumbnail" style="width:55%;max-height: fit-content;border-radius: 42px 0 42px 0" [src]="localUrl">
               </div>
-              <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
-                <li class="list-inline-item" id="title">
-                  <label for="title-input" >Title</label>
-                  <input class="form-control text-uppercase" type="text" id="title-input">
-                </li>
-                <li class="list-inline-item" id="price">
-                  <label for="price-input" >Price</label>
-                  <input class="form-control " type="number" id="price-input">
-                </li>
-                <li id="description">
-                  <label for="description-textarea" >Description</label>
-                  <textarea class="form-control " type="text" id="description-textarea"></textarea>
-                </li>
-              </ul>
+              <ng-template #uploadblock>
+                <div>
+                  <h4 class="h1-responsive">Select picture</h4>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose picture</label>
+                  </div>
+                </div>
+              </ng-template>
             </div>
-          </li>
-          <li>
-            <div class="row my-3">
-              <div class="mb-3 col-md-6 col-sm-12" id="size">
-                <div class="mb-2">
-                  <!--<h4 class="mr-3">Size</h4>-->
-                  <div class="classic-tabs">
-                    <!-- Nav tabs -->
-                    <ul class="nav tabs-white" role="tablist">
-                      <li class="nav-item ml-0">
-                        <a class="nav-link font-weight-bold p-text"><i class="fas fa-pencil-ruler"></i> Size</a>
-                      </li>
-                      <li class="nav-item ">
-                        <a class="nav-link size-link p-text" id="S"(click)="showSize($event)" data-toggle="tab" href="#panel5" role="tab">Small</a>
-                      </li>
-                      <li class="nav-item bg-white">
-                        <a class="nav-link size-link p-text" data-toggle="tab" id="M"(click)="showSize($event)" href="#panel5" role="tab">Medium</a>
-                      </li>
-                      <li class="nav-item bg-white">
-                        <a class="nav-link size-link p-text" data-toggle="tab" id="L" (click)="showSize($event)" href="#panel5" role="tab">Large</a>
-                      </li>
-                    </ul>
-                    <!-- Tab panels -->
-                    <div style="background-color: beige" class="tab-content">
-                      <!--Panel 1-->
-                      <div class="tab-pane fade in show active" id="panel5" role="tabpanel">
-                        <div class="d-flex flex-md-row  justify-content-between">
-                          <!-- Pick Sizes form -->
-
-                          <div id="sizeForm" class="mt-3" style="visibility: hidden">
-
-                            <div class="input-group" id="sizeInputGroup"#thisSize>
-                              <div class="input-group-prepend bg-white size-text">
-                                <input class="input-group-text text-left"type="text" title="eg waist, wrists, leg length, ..etc" placeholder="area of measurement" #sizeName id="sizeName">
-                              </div>
-                              <input #sizeValue type="number" min="1" placeholder="measurement in inches" id="sizeValue"class="form-control"(keyup.enter)="saveSize(sizeName.value, sizeValue.value, $event.target.parentElement.name)" (keyup.enter)="clear($event)">
-                              <div class="input-group-append">
-                                <span class="input-group-text">.in</span>
-                              </div>
-                            </div>
-
-                            <!-- Sizes list -->
-                            <div class="sizes-list" >
-                              <ul class="list-group p-1" *ngIf="getArray.length > 0; else NoSizes">
-                                <li class="list-group-item p-1" *ngFor="let size of getArray; index as i">
-                                  <span class="input-group-text bg-primary h3">
-                                    <span class="font-weight-bold mr-4">{{size.name}}:</span>{{size.value}}.in
-                                      <a class="badge badge-pill badge-danger ml-auto" (click)="getArray.splice(i,1)">&times;</a>
-                                  </span>
-                                </li>
-                              </ul>
-                              <ng-template #NoSizes>
-                                <div class="flex-center">
-                                <span class="text-center font-weight-bold text-muted font-italic text-uppercase">
-                                  {{noSize}}</span>
-                                </div>
-
-                              </ng-template>
-                            </div>
-
-                            <div class="d-flex flex-row justify-content-between">
-                              <button class="btn btn-sm bg-danger ml-0" (click)="discardSize($event)">
-                                Close
-                              </button>
-                              <button class="btn btn-sm bg-success" (click)="saveSize(sizeName.value, sizeValue.value, thisSize.name);clear()">
-                                Add
-                              </button>
-                            </div>
-
-                          </div>
-
-                        </div>
-                      </div>
+            <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
+              <li class="list-inline-item" id="title">
+                <label for="title-input">Title</label>
+                <input class="form-control text-uppercase" type="text" id="title-input">
+              </li>
+              <li class="list-inline-item" id="price">
+                <label for="price-input">Price</label>
+                <input class="form-control " type="number" id="price-input">
+              </li>
+              <li id="description">
+                <label for="description-textarea">Description</label>
+                <textarea class="form-control " type="text" id="description-textarea"></textarea>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="row my-1">
+            <div class="mb-3 col-md-6 col-sm-12" id="size">
+              <div class="mb-2">
+                <!--todo specifiy sizes choices here-->
+                <ul class="list-unstyled list-inline carosel-margin">
+                  <li>
+                    <div class="form-group light-blue-skin">
+                      <label for="sel2">avalible for ?</label>
+                      <select class="selectpicker " id="sel2" data-show-subtext="true" data-live-search="true">
+                        <option value="men" data-subtext="ages 18 years-above">Men</option>
+                        <option value="women" data-subtext="ages 18 years-above">Women</option>
+                        <option value="boys" data-subtext="ages 11-17 years">Boys</option>
+                        <option value="girls" data-subtext="ages 11-17 years">Girls</option>
+                        <option value="kids" data-subtext="ages 5-11 years">kids</option>
+                        <option value="toddlers" data-subtext="ages 1-4 years">toddlers</option>
+                        <option value="baby" data-subtext="ages 0-24 months">baby</option>
+                      </select>
                     </div>
-                  </div>
-                  </div>
-                </div>
-              
+                  </li>
+                  <li>
+                    <div class="card bg-primary">
+                      <div class="card-heading bg-warning">Sizes</div>
+                      <div class="card-body p-3">
+                        <div class="card card-default" style="max-height: 300px; overflow-y: auto">
+                          <div class="card-body">
+                            <div class="my-2 d-flex justify-content-between">
+                              <span>Men sizes</span>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline1">
+                                <label class="form-check-label" for="materialInline1">XS</label>
+                              </div>
 
-              <!-- Conditions and Permissions -->
-              <div class="py-0 col-md-6 col-sm-12" id="permissions-condtions">
-                <div  class="row py-0">
-                  <ul  class="ul p-0">
-                    <span class="px-2 py-3 d-flex justify-content-center shadow">
-                      <span class="conditions">Conditions</span>
-                  </span>
-                    <li  class="li">
-                      <h4  class="checkbox-text belleza text-uppercase">buy/bring your material</h4>
-                      <input  id="check-1" type="checkbox">
-                      <label  for="check-1"><i  class="fa fa-check"></i></label>
-                    </li>
-                    <li  class="li">
-                      <h4  class="checkbox-text raleway text-uppercase">Negotiable price</h4>
-                      <input  id="check-2" type="checkbox">
-                      <label  for="check-2"><i  class="fa fa-check"></i></label>
-                    </li>
-                    <li  class="li">
-                      <h4  class="checkbox-text raleway text-uppercase">Fixed Schedule</h4>
-                      <input  id="check-3" type="checkbox">
-                      <label  for="check-3"><i  class="fa fa-check"></i></label>
-                    </li>
-                  </ul>
-                </div>
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline2">
+                                <label class="form-check-label" for="materialInline2">S</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline3">
+                                <label class="form-check-label" for="materialInline3">M</label>
+                              </div>
+                            </div>
+                            <div class="my-2">
+                              <p>Women sizes</p>
+                              <div class="m-0 p-0">
+                                <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline21">
+                                  <label class="form-check-label" for="materialInline21">XXS</label>
+                                </div>
+                                <!-- Material inline 2 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline22">
+                                  <label class="form-check-label" for="materialInline22">XS</label>
+                                </div>
+                                <!-- Material inline 3 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline23">
+                                  <label class="form-check-label" for="materialInline23">S</label>
+                                </div>
+                                <!-- Material inline 4 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline24">
+                                  <label class="form-check-label" for="materialInline24">M</label>
+                                </div>
+                                <!-- Material inline 5 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline25">
+                                  <label class="form-check-label" for="materialInline25">L</label>
+                                </div>
+                                <!-- Material inline 6 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline26">
+                                  <label class="form-check-label" for="materialInline26">XL</label>
+                                </div>
+                                <!-- Material inline 7 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline27">
+                                  <label class="form-check-label" for="materialInline27">XXL</label>
+                                </div>
+                                <!-- Material inline 8 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline28">
+                                  <label class="form-check-label" for="materialInline28">XXXL</label>
+                                </div>
+                                <!-- Material inline 9 -->
+                                <div class="form-check form-check-inline">
+                                  <input type="checkbox" class="form-check-input" id="materialInline29">
+                                  <label class="form-check-label" for="materialInline29">XXXXL</label>
+                                </div>
+                              </div>
+                              
+                            </div>
+                            <div class="my-2">
+                              <span>Children sizes</span>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline31">
+                                <label class="form-check-label" for="materialInline31">8</label>
+                              </div>
+
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline32">
+                                <label class="form-check-label" for="materialInline32">7</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline33">
+                                <label class="form-check-label" for="materialInline33">9</label>
+                              </div>
+                            </div>
+                            <div class="my-2">
+                              <span>Toddler sizes</span>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline41">
+                                <label class="form-check-label" for="materialInline41">8</label>
+                              </div>
+
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline42">
+                                <label class="form-check-label" for="materialInline42">9</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline43">
+                                <label class="form-check-label" for="materialInline43">10</label>
+                              </div>
+                            </div>
+                            <div class="my-2">
+                              <span>baby sizes</span>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline51">
+                                <label class="form-check-label" for="materialInline51">8</label>
+                              </div>
+
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline52">
+                                <label class="form-check-label" for="materialInline52">9</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="materialInline53">
+                                <label class="form-check-label" for="materialInline53">10</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
-          </li>
-        </ul>
-        <div class="w-100 d-flex justify-content-between align-self-end">
-          <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
-          <button class="btn post-btn btn-success btn-flat">Post</button>
-        </div>
+
+
+            <!-- Conditions and Permissions -->
+            <div class="py-0 col-md-6 col-sm-12" id="permissions-condtions">
+              <div class="row py-0">
+                <ul class="ul p-0">
+                  <span class="px-2 py-3 d-flex justify-content-center shadow">
+                    <span class="conditions">Conditions</span>
+                  </span>
+                  <li class="li">
+                    <h4 class="checkbox-text  text-uppercase">buy/bring your material</h4>
+                    <input id="check-1" type="checkbox">
+                    <label for="check-1"><i class="fa fa-check"></i></label>
+                  </li>
+                  <li class="li">
+                    <h4 class="checkbox-text  text-uppercase">Negotiable price</h4>
+                    <input id="check-2" type="checkbox">
+                    <label for="check-2"><i class="fa fa-check"></i></label>
+                  </li>
+                  <li class="li">
+                    <h4 class="checkbox-text text-uppercase">Fixed Schedule</h4>
+                    <input id="check-3" type="checkbox">
+                    <label for="check-3"><i class="fa fa-check"></i></label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="w-100 d-flex justify-content-between align-self-end">
+        <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
+        <button class="btn post-btn btn-success btn-flat">Post</button>
       </div>
     </div>
+  </div>
 </div>

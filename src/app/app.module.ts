@@ -22,6 +22,9 @@ import { PostComponent } from './tailor-profile/post/post.component';
 import { ViewPostComponent } from './tailor-profile/posts/view-post/view-post.component';
 import { TailorComponent } from './tailor/tailor.component';
 import { ExtensionsPipe } from './extensions.pipe';
+import { UserComponent } from './user/user.component';
+import { UserHomeComponent } from './user/user-home/user-home.component';
+import { BidComponent } from './user/bid/bid.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { ExtensionsPipe } from './extensions.pipe';
     PostComponent,
     ViewPostComponent,
     TailorComponent,
-    ExtensionsPipe
+    ExtensionsPipe,
+    UserComponent,
+    UserHomeComponent,
+    BidComponent
   ],
   imports: [
     BrowserModule,

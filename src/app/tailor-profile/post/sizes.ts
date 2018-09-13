@@ -1,14 +1,14 @@
 export class Sizes {
-    small: Size[] =[];
-    medium: Size[] =[];
-    large: Size[] =[];
-} 
+    Title: string;
+    shortTitle: string;
+    sizes: Size[];
+}
 
-export class Size{
+export class Size {
     name: string;
     value: string;
 
-    constructor(values: Object ={}){
-        Object.assign(this,values);
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 }
