@@ -87,7 +87,14 @@ var User = new Schema({
     AvgRating:{
       type: Number,
     }
+  },
+  Picture:{
+    type: String
+  },
+  Profile: {
+    type: Schema.Types.ObjectId, rel:'Profile'
   }
+  
 }, {
     collection: 'users'
   })

@@ -15,9 +15,10 @@ var Size = new Schema({
 })
 var Post = new Schema({
     Tailor : {type:Schema.Types.ObjectId, rel: "User"},
-    Picture: {
-        type: String
-    },
+    Title: {type: String},
+    Picture:[ 
+        {type: String}
+    ],
     Description:{
         type: String
     },
@@ -32,15 +33,23 @@ var Post = new Schema({
             type: String
         }
     },
-    Permissions:{
-        free: {
-            type: String
-        }
-    },
     Sizes:{
-        small: [Size],
-        medium:[Size],
-        large: [Size]
+        Men: {
+            xs: {type:String,default: 'false'}
+        },
+        Women:{
+            xs: {type:String,default: 'false'}
+        },
+        Children:{
+            xs: {type:String,default: 'false'}
+        },
+        Toddler:{
+            xs: {type:String,default: 'false'}
+        },
+        Baby:{
+            xs: {type:String,default: 'false'}
+        }
+
     },
     CreatedAt: {
         type: Date,

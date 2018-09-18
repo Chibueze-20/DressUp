@@ -32,34 +32,49 @@ var Order = new Schema({
     
 })
 var Request = new Schema({
-    Orders: [Order],
+   Title: {
+       type: String
+   },
     Price: {
         type: String,
         default: 'NGN 3000'
     },
+    Images: [{type: String}],
+    Schedule:{
+        Duration:{
+            type: Number
+        },
+        Milestones:[{
+            Milestone:{type: String},
+            Duration:{type: Number},
+        }]
+    },
     Conditions:{
         Negotiable: {
             type: String,
-            default: 'true'
         },
-        Duration: {
+        BOYM: {
             type: String,
-            default: '5 days'
         },
-        Bulk:{
+        Delivery:{
             type: String,
-            default: '1'
+        },
+        Fitness:{
+            type: String
         }
     },
-    Title: {
-        type: String,
-        default: 'A shirt worthy of a king'
-    },
-    Kind: {
+    Type: {
         type: String,
         default: 'Bid'
-    }
+    },
+    Tailor : {type:Schema.Types.ObjectId, rel: "User"},
+    User : {type:Schema.Types.ObjectId, rel: "User"},
+    Sizes:[{
+        Name: {type: String},
+        Value: {type: String}
 
+    }
+]
 },
 {
     collection: 'orders'
