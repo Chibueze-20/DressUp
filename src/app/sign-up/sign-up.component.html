@@ -40,8 +40,8 @@
                 {{getrole.value}}
               </button>
                 <button class="btn btn-sm btn-flat dropdown-toggle px-3"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"></button>
-              <div class="dropdown-menu mb-sm-2 raleway" aria-labelledby="dropdownMenu1">
-                <span class="dropdown-item-text">Choose one</span>
+              <div class="dropdown-menu bg-white mb-sm-2 raleway" aria-labelledby="dropdownMenu1">
+                <span class="dropdown-item-text px-2">Choose one</span>
                 <a class="dropdown-item" (click)="getrole.setValue('Designers')">Designers</a>
                 <a class="dropdown-item" (click)="getrole.setValue('Clients')">Clients</a>
               </div>
@@ -54,16 +54,16 @@
         <ul class="list-inline list-unstyled">
           <li class="list-inline-item ml-1">Where can we find you?</li>
           <li class="list-inline-item">
-            <div class="dropdown mb-3">
+            <div class="dropdown dropright mb-3">
               <button class="btn btn-flat px-2 btn-sm dropdown-toggle" [class.valid]="getaddress.valid" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{getaddress.value}}
               </button>
               <div class="dropdown-menu mb-sm-3 raleway" aria-labelledby="dropdownMenu2">
-                <span class="dropdown-item-text">Choose one</span>
-                <a class="dropdown-item" (click)="getaddress.setValue('Abuja')">Abuja</a>
-                <a class="dropdown-item" (click)="getaddress.setValue('Ibadan')">Ibadan</a>
-                <a class="dropdown-item" (click)="getaddress.setValue('Kaduna')">Kaduna</a>
-                <a class="dropdown-item" (click)="getaddress.setValue('Lagos')">Lagos</a>
+                <span class="dropdown-item-text font-small px-2">Choose one</span>
+                <a class="dropdown-item py-1" (click)="getaddress.setValue('Abuja')">Abuja</a>
+                <a class="dropdown-item py-1" (click)="getaddress.setValue('Ibadan')">Ibadan</a>
+                <a class="dropdown-item py-1" (click)="getaddress.setValue('Kaduna')">Kaduna</a>
+                <a class="dropdown-item py-1" (click)="getaddress.setValue('Lagos')">Lagos</a>
               </div>
             </div>
           </li>
@@ -92,7 +92,7 @@
 
         </ul>
       </div>
-      <div style="overflow:auto;" class="col-12" [ngClass]="{'mt-sm-2':!isbuyer||isbuyer,'mt-sm-5 mt-md-5':getrole.invalid}">
+      <div style="overflow:auto;" class="col-12 below" [ngClass]="{'mt-sm-2':!isbuyer||isbuyer,'mt-5':getrole.invalid}">
         <div style="float:right;">
           <span class="text-danger font-small font-italic" *ngIf="!activate&&currentnum == 0">All fields are to be filled</span>
           <button *ngIf="cannext" class="btn btn-sm s-bg s-text lato disabled waves-effect" [class.disabled] = "!activate" type="button" id="nextBtn" (click)="next()">Next</button>

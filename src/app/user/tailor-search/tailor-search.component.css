@@ -8,6 +8,12 @@
     width: 50% !important;
     margin-left:25% 
 }
+.top-border{
+    border-top: thin solid;
+}
+.bottom-border{
+    border-bottom: thin solid;
+}
 .pic{
     border: thick;
     border-left-style: solid;
@@ -17,14 +23,30 @@
     width: 100%;
     padding: 0px !important;
 }
+.img-size{
+    width: 80px
+}
 @media screen and (max-width:375px){
     .pic{
-        height: 150px;
-        width: 144px;
+        height: 160px !important;
+        width: 160px !important;
+    }  
+}
+@media screen and (max-width:425px){
+    .pic{
+        height: 190px !important;
+        width: 190px !important;
+    }  
+}
+@media screen and (max-width:320px){
+    .pic{
+        height: 144px !important;
+        width: 144px !important;
     }
+}
+@media screen and (max-width:699px){
     .search-view{
         width: 100% !important;
-        margin: 0;
+        margin: 0 !important;
     }
-    
 }

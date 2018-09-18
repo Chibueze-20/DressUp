@@ -69,12 +69,12 @@ const routes: Routes = [
       {path: 'view', children: [
           { path: 'order/:id', component: ViewPostComponent }
         ]
-      }
-    ]
-  },
-  {path: 'settings', component: SettingsComponent, children: [
-      { path: 'account', component: AccountSettingsComponent },
-      { path: '', redirectTo: 'account', pathMatch: 'full' }
+      },
+      {path: 'settings', component: SettingsComponent, children: [
+        { path: 'account', component: AccountSettingsComponent },
+        { path: '', redirectTo: 'account', pathMatch: 'full' }
+      ]
+    }
     ]
   },
   { path: 'search', component: TailorSearchComponent }
