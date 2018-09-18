@@ -1,0 +1,30 @@
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6,1fr);
+
+}
+.search-view{
+    width: 50% !important;
+    margin-left:25% 
+}
+.pic{
+    border: thick;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-left-color: #e3ffff;
+    border-bottom-color: #e3ffff;
+    width: 100%;
+    padding: 0px !important;
+}
+@media screen and (max-width:375px){
+    .pic{
+        height: 150px;
+        width: 144px;
+    }
+    .search-view{
+        width: 100% !important;
+        margin: 0;
+    }
+    
+}

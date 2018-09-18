@@ -10,7 +10,7 @@
       display: none !important;
     }
     .navtext-margin-in{
-        margin-left: .9em !important;
+        margin-left: 2.2em !important;
     }
   }
 .navtext-margin-in{
@@ -18,4 +18,10 @@
 }
 .my-margin-right{
   margin-right: 5.9em;
+}
+a:not([href]):not([tabindex]):hover{
+  background-color: #e3ffff !important;
+}
+.dropdown-item:active{
+  background-color: #b0e0e6 !important;
 }

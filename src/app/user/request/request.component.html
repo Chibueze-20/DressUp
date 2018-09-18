@@ -1,0 +1,144 @@
+<div class="container-fluid my-3">
+  <!-- title -->
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <label for="title">Request Title</label>
+      <input id="title" class="form-control" type="text" placeholder="Title..." required>
+    </div>
+  </div>
+  <div class="row my-4">
+    <!-- picture -->
+    <div class="col-md-5 col-sm-12">
+      <div class="s-bg p-2">
+        <div>
+          <h6>Select picture</h6>
+          <div class="custom-file mb-2">
+            <input type="file" title="add pictures" multiple (change)='addImage($event)' class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">add images <i class="fas fa-images"></i></label>
+          </div>
+        </div>
+        <div class="image-view px-5">
+          <div *ngIf="allimages.length > 0; else elseblock">
+            <div class="m-2" *ngFor="let image of allimages; index as k; first as isFirst; last as isLast">
+              <div class="d-flex justify-content-end m-0 p-0">
+                <span (click)='removeImage(k)' class="closeimg badge badge-danger">x</span>
+              </div>
+              <img class="img-thumbnail imgthumb" [src]="image">
+            </div>
+          </div>
+          <ng-template #elseblock>
+            <div class="imgthumb flex-center" style="height:200px">
+              <h4 class="font-weight-bold font-italic text-muted">
+                No pictures selected....
+              </h4>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <!-- Description and tags -->
+    <div class="col-md-6 mx-md-2 pt-4 col-sm-12">
+      <!-- description -->
+      <div class="md-form mb-3 textarea active-textarea">
+        <i class="fas fa-pagelines prefix"></i>
+        <textarea rows="2" placeholder="talk about what you want in detail here, this gives the tailor a better idea to support the images you probably provided... its required"
+          id="description" cols="20" class="form-control md-textarea" style="resize: vertical"></textarea>
+        <label for="description" class="quicksand">Description</label>
+      </div>
+
+      <div class="my-4 ml-5">
+          <p>How do you want it?.</p>
+          <div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="no-fitted">
+              <label class="form-check-label" for="no-fitted">No fitting</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="close-fitted">
+              <label class="form-check-label" for="close-fitted">Close Fitting</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="fitted">
+              <label class="form-check-label" for="fitted">Fitted</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="semi-fitted">
+              <label class="form-check-label" for="semi-fitted">Semi-Fitted</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="loose-fitted">
+              <label class="form-check-label" for="loose-fitted">Loose Fitting</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="vl-fitted">
+              <label class="form-check-label" for="vl-fitted">Very Loose Fitting</label>
+            </div>
+          </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row my-4 mx-3 mb-5">
+      <!-- order options -->
+      <div class="col-md-6 col-sm-12">
+        <div>
+          <div class="md-form my-0">
+            <i class="fas fa-calendar prefix"></i>
+            <input type="number" min="0" id="duration" class="form-control w-75">
+            <label for="duration">order duration (days)</label>
+          </div>
+        </div>
+        <div>
+          <span class="my-3 font-weight-bold text-uppercase">delivery options</span>
+          <div class="form-check form-check">
+            <input type="radio" class="form-check-input" id="materialInline1">
+            <label class="form-check-label" for="materialInline1">direct collection</label>
+          </div>
+          <div class="form-check form-check">
+            <input type="radio" class="form-check-input" id="materialInline2">
+            <label class="form-check-label" for="materialInline2">3rd party postal service</label>
+          </div>
+          <div class="form-check form-check">
+            <input type="radio" class="form-check-input" id="materialInline3">
+            <label class="form-check-label" for="materialInline3">pickup station</label>
+          </div>
+        </div>
+      </div>
+      <!-- extra terms and types -->
+      <div class="col-md-6 col-sm-12">
+        <div class="my-3">
+          <p>Request type</p>
+          <div class="form-check form-check-inline ">
+            <input type="radio" class="form-check-input" id="materialInline7">
+            <label class="form-check-label" for="materialInline7">Bid</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline8">
+            <label class="form-check-label" for="materialInline8">Direct</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-group col-md-6 col-sm-12 mb-3">
+            <input type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
+              aria-describedby="basic-addon-1" name="" id="">
+          </div>
+          <div class="col-md-6 col-sm-12 btn-group dropright">
+            <button style="height:fit-content;width: inherit" class="btn btn-danger px-2 btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <span>tailors you follow</span>
+            </button>
+            <div class="dropdown-menu w-100 s-light">
+              <a class="dropdown-item dropdown-hover">tailor!</a>
+              <a class="dropdown-item dropdown-hover">tailorXYZ</a>
+              <a class="dropdown-item dropdown-hover">tailor&</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="mt-5 row mb-0">
+      <div class="col-6 div-btn text-center">Cancel</div>
+      <div class="col-6 div-btn text-center">Send<i class="fas fa-paper-plane"></i></div>
+    </div>
+</div>
