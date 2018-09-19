@@ -4,12 +4,14 @@ var express = require('express');
 var router = express.Router();
 
 // new post
-router.post('/new',repository.CreatePost);
+router.post('/new',repository.createPost);
 
 //all posts add param for skip
-router.get('/all',repository.AllPosts);
+router.get('/all/:skip',repository.allPosts);
 
-//followed posts
-router.post('/following',repository.FollowedPosts)
+//followed posts tailor id's sent as array
+router.post('/following/:skip',repository.followedPosts);
 
+// post
+router.get('/:id',repository.getPost);
 module.exports = router;

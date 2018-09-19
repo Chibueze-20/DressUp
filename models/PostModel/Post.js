@@ -26,7 +26,7 @@ var Post = new Schema({
         type: String
     },
     Conditions:{
-        BOYM:{
+        BYOM:{
             type: String
         },
         Negotiable:{
