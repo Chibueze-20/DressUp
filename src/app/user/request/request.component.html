@@ -1,9 +1,9 @@
-<div class="container-fluid my-3">
+<div [formGroup] = "RequestForm" class="container-fluid my-3">
   <!-- title -->
   <div class="row d-flex justify-content-center">
     <div class="col-md-6 col-sm-12">
       <label for="title">Request Title</label>
-      <input id="title" class="form-control" type="text" placeholder="Title..." required>
+      <input id="title" formControlName="Title" class="form-control" type="text" placeholder="Title..." required>
     </div>
   </div>
   <div class="row my-4">
@@ -36,41 +36,41 @@
         </div>
       </div>
     </div>
-    <!-- Description and tags -->
+    <!-- Description and fitting -->
     <div class="col-md-6 mx-md-2 pt-4 col-sm-12">
       <!-- description -->
       <div class="md-form mb-3 textarea active-textarea">
         <i class="fas fa-pagelines prefix"></i>
-        <textarea rows="2" placeholder="talk about what you want in detail here, this gives the tailor a better idea to support the images you probably provided... its required"
+        <textarea rows="2" formControlName="Description" required placeholder="talk about what you want in detail here, this gives the tailor a better idea to support the images you probably provided... its required"
           id="description" cols="20" class="form-control md-textarea" style="resize: vertical"></textarea>
         <label for="description" class="quicksand">Description</label>
       </div>
 
-      <div class="my-4 ml-5">
+      <div formGroupName="Conditions" class="my-4 ml-5">
           <p>How do you want it?.</p>
           <div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="no-fitted">
+              <input formControlName="Fitness" value="No fitting" type="radio" name="Fitness" class="form-check-input" id="no-fitted">
               <label class="form-check-label" for="no-fitted">No fitting</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="close-fitted">
+              <input formControlName="Fitness" value="Close Fitting" type="radio" name="Fitness" class="form-check-input" id="close-fitted">
               <label class="form-check-label" for="close-fitted">Close Fitting</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="fitted">
+              <input formControlName="Fitness" value="Fitted" type="radio" name="Fitness" class="form-check-input" id="fitted">
               <label class="form-check-label" for="fitted">Fitted</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="semi-fitted">
+              <input formControlName="Fitness" value="Semi-Fitted" type="radio" name="Fitness" class="form-check-input" id="semi-fitted">
               <label class="form-check-label" for="semi-fitted">Semi-Fitted</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="loose-fitted">
+              <input formControlName="Fitness" value="Loose Fitting" type="radio" name="Fitness" class="form-check-input" id="loose-fitted">
               <label class="form-check-label" for="loose-fitted">Loose Fitting</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="vl-fitted">
+              <input formControlName="Fitness" value="Very Loose Fitting" type="radio" name="Fitness" class="form-check-input" id="vl-fitted">
               <label class="form-check-label" for="vl-fitted">Very Loose Fitting</label>
             </div>
           </div>
@@ -91,15 +91,15 @@
         <div>
           <span class="my-3 font-weight-bold text-uppercase">delivery options</span>
           <div class="form-check form-check">
-            <input type="radio" class="form-check-input" id="materialInline1">
+            <input type="radio" name="pickup" class="form-check-input" id="materialInline1">
             <label class="form-check-label" for="materialInline1">direct collection</label>
           </div>
           <div class="form-check form-check">
-            <input type="radio" class="form-check-input" id="materialInline2">
+            <input type="radio" name="pickup" class="form-check-input" id="materialInline2">
             <label class="form-check-label" for="materialInline2">3rd party postal service</label>
           </div>
           <div class="form-check form-check">
-            <input type="radio" class="form-check-input" id="materialInline3">
+            <input type="radio" name="pickup" class="form-check-input" id="materialInline3">
             <label class="form-check-label" for="materialInline3">pickup station</label>
           </div>
         </div>
@@ -109,17 +109,17 @@
         <div class="my-3">
           <p>Request type</p>
           <div class="form-check form-check-inline ">
-            <input type="radio" class="form-check-input" id="materialInline7">
+            <input formControlName="Type" value="Bid" type="radio" name="Type" class="form-check-input" id="materialInline7">
             <label class="form-check-label" for="materialInline7">Bid</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="materialInline8">
+            <input formControlName="Type" value="Direct" type="radio" name="Type" class="form-check-input" id="materialInline8">
             <label class="form-check-label" for="materialInline8">Direct</label>
           </div>
         </div>
-        <div class="row">
+        <div [class.hide]="!isDirect" class="animated fadeIn row">
           <div class="input-group col-md-6 col-sm-12 mb-3">
-            <input type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
+            <input formControlName="Tailor" type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
               aria-describedby="basic-addon-1" name="" id="">
           </div>
           <div class="col-md-6 col-sm-12 btn-group dropright">

@@ -3,8 +3,6 @@ const Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 
 
-
-
 var Profile = new Schema({
 
     Theme: {
@@ -12,9 +10,6 @@ var Profile = new Schema({
     },
     Background:{
         type: String
-    },
-    Profile:{
-        type:String
     },
     Font:{
         type: String

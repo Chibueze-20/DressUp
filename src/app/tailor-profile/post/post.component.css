@@ -1,3 +1,6 @@
+.hide{
+  visibility: hidden;
+}
 ul li.list-group-item {
   background: none !important;
   border-style: none;

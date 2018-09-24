@@ -1,6 +1,7 @@
 <div class="container">
-  <div class="card m-0">
+  <div [formGroup]="PostForm" class="card m-0">
     <!-- Post -->
+
     <div class="col-md-12 card-body m-0 p-0 col-xs-12">
       <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
         <li>
@@ -20,18 +21,18 @@
                 </div>
               </ng-template>
             </div>
-            <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
+            <ul  class="list-unstyled col-md-6 col-sm-12 list-inline">
               <li class="list-inline-item" id="title">
                 <label for="title-input">Title</label>
-                <input class="form-control text-uppercase" type="text" id="title-input">
+                <input required formControlName="Title" class="form-control text-uppercase" type="text" id="title-input">
               </li>
               <li class="list-inline-item" id="price">
                 <label for="price-input">Price</label>
-                <input class="form-control " type="number" id="price-input">
+                <input required formControlName="Price" class="form-control " type="number" id="price-input">
               </li>
               <li id="description">
                 <label for="description-textarea">Description</label>
-                <textarea class="form-control " type="text" id="description-textarea"></textarea>
+                <textarea required formControlName="Description" class="form-control " type="text" id="description-textarea"></textarea>
               </li>
             </ul>
           </div>
@@ -43,155 +44,300 @@
                 <!--todo specifiy sizes choices here-->
                 <ul class="list-unstyled list-inline carosel-margin">
                   <li>
-                    <div class="form-group light-blue-skin">
-                      <label for="sel2">avalible for ?</label>
-                      <select class="selectpicker " id="sel2" data-show-subtext="true" data-live-search="true">
-                        <option value="men" data-subtext="ages 18 years-above">Men</option>
-                        <option value="women" data-subtext="ages 18 years-above">Women</option>
-                        <option value="boys" data-subtext="ages 11-17 years">Boys</option>
-                        <option value="girls" data-subtext="ages 11-17 years">Girls</option>
-                        <option value="kids" data-subtext="ages 5-11 years">kids</option>
-                        <option value="toddlers" data-subtext="ages 1-4 years">toddlers</option>
-                        <option value="baby" data-subtext="ages 0-24 months">baby</option>
-                      </select>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="card bg-primary">
-                      <div class="card-heading bg-warning">Sizes</div>
-                      <div class="card-body p-3">
-                        <div class="card card-default" style="max-height: 300px; overflow-y: auto">
-                          <div class="card-body">
-                            <div class="my-2 d-flex justify-content-between">
-                              <span>Men sizes</span>
+                    <div class="card">
+                      <div  class="card-heading">Sizes</div>
+                      <div formGroupName="Sizes" class="card-body p-1">
+                        <!-- Material inline 1 -->
+                        <div class="form-check form-check-inline">
+                          <input formControlName="Custom" #custom type="checkbox" class="form-check-input" id="materialInlinecust">
+                          <label class="form-check-label" [class.font-weight-bold]="custom.checked" for="materialInlinecust">Custom</label>
+                        </div>
+                        <div class="card card-default" *ngIf="!custom.checked" style="max-height: 300px; overflow-y: scroll">
+                          <div  class="card-body">
+                            <div formGroupName="Men" class="mb-3">
+                              <p>Men sizes</p>
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline1">
-                                <label class="form-check-label" for="materialInline1">XS</label>
+                                <input formControlName="S" #men_s type="checkbox" class="form-check-input" id="materialInline1">
+                                <label class="form-check-label" [class.font-weight-bold]="men_s.checked" for="materialInline1">S</label>
                               </div>
-
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline2">
-                                <label class="form-check-label" for="materialInline2">S</label>
+                                <input formControlName="M" #men_m type="checkbox" class="form-check-input" id="materialInline2">
+                                <label class="form-check-label" [class.font-weight-bold]="men_m.checked" for="materialInline2">M</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline3">
-                                <label class="form-check-label" for="materialInline3">M</label>
+                                <input formControlName="L" #men_L type="checkbox" class="form-check-input" id="materialInline3">
+                                <label class="form-check-label" [class.font-weight-bold]="men_L.checked" for="materialInline3">L</label>
+                              </div>
+                              <!-- Material inline 4 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="XL" #men_XL type="checkbox" class="form-check-input" id="materialInline4">
+                                <label class="form-check-label" [class.font-weight-bold]="men_XL.checked" for="materialInline4">XL</label>
+                              </div>
+                              <!-- Material inline 5 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="XXL" #men_XXL type="checkbox" class="form-check-input" id="materialInline5">
+                                <label class="form-check-label" [class.font-weight-bold]="men_XXL.checked" for="materialInline5">XXL</label>
                               </div>
                             </div>
-                            <div class="my-2">
+                            <div formGroupName="Women" class="mb-3">
                               <p>Women sizes</p>
                               <div class="m-0 p-0">
                                 <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline21">
-                                  <label class="form-check-label" for="materialInline21">XXS</label>
+                                  <input formControlName="XXS" #women_xxs type="checkbox" class="form-check-input" id="materialInline21">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_xxs.checked" for="materialInline21">XXS</label>
                                 </div>
                                 <!-- Material inline 2 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline22">
-                                  <label class="form-check-label" for="materialInline22">XS</label>
+                                  <input formControlName="XS" #women_xs type="checkbox" class="form-check-input" id="materialInline22">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_xs.checked" for="materialInline22">XS</label>
                                 </div>
                                 <!-- Material inline 3 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline23">
-                                  <label class="form-check-label" for="materialInline23">S</label>
+                                  <input formControlName="S" #women_s type="checkbox" class="form-check-input" id="materialInline23">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_s.checked" for="materialInline23">S</label>
                                 </div>
                                 <!-- Material inline 4 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline24">
-                                  <label class="form-check-label" for="materialInline24">M</label>
+                                  <input formControlName="M" #women_m type="checkbox" class="form-check-input" id="materialInline24">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_m.checked" for="materialInline24">M</label>
                                 </div>
                                 <!-- Material inline 5 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline25">
-                                  <label class="form-check-label" for="materialInline25">L</label>
+                                  <input formControlName="L" #women_l type="checkbox" class="form-check-input" id="materialInline25">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_l.checked" for="materialInline25">L</label>
                                 </div>
                                 <!-- Material inline 6 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline26">
-                                  <label class="form-check-label" for="materialInline26">XL</label>
+                                  <input formControlName="1X" #women_x type="checkbox" class="form-check-input" id="materialInline26">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_x.checked" for="materialInline26">1X</label>
                                 </div>
                                 <!-- Material inline 7 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline27">
-                                  <label class="form-check-label" for="materialInline27">XXL</label>
+                                  <input formControlName="2X" #women_xx type="checkbox" class="form-check-input" id="materialInline27">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_xx.checked" for="materialInline27">2X</label>
                                 </div>
                                 <!-- Material inline 8 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline28">
-                                  <label class="form-check-label" for="materialInline28">XXXL</label>
+                                  <input formControlName="3X" #women_xxx type="checkbox" class="form-check-input" id="materialInline28">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_xxx.checked" for="materialInline28">3X</label>
                                 </div>
                                 <!-- Material inline 9 -->
                                 <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="materialInline29">
-                                  <label class="form-check-label" for="materialInline29">XXXXL</label>
+                                  <input formControlName="4X" #women_xxxx type="checkbox" class="form-check-input" id="materialInline29">
+                                  <label class="form-check-label" [class.font-weight-bold]="women_xxxx.checked" for="materialInline29">4X</label>
                                 </div>
                               </div>
                               
                             </div>
-                            <div class="my-2">
-                              <span>Children sizes</span>
+                            <div formGroupName="Boy" class="mb-3">
+                              <p>Young Boys</p>
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline31">
-                                <label class="form-check-label" for="materialInline31">8</label>
+                                <input formControlName="Size 4" #yb_4 type="checkbox" class="form-check-input" id="materialInline31">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_4.checked" for="materialInline31">sz 4</label>
                               </div>
-
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline32">
-                                <label class="form-check-label" for="materialInline32">7</label>
+                                <input formControlName="Size 5" #yb_5 type="checkbox" class="form-check-input" id="materialInline32">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_5.checked" for="materialInline32">sz 5</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline33">
-                                <label class="form-check-label" for="materialInline33">9</label>
+                                <input type="checkbox" #yb_6 class="form-check-input" id="materialInline33">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_6.checked" for="materialInline33">sz 6</label>
+                              </div>
+                              <!-- Material inline 4 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 7" #yb_7 type="checkbox" class="form-check-input" id="materialInline34">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_7.checked" for="materialInline34">sz 7</label>
+                              </div>
+                              <!-- Material inline 5 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 8" #yb_8 type="checkbox" class="form-check-input" id="materialInline35">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_8.checked" for="materialInline35">sz 8</label>
+                              </div>
+                              <!-- Material inline 6 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 9" #yb_9 type="checkbox" class="form-check-input" id="materialInline36">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_9.checked" for="materialInline36">sz 9</label>
+                              </div>
+                              <!-- Material inline 7 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 10" #yb_10 type="checkbox" class="form-check-input" id="materialInline37">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_10.checked" for="materialInline37">sz 10</label>
+                              </div>
+                              <!-- Material inline 8 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 12" #yb_12 type="checkbox" class="form-check-input" id="materialInline38">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_12.checked" for="materialInline38">sz 12</label>
+                              </div>
+                              <!-- Material inline 9 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 14" #yb_14 type="checkbox" class="form-check-input" id="materialInline39">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_14.checked" for="materialInline39">sz 14</label>
+                              </div>
+                              <!-- Material inline 10 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 16" #yb_16 type="checkbox" class="form-check-input" id="materialInline310">
+                                <label class="form-check-label" [class.font-weight-bold]="yb_16.checked" for="materialInline310">sz 16</label>
                               </div>
                             </div>
-                            <div class="my-2">
-                              <span>Toddler sizes</span>
+                            <div formGroupName="Girl" class="mb-3">
+                              <p>Young Girls</p>
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline41">
-                                <label class="form-check-label" for="materialInline41">8</label>
+                                <input formControlName="Size 4" #yg_4 type="checkbox" class="form-check-input" id="materialInline41">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_4.checked" for="materialInline41">sz 4</label>
                               </div>
-
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline42">
-                                <label class="form-check-label" for="materialInline42">9</label>
+                                <input formControlName="Size 5" #yg_5 type="checkbox" class="form-check-input" id="materialInline42">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_5.checked" for="materialInline42">sz 5</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline43">
-                                <label class="form-check-label" for="materialInline43">10</label>
+                                <input formControlName="Size 6" #yg_6 type="checkbox" class="form-check-input" id="materialInline43">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_6.checked" for="materialInline43">sz 6</label>
+                              </div>
+                              <!-- Material inline 4 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 7" #yg_7 type="checkbox" class="form-check-input" id="materialInline44">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_7.checked" for="materialInline44">sz 7</label>
+                              </div>
+                              <!-- Material inline 5 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 8" #yg_8 type="checkbox" class="form-check-input" id="materialInline45">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_8.checked" for="materialInline45">sz 8</label>
+                              </div>
+                              <!-- Material inline 6 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 9" #yg_9 type="checkbox" class="form-check-input" id="materialInline46">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_9.checked" for="materialInline46">sz 9</label>
+                              </div>
+                              <!-- Material inline 7 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 10" #yg_10 type="checkbox" class="form-check-input" id="materialInline47">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_10.checked" for="materialInline47">sz 10</label>
+                              </div>
+                              <!-- Material inline 8 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 12" #yg_12 type="checkbox" class="form-check-input" id="materialInline48">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_12.checked" for="materialInline48">sz 12</label>
+                              </div>
+                              <!-- Material inline 9 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 14" #yg_14 type="checkbox" class="form-check-input" id="materialInline49">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_14.checked" for="materialInline49">sz 14</label>
+                              </div>
+                              <!-- Material inline 10 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Size 16" #yg_16 type="checkbox" class="form-check-input" id="materialInline410">
+                                <label class="form-check-label" [class.font-weight-bold]="yg_16.checked" for="materialInline410">sz 16</label>
                               </div>
                             </div>
-                            <div class="my-2">
-                              <span>baby sizes</span>
+                            <div formGroupName="Kid" class="mb-3">
+                              <p>Kids</p>
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline51">
-                                <label class="form-check-label" for="materialInline51">8</label>
+                                <input formControlName="XXS" #k_xxs type="checkbox" class="form-check-input" id="materialInline51">
+                                <label class="form-check-label" [class.font-weight-bold]="k_xxs.checked" for="materialInline51">XXS</label>
                               </div>
 
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline52">
-                                <label class="form-check-label" for="materialInline52">9</label>
+                                <input formControlName="XS" #k_xs type="checkbox" class="form-check-input" id="materialInline52">
+                                <label class="form-check-label" [class.font-weight-bold]="k_xs.checked" for="materialInline52">XS</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="materialInline53">
-                                <label class="form-check-label" for="materialInline53">10</label>
+                                <input formControlName="S" #k_s type="checkbox" class="form-check-input" id="materialInline53">
+                                <label class="form-check-label" [class.font-weight-bold]="k_s.checked" for="materialInline53">S</label>
                               </div>
+                              <!-- Material inline 4 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="M" #k_m type="checkbox" class="form-check-input" id="materialInline54">
+                                <label class="form-check-label" [class.font-weight-bold]="k_m.checked" for="materialInline54">M</label>
+                              </div>
+                              <!-- Material inline 5 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="L" #k_l type="checkbox" class="form-check-input" id="materialInline55">
+                                <label class="form-check-label" [class.font-weight-bold]="k_l.checked" for="materialInline55">L</label>
+                              </div>
+                              <!-- Material inline 6 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="XL" #k_xl type="checkbox" class="form-check-input" id="materialInline56">
+                                <label class="form-check-label" [class.font-weight-bold]="k_xl.checked" for="materialInline56">XL</label>
+                              </div>
+                            </div>
+                            <div formGroupName="Toddler" class="mb-3">
+                              <p>Toddlers</p>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="T1" #T1 type="checkbox" class="form-check-input" id="materialInline61">
+                                <label class="form-check-label" [class.font-weight-bold]="T1.checked" for="materialInline61">T1</label>
+                              </div>
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="T2" #T2 type="checkbox" class="form-check-input" id="materialInline62">
+                                <label class="form-check-label" [class.font-weight-bold]="T2.checked" for="materialInline62">T2</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="T3" #T3 type="checkbox" class="form-check-input" id="materialInline63">
+                                <label class="form-check-label" [class.font-weight-bold]="T3.checked" for="materialInline63">T3</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="T4" #T4 type="checkbox" class="form-check-input" id="materialInline64">
+                                <label class="form-check-label" [class.font-weight-bold]="T4.checked" for="materialInline64">T4</label>
+                              </div>
+                            </div>
+                            <div formGroupName="Baby" class="mb-3">
+                              <p>Babies</p>
+                              <!-- Material inline 1 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="Newborn" #bby_1 type="checkbox" class="form-check-input" id="materialInline71">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_1.checked" for="materialInline71">Newborn</label>
+                              </div>
+                              <!-- Material inline 2 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="0-3 months" #bby_2 type="checkbox" class="form-check-input" id="materialInline72">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_2.checked" for="materialInline72">0-3 months</label>
+                              </div>
+                              <!-- Material inline 3 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="3-6 months" #bby_3 type="checkbox" class="form-check-input" id="materialInline73">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_3.checked" for="materialInline73">3-6 months</label>
+                              </div>
+                              <!-- Material inline 4 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="6-12 months" #bby_4 type="checkbox" class="form-check-input" id="materialInline74">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_4.checked" for="materialInline74">6-12 months</label>
+                              </div>
+                              <!-- Material inline 5 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="12-16 months" #bby_5 type="checkbox" class="form-check-input" id="materialInline75">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_5.checked" for="materialInline75">12-16 months</label>
+                              </div>
+                              <!-- Material inline 6 -->
+                              <div class="form-check form-check-inline">
+                                <input formControlName="16-24 months" #bby_6 type="checkbox" class="form-check-input" id="materialInline76">
+                                <label class="form-check-label" [class.font-weight-bold]="bby_6.checked" for="materialInline76">16-24 months</label>
+                              </div>
+
                             </div>
                           </div>
                         </div>
-
+                        <div style="height: 300px" class="flex-center" *ngIf="custom.checked">
+                          <div class="animated bounceIn">
+                            <h4 class="text-uppercase text-muted">Customers would specifiy their sizes</h4>
+                            <h6 class="text-truncate animated fadeIn text-warning">note this means this is available for all</h6>
+                          </div>
+                        </div>
                       </div>
 
                     </div>
@@ -203,19 +349,20 @@
 
             <!-- Conditions and Permissions -->
             <div class="py-0 col-md-6 col-sm-12" id="permissions-condtions">
-              <div class="row py-0">
-                <ul class="ul p-0">
+              <div formGroupName="Conditions" class="row py-0">
+                <div class="ul p-0">
                   <span class="px-2 py-3 d-flex justify-content-center shadow">
                     <span class="conditions">Conditions</span>
                   </span>
+                  <ul class="m-0 p-0">
                   <li class="li">
                     <h4 class="checkbox-text  text-uppercase">buy/bring your material</h4>
-                    <input id="check-1" type="checkbox">
+                    <input formControlName="BYOM" id="check-1" type="checkbox">
                     <label for="check-1"><i class="fa fa-check"></i></label>
                   </li>
                   <li class="li">
                     <h4 class="checkbox-text  text-uppercase">Negotiable price</h4>
-                    <input id="check-2" type="checkbox">
+                    <input formControlName="Negotiable" id="check-2" type="checkbox">
                     <label for="check-2"><i class="fa fa-check"></i></label>
                   </li>
                   <li class="li">
@@ -223,13 +370,15 @@
                     <input id="check-3" type="checkbox">
                     <label for="check-3"><i class="fa fa-check"></i></label>
                   </li>
-                </ul>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </li>
       </ul>
       <div class="w-100 d-flex justify-content-between align-self-end">
+        {{Qhow}}
         <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
         <button class="btn post-btn btn-success btn-flat">Post</button>
       </div>

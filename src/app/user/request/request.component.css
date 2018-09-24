@@ -1,3 +1,6 @@
+.hide{
+  visibility: hidden;
+}
 .closeimg{
  cursor: pointer;
 }
@@ -25,9 +28,11 @@
 }
 a:not([href]):not([tabindex]):hover{
     background-color: #e3ffff !important;
+  color: black !important;
   }
   .dropdown-item:active{
     background-color: #b0e0e6 !important;
+    color: black !important;
   }
 .textarea textarea.md-textarea:focus:not([readonly]){
     border-bottom: 1px solid blueviolet;

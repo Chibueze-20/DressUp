@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {V} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-request',
@@ -8,11 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class RequestComponent implements OnInit {
   localUrl: any;
   images: any[] = [];
-  constructor() { }
+  RequestForm: FormGroup = null;
+  constructor() {
+    this.RequestForm = new FormGroup({
+      'Tailor': new FormControl(null),
+      'Title': new FormControl(null, Validators.required),
+      'Description': new FormControl(null, Validators.required),
+      'Type': new FormControl('Bid', [Validators.required, Validators.pattern('^Bid$|^Direct$')]),
+      'Conditions': new FormGroup({
+        'Fitness': new FormControl(null),
+      }),
+    });
+  }
 
   ngOnInit() {
   }
-
+  get isDirect() {
+    return this.RequestForm.get('Type').value === 'Direct';
+  }
   addImage(event: any) {
     if (event.target.files && event.target.files) {
       for( let i = 0; i < event.target.files.length; i++) {
@@ -39,7 +54,7 @@ export class RequestComponent implements OnInit {
     this.images = imagearr
   }
 
-  get allimages(){
+  get allimages() {
     return this.images;
   }
 }

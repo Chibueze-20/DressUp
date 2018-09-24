@@ -4,6 +4,7 @@ import {Sizes} from './sizes';
 import {Size} from './sizes';
 import {UserserviceService} from '../../userservice.service';
 import {Navigation} from '../../shared/Navigation';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -17,13 +18,98 @@ export class PostComponent implements OnInit {
   formData = new FormData();
   filesize = 0;
   next = false;
+  PostForm: FormGroup = null;
   constructor( private userservice: UserserviceService ) {
     Navigation.Title = 'New Post';
+    this.PostForm = new FormGroup({
+      'Tailor': new FormControl(null),
+      'Title': new FormControl(null, Validators.required),
+      'Description': new FormControl(null, Validators.required),
+      'Price': new FormControl(null, Validators.required),
+      'Conditions': new FormGroup({
+        'BYOM': new FormControl(false),
+        'Negotiable': new FormControl(false)
+      }),
+      'Sizes': new FormGroup({
+        'Men': new FormGroup({
+          'S': new FormControl(false),
+          'M': new FormControl(false),
+          'L': new FormControl(false),
+          'XL': new FormControl(false),
+          'XXL': new FormControl(false)
+        }),
+        'Women': new FormGroup({
+          'XXS': new FormControl(false),
+          'XS': new FormControl(false),
+          'S': new FormControl(false),
+          'M': new FormControl(false),
+          'L': new FormControl(false),
+          '1X': new FormControl(false),
+          '2X': new FormControl(false),
+          '3X': new FormControl(false),
+          '4X': new FormControl(false),
+        }),
+        'Girl': new FormGroup({
+          'Size 4': new FormControl(false),
+          'Size 5': new FormControl(false),
+          'Size 6': new FormControl(false),
+          'Size 7': new FormControl(false),
+          'Size 8': new FormControl(false),
+          'Size 9': new FormControl(false),
+          'Size 10': new FormControl(false),
+          'Size 12': new FormControl(false),
+          'Size 14': new FormControl(false),
+          'Size 16': new FormControl(false),
+        }),
+        'Boy': new FormGroup({
+          'Size 4': new FormControl(false),
+          'Size 5': new FormControl(false),
+          'Size 6': new FormControl(false),
+          'Size 7': new FormControl(false),
+          'Size 8': new FormControl(false),
+          'Size 9': new FormControl(false),
+          'Size 10': new FormControl(false),
+          'Size 12': new FormControl(false),
+          'Size 14': new FormControl(false),
+          'Size 16': new FormControl(false),
+        }),
+        'Kid': new FormGroup({
+          'XXS': new FormControl(false),
+          'XS': new FormControl(false),
+          'S': new FormControl(false),
+          'M': new FormControl(false),
+          'L': new FormControl(false),
+          'XL': new FormControl(false),
+        }),
+        'Toddler': new FormGroup({
+          'T1': new FormControl(false),
+          'T2': new FormControl(false),
+          'T3': new FormControl(false),
+          'T4': new FormControl(false),
+        }),
+        'Baby': new FormGroup({
+          'Newborn': new FormControl(false),
+          '0-3 months': new FormControl(false),
+          '3-6 months': new FormControl(false),
+          '6-12 months': new FormControl(false),
+          '12-16 months': new FormControl(false),
+          '16-24 months': new FormControl(false),
+        }),
+        'Custom': new FormControl(false)
+      })
+      }
+    );
   }
 
   ngOnInit() {
-
   }
+  get Qhow() {
+    return JSON.stringify(this.PostForm.value);
+  }
+  get sizes() {
+    return this.PostForm.get('Sizes');
+  }
+
   gonext() {
     this.next = true;
   }
@@ -67,6 +153,8 @@ show(e) {
 get imagesize() {
     return this.filesize / 1024;
 }
+
+
 
 }
 
