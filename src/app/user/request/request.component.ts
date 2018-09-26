@@ -10,6 +10,7 @@ import {V} from '@angular/core/src/render3';
 export class RequestComponent implements OnInit {
   localUrl: any;
   images: any[] = [];
+  tags: string[] = [];
   RequestForm: FormGroup = null;
   constructor() {
     this.RequestForm = new FormGroup({
@@ -19,11 +20,36 @@ export class RequestComponent implements OnInit {
       'Type': new FormControl('Bid', [Validators.required, Validators.pattern('^Bid$|^Direct$')]),
       'Conditions': new FormGroup({
         'Fitness': new FormControl(null),
+        'Delivery': new FormControl(null)
       }),
+      'Schedule': new FormGroup({
+        'Duration': new FormControl(null)
+      })
     });
   }
 
   ngOnInit() {
+  }
+
+  get Tags() {
+    return this.tags;
+  }
+
+  addTag(event) {
+    const inputElement = (<HTMLInputElement>event.target);
+    const value = inputElement.value;
+    this.tags.push(value);
+    event.target['value'] = '';
+  }
+  clearTags() {
+    this.tags = [];
+  }
+  
+  goback() {
+    alert('go back');
+  }
+  get show() {
+    return JSON.stringify(this.RequestForm.value);
   }
   get isDirect() {
     return this.RequestForm.get('Type').value === 'Direct';

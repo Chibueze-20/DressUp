@@ -10,10 +10,10 @@
       <div class="view">
         <div class="mt-3">
           <form formGroupName="Account" class="offset-md-3 col-md-6 col-sm-12 form">
-            <p>Email: {{UserEmail}} <span><a class="blue-text" (click)="changeemail()"> change</a></span></p>
             <input formControlName="CurrentEmail" type="hidden"  name="CurrentEmail">
-            <div *ngIf="email">
-              <input type="email" name="Email" formControlName="Email" placeholder="enter new email.." class="form-control">
+            <div>
+              <label for="email-input">E-mail</label>
+              <input type="email" id="email-input" value="{{UserEmail}}" name="Email" formControlName="Email" placeholder="enter new email.." class="form-control">
             </div>
             <p class="mb-2 mt-3"> <a class="blue-text" (click)="changepassword()">Change Password</a></p>
             <div *ngIf="password">
@@ -52,40 +52,25 @@
     <!-- Collapsible element -->
     <div class="collapse mb-4 mt-4" id="collapseExample1">
       <div class="view">
-        <div class=" mt-3 flex-center" *ngIf="contactbool; else contact">
-          <div>
-            <h4 class="text-muted  my-2">City: <span class="my-0" style="font-size: x-large">{{User.Contact.City}}</span></h4>
-
-            <h4 class="text-muted  my-2">State: <span class="my-0" style="font-size: x-large">{{User.Contact.State}}</span></h4>
-
-            <h4 class="text-muted  my-2">Phone Number: <span class="my-0" style="font-size: x-large">{{User.Contact.PhoneNumber}}</span></h4>
-
-            <h4 class="text-muted  my-2">Home Address: <span class="my-0" style="font-size: x-large">{{User.Contact.HomeAddress}}</span></h4>
-
-            <h4 class="text-muted  my-2">Post Address: <span class="my-0" style="font-size: x-large">{{User.Contact.PostAddress}}</span></h4>
-
-            <div class="flex-center">
-
-              <button class="btn s-bg s-text lato waves-effect my-4" (click)="contacttoggle()">Update</button>
+        <div class=" mt-3">
+          <p style="font-size: small" class="alert alert-info">Please enter your current address details as this helps us to locate you better</p>
+          <form formGroupName="Contact" class="col-md-6 offset-md-3 col-sm-12 form">
+            <label for="city-input">City</label>
+            <input id="city-input" type="text" name="City" value="{{User.Contact.City}}" formControlName="City" placeholder="City..." class="form-control mb-2">
+            <label for="state-input">State</label>
+            <input id="state-input" type="text" name="State" value="{{User.Contact.State}}" formControlName="State" placeholder="State..." class="form-control mb-2">
+            <label for="phone-input">Phone Number</label>
+            <input id="phone-input" type="text" name="PhoneNumber" value="{{User.Contact.PhoneNumber}}" formControlName="PhoneNumber" placeholder="Phone Number..." class="form-control mb-2">
+            <label for="homeaddress-input">Home Address</label>
+            <input id="homeaddress-input" type="text" name="HomeAddress" value="{{User.Contact.HomeAddress}}" formControlName="HomeAddress" placeholder="Home address..." class="form-control mb-2">
+            <label for="postaddress-input">Post Address</label>
+            <input id="postaddress-input" type="text" name="PostAddress" value="{{User.Contact.PostAddress}}" formControlName="PostAddress" placeholder="Post address..." class="form-control"> <span style="font-size: x-small" class="font-weight-light text-warning font-italic">*this is where you would like us to send your ordered goods</span>
+            <div  class="row mt-3 d-flex justify-content-between">
+              <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato" (click)= "discardContactUpdateClick()">Discard changes</button>
+              <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)= "updateContactClick()">Accept changes</button>
             </div>
-          </div>
+          </form>
         </div>
-        <ng-template #contact>
-          <div class=" mt-3">
-            <p style="font-size: small" class="alert alert-info">Please enter your current address details as this helps us to locate you better</p>
-            <form formGroupName="Contact" class="col-md-6 offset-md-3 col-sm-12 form">
-              <input type="text" name="City" formControlName="City" placeholder="City..." class="form-control mb-2">
-              <input type="text" name="State" formControlName="State" placeholder="State..." class="form-control mb-2">
-              <input type="text" name="PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number..." class="form-control mb-2">
-              <input type="text" name="HomeAddress" formControlName="HomeAddress" placeholder="Home address..." class="form-control mb-2">
-              <input type="text" name="PostAddress" formControlName="PostAddress" placeholder="Post address..." class="form-control"> <span style="font-size: x-small" class="font-weight-light text-warning font-italic">*this is where you would like us to send your ordered goods</span>
-              <div  class="row mt-3 d-flex justify-content-between">
-                <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato" (click)= "discardContactUpdateClick()">Discard changes</button>
-                <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)= "updateContactClick()">Accept changes</button>
-              </div>
-            </form>
-          </div>
-        </ng-template>
         <div *ngIf="contactformbool" id="contact-loader" class="mask flex-center">
           <!--Big circle-->
           <div class="preloader-wrapper big active">
@@ -111,29 +96,20 @@
     <!-- Collapsible element -->
     <div class="collapse mb-4 mt-4" id="collapseExample2">
       <div class="view">
-        <div class="mt-3 flex-center" *ngIf="namebool; else name">
-          <div>
-            <h4 class="text-muted my-2">First Name:</h4>
-            <h4 class="text-muted my-2">Middle Name:</h4>
-            <h4 class="text-muted my-2">Last Name</h4>
-            <div class="flex-center">
-              <button class="btn s-bg s-text waves-effect my-4" (click)="nametoggle()">Update</button>
+        <div class=" mt-3">
+          <form formGroupName="Name" class="col-md-6 offset-md-3 col-sm-12 form">
+            <label for="firstname">First Name</label>
+            <input id="firstname" type="text" name="FirstName" formControlName="FirstName" placeholder="First name..." class="form-control mb-2">
+            <label for="middlename">Middle Name</label>
+            <input id="middlename" type="text" name="MiddleName" formControlName="MiddleName" placeholder="Middle name..." class="form-control mb-2">
+            <label for="lastname">Last Name</label>
+            <input id="lastname" type="text" name="LastName" formControlName="LastName" placeholder="Last Name..." class="form-control">
+            <div  class="row mt-3 d-flex justify-content-between">
+              <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardNameUpdateClick()">Discard changes</button>
+              <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateNameClick()" >Accept changes</button>
             </div>
-          </div>
+          </form>
         </div>
-        <ng-template #name>
-          <div class=" mt-3">
-            <form formGroupName="Name" class="col-md-6 offset-md-3 col-sm-12 form">
-              <input type="text" name="FirstName" formControlName="FirstName" placeholder="First name..." class="form-control mb-2">
-              <input type="text" name="MiddleName" formControlName="MiddleName" placeholder="Middle name..." class="form-control mb-2">
-              <input type="text" name="LastName" formControlName="LastName" placeholder="Last Name..." class="form-control">
-              <div  class="row mt-3 d-flex justify-content-between">
-                <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardNameUpdateClick()">Discard changes</button>
-                <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateNameClick()" >Accept changes</button>
-              </div>
-            </form>
-          </div>
-        </ng-template>
         <div *ngIf="nameformbool" id="name-loader" class="mask flex-center">
           <!--Big circle-->
           <div class="preloader-wrapper big active">
@@ -160,27 +136,18 @@
       <!-- Collapsible element -->
       <div class="collapse mb-4 mt-4" id="collapseExample3">
         <div class="view">
-          <div class="flex-center mt-3" *ngIf="brandbool; else brand">
-            <div>
-              <h2 class="text-muted my-2">Bio</h2>
-              <h4 class="text-muted my-2">Business Address: </h4>
-              <div class="flex-center">
-                <button class="btn s-bg s-text waves-effect my-4" (click)="brandtoggle()">Update</button>
+          <div class=" mt-3">
+            <form formGroupName="Brand" class="col-md-6 offset-md-3 col-sm-12 form">
+              <label for="branddescription">Brand Bio</label>
+              <textarea id="branddescription" name="BrandDescription" formControlName="BrandDescription" cols="5" rows="2" style="resize: vertical" type="text" placeholder="Bio.." class="form-control mb-2"></textarea>
+              <label for="workaddress">Brand Address</label>
+              <input id="workaddress" name="WorkAddress" formControlName="WorkAddress" type="text" placeholder="Work address..." class="form-control mb-2"> <span class="text-warning" style="font-size: x-small">Please a valid address of your work place is required for verification</span>
+              <div  class="row mt-3 d-flex justify-content-between">
+                <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardBrandUpdateClick()">Discard changes</button>
+                <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateBrandClick()" >Accept changes</button>
               </div>
-            </div>
+            </form>
           </div>
-          <ng-template #brand>
-            <div class=" mt-3">
-              <form formGroupName="Brand" class="col-md-6 offset-md-3 col-sm-12 form">
-                <textarea name="BrandDescription" formControlName="BrandDescription" cols="5" rows="2" style="resize: vertical" type="text" placeholder="Bio.." class="form-control mb-2"></textarea>
-                <input name="WorkAddress" formControlName="WorkAddress" type="text" placeholder="Work address..." class="form-control mb-2"> <span class="text-warning" style="font-size: x-small">Please a valid address of your work place is required for verification</span>
-                <div  class="row mt-3 d-flex justify-content-between">
-                  <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardBrandUpdateClick()">Discard changes</button>
-                  <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateBrandClick()" >Accept changes</button>
-                </div>
-              </form>
-            </div>
-          </ng-template>
           <div *ngIf="brandformbool" id="brand-loader" class="mask flex-center">
             <!--Big circle-->
             <div class="preloader-wrapper big active">

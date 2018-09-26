@@ -8,7 +8,7 @@ App dark: #7faeb4
 */
 
 #side-nav {
-    height: 100vh;
+    height: 93vh;
     /* border-right: 2px solid #868C8C; */
     background-color: #99CCFF;/*#7FAEB4*/;
     padding-right: 0px;
@@ -16,7 +16,7 @@ App dark: #7faeb4
 
 }
 #settings-view {
-    height: 100vh; 
+    height: 93vh;
     overflow-y: auto;
 }
 #main-view {

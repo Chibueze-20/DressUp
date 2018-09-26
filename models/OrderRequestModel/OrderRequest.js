@@ -19,8 +19,7 @@ var Request = new Schema({
     type: String
   },
   Price: {
-    type: String,
-    default: 'NGN 3000'
+    type: String
   },
   Images: [{
     type: String

@@ -19,6 +19,7 @@ export class PostComponent implements OnInit {
   filesize = 0;
   next = false;
   PostForm: FormGroup = null;
+  tags: string[] = [];
   constructor( private userservice: UserserviceService ) {
     Navigation.Title = 'New Post';
     this.PostForm = new FormGroup({
@@ -109,7 +110,19 @@ export class PostComponent implements OnInit {
   get sizes() {
     return this.PostForm.get('Sizes');
   }
+  get Tags() {
+    return this.tags;
+  }
 
+  addTag(event) {
+    const inputElement = (<HTMLInputElement>event.target);
+    const value = inputElement.value;
+    this.tags.push(value);
+    event.target['value'] = '';
+  }
+  clearTags() {
+    this.tags = [];
+  }
   gonext() {
     this.next = true;
   }
@@ -126,7 +139,7 @@ show(e) {
       this.filesize = event.target.files[0].size;
       this.formData.append('file', event.target.files[0]);
       console.log(this.formData.get('file'));
-      var reader = new FileReader();
+      let reader = new FileReader();
       reader.onload = (event: any) => {
         this.localUrl = event.target.result;
       };

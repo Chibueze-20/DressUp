@@ -4,7 +4,14 @@
 .closeimg{
  cursor: pointer;
 }
-
+.div-btn:hover{
+ /*box-shadow: 0px 1px 2px 0px #777777;*/
+  border-bottom-width: medium;
+  transition-delay: 0.5ms;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: ease-in;
+}
 .image-view{
     max-height: 309px;
     overflow-y: auto;
