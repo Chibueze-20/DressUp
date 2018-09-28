@@ -1,88 +1,84 @@
 <div class="container belleza px-md-3">
   <div class="row flex-center mx-md-5 mb-2">
-    <!-- Card Wider -->
+    <ng-template *ngIf="Bids.length > 0; else elseblock">
+      <!-- Card Wider -->
+      <!-- Card -->
+      <div *ngFor="let bid of Bids" class="card my-3 mx-0 col-md-6 col-sm-12 card-cascade wider">
 
-    <!-- Card -->
-    <div class="card my-3 mx-0 col-md-6 col-sm-12 card-cascade wider">
-
-      <div class="view view-cascade overlay">
-        <!--Image-->
-        <!--carousel wrapper-->
-        <div id="mycarousel"  class="carousel out slide " data-ride="carousel">
-          <!-- Indicators -->
-          <!-- Indicators -->
-
-          <!-- Slide wrapper -->
-          <div class="carousel-inner" style="height: inherit;" role="listbox" >
-            <!--slides-->
-            <div class="carousel-item active" style="height: 100%;">
-              <img class="card-img-top" src="assets/images/clem-onojeghuo-197847-unsplash.jpg" alt="Card image cap">
-            </div>
-            <div class="carousel-item" style="height: 100%">
-              <img class="card-img-top" src="assets/images/fancycrave-174012-unsplash.jpg" style="height: 100%;width: 100%;"/>
-            </div>
-          </div>
-        </div>
-
-        <!--Image-->
-
-        <!--visible on hover-->
-        <a>
-          <div class="mask rgba-stylish-slight">
-            <!--Order description-->
-            <div class="d-block " style="position: absolute;bottom: 0px">
-
-              <div class="px-2" style="background-color: rgba(30,40,20,0.5)">
-                <p class="card-text white-text"> i want a blue chiffon blouse with black buttons with a high collar and long sleeves not fitted, the wrists should have buttons too. </p>
+        <div class="view view-cascade overlay">
+          <!--Image-->
+          <!--carousel wrapper-->
+          <div id="mycarousel"  class="carousel out slide " data-ride="carousel">
+            <!-- Indicators -->
+            <!-- Indicators -->
+            <!-- Slide wrapper -->
+            <div class="carousel-inner" style="height: inherit;" role="listbox" >
+              <!--slides-->
+              <div *ngFor="let image of bid.Images; first as isFirst" class="carousel-item" [class.active]="isFirst" style="height: 100%;">
+                <img class="card-img-top" [src]="image" alt="Card image cap">
               </div>
             </div>
           </div>
-          <!--Order description-->
-        </a>
+          <!--Image-->
 
-      </div>
+          <!--visible on hover-->
+          <a>
+            <div class="mask rgba-stylish-slight">
+              <!--Order description-->
+              <div class="d-block " style="position: absolute;bottom: 0px">
 
-      <!-- Card content -->
-      <div class="card-body pb-2 card-body-cascade text-center">
+                <div class="px-2" style="background-color: rgba(30,40,20,0.5)">
+                  <p class="card-text white-text"> {{bid.Description}} </p>
+                </div>
+              </div>
+            </div>
+            <!--Order description-->
+          </a>
 
-        <!-- Title -->
-        <h4 class="card-title mb-2"><strong>Blue chiffon blouse</strong></h4>
-        <!-- Subtitle/tags -->
-        <span class="mx-2 badge badge-pill p-bg p-text">trad</span>
-        <span class="mx-2 badge badge-pill s-bg s-text">casual</span>
+        </div>
 
-        <hr class="my-1">
-        <!--Bidding constraints-->
-        <div class="text-center d-flex justify-content-between out waves-effect">
-          <div class="mx-md-2">
-            <i class="far pt-1 fa-clock "></i><p class="m-0  pt-1"> Schedule: 5 days</p>
-            <!--<p class="m-0 p-0" style="font-size: medium">5 days</p>-->
-          </div>
-          <div class="mx-md-2">
-            <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1"> Schedule: 5 days</p>
-          </div>
-          <div class="mx-md-2">
-            <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1"> Schedule: 5 days</p>
-          </div>
+        <!-- Card content -->
+        <div class="card-body pb-2 card-body-cascade text-center">
+
+          <!-- Title -->
+          <h4 class="card-title mb-2"><strong>{{bid.Title}}</strong></h4>
+          <!-- Subtitle/tags -->
+          <span *ngFor="let tag of bid.Tags" class="mx-2 badge badge-pill p-bg p-text">{{tag}}</span>
           <hr class="my-1">
-        </div>
-        <!--Bidding constraints-->
+          <!--Bidding constraints-->
+          <div class="text-center d-flex justify-content-between out waves-effect">
+            <div class="mx-md-2">
+              <i class="far pt-1 fa-clock "></i><p class="m-0  pt-1">Fitness: {{bid.Conditions.Fitness}}</p>
+            </div>
+            <div class="mx-md-2">
+              <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1">Schedule: {{bid.Schedule.Duration}} days</p>
+            </div>
+            <div class="mx-md-2">
+              <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1">Delivery: {{bid.Conditions.Delivery}}</p>
+            </div>
+            <hr class="my-1">
+          </div>
+          <!--Bidding constraints-->
 
-        <!--Button-->
-        <div class="d-flex justify-content-end">
-          <a  class="black-text waves-effect"><span class="text-uppercase px-2">View</span><i class="fas fa-ellipsis-h"></i></a>
-        </div>
-        <!--Button-->
+          <!--Button-->
+          <div class="d-flex justify-content-end">
+            <a  class="black-text waves-effect"><span class="text-uppercase px-2">View</span><i class="fas fa-ellipsis-h"></i></a>
+          </div>
+          <!--Button-->
 
+        </div>
+
+        <!-- Card -->
       </div>
-
-      <!-- Card -->
-    </div>
-
-    <!-- Card Wider -->
-
-
-
+      <!-- Card Wider -->
+    </ng-template>
+    <ng-template #elseblock>
+      <div style="height: 50vh" class="flex-center">
+        <div>
+          <h1 class="h1-responsive text-muted font-weight-bold font-italic">Failed to get bids, refresh browser</h1>
+        </div>
+      </div>
+    </ng-template>
 
   </div>
 </div>

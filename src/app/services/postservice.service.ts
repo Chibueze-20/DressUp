@@ -8,14 +8,16 @@ export class PostserviceService {
   uri = 'http://localhost:4000/post';
   constructor(private http: HttpClient) { }
 
-  Postpost(payload, url_path, param?) {
-      if (param) {
-          return this.http.post(this.uri + '/' + url_path + '/' + param, payload);
-      }
+  Postpost(payload: any, url_path: string) {
+
       return this.http.post(this.uri + '/' + url_path, payload);
   }
 
-  Getpost(param, url_path?) {
+  PostpostParam(payload, url_path, param) {
+      return this.http.post(this.uri + '/' + url_path + '/' + param, payload);
+  }
+
+  Getpost(param: string, url_path?: string) {
       if (url_path) {
           return this.http.get(this.uri + '/' + url_path + '/' + param);
       }

@@ -24,6 +24,7 @@ var Request = new Schema({
   Images: [{
     type: String
   }],
+  Tags: [{type: String}],
   Schedule: {
     Duration: {
       type: Number

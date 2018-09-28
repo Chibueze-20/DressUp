@@ -2,7 +2,13 @@ var Post  = require('./Post')
 
 //Send post
 exports.createPost = function(req,res,next){
-    let post = new Post(req.body);
+    let post = new Post(req.body.post);
+    post.Picture = req.body.pic;
+    if(req.body.tags) {
+        post.Tags = req.body.tags;
+    }
+    post.CreatedAt = new Date().toISOString();
+    // console.log(req.body);
     post.save(function(err,newPost){
         if(err){
             res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
@@ -15,7 +21,7 @@ exports.createPost = function(req,res,next){
 //View all posts {no restriction} TODO: add skip
 exports.allPosts = function(req,res,next){
     Post.find()
-    .sort('-CreatedAt')
+    .sort('-CreatedAt -_id')
     .skip(Number(req.params.skip))
     .limit(20)
     .exec(function(err,posts){

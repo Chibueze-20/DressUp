@@ -19,6 +19,9 @@ var Post = new Schema({
     Picture:[ 
         {type: String}
     ],
+    Tags: [
+        {type: String}
+    ],
     Description:{
         type: String
     },
@@ -34,22 +37,7 @@ var Post = new Schema({
         }
     },
     Sizes:{
-        Men: {
-            xs: {type:String,default: 'false'}
-        },
-        Women:{
-            xs: {type:String,default: 'false'}
-        },
-        Children:{
-            xs: {type:String,default: 'false'}
-        },
-        Toddler:{
-            xs: {type:String,default: 'false'}
-        },
-        Baby:{
-            xs: {type:String,default: 'false'}
-        }
-
+       
     },
     CreatedAt: {
         type: Date,

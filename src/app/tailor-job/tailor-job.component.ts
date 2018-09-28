@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RequestserviceService} from '../services/requestservice.service';
 
 @Component({
   selector: 'app-tailor-job',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tailor-job.component.css']
 })
 export class TailorJobComponent implements OnInit {
-
-  constructor() { }
+  bids: any[] = [];
+  constructor(private bidservice: RequestserviceService) { }
 
   ngOnInit() {
+    this.bidservice.GetOrder('0', 'all').subscribe(
+      (res: any[]) => { this.bids = res; }, error => alert(error)
+    );
   }
 
+  get Bids() {
+    return this.bids;
+  }
 }

@@ -5,6 +5,7 @@ import {Size} from './sizes';
 import {UserserviceService} from '../../userservice.service';
 import {Navigation} from '../../shared/Navigation';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PostserviceService} from '../../services/postservice.service';
 
 @Component({
   selector: 'app-post',
@@ -14,13 +15,14 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class PostComponent implements OnInit {
   type: String;
   image: any;
+  // dd = new Date().toISOString()
   localUrl: any = null;
   formData = new FormData();
   filesize = 0;
   next = false;
   PostForm: FormGroup = null;
   tags: string[] = [];
-  constructor( private userservice: UserserviceService ) {
+  constructor( private userservice: UserserviceService, private postservice: PostserviceService) {
     Navigation.Title = 'New Post';
     this.PostForm = new FormGroup({
       'Tailor': new FormControl(null),
@@ -96,7 +98,7 @@ export class PostComponent implements OnInit {
           '12-16 months': new FormControl(false),
           '16-24 months': new FormControl(false),
         }),
-        'Custom': new FormControl(false)
+        'Custom': new FormControl(true)
       })
       }
     );
@@ -133,7 +135,9 @@ export class PostComponent implements OnInit {
 show(e) {
   console.log(e);
 }
-
+get user() {
+   return JSON.parse(localStorage.getItem('User'));
+}
   showPreviewImage(event: any) {
     if (event.target.files && event.target.files[0]) {
       this.filesize = event.target.files[0].size;
@@ -149,14 +153,21 @@ show(e) {
   }
 
   uploadImage() {
+    const arr_pic = []
   const  payload = {
       file: this.localUrl,
       upload_preset: 'postdress',
-      public_id: 'e_no_be_by_force'
+      public_id: this.user._id + '/' + this.user.Role + '/' + this.localUrl.toString().slice(0, 5)
     };
     this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
-      .subscribe((res) => {console.log(res); }, error1 => {
+      .subscribe(
+        (res) => {
+          console.log(res);
+          arr_pic.push(res);
+          return arr_pic;
+        } , error1 => {
         console.log(error1);
+        return null;
       } );
   }
 
@@ -167,7 +178,37 @@ get imagesize() {
     return this.filesize / 1024;
 }
 
-
+sendPost(withtags: boolean) {
+    this.PostForm.get('Tailor').setValue(this.user._id + '');
+  const picture = this.uploadImage(); const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg']
+  let body;
+  if (picture) {
+    body = withtags ? {
+      post: this.PostForm.value,
+      pic: picture,
+      tags: this.tags
+    } : {
+      post: this.PostForm.value,
+      pic: picture
+    };
+  } else {
+    body = withtags ? {
+      post: this.PostForm.value,
+      pic: default_pic,
+      tags: this.tags
+    } : {
+      post: this.PostForm.value,
+      pic: default_pic
+    };
+  }
+  this.postservice.Postpost(body, 'new').subscribe(
+      (res) => {
+        alert(JSON.stringify(res));
+      }, err => {
+        alert(err);
+      }
+    );
+}
 
 }
 

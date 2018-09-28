@@ -2,19 +2,36 @@ var OrderRequest = require('./OrderRequest');
 
 // create request direct or bid
 exports.createRequest = function(req,res){
-    let request = new OrderRequest(req.body)
+    let request = new OrderRequest(req.body.request)
+    request.Images = req.body.pic;
+    if(req.body.tags){
+        request.Tags = req.body.tags;
+    }
+    request.CreatedAt = new Date().toISOString();
     request.save(function(err,request){
         if (err) {
             return res.status(400).send(err);
         }
-        res.json({Message: 'request sucessfully created', type: 'Success'})
+        res.status(200).json({Message: 'request sucessfully created', type: 'Success'})
+    })
+}
+// all request
+exports.allrequests = function(req,res,next){
+    OrderRequest.find()
+    .sort('-CreatedAt -_id')
+    .exec(function(err,posts){
+        if(err){
+            res.status(400).json(err);
+        }else{
+            res.json(posts);
+        }
     })
 }
 
 // show all bids
 exports.getAllOrders = function(req,res,next){
     OrderRequest.find({Type:'Bid'})
-    .sort('-CreatedAt')
+    .sort('-CreatedAt -_id')
     .skip(Number(req.params.skip))
     .limit(20)
     .exec( function(err, users){
