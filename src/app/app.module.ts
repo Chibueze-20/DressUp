@@ -24,10 +24,10 @@ import { TailorComponent } from './tailor/tailor.component';
 import { ExtensionsPipe } from './extensions.pipe';
 import { UserComponent } from './user/user.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
-import { BidComponent } from './user/bid/bid.component';
 import { TailorFeedsComponent } from './user/tailor-feeds/tailor-feeds.component';
 import { RequestComponent } from './user/request/request.component';
 import { TailorSearchComponent } from './user/tailor-search/tailor-search.component';
+import { TailorPostsComponent } from './user/tailor-posts/tailor-posts.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,6 @@ import { TailorSearchComponent } from './user/tailor-search/tailor-search.compon
     AccountSettingsComponent,
     TailorProfileComponent,
     BidViewComponent,
-    // SettingsComponent,
-    // CustomizeComponent
     SettingsComponent,
     CustomizeComponent,
     PostsComponent,
@@ -53,10 +51,10 @@ import { TailorSearchComponent } from './user/tailor-search/tailor-search.compon
     ExtensionsPipe,
     UserComponent,
     UserHomeComponent,
-    BidComponent,
     TailorFeedsComponent,
     RequestComponent,
-    TailorSearchComponent
+    TailorSearchComponent,
+    TailorPostsComponent
   ],
   imports: [
     BrowserModule,

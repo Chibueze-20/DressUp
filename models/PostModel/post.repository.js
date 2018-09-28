@@ -24,6 +24,7 @@ exports.allPosts = function(req,res,next){
     .sort('-CreatedAt -_id')
     .skip(Number(req.params.skip))
     .limit(20)
+    .select('Picture _id')
     .exec(function(err,posts){
         if(err){
             res.status(400).json(err);
