@@ -60,12 +60,15 @@ exports.getUser = function(req,res,next){
 //Read -by email and password and brand
 exports.getDesigner = function(req,res,next){
   let user = {email:req.body.email, password: req.body.password,brand:req.body.brand};
-  User.findOne({'Account.Email':user.email, 'Account.Password':user.password,'Brand.BrandName':user.brand,'Role':'Designer'}, function (err, duser) {
+  User.findOne({'Account.Email':user.email, 'Account.Password':user.password,'Brand.BrandName':user.brand,'Role':'Designer'})
+  .populate('Profile')
+  .exec(
+   function (err, duser) {
     if(err){
       res.status(400).send({Message:"Invalid user details",type:"Error"});
     }else{
       if(duser){
-        res.json(duser);
+        res.json({User:duser, Message:"LOG IN", type: "success"});
       }else{
         res.status(404).send({Message: "User Not Found",type:"Error"});
       }

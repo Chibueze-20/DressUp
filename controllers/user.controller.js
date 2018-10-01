@@ -1,5 +1,5 @@
 var repository = require('../models/UserModel/user.repository');
-
+var profileRepo = require('../models/ProfileModel/profile.repository');
 var express = require('express');
 var router = express.Router();
 
@@ -27,5 +27,8 @@ router.post('/update/brand/:id',repository.updateUserBrandById);
 //custom Sizes
 router.post('/sizes/add/:id',repository.AddCustomSize);
 router.post('/sizes/update/:id',repository.UpdateCustomSize);
+
+//profile for designers
+router.post('/profile/update/:id', profileRepo.UpdateProfile);
 
 module.exports = router;

@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./view-post.component.css']
 })
 export class ViewPostComponent implements OnInit {
-
+  selectedSize: any = {Name: null, Value: null};
   constructor(private location: Location) {}
 
   ngOnInit() {
@@ -18,8 +18,10 @@ goBack() : void{
   this.location.back();
 }
 
-selectedSize: any = 'Small';
 
+setSize(type: any, size:any){
+  this.selectedSize = {Name: type, Value: size};
+}
 show(e){
   console.log(e);
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../settings.service';
-
+import { UserserviceService } from '../../userservice.service';
 @Component({
   selector: 'app-customize',
   templateUrl: './customize.component.html',
@@ -9,11 +9,14 @@ import { SettingsService } from '../../settings.service';
 export class CustomizeComponent implements OnInit {
   localDisplayUrl = null;
   localHeaderUrl = null;
-  constructor(public _settingsService: SettingsService) { }
-
+  details = null
+  constructor(public _settingsService: SettingsService, private userservice:UserserviceService) { }
   ngOnInit() {
+    this.details = this.Tailor()
   }
-
+  Tailor(){
+    return JSON.parse(localStorage.getItem('User'));
+  }
   changeTheme(i) {
     this._settingsService.changeTheme(i);
   }
@@ -42,6 +45,15 @@ export class CustomizeComponent implements OnInit {
   }
   removeHeader() {
     this.localHeaderUrl = '../../../assets/images/header-bg-2.jpeg';
+  }
+
+  updateTags() {
+   let body = {Tags: this.details.Profile.Tags };
+    this.userservice.postData(this.userservice.uri+'/profile/update/'+this.details.Profile._id,body)
+    .subscribe(
+      (res) => {this.details.Profile = res;}, 
+      err => alert('Unable to make update')
+    );
   }
 
 }
