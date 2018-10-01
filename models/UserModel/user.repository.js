@@ -1,14 +1,24 @@
 var User = require('./User');
+var Profile = require('../ProfileModel/Profile');
 //Create
 exports.createUser = function (req,res,next) {
-  let newUser = new User(req.body);
-  newUser.save(function(err,newPost){
-    if(err){
-        res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
-    }else{
-        res.status(200).json({Message: "User Successfully added",type:"Success"})
-    }
-})
+  let profile = new Profile({Theme:'Default Theme'});
+    profile.save(function(err,Profile){
+      if(err){
+        console.log(err);
+      }
+      console.log(Profile);
+      let newUser = new User(req.body);
+      newUser.Profile = profile._id;
+      newUser.save(function(err,newuser){
+        if(err){
+            res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
+        }else{
+            res.status(200).json({Message: "User Successfully added",type:"Success", User: newuser})
+        }
+    });
+  });
+  
 }
 //Read -all
 exports.getAllUsers = function (req,res,next) {
@@ -21,15 +31,16 @@ exports.getAllUsers = function (req,res,next) {
   });
 }
 //Read -by id
-exports.getUserById = function (req,res,next) {
+exports.getTailorById = function (req,res,next) {
   let id = req.params.id;
-  User.findById(id,function (err, user) {
-    if (err){
-      console.log(err)
-    }else{
-      res.json(user)
+  User.findById(id)
+  .populate('Profile')
+  .exec(function (err, tailor){
+    if(err){
+    return  res.status(404).send(err)
     }
-  });
+    return res.json(tailor);
+  })
 }
 //Read -by email and password
 exports.getUser = function(req,res,next){

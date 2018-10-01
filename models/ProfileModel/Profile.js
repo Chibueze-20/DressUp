@@ -6,15 +6,14 @@ ObjectId = Schema.ObjectId;
 var Profile = new Schema({
 
     Theme: {
-        type: String
+        type: String,
+        default:'Default Theme'
     },
     Background:{
         type: String
     },
-    Font:{
-        type: String
-    },
-    Feedbacks:[{type: Schema.Types.ObjectId, rel:'Feedback'}],
+    Tags: [{type: String}],
+    Feedbacks:[{type: Schema.Types.ObjectId, ref:'Feedback'}],
 
 },{
     collection: 'profiles'

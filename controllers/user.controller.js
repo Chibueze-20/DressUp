@@ -5,8 +5,8 @@ var router = express.Router();
 
 //new user -post
 router.post('/new',repository.createUser);
-//get/edit user -get
-router.get('/view/:id',repository.getUserById);
+//get/edit tailor -get
+router.get('/tailor/:id',repository.getTailorById);
 //get user by login
 router.post('/user/login',repository.getUser);
 //get designer by login

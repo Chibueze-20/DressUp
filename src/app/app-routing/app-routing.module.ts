@@ -19,6 +19,7 @@ import { UserHomeComponent } from '../user/user-home/user-home.component';
 import { TailorFeedsComponent } from '../user/tailor-feeds/tailor-feeds.component';
 import { RequestComponent } from '../user/request/request.component';
 import { TailorSearchComponent } from '../user/tailor-search/tailor-search.component';
+import {BidViewComponent} from '../bid-view/bid-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -53,7 +54,7 @@ const routes: Routes = [
   },
   { path: 'post', component: PostComponent },
   { path: 'view-post', component: ViewPostComponent },
-
+  { path: 'bid-view', component: BidViewComponent},
   // User Routes
   {path: 'user', component: UserComponent, children: [
       {path: 'home', component: UserHomeComponent, children: [

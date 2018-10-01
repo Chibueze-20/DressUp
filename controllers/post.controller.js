@@ -14,4 +14,7 @@ router.post('/following/:skip',repository.followedPosts);
 
 // post
 router.get('/:id',repository.getPost);
+
+//tailor posts
+router.post('/posts/:skip',repository.tailorPosts);
 module.exports = router;

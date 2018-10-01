@@ -76,7 +76,6 @@ var User = new Schema({
       type: String
     },
   },
-  CustomSizes: [CustomSize],
   Ratings:{
     Stars:{
       type: Number,
@@ -92,7 +91,7 @@ var User = new Schema({
     type: String
   },
   Profile: {
-    type: Schema.Types.ObjectId, rel:'Profile'
+    type: Schema.Types.ObjectId, ref:'Profile'
   }
   
 }, {

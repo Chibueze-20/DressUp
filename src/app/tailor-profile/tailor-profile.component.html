@@ -3,7 +3,7 @@
 
 <!-- Main Container -->
 
-<div class={{_settingsService.getTheme.class}}>
+<div class={{Details.Profile.Theme}}>
 <!-- Header container START -->
 
 <div class="p-0 main-header">
@@ -21,11 +21,11 @@
               <!-- Tailor profile photo and name -->
           <div class="flex d-flex flex-md-row flex-sm-column justify-content-md-between w-md-25">
             <!-- Tailor DP -->
-            <img src="../../assets/images/tailor-profile-dp.jpg" class="rounded-circle img-fluid card px-3" style="width: 170px;height: 170px;">
+            <img [src]="Details.Picture" class="rounded-circle img-fluid card px-3" style="width: 170px;height: 170px;">
             <div class="align-self-center py-3">
               <div class="d-flex justify-content-start">
                 <!-- Tailor Name -->
-                  <h3 class="font-bold mb-3 px-3 text-left">Tailor</h3>
+                  <h3 class="font-bold mb-3 px-3 text-left">{{Details.Brand.BrandName}}</h3>
                   <!-- Edit Profile button -->
                   <a class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0 bg-transparent" (click)="goToSettings()"><i class="fas fa-2x fa-pen-fancy red-text"></i> </a>
                   <a class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0 bg-transparent disabled" ><i class="fas fa-2x fa-user-plus green-text"></i> </a>
@@ -52,10 +52,10 @@
       <div class="">
             <ul class=" py-0 d-flex flex-column list-group-flush text-white">
               <li class="list-group-item py-1">
-                <i class="fa fa-address-card"></i><a href="" class="pl-1">No. 1 Randomity Ave. Somewhere.</a>
+                <i class="fa fa-address-card"></i><a href="" class="pl-1">{{Brand.WorkAddress}}</a>
               </li>
               <li class="list-group-item py-1">
-                <i class="fa fa-at"></i><a href="" class="pl-1">rndm@email.com</a> 
+                <i class="fa fa-at"></i><a href="" class="pl-1">{{Account.Email}}</a> 
               </li>
               <li class="list-group-item py-1">
                <i class="fa fa-phone"></i> <a href="" class="pl-1">+234 80 123 456 78</a>
@@ -71,10 +71,7 @@
               <h4 class="mb-4 font-weight-bold">Bio: 
               </h4>
               <p class="px-6 font-weight-bold">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-                  fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                  accusamus minus error nisi architecto nulla ipsum dignissimos.
-                  Odit sed qui, dolorum!
+                  {{Brand.BrandDescription}}
               </p>
             </div>
           </div>
@@ -122,22 +119,9 @@
         
               <div class="col-md-12 d-flex justify-content-sm-center justify-content-md-end">
         
-                <div class="chip darken-4">
-                  <a>Traditional</a>
+                <div *ngFor="let tag of Details.Profile.Tags" class="chip darken-4">
+                  <a>{{tag}}</a>
                 </div>
-        
-                <div class="chip darken-4">
-                    <a>Casual</a>
-                  </div>
-        
-                <div class="chip darken-4">
-                  <a>Ibafo</a>
-                </div>
-        
-                <div class="chip darken-4">
-                  <a>Luxury</a>
-                </div>
-        
               </div>
         
             </div>

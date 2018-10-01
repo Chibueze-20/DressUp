@@ -34,6 +34,22 @@ exports.allPosts = function(req,res,next){
     })
 }
 
+//the posts of a particuler tailor
+exports.tailorPosts = function(req,res,next){
+    Post.find({Tailor:req.body.tailor})
+    .sort('-CreatedAt -_id')
+    .skip(Number(req.params.skip))
+    .limit(20)
+    .select('Picture _id')
+    .exec(function(err,posts){
+        if(err){
+            res.status(400).json(err);
+        }else{
+            res.json(posts);
+        }
+    })
+}
+
 // View all posts {restricted}
 exports.followedPosts = function(req,res,next){
     Post.find()

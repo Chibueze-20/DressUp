@@ -20,4 +20,8 @@ export class UserserviceService {
     return this.http.post(url, payload);
   }
 
+  getData(url){
+    return this.http.get(url)
+  }
+
 }

@@ -7,7 +7,7 @@ Description, Price, Conditions, Permissions, Size, Image -->
     <div class="col-12 px-md-4 px-sm-4 pb-2 rounded-0 ">
      
       <div class="row shadow-sm">
-          <div class="col-7 p-1 shadow-none rounded-0 bg-white">
+          <div class="col-lg-7 col-sm-12 p-1 shadow-none rounded-0 bg-white">
               <div class=" card-header p-1 border-bottom-0 rounded-0 bg-transparent">
                 <div class="chip bg-transparent m-1">
                   <img src="../../../../assets/images/person-flat.png" alt="alt-text"> <span class="h5">Tailor Name</span>
@@ -16,13 +16,13 @@ Description, Price, Conditions, Permissions, Size, Image -->
               <div class="card-body p-0">
                 <img class="card-img rounded-0" src="../../../../assets/images/3.jpeg">
               </div>
-              <div class="card-footer border-top-0 p-2 rounded-0 bg-white ">
+              <div style="height: fit-content" class="card-footer border-top-0 p-2 rounded-0 bg-white ">
                 <p>
-                  Random Description
+                  Random Description.. bla lbla blaaam ddl,dsd fowfoqfnff wofofofmwofmeof
                 </p>
               </div>
             </div>
-            <div class="col-5 p-1 bg-white">
+            <div class="col-lg-5 col-sm-12 p-1 bg-white">
                <div class="list-group bg-white">
                  <div class="list-group-item py-1 border-0 d-flex justify-content-between px-0 mb-3">
                    <span class="h4 text-success success align-self-center pl-1">NGN 50,000</span> 
@@ -67,35 +67,115 @@ Description, Price, Conditions, Permissions, Size, Image -->
                  </div>
 
                  <!-- Conditions END -->
-
-                 <!-- Sizes -->
-                <div class="shadow-sm">
-                  <h1 class="h1-responsive">Select Size<span class="text-danger">*</span></h1>
-                  <div class="mt-1">
-                    <div class="form-check li">
-                      <input type="radio" value="small" class="form-check-input" id="small" name="size">
-                      <label class="form-check-label text-uppercase" for="small">small</label>
+                  <!--sizes-->
+                  <div class="list-group-item p-1 border-0 mb-2 table-responsive">
+                    <ul class="nav nav-tabs nav-justified indigo" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="male-tab" data-toggle="tab" href="#male" role="tab" aria-controls="male" aria-selected="true">Male</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="female-tab" data-toggle="tab" href="#female" role="tab" aria-controls="female" aria-selected="false">Female</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="boy-tab" data-toggle="tab" href="#boy" role="tab" aria-controls="boy" aria-selected="false">Boy</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="girl-tab" data-toggle="tab" href="#girl" role="tab" aria-controls="girl" aria-selected="false">Girl</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="kid-tab" data-toggle="tab" href="#kid" role="tab" aria-controls="kid" aria-selected="false">Kid</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="toddler-tab" data-toggle="tab" href="#toddler" role="tab" aria-controls="toddler" aria-selected="false">Toddler</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " id="baby-tab" data-toggle="tab" href="#baby" role="tab" aria-controls="baby" aria-selected="false">Baby</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content card" id="tab-content">
+                      <div class="tab-pane fade show active" id="male" role="tabpanel" aria-labelledby="male-tab">
+                        <p class="font-italic">Availible sizes</p>
+                        <!-- Material inline 1 -->
+                        <div class="form-check li">
+                          <input name="size" #men_s type="radio" class="form-check-input" id="materialInline1">
+                          <label class="form-check-label"  for="materialInline1">S</label>
+                        </div>
+                        <!-- Material inline 2 -->
+                        <div class="form-check li">
+                          <input name="size" #men_m type="radio" class="form-check-input" id="materialInline2">
+                          <label class="form-check-label"  for="materialInline2">M</label>
+                        </div>
+                        <!-- Material inline 3 -->
+                        <div class="form-check li">
+                          <input name="size" #men_L type="radio" class="form-check-input" id="materialInline3">
+                          <label class="form-check-label"  for="materialInline3">L</label>
+                        </div>
+                        <!-- Material inline 4 -->
+                        <div class="form-check li">
+                          <input name="size" #men_XL type="radio" class="form-check-input" id="materialInline4">
+                          <label class="form-check-label"  for="materialInline4">XL</label>
+                        </div>
+                        <!-- Material inline 5 -->
+                        <div class="form-check li">
+                          <input name="size" #men_XXL type="radio" class="form-check-input" id="materialInline5">
+                          <label class="form-check-label"  for="materialInline5">XXL</label>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="female" role="tabpanel" aria-labelledby="female-tab">
+                                        <p>female</p>
+                      </div>
+                      <div class="tab-pane fade" id="boy" role="tabpanel" aria-labelledby="boy-tab">
+                          <p>Boyt</p>
+                      </div>
+                      <div class="tab-pane fade" id="girl" role="tabpanel" aria-labelledby="girl-tab">
+                        <p>GIRL</p>
+                      </div>
+                      <div class="tab-pane fade" id="kid" role="tabpanel" aria-labelledby="kid-tab">
+                        <p>Kid</p>
+                      </div>
+                      <div class="tab-pane fade" id="toddler" role="tabpanel" aria-labelledby="toddler-tab">
+                        <p>TODDLER</p>
+                      </div>
+                      <div class="tab-pane fade" id="baby" role="tabpanel" aria-labelledby="baby-tab">
+                        <p>BaBy</p>
+                      </div>
                     </div>
-                    <div class="form-check li">
-                      <input type="radio" value="small" class="form-check-input" id="medium" name="size">
-                      <label class="form-check-label text-uppercase" for="medium">medium</label>
-                    </div>
-                    <div class="form-check li">
-                      <input type="radio" class="form-check-input" id="large" name="size" value="large">
-                      <label class="form-check-label text-uppercase" for="large">large</label>
-                    </div>
-                    <div class="form-check li">
-                      <input type="radio" class="form-check-input" id="custom" name="size" value="custom" checked>
-                      <label class="form-check-label text-uppercase" for="custom">Custom</label>
-                    </div>
-
                   </div>
-                </div>
-
+                 <!--buutons-->
+                 <div class="list-group-item py-1 border-0 d-flex justify-content-end px-0 mb-3">
+                   <span class="h4 text-success mr-5 success align-self-center pl-1">NGN 50,000</span>
+                   <button class="btn btn-primary purple-gradient">Order</button>
+                 </div>
                </div>
             </div>
       </div>
-     
+     <div class="row shadow-sm">
+       <div class="col-12">
+         <!-- Sizes -->
+         <div class="m-4">
+           <h1 class="h1-responsive">Select Size<span class="text-danger">*</span></h1>
+           <div class="mt-1">
+             <div class="form-check li">
+               <input type="radio" value="small" class="form-check-input" id="small" name="size">
+               <label class="form-check-label text-uppercase" for="small">small</label>
+             </div>
+             <div class="form-check li">
+               <input type="radio" value="small" class="form-check-input" id="medium" name="size">
+               <label class="form-check-label text-uppercase" for="medium">medium</label>
+             </div>
+             <div class="form-check li">
+               <input type="radio" class="form-check-input" id="large" name="size" value="large">
+               <label class="form-check-label text-uppercase" for="large">large</label>
+             </div>
+             <div class="form-check li">
+               <input type="radio" class="form-check-input" id="custom" name="size" value="custom" checked>
+               <label class="form-check-label text-uppercase" for="custom">Custom</label>
+             </div>
+
+           </div>
+         </div>
+       </div>
+     </div>
     </div>
   </div> 
 
