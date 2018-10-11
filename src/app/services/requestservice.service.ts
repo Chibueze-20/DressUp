@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RequestserviceService {
 
-    uri = 'http://localhost:4000/order';
+    uri = 'http://localhost:4000/request';
     constructor(private http: HttpClient) { }
 
     PostOrder(payload, url_path, param?) {

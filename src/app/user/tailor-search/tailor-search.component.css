@@ -6,7 +6,11 @@
 }
 .search-view{
     width: 50% !important;
-    margin-left:25% 
+    margin-left:25%;
+    transition-property: all;
+  transition-duration: 1.5s;
+  transition-delay: 0s;
+  transition-timing-function: cubic-bezier(0.25, 0.17, 0.74, 0.37);
 }
 .top-border{
     border-top: thin solid;

@@ -9,12 +9,14 @@ import { UserserviceService } from '../../userservice.service';
 export class CustomizeComponent implements OnInit {
   localDisplayUrl = null;
   localHeaderUrl = null;
-  details = null
-  constructor(public _settingsService: SettingsService, private userservice:UserserviceService) { }
+  localTags: any[] = [];
+  details = null;
+  constructor(public _settingsService: SettingsService, private userservice: UserserviceService) { }
   ngOnInit() {
-    this.details = this.Tailor()
+    this.details = this.Tailor();
+    this.localTags = this.details.Profile.Tags;
   }
-  Tailor(){
+  Tailor() {
     return JSON.parse(localStorage.getItem('User'));
   }
   changeTheme(i) {
@@ -33,6 +35,20 @@ export class CustomizeComponent implements OnInit {
   removeDisplay() {
     this.localDisplayUrl = '../../../assets/images/tailor-profile-dp.jpg';
   }
+
+  updateDisplay() {
+    const picture = this.uploadImage(this.localDisplayUrl);
+    if (picture) {
+      const body = {Display: this.localDisplayUrl};
+      this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
+        .subscribe(
+          (res) => {this.details.Profile = res; },
+          err => alert('Unable to make update')
+        );
+    } else {
+      alert('cannot change display picture');
+    }
+  }
   previewHeader(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -47,13 +63,52 @@ export class CustomizeComponent implements OnInit {
     this.localHeaderUrl = '../../../assets/images/header-bg-2.jpeg';
   }
 
+  updateHeader() {
+    const picture = this.uploadImage(this.localHeaderUrl);
+    if (picture) {
+      const body = {Background: this.localHeaderUrl};
+      this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
+        .subscribe(
+          (res) => {this.details.Profile = res; },
+          err => alert('Unable to make update')
+        );
+    } else {
+      alert('cannot update header image');
+    }
+  }
+
+  addTags(value: any) {
+    if (this.localTags.length < 5) {
+      this.localTags.push(value);
+    } else {
+      this.localTags.shift();
+      this.localTags.push(value);
+    }
+  }
+
   updateTags() {
-   let body = {Tags: this.details.Profile.Tags };
-    this.userservice.postData(this.userservice.uri+'/profile/update/'+this.details.Profile._id,body)
+   const body = {Tags: this.localTags };
+    this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
     .subscribe(
-      (res) => {this.details.Profile = res;}, 
+      (res) => {this.details.Profile = res; },
       err => alert('Unable to make update')
     );
+  }
+
+  uploadImage(localUrl: any) {
+    const  payload = {
+      file: localUrl,
+      upload_preset: 'postdress',
+      public_id: this.Tailor()._id + '/' + this.Tailor().Role + '/' + localUrl.toString().slice(0, 5)
+    };
+    this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
+      .subscribe(
+        (res) => {
+          return res;
+        } , error1 => {
+          console.log(error1);
+          return null;
+        } );
   }
 
 }

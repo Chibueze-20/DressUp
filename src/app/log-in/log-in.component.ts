@@ -95,7 +95,7 @@ export class LogInComponent implements OnInit {
       (res: Response) => {
         if (res.User && res.type !== 'Error') {
           localStorage.setItem('User', JSON.stringify(res.User));
-          this.route.navigateByUrl('/home')
+          this.route.navigateByUrl('/tailor/home/profile')
             .then(sm => console.log('routed' + sm));
         }
       }, (err: HttpErrorResponse) => {

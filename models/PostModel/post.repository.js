@@ -68,7 +68,13 @@ exports.followedPosts = function(req,res,next){
 
 // get one post by its ID
 exports.getPost = function(req, res, next){
-    Post.findOne({_id: req.params.id}).exec(function(err,post){
+    Post.findOne({_id: req.params.id})
+    .populate({
+        path: 'Tailor',
+        select: '_id Brand Profile',
+        populate: { path: 'Profile', select: 'Display'}
+    })
+    .exec(function(err,post){
         if(err){
             res.status(404).json(err);
         }else{

@@ -16,6 +16,7 @@ export class RequestComponent implements OnInit {
   RequestForm: FormGroup = null;
   constructor(private userservice: UserserviceService, private requestservice: RequestserviceService) {
     this.RequestForm = new FormGroup({
+      'User': new FormControl(null),
       'Tailor': new FormControl(null),
       'Title': new FormControl(null, Validators.required),
       'Description': new FormControl(null, Validators.required),
@@ -110,7 +111,7 @@ export class RequestComponent implements OnInit {
   }
 
   SendRequest(withtags: boolean) {
-    this.RequestForm.get('Tailor').setValue(this.user._id + '');
+    this.RequestForm.get('User').setValue(this.user._id + '');
     const picture = this.uploadImages(); const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg'];
     let body;
     if (picture.length > 0) {

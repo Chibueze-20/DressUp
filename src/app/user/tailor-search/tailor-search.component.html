@@ -11,20 +11,20 @@
         <div class="form-group md-form w-100">
           <i class="fas fa-search prefix"></i>
           <label for="search">tailor username</label>
-          <input type="search" name="" id="search" class="form-control" placeholder="">
+          <input type="search" name="" #Search (change)="search(Search.value)" id="search" class="form-control" placeholder="">
         </div>
       </div>
     </div>
   </div>
 </nav>
 <div style="margin-top: 10px">
-  <div class="search-view">
+  <div *ngIf="SearchResults.length > 0" class="search-view">
     <!--todo tailor search view-->
-    <ul style="height:50vh; overflow-y: auto" class="list-unstyled  list-inline">
-      <li class="w-100">
-        <div class="bottom-border top-border d-flex justify-content-between">
+    <ul style="max-height:100vh; overflow-y: auto" class="list-unstyled  list-inline">
+      <li *ngFor="let tailor of SearchResults; first as isfirst" class="w-100">
+        <div class="bottom-border animated fadeIn d-flex justify-content-between" [class.top-border]="isfirst">
           <div class="avatar img-size white"><img src="assets\images\tailor-profile-dp.jpg" class="rounded-circle img-fluid"></div>
-          <span style="align-self: center">Tailor XYZ</span>
+          <span style="align-self: center">{{tailor.Brand.BrandName}}</span>
           <span style="align-self: center">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</span>
         </div>
       </li>

@@ -1,28 +1,22 @@
-<div>
-  <div class="d-flex justify-content-start" style="left: 10px; top: 80px; position: fixed">
-    <a class="btn btn-sm m-0 mt-auto">Back</a>
-  </div>
-  <div class="container pt-2">
+<div *ngIf="Loader; else loader">
+  <div *ngIf="Bid; else nobid" class="container card bg-white pt-2">
     <div>
-      <div class="row bg-white flex-center surface-text text-uppercase">
+      <div class="row flex-center surface-text text-uppercase">
         <div class="text-center">
-          <h2 class="font-weight-bold mb-auto">Title</h2>
-          <h5 class="font-italic" style="margin-top: 15px">Kind</h5>
+          <!--{"Schedule":{"Duration":10},"Conditions":{"Fitness":"Semi-Fitted","Delivery":"Postal Service"},"Picture":["assets/images/pete-bellis-396528-unsplash.jpg"]}-->
+          <h2 class="font-weight-bold mb-auto">{{Bid.Title}}</h2>
+          <h5 class="font-italic" style="margin-top: 15px">{{Bid.Type}}</h5>
         </div>
       </div>
     </div>
     <div class="mt-4 row">
-      <div [ngClass]="{'col-md-12': !acceptbid,'col-md-6 col-sm-12': acceptbid}">
+      <div class="col-md-6 px-0 col-sm-12" [class.offset-md-3]="!acceptbid">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-1 flex-column flex-center offset-md-2">
-              <a class="btn btn-floating btn-sm"> << </a>
-            </div>
-            <div class="col-md-6">
+            <div>
               <div class="card card-cascade wider">
                 <div class="view view-cascade overlay">
                   <!--Image-->
-                  <img class="card-img-top" src="assets/images/clem-onojeghuo-197847-unsplash.jpg" alt="Card image cap">
+                  <img class="card-img-top" [src]="Bid.Picture[0]" alt="Card image cap">
                   <!--Image-->
 
                   <!--visible on hover-->
@@ -31,36 +25,33 @@
                   </a>
                 </div>
               </div>
-              <div class="d-flex mt-3 justify-content-center">
-                <span class="badge p-text"> Height: 40cm</span> <span class="badge p-text"> Height: 40cm</span> <span class="badge p-text"> Height: 40cm</span>
-              </div>
               <div class="px-4 mt-3">
+                <h5>Description</h5>
+                <hr class="py-1 m-0">
                 <p class="text-center">
-                  lorem ipsum sum sum ipsum dol algore sum dom tak done do weer asu dmfnthatsf thats fhrg shft sdewia hdfifhwi
-                  nadh the hdr aihs aidif sdidi ashasifi aoseu aaaife au su due iia diirha adirr adud fwihd shdeea ishfhd auhs
+                  {{Bid.Description}}
                 </p>
               </div>
             </div>
-            <div class="col-md-1">
-              <a class="btn btn-floating btn-sm"> >> </a>
-            </div>
+          <hr class="py-1">
+          <div class="mt-2 d-flex justify-content-between">
+            <p class="font-italic">{{Bid.Conditions.Fitness}}</p>
+            <p class="font-italic">{{Bid.Schedule.Duration}} days</p>
+            <p class="font-italic">{{Bid.Conditions.Delivery}}</p>
+          </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-dark" [class.hide]="acceptbid" (click)="maketerms()">Bid</button>
           </div>
         </div>
-        <div class="mt-2 d-flex justify-content-between col-md-8" [class.offset-md-2]="!acceptbid">
-          <p class="font-weight-bold " style="font-size: x-large; padding-top: 7px">Duration: </p>
-          <p class="font-weight-bold " style="font-size: x-large; padding-top: 7px">Fitting:  </p>
-          <p class="font-weight-bold " style="font-size: x-large; padding-top: 7px">Delivery: </p>
-          <button class="btn s-bg s-text mb-3 mt-0 mx-0" (click)="maketerms()" *ngIf="!acceptbid" >Bid Terms</button>
-        </div>
-      </div>
-      <div *ngIf="acceptbid" class="col-md-6 col-sm-12 animated slideInRight p-bg">
-        <h3 class="my-3">Set Schedule</h3>
+      <div *ngIf="acceptbid" class="col-md-6  col-sm-12 animated slideInRight p-bg">
+        <h3 class="my-2">Set Schedule</h3>
         <form class="form-inline">
           <input id="task" [(ngModel)]="schedule.task" name="task" type="text" placeholder="task..." class="form-control mr-2">
           <input id="duration" [(ngModel)]="schedule.duration" name="duration" type="number" min="1" placeholder="days.." class="form-control mr-1 my-sm-2">
           <button class="btn-sm m-0 btn waves-effect p-2 btn-light" (click)="addSchedule()">Add task</button>
         </form>
-        <div class="mt-3 mb-4" style="height: 300px;overflow-y: auto">
+        <div class="my-2" style="height: 200px;overflow-y: auto">
           <div class="flex-center" *ngIf="schedules.length === 0; else elseblock">
             <h1 class="font-italic font-weight-bold text-muted">Tasks...</h1>
           </div>
@@ -87,16 +78,71 @@
               <input type="text" id="price" [(ngModel)]="bidprice" class="form-control focus pl-0 rounded-0" placeholder="00.00">
             </div>
           </div>
-          <div class="mt-2 card card-body">
+          <div class="card card-body">
             <h2 class="font-weight-bold text-center">Bid Terms</h2>
             <p class="font-weight-bold" style="font-size: large">Schedule: <span style="font-size: medium">{{timeline}} days</span> </p>
             <p class="font-weight-bold" style="font-size: large">Bid: <span style="font-size: medium">{{bidprice | currency:"NGN ":true}}</span> </p>
           </div>
-          <div class="my-4">
+          <div class="my-2">
             <button class="btn btn-sm btn-block btn-dark m-0">Place Bid</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #nobid>
+    <div class="flex-center container">
+      <h1 style="padding: 3rem" class="text-muted font-italic h1-responsive">Bid not found...</h1>
+    </div>
+  </ng-template>
 </div>
+<ng-template #loader>
+  <div style="height: 90vh;" class="flex-center mask pattern-1">
+    <div class="preloader-wrapper big active crazy">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

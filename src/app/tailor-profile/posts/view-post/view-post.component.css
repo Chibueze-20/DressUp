@@ -76,3 +76,8 @@ a.active div.cardboard-paste {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
 }
+
+.tabsection{
+  height: 300px;
+  overflow-y: auto;
+}

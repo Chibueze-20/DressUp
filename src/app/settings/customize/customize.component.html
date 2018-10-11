@@ -34,8 +34,10 @@
                 </li>
         
                 </ul>
-              </div>
-        
+
+              <a class="nav-link text-center shadow-sm text-primary mt-5">Set as theme</a>
+            </div>
+
               <!-- Preview Theme -->
               <div class="col-7">
                 <div class="card">
@@ -131,6 +133,48 @@
 
     <!-- Change Header Image Section END -->
 
+    <!--Tags start-->
+
+    <!-- Toggle button START -->
+    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#tags" aria-expanded="false" aria-controls="tags">
+     Tags
+    </button>
+    <!-- Toggle button END -->
+
+    <!-- Collapse Content START -->
+
+    <div class="collapse mb-4 mt-4" id="tags">
+
+      <div class="row d-flex flex-md-row flex-sm-column">
+
+        <div class="col-5">
+          <div class="card">
+            <p class="font-small font-italic text-warning">Enter tags to further show what you do</p>
+           <div class="form-inline m-3">
+             <input type="text" title="enter a tag" #tag_input placeholder="enter a tag.." class="form-control">
+             <button class="btn btn-dark btn-sm" (click)="addTags(tag_input.value);tag_input.value = ''">Add</button>
+           </div>
+          </div>
+        </div>
+
+        <div class="col-7">
+          <div class="d-flex justify-content-center">
+
+            <div *ngFor="let tag of localTags" class="chip mx-3 darken-4">
+              <a>{{tag}}</a>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end mt-5">
+            <a class="nav-link text-center shadow-sm text-primary" (click)="updateTags()">Save</a>
+          </div>
+        </div>
+      </div>
+      <!-- Collapse Content END -->
+
+    </div>
+
+    <!--Tags end-->
+
     <!-- Select Feedback Section START --> 
     <!--TODO FEEDBACKS-->
       <!-- Toggle button START -->
@@ -151,9 +195,9 @@
 
         <div class="row d-flex flex-md-row flex-sm-column">
 
-          <div class="col-6">
+          <div class="col-12 row" style="height: 200px;overflow-y: auto">
             <!-- 1 -->
-            <div class="card list-group-item mx-md-4 my-sm-2">
+            <div class="card col-sm-12 col-md-5 list-group-item mx-md-4 my-sm-2">
                 <p class="text-center d-inline">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat.</p>
               <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
@@ -165,7 +209,7 @@
               </div>
 
               <!-- 2 -->
-            <div class="card list-group-item mx-md-4 my-sm-2">
+            <div class="card col-sm-12 col-md-5 list-group-item mx-md-4 my-sm-2">
                 <p class="text-center d-inline">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat.
                 </p>
@@ -176,47 +220,42 @@
                 <a class="card-link text-danger">remove</a>
               </div>
               </div>
-              
+
+            <!--3-->
+            <div class="card col-sm-12 col-md-5 list-group-item mx-md-4 my-sm-2">
+              <p class="text-center d-inline">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+                fugiat.</p>
+              <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+              <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+              <div class="d-flex justify-content-end">
+                <a class="card-link text-success">select</a>
+                <a class="card-link text-danger">remove</a>
+              </div>
             </div>
 
-            <div class="col-6">
-                <!-- 1 -->
-                <div class="card list-group-item mx-md-4 my-sm-2">
-                    <p class="text-center d-inline">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-                  fugiat.</p>
-                  <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
-                      <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
-                  <div class="d-flex justify-content-end">
-                    <a class="card-link text-success">select</a>
-                    <a class="card-link text-danger">remove</a>
-                  </div>
-                  </div>
-    
-                  <!-- 2 -->
-                  <!--<input type="checkbox" style="background-color: none !important">-->
-                <!--<div class="card list-group-item mx-md-4 my-sm-2">-->
-                    <!--<p class="text-center d-inline">-->
-                      <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat-->
-                  <!--fugiat.</p>-->
-                  <!--<footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>-->
-                      <!--<p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>-->
-                  <!--</div>-->
-                  <!---->
-                <!--</div>-->
-
-          </div>
-
+            <!--4-->
+            <div class="card col-sm-12 col-md-5 list-group-item mx-md-4 my-sm-2">
+              <p class="text-center d-inline">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+                fugiat.</p>
+              <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+              <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+              <div class="d-flex justify-content-end">
+                <a class="card-link text-success">select</a>
+                <a class="card-link text-danger">remove</a>
+              </div>
+            </div>
+              <div class="my-3">
+                <span class="nav-link text-primary">more...</span>
+              </div>
+            </div>
         <!-- Sample feedback END -->
 
         <!-- Action buttons -->
 
           <div class="row w-100">
             <div class="col-12 d-flex justify-content-md-end justify-content-sm-middle">
-
-              <button class="btn btn-primary btn-lg">
-                Refresh
-              </button>
 
               <button class="btn btn-info btn-lg">
                 Done

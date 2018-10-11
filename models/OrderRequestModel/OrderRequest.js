@@ -21,7 +21,7 @@ var Request = new Schema({
   Price: {
     type: String
   },
-  Images: [{
+  Picture: [{
     type: String
   }],
   Tags: [{type: String}],
@@ -58,11 +58,11 @@ var Request = new Schema({
   },
   Tailor: {
     type: Schema.Types.ObjectId,
-    rel: "User"
+    ref: "User"
   },
   User: {
     type: Schema.Types.ObjectId,
-    rel: "User"
+    ref: "User"
   },
   Sizes: [{
     Name: {

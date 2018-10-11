@@ -1,6 +1,6 @@
 <div class="container belleza px-md-3">
-  <div class="row flex-center mx-md-5 mb-2">
-    <ng-template *ngIf="Bids.length > 0; else elseblock">
+  <div id="contain-all">
+    <div class="row flex-center mx-md-5 mb-2" *ngIf="Bids.length > 0; else elseblock">
       <!-- Card Wider -->
       <!-- Card -->
       <div *ngFor="let bid of Bids" class="card my-3 mx-0 col-md-6 col-sm-12 card-cascade wider">
@@ -14,7 +14,7 @@
             <!-- Slide wrapper -->
             <div class="carousel-inner" style="height: inherit;" role="listbox" >
               <!--slides-->
-              <div *ngFor="let image of bid.Images; first as isFirst" class="carousel-item" [class.active]="isFirst" style="height: 100%;">
+              <div *ngFor="let image of bid.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst" style="height: 100%;">
                 <img class="card-img-top" [src]="image" alt="Card image cap">
               </div>
             </div>
@@ -48,13 +48,13 @@
           <!--Bidding constraints-->
           <div class="text-center d-flex justify-content-between out waves-effect">
             <div class="mx-md-2">
-              <i class="far pt-1 fa-clock "></i><p class="m-0  pt-1">Fitness: {{bid.Conditions.Fitness}}</p>
+              <i class="far pt-1 fa-clock "></i><p class="m-0 font-small  pt-1">Fitness: {{bid.Conditions.Fitness}}</p>
             </div>
             <div class="mx-md-2">
-              <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1">Schedule: {{bid.Schedule.Duration}} days</p>
+              <i class="far pt-1 fa-clock "></i><p class="m-0 font-small pt-1">Schedule: {{bid.Schedule.Duration}} days</p>
             </div>
             <div class="mx-md-2">
-              <i class="far pt-1 fa-clock "></i><p class="m-0 pt-1">Delivery: {{bid.Conditions.Delivery}}</p>
+              <i class="far pt-1 fa-clock "></i><p class="m-0 font-small pt-1">Delivery: {{bid.Conditions.Delivery}}</p>
             </div>
             <hr class="my-1">
           </div>
@@ -62,7 +62,7 @@
 
           <!--Button-->
           <div class="d-flex justify-content-end">
-            <a  class="black-text waves-effect"><span class="text-uppercase px-2">View</span><i class="fas fa-ellipsis-h"></i></a>
+            <a routerLink="/tailor/job/view/{{bid._id}}" class="black-text waves-effect"><span class="text-uppercase px-2">View</span><i class="fas fa-ellipsis-h"></i></a>
           </div>
           <!--Button-->
 
@@ -71,7 +71,10 @@
         <!-- Card -->
       </div>
       <!-- Card Wider -->
-    </ng-template>
+      <div class="p-5">
+        <p style="padding-bottom: 5rem">Loading....</p>
+      </div>
+    </div>
     <ng-template #elseblock>
       <div style="height: 50vh" class="flex-center">
         <div>

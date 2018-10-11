@@ -120,7 +120,7 @@
         </div>
         <div [class.hide]="!isDirect" class="animated fadeIn row">
           <div class="input-group col-md-6 col-sm-12 mb-3">
-            <input formControlName="Tailor" type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
+            <input formControlName="Tailor" #tailor type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
               aria-describedby="basic-addon-1" name="" id="">
           </div>
           <div class="col-md-6 col-sm-12 btn-group dropright">
@@ -129,7 +129,7 @@
               <span>tailors you follow</span>
             </button>
             <div class="dropdown-menu w-100 s-light">
-              <a class="dropdown-item dropdown-hover">tailor!</a>
+              <a class="dropdown-item dropdown-hover" (click)="tailor.value='tailor'">tailor!</a>
               <a class="dropdown-item dropdown-hover">tailorXYZ</a>
               <a class="dropdown-item dropdown-hover">tailor&</a>
             </div>

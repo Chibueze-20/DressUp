@@ -14,7 +14,7 @@ var Size = new Schema({
     }
 })
 var Post = new Schema({
-    Tailor : {type:Schema.Types.ObjectId, rel: "User"},
+    Tailor : {type:Schema.Types.ObjectId, ref: "User"},
     Title: {type: String},
     Picture:[ 
         {type: String}

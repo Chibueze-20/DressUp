@@ -1,13 +1,12 @@
 var User = require('./User');
 var Profile = require('../ProfileModel/Profile');
 //Create
-exports.createUser = function (req,res,next) {
-  let profile = new Profile({Theme:'Default Theme'});
+exports.createDesigner = function (req,res,next) {
+  let profile = new Profile({Tags:['weddings','casual','kiddies']});
     profile.save(function(err,Profile){
       if(err){
         console.log(err);
       }
-      console.log(Profile);
       let newUser = new User(req.body);
       newUser.Profile = profile._id;
       newUser.save(function(err,newuser){
@@ -18,7 +17,17 @@ exports.createUser = function (req,res,next) {
         }
     });
   });
-  
+}
+//Create
+exports.createUser = function(req,res,next){
+  let newUser = new User(req.body);
+  newUser.save(function(err,user){
+      if(err){
+        res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
+      }else{
+        res.status(200).json({Message: "User Successfully added",type:"Success", User: newuser})
+      }
+  });
 }
 //Read -all
 exports.getAllUsers = function (req,res,next) {

@@ -70,7 +70,8 @@ var User = new Schema({
       type: String
     },
     BrandDescription: {
-      type: String
+      type: String,
+      default: 'this is a random description head on to settings to give a better description of your brand'
     },
     WorkAddress: {
       type: String

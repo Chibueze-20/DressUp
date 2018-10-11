@@ -42,7 +42,10 @@ const routes: Routes = [
         ]
       },
       { path: 'post/new', component: PostComponent },
-      { path: 'post/:id', component: ViewPostComponent },
+      {path: 'job', children: [
+          {path: 'view/:id', component: BidViewComponent}
+        ]
+      },
       {
         path: 'settings', component: SettingsComponent, children: [
           { path: '', redirectTo: 'customize', pathMatch: 'full' },

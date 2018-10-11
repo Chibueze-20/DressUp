@@ -14,6 +14,7 @@ mongoose.connect(config.DB,{ useNewUrlParser: true}).then(
 );
 
 const userController = require('./controllers/user.controller');
+const requestController = require('./controllers/request.controller')
 const orderRequestController = require('./controllers/OrderRequest.controller');
 const postController = require('./controllers/post.controller');
 const feedbackController = require('./controllers/feedback.contoller');
@@ -25,6 +26,7 @@ app.use(cors())
 var port = process.env.PORT || 4000;
 
 app.use('/user',userController);
+app.use('/request',requestController)
 app.use('/order',orderRequestController);
 app.use('/post',postController);
 app.use('/feedback',feedbackController);

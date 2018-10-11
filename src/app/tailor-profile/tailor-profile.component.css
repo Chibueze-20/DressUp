@@ -1,5 +1,6 @@
 .main-header {
     background-image: url("../../assets/images/header-bg.jpeg");
+    background-size: cover;
     background-color: #7faeb4;
     margin: 0;
 } 

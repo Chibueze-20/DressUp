@@ -8,24 +8,27 @@ import { UserserviceService } from '../userservice.service'
   styleUrls: ['./tailor-profile.component.css']
 })
 export class TailorProfileComponent implements OnInit {
-  public static Tailor: any;
-  details:any = null;
-  feedbacks:any = null;
-  constructor(private router:Router, private _settingsService:SettingsService, private userservice:UserserviceService) { }
+  public static Tailor: any = '5bb137f48ca4291efc515a7c';
+  details: any = null;
+  feedbacks: any = null;
+  constructor(private router: Router, private _settingsService: SettingsService, private userservice: UserserviceService) { }
 
   ngOnInit() {
-    this.userservice.getData(this.userservice.uri+'/'+'tailor/'+TailorProfileComponent.Tailor)
+    if (this.User.Role === 'Designer') {
+      TailorProfileComponent.Tailor = this.User._id;
+    }
+    this.userservice.getData(this.userservice.uri + '/' + 'tailor/' + TailorProfileComponent.Tailor)
     .subscribe(
-      (res) => {this.details = res;},
+      (res) => {this.details = res; },
       error => alert(error)
-    )
+    );
 
   }
   goToSettings() {
-    this.router.navigateByUrl("/settings");
+    this.router.navigateByUrl('/settings');
   }
-  goToAddPost():void {
-    this.router.navigateByUrl("/post");
+  goToAddPost(): void {
+    this.router.navigateByUrl('/post');
   }
   get Details() {
     return this.details;
@@ -33,5 +36,16 @@ export class TailorProfileComponent implements OnInit {
   get Feedbacks() {
     return this.feedbacks;
   }
+
+  get User() {
+    return JSON.parse(localStorage.getItem('User'));
+  }
+   get headerStyles() {
+    if (this.details.Profile.Background) {
+      return 'url(' + this.details.Profile.Background + ')';
+    } else {
+      return 'url(../../assets/images/header-bg-2.jpeg)';
+    }
+   }
 
 }

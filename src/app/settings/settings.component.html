@@ -6,7 +6,7 @@
 
     <!-- Side Navigation START-->
 
-    <div class="col-md-3 flex-md-column flex-sm-row d-flex justify-content-between" id="side-nav">
+    <div class="col-md-3 col-sm-12 flex-md-column flex-sm-row d-flex justify-content-sm-start justify-content-md-between" id="side-nav">
       <!-- Links -->
       <ul class="nav flex-md-column flex-sm-row mt-5">
         <li class="nav-item">
@@ -17,18 +17,21 @@
             Account Settings
           </a>
         </li>
+      <li class="nav-link link">
+        <!-- Back button -->
+        <button  class="nav-item btn mb-3 px-0">
+          Back
+        </button>
+      </li>
       </ul>
-      <!-- Back button -->
-      <button (click)="goback()" class="nav-item btn mb-3 px-0">
-        Back
-      </button>
+
   </div>
 
   <!-- Side Navigation END -->
 
   <!-- Settings view START -->
 
-  <div class="col-md-9" id="settings-view">
+  <div class="col-md-9 col-sm-12" id="settings-view">
     <div class="p-3 ml-3">
       <h3>Settings</h3>
     </div>
@@ -37,4 +40,5 @@
 
   <!-- Settings view END -->
 
+</div>
 </div>

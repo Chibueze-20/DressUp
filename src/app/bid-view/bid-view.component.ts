@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Schedule} from '../shared/schedule';
+import {ActivatedRoute} from '@angular/router';
+import {ViewserviceService} from '../services/viewservice.service';
+import {RequestserviceService} from '../services/requestservice.service';
+import {Navigation} from '../shared/Navigation';
 
 @Component({
   selector: 'app-bid-view',
@@ -7,7 +11,9 @@ import {Schedule} from '../shared/schedule';
   styleUrls: ['./bid-view.component.css']
 })
 export class BidViewComponent implements OnInit {
-  acceptbid = true;
+  loader = false;
+  bid: any = null;
+  acceptbid = false;
   bidprice: string;
   task: string;
   duration: number;
@@ -15,11 +21,25 @@ export class BidViewComponent implements OnInit {
   schedules:  Schedule[] = [];
   schedule: Schedule = new Schedule();
   private temp: Schedule = new Schedule();
-  constructor() { }
+  constructor(private route: ActivatedRoute, private service: ViewserviceService, private bidservice: RequestserviceService) { }
 
   ngOnInit() {
+    Navigation.Title = 'Bid';
+    const id = this.route.snapshot.paramMap.get('id');
+    const body = {ID: id};
+    setInterval( () => {
+      this.bidservice.PostOrder(body, 'view')
+        .subscribe(
+          (res) => {this.bid = res; this.loader = true; }, err => {alert(err); this.loader = true; }
+        );
+    }, 2000);
   }
-
+ get Loader() {
+    return this.loader;
+ }
+  get Bid() {
+    return this.bid;
+  }
   maketerms() {
     this.acceptbid = true;
 
@@ -36,6 +56,7 @@ export class BidViewComponent implements OnInit {
   removeSchedule(i: number) {
     let temparr: any[];
     temparr = this.schedules;
+    this.totalTimeline = this.totalTimeline - temparr[i].duration;
     temparr = temparr.filter(schedule => this.schedules.indexOf(schedule) !== i);
     this.updatearry(temparr);
   }

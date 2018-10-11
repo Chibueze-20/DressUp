@@ -107,6 +107,10 @@ export class SignUpComponent implements OnInit {
                                 WorkAddress: this.getbrand.get('workAddress').value
                                 }
                       };
+        this.userservice.postData(this.userservice.uri + '/designer/new', signUpDetails)
+          .subscribe(
+            (res) => {alert('User successfully added'); }, error1 => alert(error1)
+          );
       } else {
         signUpDetails = { Role: this.realRole(this.getrole.value),
                           Contact: {State: this.getaddress.value},
@@ -115,8 +119,13 @@ export class SignUpComponent implements OnInit {
                                     Password: this.getaccount.get('password').value
                                     }
                         };
+        this.userservice.postData(this.userservice.uri + '/user/new', signUpDetails)
+          .subscribe(
+            (res) => {alert('User successfully added'); }, error1 => alert(error1)
+          );
       }
-    this.userservice.addUser(signUpDetails);
+      return;
+
   }
   // checks if the sign up form is currently filled as a seller
  public get isbuyer() {return this.signUpForm.get('role').value === 'Clients'; }

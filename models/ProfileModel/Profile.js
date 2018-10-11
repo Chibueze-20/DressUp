@@ -7,11 +7,16 @@ var Profile = new Schema({
 
     Theme: {
         type: String,
-        default:'Default Theme'
+        default:'Clay Theme'
     },
     Background:{
-        type: String
+        type: String,
+        default: '../../assets/images/clark-street-mercantile-33931-unsplash.jpg'
     },
+  Display:{
+      type: String,
+      default: 'assets/images/person-flat.png'
+  },
     Tags: [{type: String}],
     Feedbacks:[{type: Schema.Types.ObjectId, ref:'Feedback'}],
 
