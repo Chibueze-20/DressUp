@@ -7,25 +7,29 @@ import { LogInComponent } from '../log-in/log-in.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { AccountSettingsComponent } from '../account-settings/account-settings.component';
 import { TailorComponent } from '../tailor/tailor.component';
-import { TailorHomeComponent } from '../tailor-home/tailor-home.component';
-import { TailorJobComponent } from '../tailor-job/tailor-job.component';
-import { TailorProfileComponent } from '../tailor-profile/tailor-profile.component';
+import { TailorHomeComponent } from '../tailor/tailor-home/tailor-home.component';
+import { TailorJobComponent } from '../tailor/tailor-job/tailor-job.component';
+import { TailorProfileComponent } from '../tailor/tailor-profile/tailor-profile.component';
 import { CustomizeComponent } from '../settings/customize/customize.component';
-import { PostsComponent } from '../tailor-profile/posts/posts.component';
-import { PostComponent } from '../tailor-profile/post/post.component';
-import { ViewPostComponent } from '../tailor-profile/posts/view-post/view-post.component';
+import { PostsComponent } from '../tailor/tailor-profile/posts/posts.component';
+import { PostComponent } from '../tailor/tailor-profile/post/post.component';
+import { ViewPostComponent } from '../tailor/tailor-profile/posts/view-post/view-post.component';
 import { UserComponent } from '../user/user.component';
 import { UserHomeComponent } from '../user/user-home/user-home.component';
 import { TailorFeedsComponent } from '../user/tailor-feeds/tailor-feeds.component';
 import { RequestComponent } from '../user/request/request.component';
 import { TailorSearchComponent } from '../user/tailor-search/tailor-search.component';
 import {BidViewComponent} from '../bid-view/bid-view.component';
+import {NotificationsComponent} from '../notifications/notifications.component';
+import {AccountNotificationsComponent} from '../notifications/account-notifications/account-notifications.component';
+import {BidNotificationsComponent} from '../notifications/bid-notifications/bid-notifications.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: 'index', component: LandingComponent },
   { path: 'login', component: LogInComponent },
   { path: 'register', component: SignUpComponent },
+  { path: 'admin', loadChildren: '../admin/admin.module#AdminModule'},
   // Tailor Routes
   {
     path: 'tailor', component: TailorComponent, children: [
@@ -81,7 +85,13 @@ const routes: Routes = [
     }
     ]
   },
-  { path: 'search', component: TailorSearchComponent }
+  { path: 'search', component: TailorSearchComponent },
+
+  // Notifications
+  {path: 'notifications', component: NotificationsComponent, children: [
+      {path: 'account', component: AccountNotificationsComponent},
+      {path: 'bids', component: BidNotificationsComponent}
+    ]}
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="container-fluid bg-white p-4">
+    <div class="d-flex navbtn justify-content-start">
+      <span style="font-size: 1.6rem" (click)="openNav()"> > </span>
+      <div class="flex-center flex-grow-1">
+        <div class="d-flex text-center text-uppercase flex-column justify-content-between">
+          <h1 class="h1-responsive">Notifications</h1>
+          <span style="font-size: larger" class="font-italic">{{Navigation}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="sidenav" id="mySidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()" rel="noopener noreferrer">&times;</a>
+  <a routerLink="bids" routerLinkActive="menu-active">Bids</a>
+  <a routerLink="account" routerLinkActive="menu-active">Notifications</a>
+  <a href="javascript:void(0)">back</a>
+</div>
+<router-outlet></router-outlet>
