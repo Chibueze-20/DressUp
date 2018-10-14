@@ -18,13 +18,14 @@ const requestController = require('./controllers/request.controller')
 const orderRequestController = require('./controllers/OrderRequest.controller');
 const postController = require('./controllers/post.controller');
 const feedbackController = require('./controllers/feedback.contoller');
-const searchController = require('./controllers/search.controller')
-
+const searchController = require('./controllers/search.controller');
+const adminController = require('./controllers/admin.controller');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors())
 var port = process.env.PORT || 4000;
 
+app.use('/admin',adminController);
 app.use('/user',userController);
 app.use('/request',requestController)
 app.use('/order',orderRequestController);

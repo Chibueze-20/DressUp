@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SettingsService } from '../settings.service';
-import { UserserviceService } from '../userservice.service'
+import { SettingsService } from '../../settings.service';
+import { UserserviceService } from '../../userservice.service'
 @Component({
   selector: 'app-tailor-profile',
   templateUrl: './tailor-profile.component.html',

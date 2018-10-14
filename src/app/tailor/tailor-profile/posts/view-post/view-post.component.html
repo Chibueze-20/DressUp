@@ -3,7 +3,29 @@ Description, Price, Conditions, Permissions, Size, Image -->
 
 <div class="container">
   <!-- Main Container -->
-  <div *ngIf="Post; else nopost" class="row p-md-3 p-sm-1 mx-3">
+  <div *ngIf="Post !== null; else nopost" class="row p-md-3 p-sm-1 mx-3">
+    <!-- MODAL -->
+    <div class="modal fade" id="paymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <button type="button" #modal_close class="close text-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-column justify-content-between">
+              <span class="p-3 ">Place an order for {{Post.Title}}</span>
+              <span class="p-3">Price: NGN {{Post.Price}}</span>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-outline-light-blue" (click)="modal_close.click();showPayment()" >Accept and Proceed to payment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL -->
     <div class="col-12 px-md-4 px-sm-4 pb-2 rounded-0 ">
 
       <div class="row bg-white shadow-sm">
@@ -29,21 +51,10 @@ Description, Price, Conditions, Permissions, Size, Image -->
               <!--<button class="btn btn-primary purple-gradient">Order</button>-->
             </div>
 
-            <!-- Collapsible content START -->
-
-            <!-- Collapse Content END -->
-
-            <!-- <div class="list-group-item p-1 border-0 mb-2">
-                   
-                   <div class="bg-success cardboard-paste text-white px-4"><a class="font-weight-bold p-1">Free</a></div>
-                 </div> -->
-
-            <!-- Conditions START -->
-
             <div class="list-group-item p-1 border-0 d-flex mb-2">
               <ul class="list-unstyled w-100 list-inline">
                 <li *ngIf="Post.Conditions.BYOM == 'true'" class="p-2 my-2 border-top border-bottom">
-                  <div  class="d-flex justify-content-between ">
+                  <div class="d-flex justify-content-between ">
                     <span class="cardboard-tag bg-success px-3 py-2"></span>
                     <i style="font-size: x-large" class="ml-5 text-success fas fa-box"></i>
                     <span class="ml-auto">Buy your own material</span>
@@ -102,32 +113,33 @@ Description, Price, Conditions, Permissions, Size, Image -->
               <div class="tab-content card" id="tab-content">
                 <div class="tab-pane tabsection fade show active" id="male" role="tabpanel" aria-labelledby="male-tab">
                   <p class="font-italic">Available sizes</p>
-                  <div  class="form-check li">
-                    <input type="radio" class="form-check-input" id="custom" name="size"  (click)="selectSize('male','custom')">
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom" name="size" (click)="selectSize('male','custom')">
                     <label class="form-check-label text-uppercase" for="custom">Custom</label>
                   </div>
                   <!-- Material inline 1 -->
                   <div *ngIf="Post.Sizes.Men.S == true" class="form-check li">
-                    <input name="size"  (click)="selectSize('male','S')" #men_s type="radio" class="form-check-input" id="materialInline1">
+                    <input name="size" (click)="selectSize('male','S')" #men_s type="radio" class="form-check-input" id="materialInline1">
                     <label class="form-check-label" for="materialInline1">S</label>
                   </div>
                   <!-- Material inline 2 -->
-                  <div *ngIf="Post.Sizes.Men.M == true"  class="form-check li">
+                  <div *ngIf="Post.Sizes.Men.M == true" class="form-check li">
                     <input name="size" (click)="selectSize('male','M')" #men_m type="radio" class="form-check-input" id="materialInline2">
                     <label class="form-check-label" for="materialInline2">M</label>
                   </div>
                   <!-- Material inline 3 -->
-                  <div *ngIf="Post.Sizes.Men.L == true"  class="form-check li">
+                  <div *ngIf="Post.Sizes.Men.L == true" class="form-check li">
                     <input name="size" (click)="selectSize('male','L')" #men_L type="radio" class="form-check-input" id="materialInline3">
                     <label class="form-check-label" for="materialInline3">L</label>
                   </div>
                   <!-- Material inline 4 -->
-                  <div *ngIf="Post.Sizes.Men.XL == true"  class="form-check li">
-                    <input name="size" (click)="selectSize('male','XL')" #men_XL type="radio" class="form-check-input" id="materialInline4">
+                  <div *ngIf="Post.Sizes.Men.XL == true" class="form-check li">
+                    <input name="size" (click)="selectSize('male','XL')" #men_XL type="radio" class="form-check-input"
+                      id="materialInline4">
                     <label class="form-check-label" for="materialInline4">XL</label>
                   </div>
                   <!-- Material inline 5 -->
-                  <div *ngIf="Post.Sizes.Men.XXL == true"  class="form-check li">
+                  <div *ngIf="Post.Sizes.Men.XXL == true" class="form-check li">
                     <input name="size" (click)="selectSize('male','XXL')" #men_XXL type="radio" class="form-check-input"
                       id="materialInline5">
                     <label class="form-check-label" for="materialInline5">XXL</label>
@@ -135,8 +147,8 @@ Description, Price, Conditions, Permissions, Size, Image -->
                 </div>
                 <div class="tab-pane tabsection fade" id="female" role="tabpanel" aria-labelledby="female-tab">
                   <p class="font-italic">Available sizes</p>
-                  <div   class="form-check li">
-                    <input type="radio" class="form-check-input" id="custom2" name="size"  (click)="selectSize('female','custom')">
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom2" name="size" (click)="selectSize('female','custom')">
                     <label class="form-check-label text-uppercase" for="custom2">Custom</label>
                   </div>
                   <div *ngIf="Post.Sizes.Women.XXS == true" class="form-check li">
@@ -196,7 +208,7 @@ Description, Price, Conditions, Permissions, Size, Image -->
                 <div class="tab-pane tabsection fade" id="boy" role="tabpanel" aria-labelledby="boy-tab">
                   <p class="font-italic">Available sizes</p>
                   <div class="form-check li">
-                    <input type="radio" class="form-check-input" id="custom3" name="size"  (click)="selectSize('boy','custom')">
+                    <input type="radio" class="form-check-input" id="custom3" name="size" (click)="selectSize('boy','custom')">
                     <label class="form-check-label text-uppercase" for="custom3">Custom</label>
                   </div>
                   <!-- Material inline 1 -->
@@ -250,179 +262,188 @@ Description, Price, Conditions, Permissions, Size, Image -->
                     <label class="form-check-label" for="materialInline310">sz 16</label>
                   </div>
                 </div>
-              <div class="tab-pane tabsection fade" id="girl" role="tabpanel" aria-labelledby="girl-tab">
-                <p class="font-italic">Available sizes</p>
-                <div class="form-check li">
-                  <input type="radio" class="form-check-input" id="custom4" name="size"  (click)="selectSize('girl','custom')">
-                  <label class="form-check-label text-uppercase" for="custom4">Custom</label>
+                <div class="tab-pane tabsection fade" id="girl" role="tabpanel" aria-labelledby="girl-tab">
+                  <p class="font-italic">Available sizes</p>
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom4" name="size" (click)="selectSize('girl','custom')">
+                    <label class="form-check-label text-uppercase" for="custom4">Custom</label>
+                  </div>
+                  <div *ngIf="Post.Sizes.Boy.Size4 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','4')" #yg_4 type="radio" class="form-check-input" id="materialInline41">
+                    <label class="form-check-label" for="materialInline41">sz 4</label>
+                  </div>
+                  <!-- Material inline 2 -->
+                  <div *ngIf="Post.Sizes.Boy.Size5 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','5')" #yg_5 type="radio" class="form-check-input" id="materialInline42">
+                    <label class="form-check-label" for="materialInline42">sz 5</label>
+                  </div>
+                  <!-- Material inline 3 -->
+                  <div *ngIf="Post.Sizes.Boy.Size6 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','6')" #yg_6 type="radio" class="form-check-input" id="materialInline43">
+                    <label class="form-check-label" for="materialInline43">sz 6</label>
+                  </div>
+                  <!-- Material inline 4 -->
+                  <div *ngIf="Post.Sizes.Boy.Size7 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','7')" #yg_7 type="radio" class="form-check-input" id="materialInline44">
+                    <label class="form-check-label" for="materialInline44">sz 7</label>
+                  </div>
+                  <!-- Material inline 5 -->
+                  <div *ngIf="Post.Sizes.Boy.Size8 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','8')" #yg_8 type="radio" class="form-check-input" id="materialInline45">
+                    <label class="form-check-label" for="materialInline45">sz 8</label>
+                  </div>
+                  <!-- Material inline 6 -->
+                  <div *ngIf="Post.Sizes.Boy.Size9 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','9')" #yg_9 type="radio" class="form-check-input" id="materialInline46">
+                    <label class="form-check-label" for="materialInline46">sz 9</label>
+                  </div>
+                  <!-- Material inline 7 -->
+                  <div *ngIf="Post.Sizes.Boy.Size10 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','10')" #yg_10 type="radio" class="form-check-input"
+                      id="materialInline47">
+                    <label class="form-check-label" for="materialInline47">sz 10</label>
+                  </div>
+                  <!-- Material inline 8 -->
+                  <div *ngIf="Post.Sizes.Boy.Size12 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','12')" #yg_12 type="radio" class="form-check-input"
+                      id="materialInline48">
+                    <label class="form-check-label" for="materialInline48">sz 12</label>
+                  </div>
+                  <!-- Material inline 9 -->
+                  <div *ngIf="Post.Sizes.Boy.Size14 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','14')" #yg_14 type="radio" class="form-check-input"
+                      id="materialInline49">
+                    <label class="form-check-label" for="materialInline49">sz 14</label>
+                  </div>
+                  <!-- Material inline 10 -->
+                  <div *ngIf="Post.Sizes.Boy.Size16 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('girl','16')" #yg_16 type="radio" class="form-check-input"
+                      id="materialInline410">
+                    <label class="form-check-label" for="materialInline410">sz 16</label>
+                  </div>
                 </div>
-                <div *ngIf="Post.Sizes.Boy.Size4 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','4')" #yg_4 type="radio" class="form-check-input" id="materialInline41">
-                  <label class="form-check-label" for="materialInline41">sz 4</label>
-                </div>
-                <!-- Material inline 2 -->
-                <div *ngIf="Post.Sizes.Boy.Size5 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','5')" #yg_5 type="radio" class="form-check-input" id="materialInline42">
-                  <label class="form-check-label" for="materialInline42">sz 5</label>
-                </div>
-                <!-- Material inline 3 -->
-                <div *ngIf="Post.Sizes.Boy.Size6 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','6')" #yg_6 type="radio" class="form-check-input" id="materialInline43">
-                  <label class="form-check-label" for="materialInline43">sz 6</label>
-                </div>
-                <!-- Material inline 4 -->
-                <div *ngIf="Post.Sizes.Boy.Size7 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','7')" #yg_7 type="radio" class="form-check-input" id="materialInline44">
-                  <label class="form-check-label" for="materialInline44">sz 7</label>
-                </div>
-                <!-- Material inline 5 -->
-                <div *ngIf="Post.Sizes.Boy.Size8 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','8')" #yg_8 type="radio" class="form-check-input" id="materialInline45">
-                  <label class="form-check-label" for="materialInline45">sz 8</label>
-                </div>
-                <!-- Material inline 6 -->
-                <div *ngIf="Post.Sizes.Boy.Size9 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','9')" #yg_9 type="radio" class="form-check-input" id="materialInline46">
-                  <label class="form-check-label" for="materialInline46">sz 9</label>
-                </div>
-                <!-- Material inline 7 -->
-                <div *ngIf="Post.Sizes.Boy.Size10 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','10')" #yg_10 type="radio" class="form-check-input" id="materialInline47">
-                  <label class="form-check-label" for="materialInline47">sz 10</label>
-                </div>
-                <!-- Material inline 8 -->
-                <div *ngIf="Post.Sizes.Boy.Size12 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','12')" #yg_12 type="radio" class="form-check-input" id="materialInline48">
-                  <label class="form-check-label" for="materialInline48">sz 12</label>
-                </div>
-                <!-- Material inline 9 -->
-                <div *ngIf="Post.Sizes.Boy.Size14 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','14')" #yg_14 type="radio" class="form-check-input" id="materialInline49">
-                  <label class="form-check-label" for="materialInline49">sz 14</label>
-                </div>
-                <!-- Material inline 10 -->
-                <div *ngIf="Post.Sizes.Boy.Size16 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('girl','16')" #yg_16 type="radio" class="form-check-input" id="materialInline410">
-                  <label class="form-check-label" for="materialInline410">sz 16</label>
-                </div>
-              </div>
-              <div class="tab-pane tabsection fade" id="kid" role="tabpanel" aria-labelledby="kid-tab">
-                <p class="font-italic">Available sizes</p>
-                <div class="form-check li">
-                  <input type="radio" class="form-check-input" id="custom5" name="size"  (click)="selectSize('kid','custom')">
-                  <label class="form-check-label text-uppercase" for="custom5">Custom</label>
-                </div>
-                <!-- Material inline 1 -->
-                <div *ngIf="Post.Sizes.Kid.XXS == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','XXS')" #k_xxs type="radio" class="form-check-input" id="materialInline51">
-                  <label class="form-check-label" for="materialInline51">XXS</label>
-                </div>
+                <div class="tab-pane tabsection fade" id="kid" role="tabpanel" aria-labelledby="kid-tab">
+                  <p class="font-italic">Available sizes</p>
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom5" name="size" (click)="selectSize('kid','custom')">
+                    <label class="form-check-label text-uppercase" for="custom5">Custom</label>
+                  </div>
+                  <!-- Material inline 1 -->
+                  <div *ngIf="Post.Sizes.Kid.XXS == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','XXS')" #k_xxs type="radio" class="form-check-input"
+                      id="materialInline51">
+                    <label class="form-check-label" for="materialInline51">XXS</label>
+                  </div>
 
-                <!-- Material inline 2 -->
-                <div *ngIf="Post.Sizes.Kid.XS == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','XS')" #k_xs type="radio" class="form-check-input" id="materialInline52">
-                  <label class="form-check-label" for="materialInline52">XS</label>
+                  <!-- Material inline 2 -->
+                  <div *ngIf="Post.Sizes.Kid.XS == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','XS')" #k_xs type="radio" class="form-check-input" id="materialInline52">
+                    <label class="form-check-label" for="materialInline52">XS</label>
+                  </div>
+                  <!-- Material inline 3 -->
+                  <div *ngIf="Post.Sizes.Kid.S == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','S')" #k_s type="radio" class="form-check-input" id="materialInline53">
+                    <label class="form-check-label" for="materialInline53">S</label>
+                  </div>
+                  <!-- Material inline 4 -->
+                  <div *ngIf="Post.Sizes.Kid.M == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','M')" #k_m type="radio" class="form-check-input" id="materialInline54">
+                    <label class="form-check-label" for="materialInline54">M</label>
+                  </div>
+                  <!-- Material inline 5 -->
+                  <div *ngIf="Post.Sizes.Kid.L == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','L')" #k_l type="radio" class="form-check-input" id="materialInline55">
+                    <label class="form-check-label" for="materialInline55">L</label>
+                  </div>
+                  <!-- Material inline 6 -->
+                  <div *ngIf="Post.Sizes.Kid.XL == true" class="form-check li">
+                    <input name="size" (click)="selectSize('kid','XL')" #k_xl type="radio" class="form-check-input" id="materialInline56">
+                    <label class="form-check-label" for="materialInline56">XL</label>
+                  </div>
                 </div>
-                <!-- Material inline 3 -->
-                <div *ngIf="Post.Sizes.Kid.S == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','S')" #k_s type="radio" class="form-check-input" id="materialInline53">
-                  <label class="form-check-label" for="materialInline53">S</label>
+                <div class="tab-pane tabsection fade" id="toddler" role="tabpanel" aria-labelledby="toddler-tab">
+                  <p class="font-italic">Available sizes</p>
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom6" name="size" (click)="selectSize('toddler','custom')">
+                    <label class="form-check-label text-uppercase" for="custom6">Custom</label>
+                  </div>
+                  <!-- Material inline 1 -->
+                  <div *ngIf="Post.Sizes.Toddler.T1 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('toddler','T1')" #T1 type="radio" class="form-check-input"
+                      id="materialInline61">
+                    <label class="form-check-label" for="materialInline61">T1</label>
+                  </div>
+                  <!-- Material inline 2 -->
+                  <div *ngIf="Post.Sizes.Toddler.T2 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('toddler','T2')" #T2 type="radio" class="form-check-input"
+                      id="materialInline62">
+                    <label class="form-check-label" for="materialInline62">T2</label>
+                  </div>
+                  <!-- Material inline 3 -->
+                  <div *ngIf="Post.Sizes.Toddler.T3 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('toddler','T3')" #T3 type="radio" class="form-check-input"
+                      id="materialInline63">
+                    <label class="form-check-label" for="materialInline63">T3</label>
+                  </div>
+                  <!-- Material inline 3 -->
+                  <div *ngIf="Post.Sizes.Toddler.T4 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('toddler','T4')" #T4 type="radio" class="form-check-input"
+                      id="materialInline64">
+                    <label class="form-check-label" for="materialInline64">T4</label>
+                  </div>
                 </div>
-                <!-- Material inline 4 -->
-                <div *ngIf="Post.Sizes.Kid.M == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','M')" #k_m type="radio" class="form-check-input" id="materialInline54">
-                  <label class="form-check-label" for="materialInline54">M</label>
-                </div>
-                <!-- Material inline 5 -->
-                <div *ngIf="Post.Sizes.Kid.L == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','L')" #k_l type="radio" class="form-check-input" id="materialInline55">
-                  <label class="form-check-label" for="materialInline55">L</label>
-                </div>
-                <!-- Material inline 6 -->
-                <div *ngIf="Post.Sizes.Kid.XL == true" class="form-check li">
-                  <input name="size" (click)="selectSize('kid','XL')" #k_xl type="radio" class="form-check-input" id="materialInline56">
-                  <label class="form-check-label" for="materialInline56">XL</label>
-                </div>
-              </div>
-              <div class="tab-pane tabsection fade" id="toddler" role="tabpanel" aria-labelledby="toddler-tab">
-                <p class="font-italic">Available sizes</p>
-                <div class="form-check li">
-                  <input type="radio" class="form-check-input" id="custom6" name="size"  (click)="selectSize('toddler','custom')">
-                  <label class="form-check-label text-uppercase" for="custom6">Custom</label>
-                </div>
-                <!-- Material inline 1 -->
-                <div *ngIf="Post.Sizes.Toddler.T1 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('toddler','T1')" #T1 type="radio" class="form-check-input" id="materialInline61">
-                  <label class="form-check-label" for="materialInline61">T1</label>
-                </div>
-                <!-- Material inline 2 -->
-                <div *ngIf="Post.Sizes.Toddler.T2 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('toddler','T2')" #T2 type="radio" class="form-check-input" id="materialInline62">
-                  <label class="form-check-label" for="materialInline62">T2</label>
-                </div>
-                <!-- Material inline 3 -->
-                <div *ngIf="Post.Sizes.Toddler.T3 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('toddler','T3')" #T3 type="radio" class="form-check-input" id="materialInline63">
-                  <label class="form-check-label" for="materialInline63">T3</label>
-                </div>
-                <!-- Material inline 3 -->
-                <div *ngIf="Post.Sizes.Toddler.T4 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('toddler','T4')" #T4 type="radio" class="form-check-input" id="materialInline64">
-                  <label class="form-check-label" for="materialInline64">T4</label>
-                </div>
-              </div>
-              <div class="tab-pane tabsection fade" id="baby" role="tabpanel" aria-labelledby="baby-tab">
-                <p class="font-italic">Available sizes</p>
-                <div class="form-check li">
-                  <input type="radio" class="form-check-input" id="custom7" name="size"  (click)="selectSize('baby','custom')">
-                  <label class="form-check-label text-uppercase" for="custom7">Custom</label>
-                </div>
-                <!-- Material inline 1 -->
-                <div *ngIf="Post.Sizes.Baby.B1 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','Newborn')" #bby_1 type="radio" class="form-check-input"
-                    id="materialInline71">
-                  <label class="form-check-label" for="materialInline71">Newborn</label>
-                </div>
-                <!-- Material inline 2 -->
-                <div *ngIf="Post.Sizes.Baby.B2 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','0-3 months')" #bby_2 type="radio" class="form-check-input"
-                    id="materialInline72">
-                  <label class="form-check-label" for="materialInline72">0-3 months</label>
-                </div>
-                <!-- Material inline 3 -->
-                <div *ngIf="Post.Sizes.Baby.B3 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','3-6 months')" #bby_3 type="radio" class="form-check-input"
-                    id="materialInline73">
-                  <label class="form-check-label" for="materialInline73">3-6 months</label>
-                </div>
-                <!-- Material inline 4 -->
-                <div *ngIf="Post.Sizes.Baby.B4 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','6-12 months')" #bby_4 type="radio" class="form-check-input"
-                    id="materialInline74">
-                  <label class="form-check-label" for="materialInline74">6-12 months</label>
-                </div>
-                <!-- Material inline 5 -->
-                <div *ngIf="Post.Sizes.Baby.B5 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','12-16 months')" #bby_5 type="radio" class="form-check-input"
-                    id="materialInline75">
-                  <label class="form-check-label" for="materialInline75">12-16 months</label>
-                </div>
-                <!-- Material inline 6 -->
-                <div *ngIf="Post.Sizes.Baby.B6 == true" class="form-check li">
-                  <input name="size" (click)="selectSize('baby','16-24 months')" #bby_6 type="radio" class="form-check-input"
-                    id="materialInline76">
-                  <label class="form-check-label" for="materialInline76">16-24 months</label>
-                </div>
+                <div class="tab-pane tabsection fade" id="baby" role="tabpanel" aria-labelledby="baby-tab">
+                  <p class="font-italic">Available sizes</p>
+                  <div class="form-check li">
+                    <input type="radio" class="form-check-input" id="custom7" name="size" (click)="selectSize('baby','custom')">
+                    <label class="form-check-label text-uppercase" for="custom7">Custom</label>
+                  </div>
+                  <!-- Material inline 1 -->
+                  <div *ngIf="Post.Sizes.Baby.B1 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','Newborn')" #bby_1 type="radio" class="form-check-input"
+                      id="materialInline71">
+                    <label class="form-check-label" for="materialInline71">Newborn</label>
+                  </div>
+                  <!-- Material inline 2 -->
+                  <div *ngIf="Post.Sizes.Baby.B2 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','0-3 months')" #bby_2 type="radio" class="form-check-input"
+                      id="materialInline72">
+                    <label class="form-check-label" for="materialInline72">0-3 months</label>
+                  </div>
+                  <!-- Material inline 3 -->
+                  <div *ngIf="Post.Sizes.Baby.B3 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','3-6 months')" #bby_3 type="radio" class="form-check-input"
+                      id="materialInline73">
+                    <label class="form-check-label" for="materialInline73">3-6 months</label>
+                  </div>
+                  <!-- Material inline 4 -->
+                  <div *ngIf="Post.Sizes.Baby.B4 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','6-12 months')" #bby_4 type="radio" class="form-check-input"
+                      id="materialInline74">
+                    <label class="form-check-label" for="materialInline74">6-12 months</label>
+                  </div>
+                  <!-- Material inline 5 -->
+                  <div *ngIf="Post.Sizes.Baby.B5 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','12-16 months')" #bby_5 type="radio" class="form-check-input"
+                      id="materialInline75">
+                    <label class="form-check-label" for="materialInline75">12-16 months</label>
+                  </div>
+                  <!-- Material inline 6 -->
+                  <div *ngIf="Post.Sizes.Baby.B6 == true" class="form-check li">
+                    <input name="size" (click)="selectSize('baby','16-24 months')" #bby_6 type="radio" class="form-check-input"
+                      id="materialInline76">
+                    <label class="form-check-label" for="materialInline76">16-24 months</label>
+                  </div>
 
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
         <!--buutons-->
         <div class="col-12 py-1 border-0 d-flex justify-content-end px-0 my-3">
           <span class="h4 text-success mr-5 success align-self-center pl-1">NGN {{Post.Price}}</span>
-          <button class="btn btn-primary purple-gradient">Order now</button>
+          <button class="btn btn-primary purple-gradient" data-toggle="modal" data-target="#paymodal">Order now</button>
         </div>
       </div>
     </div>

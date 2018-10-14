@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RequestserviceService} from '../services/requestservice.service';
+import {RequestserviceService} from '../../services/requestservice.service';
 
 @Component({
   selector: 'app-tailor-job',

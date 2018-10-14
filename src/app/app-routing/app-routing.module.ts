@@ -25,7 +25,7 @@ import {AccountNotificationsComponent} from '../notifications/account-notificati
 import {BidNotificationsComponent} from '../notifications/bid-notifications/bid-notifications.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
   { path: 'index', component: LandingComponent },
   { path: 'login', component: LogInComponent },
   { path: 'register', component: SignUpComponent },

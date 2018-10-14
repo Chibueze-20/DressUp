@@ -31,7 +31,7 @@ import { TailorPostsComponent } from './user/tailor-posts/tailor-posts.component
 import { NotificationsComponent } from './notifications/notifications.component';
 import { BidNotificationsComponent } from './notifications/bid-notifications/bid-notifications.component';
 import { AccountNotificationsComponent } from './notifications/account-notifications/account-notifications.component';
-
+import {RavepaymentModule} from './shared/ravepayment/ravepayment.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +67,8 @@ import { AccountNotificationsComponent } from './notifications/account-notificat
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RavepaymentModule
   ],
   providers: [UserserviceService],
   bootstrap: [AppComponent]

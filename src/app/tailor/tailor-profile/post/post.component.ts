@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import {Sizes} from './sizes';
 import {Size} from './sizes';
-import {UserserviceService} from '../../userservice.service';
-import {Navigation} from '../../shared/Navigation';
+import {UserserviceService} from '../../../userservice.service';
+import {Navigation} from '../../../shared/Navigation';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PostserviceService} from '../../services/postservice.service';
+import {PostserviceService} from '../../../services/postservice.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css', '../../../assets/css/checkbox.css']
+  styleUrls: ['./post.component.css', '../../../../assets/css/checkbox.css']
 })
 export class PostComponent implements OnInit {
   type: String;
@@ -152,7 +152,7 @@ get user() {
     }
   }
 
-  uploadImage() {
+  uploadImage():any {
     const arr_pic = []
   const  payload = {
       file: this.localUrl,
