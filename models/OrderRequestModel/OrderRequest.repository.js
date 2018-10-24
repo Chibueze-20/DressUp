@@ -70,4 +70,72 @@ exports.getDirectOrders = function(req,res){
         res.json(order)
     })
 }
-
+exports.CountOrders = function(){
+    let doneOrders = 0;
+    let ongoingOrders = 0;
+    OrderRequest.count({Completed:true}).exec(function(err,number){
+        if(err || number === null){
+            count = 0;
+        }else{
+            count = number;
+        }
+        doneOrders = count;
+    })
+    OrderRequest.count({Completed:false}).exec(function(err,number){
+        if(err || number === null){
+            count = 0;
+        }else{
+            count = number;
+        }
+        ongoingOrders = count;
+    })
+    let OrderCount = {
+        Completed: doneOrders,
+        Ongoing: ongoingOrders
+    }
+    return OrderCount;
+}
+exports.CountOrdersbyUser = function(id,role){
+    let doneOrders = 0;
+    let ongoingOrders = 0;
+    if(role === 'User'){
+        OrderRequest.count({Completed:true, User:id}).exec(function(err,number){
+            if(err || number === null){
+                count = 0;
+            }else{
+                count = number;
+            }
+            doneOrders = count;
+        })
+        OrderRequest.count({Completed:false, User:id}).exec(function(err,number){
+            if(err || number === null){
+                count = 0;
+            }else{
+                count = number;
+            }
+            ongoingOrders = count;
+        })
+    } else if(role === 'Designer'){
+        OrderRequest.count({Completed:true, Tailor:id}).exec(function(err,number){
+            if(err || number === null){
+                count = 0;
+            }else{
+                count = number;
+            }
+            doneOrders = count;
+        })
+        OrderRequest.count({Completed:false, Tailor:id}).exec(function(err,number){
+            if(err || number === null){
+                count = 0;
+            }else{
+                count = number;
+            }
+            ongoingOrders = count;
+        })
+    }
+    let OrderCount = {
+        Completed: doneOrders,
+        Ongoing: ongoingOrders
+    }
+    return OrderCount;
+}

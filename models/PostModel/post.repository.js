@@ -82,3 +82,28 @@ exports.getPost = function(req, res, next){
         }
     })
 }
+
+exports.CountPosts = function(){
+    let postcount = 0
+    Post.count().exec(function(err,number){
+        if(err || number === null){
+            count = 0;
+        }else{
+            count = number;
+        }
+        postcount = count;
+    })
+    return postcount;
+}
+exports.CountPostsbyUser = function(id){
+    let postcount = 0
+    Post.count({Tailor: id}).exec(function(err,number){
+        if(err || number === null){
+            count = 0;
+        }else{
+            count = number;
+        }
+        postcount = count;
+    })
+    return postcount;
+}

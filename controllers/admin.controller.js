@@ -4,4 +4,13 @@ var router = express.Router();
 
 router.post('/login',repository.LogIn);
 router.post('/signup',repository.CreateAdmin);
+router.get('/',repository.details);
+router.get('/users',repository.getAllUsers);
+router.get('/tailors',repository.getAllTailors);
+router.get('/orders',repository.getAllOrders);
+router.get('/orders/completed',repository.getCompletedOrders);
+router.get('/orders/ongoing',repository.getOngoingOrders);
+router.get('/bids',repository.getAllBids);
+router.get('/posts',repository.getAllPosts);
+router.post('/details',repository.detailsbyId);
 module.exports = router;

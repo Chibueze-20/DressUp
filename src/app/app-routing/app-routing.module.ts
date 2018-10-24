@@ -23,9 +23,11 @@ import {BidViewComponent} from '../bid-view/bid-view.component';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {AccountNotificationsComponent} from '../notifications/account-notifications/account-notifications.component';
 import {BidNotificationsComponent} from '../notifications/bid-notifications/bid-notifications.component';
-
+import { ChatComponent } from '../chat/chat.component';
+import { ChatRoomComponent} from '../chat/chat-room/chat-room.component';
+import { ChatListComponent} from '../chat/chat-list/chat-list.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
+  { path: '', redirectTo: 'chat', pathMatch: 'full' },
   { path: 'index', component: LandingComponent },
   { path: 'login', component: LogInComponent },
   { path: 'register', component: SignUpComponent },
@@ -91,7 +93,11 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent, children: [
       {path: 'account', component: AccountNotificationsComponent},
       {path: 'bids', component: BidNotificationsComponent}
-    ]}
+    ]},
+  {path: 'chat',component:ChatComponent,children:[
+    {path:'active',component:ChatListComponent}
+  ]},
+  {path:'chat/room',component:ChatRoomComponent}
 ];
 @NgModule({
   imports: [

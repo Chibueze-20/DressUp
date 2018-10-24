@@ -6,12 +6,31 @@ let express = require('express'),
   config = require('./config/DB');
   formidable = require('formidable');
 const app = express();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(cors())
+var port = process.env.PORT || 4000;
+var server = require('http').createServer(app);
+server.listen(4100,'localhost',function(){
+  console.log('socket server will be on *:' + 4100);
+})
+var io = require('socket.io')(server)
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB,{ useNewUrlParser: true}).then(
   () => {console.log("Database connection successful")},
   err => {console.log("can not connect to database")}
 );
+
+// socket IO
+io.on('connection', function(socket){
+  console.log('connection!');
+  socket.on('new-message', (message) => {
+    console.log('message from angular:',JSON.stringify(message));
+    io.emit('new-message',message);
+  });
+});
+
 
 const userController = require('./controllers/user.controller');
 const requestController = require('./controllers/request.controller')
@@ -20,10 +39,7 @@ const postController = require('./controllers/post.controller');
 const feedbackController = require('./controllers/feedback.contoller');
 const searchController = require('./controllers/search.controller');
 const adminController = require('./controllers/admin.controller');
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
-app.use(cors())
-var port = process.env.PORT || 4000;
+
 
 app.use('/admin',adminController);
 app.use('/user',userController);

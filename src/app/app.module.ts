@@ -32,6 +32,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { BidNotificationsComponent } from './notifications/bid-notifications/bid-notifications.component';
 import { AccountNotificationsComponent } from './notifications/account-notifications/account-notifications.component';
 import {RavepaymentModule} from './shared/ravepayment/ravepayment.module';
+import { ChatRoomComponent } from './chat/chat-room/chat-room.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatListComponent } from './chat/chat-list/chat-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,10 @@ import {RavepaymentModule} from './shared/ravepayment/ravepayment.module';
     TailorPostsComponent,
     NotificationsComponent,
     BidNotificationsComponent,
-    AccountNotificationsComponent
+    AccountNotificationsComponent,
+    ChatRoomComponent,
+    ChatComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

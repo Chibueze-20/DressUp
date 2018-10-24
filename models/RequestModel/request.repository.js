@@ -67,3 +67,62 @@ exports.allrequests = function(req,res,next){
         }
     })
 }
+
+exports.countBids = function(){
+    let acceptedBids = 0
+    let allBids = 0
+
+    Request.count({IsAccepted:true}).exec(function(err,number){
+        let count;
+        if(err || number === null){
+            count = 0
+        }else{
+            count = number;
+        }
+        acceptedBids = count;
+    })
+    Request.count({IsAccepted:false}).exec(function(err,number){
+        let count;
+        if(err || number === null){
+            count = 0
+        }else{
+            count = number;
+        }
+        allBids = count;
+    })
+    let bidcount = {
+        closedBids: acceptedBids,
+        openBids: allBids,
+        totalBids: acceptedBids + allBids
+    }
+    return bidcount;
+}
+exports.countBidsbyUser = function(id){
+    let acceptedBids = 0
+    let allBids = 0
+
+    Request.count({IsAccepted:true, User:id}).exec(function(err,number){
+        let count;
+        if(err || number === null){
+            count = 0
+        }else{
+            count = number;
+        }
+        acceptedBids = count;
+    })
+    Request.count({IsAccepted:false, User:id}).exec(function(err,number){
+        let count;
+        if(err || number === null){
+            count = 0
+        }else{
+            count = number;
+        }
+        allBids = count;
+    })
+    let bidcount = {
+        closedBids: acceptedBids,
+        openBids: allBids,
+        totalBids: acceptedBids + allBids
+    }
+    return bidcount;
+}

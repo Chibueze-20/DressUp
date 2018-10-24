@@ -1,0 +1,6 @@
+.fit-into{
+    height: -webkit-fill-available;
+    height: -moz-fill-available;
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+}

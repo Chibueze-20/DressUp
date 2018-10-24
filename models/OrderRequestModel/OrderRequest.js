@@ -73,11 +73,11 @@ var Request = new Schema({
     }
 
   }],
-  valid: {
+  Valid: {
     type: Boolean,
     default: false
   },
-  completed: {
+  Completed: {
     type: Boolean,
     default: false
   },

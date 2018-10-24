@@ -1,0 +1,260 @@
+<header>
+  <div #header class="container-fluid  pt-3 pb-1">
+    <div class="d-flex row text-center px-2 justify-content-center">
+      <a style="width: 20%;" class="font-small border-top border-bottom border-left bg-success white-text">Schedule 1</a>
+      <a style="width: 20%;" class="font-small  bg-white border-top border-bottom">Schedule 2</a>
+      <a style="width: 20%;" class="font-small  bg-white border-top border-bottom">Schedule 3</a>
+      <a style="width: 20%;" class="font-small  bg-white border-top border-bottom">Schedule 4</a>
+      <a style="width: 20%;" class="font-small  bg-white border-top border-bottom border-right">Schedule 5</a>
+    </div>
+    <div class="d-flex mt-2 justify-content-between">
+      <small>created 10/04</small>
+      <span class="text-success font-italic">
+        <small class="mr-4">30% completed</small>
+        <small><a (click)="showDetails()" class="card-link text-info">Details</a></small>
+      </span>
+      <a class="card-link text-primary" (click) = "taskWidget()">Add a task</a>
+    </div>
+  </div>
+</header>
+<main>
+  <!-- DETAILS -->
+  <div id="details" class="bg-info detail-view animated fadeIn container-fluid">
+    <div class="flex-center">
+      <ul class="list-unstyled list-inline" style="height: fit-content">
+        <li>
+          <div class="d-flex justify-content-end">
+            <a class="text-danger" (click)="hideDetails()" style="font-size: xx-large">X</a>
+          </div>
+        </li>
+        <li class="mt-3">
+          <h1 class="text-center">TITLE OF ORDER</h1>
+        </li>
+        <li>
+          <h4>Description</h4>
+          <h6>description.........</h6>
+        </li>
+        <li class="list-inline-item mx-4">
+          <h4>Price: xxx.xxx</h4>
+        </li>
+        <li class="list-inline-item mx-4">
+          <h4>Start Date: 10/24</h4>
+        </li>
+        <li class="list-inline-item mx-4">
+          <h4>Date of Completion: 10/24</h4>
+        </li>
+        <li>
+          <div class="container">
+            <div class="p-0 d-flex row justify-content-center pic-view">
+              <div id="mycarousel" style="height: inherit;" class="carousel col-md-6 col-sm-12 slide " data-ride="carousel">
+                <!-- Indicators -->
+                <!-- Indicators -->
+                <!-- Slides -->
+                <div class="carousel-inner" style="height: inherit;" role="listbox">
+                  <!-- first slide -->
+                  <div class="carousel-item active" style="height: inherit;">
+                    <div class="carosel-padding">
+                      <img class="img-fluid" src="assets\images\lauren-fleischmann-469994-unsplash.jpg" style="height: inherit;width: 100%;" />
+                    </div>
+                  </div>
+                  <!-- first slide -->
+                  <!-- second slide -->
+                  <div class="carousel-item">
+                    <div class="carosel-padding">
+                      <img class="img-fluid" src="assets/images/ashim-d-silva-89336-unsplash.jpg" style="height: inherit;width: 100%;" />
+                    </div>
+                  </div>
+                  <!-- second slide -->
+                  <!-- third slide -->
+                  <div class="carousel-item">
+                    <div class="carosel-padding">
+                      <img class="img-fluid" src="assets/images/clem-onojeghuo-197847-unsplash.jpg" style="height: inherit;width: 100%;" />
+                    </div>
+                  </div>
+                  <!-- third slide -->
+                </div>
+                <!-- Slides -->
+                <!-- Controls -->
+              </div>
+              <!-- Carousel wrapper -->
+              <div class="col-md-6 col-sm-12 flex-center">
+                <div class="m-2">
+                  <h5>Schedule</h5>
+                  <ol class="list-unstyled">
+                    <li>
+                      <span>schedule 1: </span>
+                      <span>x days</span>
+                    </li>
+                    <li>
+                      <span>schedule 2: </span>
+                      <span>x days</span>
+                    </li>
+                    <li>
+                      <span>schedule 3: </span>
+                      <span>x days</span>
+                    </li>
+                    <li>
+                      <span>schedule 4: </span>
+                      <span>x days</span>
+                    </li>
+                    <li>
+                      <span>schedule 5: </span>
+                      <span>x days</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- DETAILS -->
+  <div class="container py-3 chat-window" #chat_window [scrollTop]="chat_window.scrollHeight" id="chat-window" style="height: 70vh;background-color: rgba(0, 184, 255, 0.1);overflow-y: auto">
+    <div class="px-2">
+      <div class="d-flex px-3 mb-2 justify-content-start">
+        <div class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+          <div class="d-flex justify-content-start">
+            <div class="circle" style="width: 13%;height: fit-content;align-self: center;">
+              <img class="img-fluid rounded-circle" style="width: -webkit-fill-available" src="assets\images\person-flat.png">
+            </div>
+            <div class="ml-2">
+              <p style="margin: 0;" class="pt-1">hey boy how do you like me now rdcf tyr ee e r e rer
+                e
+                rere reere rer errr erer ere rgu hij oiuyf</p>
+              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex px-3 mb-2 justify-content-end">
+        <div class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.27);border-radius: 40px;">
+          <div class="d-flex justify-content-start">
+            <div class="circle" style="width: 13%;height: fit-content;align-self: center;">
+              <img class="img-fluid rounded-circle" style="width: -webkit-fill-available" src="assets\images\person-flat.png">
+            </div>
+            <div class="ml-2">
+              <p style="margin: 0;" class="pt-1">hey boy how do you like me now rdcf tyr ee e r e rer
+                e
+                rere reere rer errr erer ere rgu hij oiuyf</p>
+              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let message of messages; index as i" class="d-flex px-3 mb-2 justify-content-start">
+        <div *ngIf = "message.Type === 'chat'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+          <div  class="d-flex justify-content-start">
+            <div class="circle" style="width: 65px;height: 46px;align-self: center;">
+              <img class="img-fluid rounded-circle" style="width: -webkit-fill-available;height: -webkit-fill-available;"
+                src="assets\images\person-flat.png">
+            </div>
+            <div class="ml-2 w-100">
+              <p style="margin: 0;" class="pt-1">{{message.Content}}</p>
+              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf = "message.Type === 'task'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+                <div  class="d-flex justify-content-start">
+                  <div class="circle" style="width: 65px;height: 46px;align-self: center;">
+                    <img class="img-fluid rounded-circle" style="width: -webkit-fill-available;height: -webkit-fill-available;"
+                      src="assets\images\person-flat.png">
+                  </div>
+                  <div class="ml-2 w-100">
+                    <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">New schedule task added <strong>{{message.Content.Title||'..'}} for {{message.Content.Duration||0}} days</strong></p>
+                    <div *ngIf="message.Content === null" class="px-1 mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
+                        <input type="text" [(ngModel)]="TaskTitle" placeholder="Task title" class="mx-sm-1">
+                        <input type="number" [(ngModel)]="TaskDuration" placeholder="Task Duration(days)" class="mr-sm-1 mr-md-2">
+                        <div class="py-1 text-center" style="height: fit-content;">
+                            <a class="btn-sm mx-3 btn-outline-danger" (click)="removeTask(i)">Cancel</a>
+                            <a class="btn-sm mx-3 btn-outline-success" (click)="updateTask(i)" >Add</a>
+                        </div>
+                    </div>
+                    <p class="px-3" style="margin: 0;float: right;">10/20</p>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf = "message.Type === 'price'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+                    <div  class="d-flex justify-content-start">
+                      <div class="circle" style="width: 65px;height: 46px;align-self: center;">
+                        <img class="img-fluid rounded-circle" style="width: -webkit-fill-available;height: -webkit-fill-available;"
+                          src="assets\images\person-flat.png">
+                      </div>
+                      <div class="ml-2 w-100">
+                            <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">{{PictureText||'picture sent'}}</p>
+                            <div *ngIf="message.Content === null" class="px-1 container-fluid mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
+                                <div class="row">
+                                  <div class="col-12 flex-center px-2">
+                                        <img style="max-width: 400px;max-height: 200px" *ngIf="PictureUrl" [src]="PictureUrl" class="img-fluid">
+                                  </div>
+                                  <div class="col-12">
+                                        <textarea  class="w-100" [(ngModel)]="PictureText" placeholder="text-description" cols="2" rows="1"></textarea>
+                                  </div>
+                                  <div style="height: fit-content;" class="col-12 py-1 text-center">
+                                      <input type="file" (change)="setPicture($event)" #file style="display: none;" title="attach image" placeholder="select image">
+                                        <a  (click)="file.click()" class="btn-sm mx-3 btn-outline-primary">choose file</a>
+                                        <a class="btn-sm mx-3 btn-outline-success">send</a>
+                                        <a class="btn-sm mx-3 btn-outline-danger">cancel</a>
+                                  </div> 
+                                </div>
+                            </div>        
+                        <p class="px-3" style="margin: 0;float: right;">10/20</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf = "message.Type === 'task'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+                    <div  class="d-flex justify-content-start">
+                      <div class="circle" style="width: 65px;height: 46px;align-self: center;">
+                        <img class="img-fluid rounded-circle" style="width: -webkit-fill-available;height: -webkit-fill-available;"
+                          src="assets\images\person-flat.png">
+                      </div>
+                      <div class="ml-2 container-fluid w-100">
+                        <div *ngIf="message.Content !== null" style="margin: 0;" class="pt-1 row">
+                              <div class="col-12 text-center">
+                                <span>Request to add NGN {{Price}} to order price NGN orderPrice</span>
+                              </div>
+                              <div class="col-12 py-1 text-center" style="height:fit-content">
+                                <a class="mx-3 btn-sm btn-outline-success">Accept</a>
+                                <a class="mx-3 btn-sm btn-outline-danger">Reject</a>
+                              </div>
+                        </div>
+                        <div *ngIf="message.Content === null" class="px-1 mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
+                            <input type="number" [(ngModel)]="Price" placeholder="Price in Naira" class="mx-sm-1">
+                            <input type="text" [(ngModel)]="PriceDescription" placeholder="Description..." class="mr-sm-1 mr-md-2">
+                            <div class="py-1 text-center" style="height: fit-content;">
+                                <a class="btn-sm mx-3 btn-outline-danger">Cancel</a>
+                                <a class="btn-sm mx-3 btn-outline-success">Send</a>
+                            </div>
+                        </div>
+                        <p class="px-3" style="margin: 0;float: right;">10/20</p>
+                      </div>
+                    </div>
+                  </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-end">
+      <div class="bg-white row px-4 mr-2 d-flex justify-content-end flex-grow-1" style="border-radius: 40px;border-style: solid;border-width: thin">
+        <textarea class="chat-box my-1 flex-grow-1" [(ngModel)]="message" rows="2" cols="5" style="overflow-y: auto;outline: none; max-height: 80px; border: none"
+          title="chat" placeholder="type a message.."></textarea>
+        <div class="fixed-action-btn" style="align-self: center;position: relative !important; bottom: 0;right: 0;padding: 0 !important;">
+            <a class="btn-rounded btn px-4 btn-flat">
+                    <i style="font-size: 1.5em" class="fas fa-plus"></i>     
+                    <!-- <button class="btn-rounded px-4 btn btn-flat waves-effect transparent"></button> -->
+            </a>
+            <ul class="list-unstyled">
+                <li><a (click)="pictureWidget()" class="btn-floating btn-sm text-center yellow">pic</a></li>
+                <li><a (click)="priceWidget()" class="btn-floating btn-sm text-center green">ngn</a></li>
+                <li><a class="btn-floating btn-sm text-center blue">sz</a></li>
+            </ul>
+        </div>
+      </div>
+      <button (click)="sendMessage()" class="btn-rounded px-4 btn btn-primary align-self-center"><i style="font-size: 1.5em"
+          class="fas fa-share white-text"></i></button>
+    </div>
+  </div>
+</main>

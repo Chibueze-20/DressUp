@@ -251,3 +251,39 @@ exports.DeleteUserById = function (req,res,next) {
     if(err){ res.json(err);}else{ res.json({Message:"delete successful",type:"success"});}
   } )
 }
+
+exports.CountUsers = function(){
+  let totalCount = 0;
+  let tailorCount = 0;
+  let userCount = 0;
+  User.count().exec(function(err,number){
+    if(err || number === null){
+     Count=0;
+    }else{
+    Count = number;
+    }
+    totalCount = Count;
+  });
+  User.count({Role:'Designer'}).exec(function(err,number){
+    if(err || number === null){
+     Count=0;
+    }else{
+    Count = number;
+    }
+    tailorCount = Count;
+  });
+  User.count({Role:'User'}).exec(function(err,number){
+    if(err || number === null){
+     Count=0;
+    }else{
+    Count = number;
+    }
+    userCount = Count;
+  });
+  let countObject = {
+    total: totalCount,
+    tailor: tailorCount,
+    user: userCount
+  };
+  return countObject;
+}
