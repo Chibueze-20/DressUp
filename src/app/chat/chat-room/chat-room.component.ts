@@ -1,26 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {ChatService} from '../chat.service';
 import { Message } from 'src/app/shared/Message';
+import { Schedule } from 'src/app/shared/schedule';
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
-export class ChatRoomComponent implements OnInit {
+export class ChatRoomComponent implements OnInit, AfterViewInit {
+  schedules:Schedule[] = [
+    {
+      task: 'Buy material',
+      duration: 3
+    },
+    {
+      task: 'Cut material to size',
+      duration: 5
+    },
+    {
+      task: 'Sew up shirt',
+      duration: 2
+    },
+    {
+      task: 'Sew trousers and add pockets',
+      duration: 3
+    },
+    {
+      task:'Iron and package for sending',
+      duration:1
+    }
+  ]
+  startDate = Date.parse('10-16-2018');
+  endDate = this.startDate;
+  nowDate = Date.now();
+  daysPast:number;
+  percentageDone:number = 0;
   message: string;
   messages:Message[] = [];
-  TaskWidget = false;TaskTitle:string;TaskDuration = 0;
+  widget=false;
+  TaskTitle:string;TaskDuration:number;
   PictueWidget = false;PictureUrl:any;PictureText:string;
   PriceWidget = false;Price:number;PriceDescription:string;
+  SizeWidget = false;Size:string;SizeValue:number;
   constructor(private chatService:ChatService) { }
 
   ngOnInit() {
     document.getElementById('details').style.display = 'none'
+    this.schedules.forEach((sch) => this.endDate= this.endDate+this.daysToMillisecs(sch.duration));
+    console.log(new Date(this.endDate));
     this.chatService
       .getMessages().subscribe((message:Message) => {
         this.messages.push(message);
         // document.querySelector('.chat-window').scrollTo(0, document.querySelector('#chat-window').scrollHeight)
       });
+  }
+  ngAfterViewInit(){
+    this.taskDone();
   }
 
   sendMessage() {
@@ -34,19 +69,19 @@ export class ChatRoomComponent implements OnInit {
     this.message = '';
   }
   taskWidget(){
-    if(!this.TaskWidget){
+    if(!this.widget){
       let msg ={
         Type:'task',
         From:'129299',
         To:'1111',
         Content:null
       }
-      this.TaskWidget = true;
+      this.widget = true;
       this.messages.push(msg);
     }
   }
   pictureWidget(){
-    if (!this.PictueWidget) {
+    if (!this.widget) {
       let msg ={
         Type:'picture',
         From:'129299',
@@ -54,19 +89,31 @@ export class ChatRoomComponent implements OnInit {
         Content:null
       }
       this.messages.push(msg);
-      this.PictueWidget =true;
+      this.widget =true;
     }
   }
   priceWidget(){
-    if(!this.PriceWidget){
+    if(!this.widget){
       let msg = {
-        Type: 'Picture',
+        Type: 'price',
         From:'129299',
         To:'1111',
         Content:null
       }
       this.messages.push(msg);
-      this.PriceWidget=true;
+      this.widget=true;
+    }
+  }
+  sizeWidget(){
+    if(!this.widget){
+      let msg = {
+        Type: 'size',
+        From:'129299',
+        To:'1111',
+        Content:null
+      }
+      this.messages.push(msg);
+      this.widget =true;
     }
   }
   hideDetails(){
@@ -80,15 +127,81 @@ export class ChatRoomComponent implements OnInit {
       Title: this.TaskTitle || "new task",
       Duration: this.TaskDuration
     }
+    let schedule ={
+      task: this.TaskTitle,
+      duration: this.TaskDuration
+    };
     this.messages[i].Content = content;
-    console.log(this.messages);
-    this.TaskWidget = false;
+    this.schedules.push(schedule);
+    this.endDate = this.endDate+this.daysToMillisecs(this.TaskDuration);
+    this.taskDone();
+    this.widget = false;
+    this.TaskTitle=null;
+    this.TaskDuration=null;
   }
-  removeTask(i:number){
+  updatePicture(i:number){
+    let content = {
+      Picture:this.PictureUrl||'assets/images/header-bg-2.jpeg',
+      Description:this.PictureText
+    }
+    this.messages[i].Content = content;
+    this.widget = false;
+    this.PictureUrl=null;this.PictureText=null;
+  }
+  updatePrice(i:number){
+    let content = {
+      Price: this.Price,
+      Description: this.PriceDescription,
+    }
+    let msg ={
+      Type: 'price-req',
+        From:'129299',
+        To:'1111',
+        Content:{
+          Price: this.Price,
+          Description: this.PriceDescription,
+          Accepted:null
+        }
+    }
+    this.messages[i].Content = content;
+    this.widget = false;
+    this.messages.push(msg);
+    this.Price = null;
+    this.PriceDescription=null;
+  }
+  updateSize(i:number){
+    let content = {
+      Size: this.Size
+    }
+    let msg ={
+      Type: 'size-req',
+        From:'129299',
+        To:'1111',
+      Content:{
+        Size: this.Size,
+        Value:null
+      }
+    }
+    this.messages[i].Content = content;
+    this.messages.push(msg);
+    this.widget = false;
+    this.Size =null
+  }
+  removeWidget(i:number){
     let dummy = this.messages;
     dummy = dummy.filter((msg)=>dummy.indexOf(msg)!== i)
     this.messages = dummy;
-    this.TaskWidget = false
+    this.widget = false
+  }
+  acceptPrice(i:number){
+    this.messages[i].Content.Accepted = true;
+  }
+  rejectPrice(i:number){
+    this.messages[i].Content.Accepted = false;
+  }
+  sendSize(i:number){
+    this.messages[i].Content.Value = this.SizeValue;
+    this.SizeValue = null;
   }
   setPicture(event:any){
     if (event.target.files && event.target.files[0]) {
@@ -99,5 +212,39 @@ export class ChatRoomComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
 
     }
+  }
+  doneTime(){
+    this.daysPast =this.nowDate-this.startDate;
+    this.daysPast = (((this.daysPast/1000)/60)/60)/24
+    console.log(this.daysPast);
+  }
+//   percentageComplete(){
+//    return ((this.endDate-this.nowDate)/(this.endDate-this.startDate))*100;
+//  }
+  get taskWidth(){
+    let val = 100/this.schedules.length
+    return val+'%';
+  }
+  taskDone(){
+    this.percentageDone=0;
+    this.doneTime();
+    for (let index = 0; index < this.schedules.length; index++) {
+      if(this.daysPast >= this.schedules[index].duration){
+          document.getElementById(String(index)).classList.add('bg-success');
+          this.daysPast -= this.schedules[index].duration;
+          this.percentageDone +=1;
+      }
+      
+    }
+    this.percentageDone = Number(((this.percentageDone/this.schedules.length)*100).toFixed(0));
+  }
+  daysToMillisecs( day:number){
+    return (day*24*60*60)*1000;
+  }
+  get StartDate(){
+    return new Date(this.startDate).toLocaleDateString()
+  }
+  get EndDate(){
+    return new Date(this.endDate).toLocaleDateString()
   }
 }
