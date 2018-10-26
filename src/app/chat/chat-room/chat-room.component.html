@@ -173,6 +173,7 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+                <p class="mb-1">Task-widget</p>
               <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">New schedule task added <strong>{{message.Content.Title||'..'}}
                   for {{message.Content.Duration||0}} days</strong></p>
               <div *ngIf="message.Content === null" class="px-1 mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
@@ -195,6 +196,7 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+                <p class="mb-1">Picture-widget</p>
                 <div *ngIf="message.Content !== null"  class="px-1 container-fluid mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
                     <div class="row">
                       <div class="col-12 flex-center px-2">
@@ -235,6 +237,7 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+                <p class="mb-1">Price-widget</p>
               <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">Request to add NGN <strong>{{message.Content.Price||0}}</strong> for <strong>{{message.Content.Description}}</strong>
                 sent</p>
             </div>
@@ -257,6 +260,7 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+                <p class="mb-1">Size-widget</p>
               <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">Request for <strong>{{message.Content.Size}}</strong> size sent</p>
               <div *ngIf="message.Content === null" class="px-1 mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
                 <input type="text" [(ngModel)]="Size" placeholder="Size title" class="mx-sm-1">
@@ -277,6 +281,7 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+                <p class="mb-1">Price-widget</p>
               <p *ngIf="message.Content.Accepted === true" style="margin:0" class="pt-1 ">
                 Accepted price request of <strong>NGN {{message.Content.Price}}</strong>
               </p>
@@ -303,11 +308,12 @@
               <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
             </div>
             <div class="ml-2 w-100">
+              <p class="mb-1">Size-widget</p>
               <p *ngIf="message.Content.Value !== null" style="margin:0" class="pt-1 ">
                 {{message.Content.Size}} : <strong>{{message.Content.Value}} in</strong>
               </p>
               <div *ngIf="message.Content.Value === null" class="px-1 mt-2" style="background-color: #daf8ff;width: fit-content;border-radius: 0 18px 18px 0px;">
-                <p class="m-0">Provide size/measurement for <strong>{{message.Content.Size}} in</strong></p>
+                <p class="m-0">Provide size/measurement for <strong>{{message.Content.Size}}</strong></p>
                 <input type="number" placeholder="enter value in inches" [(ngModel)]="SizeValue">
                 <div class="py-1 text-center" style="height: fit-content;">
                   <a (click)="sendSize(i)" class="btn-sm mx-3 btn-outline-success">send</a>
