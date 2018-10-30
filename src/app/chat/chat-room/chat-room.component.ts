@@ -8,6 +8,7 @@ import { Schedule } from 'src/app/shared/schedule';
   styleUrls: ['./chat-room.component.css']
 })
 export class ChatRoomComponent implements OnInit, AfterViewInit {
+  id ="1111"
   schedules:Schedule[] = [
     {
       task: 'Buy material',
@@ -34,7 +35,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   endDate = this.startDate;
   nowDate = Date.now();
   daysPast:number;
-  percentageDone:number = 0;
+  percentageDone:number;
   message: string;
   messages:Message[] = [];
   widget=false;
@@ -56,6 +57,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(){
     this.taskDone();
+    //send feedback widget when today is a day after end date or more
   }
 
   sendMessage() {
@@ -65,6 +67,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
       To:'1111',
       Content:this.message
     }
+    this.messages.push(msg);
     this.chatService.sendMessage(msg);
     this.message = '';
   }
@@ -138,6 +141,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     this.widget = false;
     this.TaskTitle=null;
     this.TaskDuration=null;
+    this.chatService.sendMessage(this.messages[i]);
   }
   updatePicture(i:number){
     let content = {
@@ -147,6 +151,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     this.messages[i].Content = content;
     this.widget = false;
     this.PictureUrl=null;this.PictureText=null;
+    this.chatService.sendMessage(this.messages[i]);
   }
   updatePrice(i:number){
     let content = {
@@ -164,8 +169,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
         }
     }
     this.messages[i].Content = content;
+    let sendmsg =this.messages[i];
+    this.chatService.sendMessage(msg);
     this.widget = false;
-    this.messages.push(msg);
     this.Price = null;
     this.PriceDescription=null;
   }
@@ -183,9 +189,11 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
       }
     }
     this.messages[i].Content = content;
-    this.messages.push(msg);
+    let sendmsg =this.messages[i];
+    this.chatService.sendMessage(msg);
     this.widget = false;
-    this.Size =null
+    this.Size =null;
+    
   }
   removeWidget(i:number){
     let dummy = this.messages;
@@ -195,13 +203,16 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   }
   acceptPrice(i:number){
     this.messages[i].Content.Accepted = true;
+    this.chatService.sendMessage(this.messages[i]);
   }
   rejectPrice(i:number){
     this.messages[i].Content.Accepted = false;
+    this.chatService.sendMessage(this.messages[i]);
   }
   sendSize(i:number){
     this.messages[i].Content.Value = this.SizeValue;
     this.SizeValue = null;
+    this.chatService.sendMessage(this.messages[i]);
   }
   setPicture(event:any){
     if (event.target.files && event.target.files[0]) {
@@ -246,5 +257,12 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   }
   get EndDate(){
     return new Date(this.endDate).toLocaleDateString()
+  }
+
+  isOdd(i:number){
+    return i % 2  !== 0;
+  }
+  isEven(i:number){
+    return i % 2 === 0;
   }
 }

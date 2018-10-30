@@ -15,5 +15,11 @@ export class SettingsComponent implements OnInit {
   goBack():void{
     this.location.back();
   }
+  openNav() {
+    document.getElementById('side-nav').style.width = '280px';
+  }
 
+  closeNav() {
+    document.getElementById('side-nav').style.width = '0';
+  }
 }

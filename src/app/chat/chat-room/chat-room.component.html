@@ -13,7 +13,7 @@
     <div class="d-flex mt-2 justify-content-between">
       <small>created {{StartDate}}</small>
       <span class="text-success font-italic">
-        <small class="mr-4">{{percentageDone}}% completed</small>
+        <small class="mr-4">{{percentageDone || 0}}% completed</small>
         <small><a (click)="showDetails()" class="card-link text-info">Details</a></small>
       </span>
       <a class="card-link text-primary" (click)="taskWidget()">Add a task</a>
@@ -151,8 +151,8 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let message of messages; index as i" class="d-flex px-3 mb-2 justify-content-start">
-        <div *ngIf="message.Type === 'chat'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+      <div *ngFor="let message of messages; index as i" [class.justify-content-end]="isEven(i)" [class.justify-content-start]="isOdd(i)" class="d-flex px-3 mb-2">
+        <div *ngIf="message.Type === 'chat'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -165,7 +165,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'task'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+        <div *ngIf="message.Type === 'task'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -188,7 +188,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'picture'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+        <div *ngIf="message.Type === 'picture'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
@@ -228,8 +228,7 @@
             <p class="px-3" style="margin: 0;float: right;">10/20</p>
         </div>
       </div>
-      <div *ngIf="message.Type === 'price'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;"
-          class="p-2">
+      <div *ngIf="message.Type === 'price'" class="px-2 p-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
@@ -252,7 +251,7 @@
             <p class="px-3" style="margin: 0;float: right;">10/20</p>
           </div>
         </div>
-        <div *ngIf="message.Type === 'size'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+        <div *ngIf="message.Type === 'size'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -273,7 +272,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'price-req'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+        <div *ngIf="message.Type === 'price-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -300,7 +299,7 @@
           </div>  
           
         </div>
-        <div *ngIf="message.Type === 'size-req'" class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+        <div *ngIf="message.Type === 'size-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"

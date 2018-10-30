@@ -29,12 +29,13 @@ import { RequestComponent } from './user/request/request.component';
 import { TailorSearchComponent } from './user/tailor-search/tailor-search.component';
 import { TailorPostsComponent } from './user/tailor-posts/tailor-posts.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { BidNotificationsComponent } from './notifications/bid-notifications/bid-notifications.component';
+import { RequestNotificationsComponent } from './notifications/request-notifications/request-notifications.component';
 import { AccountNotificationsComponent } from './notifications/account-notifications/account-notifications.component';
 import {RavepaymentModule} from './shared/ravepayment/ravepayment.module';
 import { ChatRoomComponent } from './chat/chat-room/chat-room.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatListComponent } from './chat/chat-list/chat-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,7 @@ import { ChatListComponent } from './chat/chat-list/chat-list.component';
     TailorSearchComponent,
     TailorPostsComponent,
     NotificationsComponent,
-    BidNotificationsComponent,
+    RequestNotificationsComponent,
     AccountNotificationsComponent,
     ChatRoomComponent,
     ChatComponent,

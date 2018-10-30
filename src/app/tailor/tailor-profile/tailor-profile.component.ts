@@ -36,9 +36,20 @@ export class TailorProfileComponent implements OnInit {
   get Feedbacks() {
     return this.feedbacks;
   }
-
   get User() {
     return JSON.parse(localStorage.getItem('User'));
+  }
+  get isFollowing(){
+   let user = this.User;
+   return user.Following.includes(TailorProfileComponent.Tailor);
+  }
+  follow(){
+    if(this.isFollowing == true){
+      // remove tailor
+    }else{
+      this.User.Following.push(TailorProfileComponent.Tailor);
+      //update database
+    }
   }
    get headerStyles() {
     if (this.details.Profile.Background) {

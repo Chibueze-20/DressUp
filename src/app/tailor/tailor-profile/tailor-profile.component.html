@@ -28,7 +28,7 @@
                   <h3 class="font-bold mb-3 px-3 text-shadow black-text text-left">{{Details.Brand.BrandName}}</h3>
                   <!-- Edit Profile button -->
                   <a class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0 bg-transparent" (click)="goToSettings()"><i class="fas fa-2x fa-pen-fancy red-text"></i> </a>
-                  <a class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0 bg-transparent disabled" ><i class="fas fa-2x fa-user-plus green-text"></i> </a>
+                  <a *ngIf = "User.Role === 'User'" (click) ="follow()" [class.bg-info]="isFollowing" [class.bg-transparent]="!isFollowing" class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0" ><i class="fas fa-2x fa-user-plus green-text"></i> </a>
 
               </div>
               <!-- Average Rating START-->

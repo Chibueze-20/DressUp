@@ -17,3 +17,9 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+.from{
+    max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;
+}
+.to{
+    max-width: 500px;background-color: rgba(0, 184, 255, 0.27);border-radius: 40px;
+}

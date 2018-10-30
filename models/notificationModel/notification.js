@@ -14,6 +14,6 @@ var Notifications = new Schema({
     enum: ['User','Designer']
   }
 },{
-    collection:'notifications'
+    collection:'subscriptions'
 })
 module.exports = mongoose.model('Notification',Notifications)

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BidNotificationsComponent } from './bid-notifications.component';
+import { RequestNotificationsComponent } from './request-notifications.component';
 
 describe('BidNotificationsComponent', () => {
-  let component: BidNotificationsComponent;
-  let fixture: ComponentFixture<BidNotificationsComponent>;
+  let component: RequestNotificationsComponent;
+  let fixture: ComponentFixture<RequestNotificationsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BidNotificationsComponent ]
+      declarations: [RequestNotificationsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BidNotificationsComponent);
+    fixture = TestBed.createComponent(RequestNotificationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

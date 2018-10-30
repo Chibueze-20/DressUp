@@ -26,6 +26,7 @@ const notificationPayload = {
     }
 }
 var Notifications = require('./notification');
+var Message = require('./messages');
 exports.add = function (req, res) { 
     var newnotify = new Notifications(req.body);
     newnotify.save()
@@ -45,4 +46,24 @@ exports.add = function (req, res) {
       Promise.all(notifications.map(sub =>webpush.sendNotification(sub.Endpoint,JSON.stringify(notificationPayload) )))
       .then(() => res.status(200).json({message:"Notification sent"}))
       .catch((err) => res.status(500).json({message:"could not send notification",error:err}))
+ }
+
+ exports.sendMessage= function(req,res){
+    let message = new Message(req.body);
+    message.save(function(err,msg){
+        if(err){
+            res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
+        }else{
+            res.status(200).json({Message: "Successfully Posted",type:"Success"})
+        }
+    })
+ }
+ exports.getMessages = function(req,res){
+     Message.find({To:req.params.id,Type:req.params.kind},function(err,msgs){
+         if (err) {
+             res.status(404).json({Message:"no messages found",type:"Error"})
+         } else {
+             res.status(200).send(msgs)
+         }
+     })
  }

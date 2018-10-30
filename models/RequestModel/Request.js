@@ -40,25 +40,7 @@ var Request = new Schema({
       IsAccepted:{
         type: Boolean,
         default: false
-      },
-      Bids: [
-          {
-            Duration: {
-                type: Number
-              },
-              Milestones: [{
-                Milestone: {
-                  type: String
-                },
-                Duration: {
-                  type: Number
-                },
-              }],
-              Price: {
-                type: String
-              }
-          }
-      ]
+      }
 }, {
     collection: 'requests'
   })

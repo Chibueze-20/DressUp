@@ -27,7 +27,7 @@ io.on('connection', function(socket){
   console.log('connection!');
   socket.on('new-message', (message) => {
     console.log('message from angular:',JSON.stringify(message));
-    io.emit('new-message',message);
+    socket.broadcast.emit('new-message',message)
   });
 });
 
@@ -39,9 +39,10 @@ const postController = require('./controllers/post.controller');
 const feedbackController = require('./controllers/feedback.contoller');
 const searchController = require('./controllers/search.controller');
 const adminController = require('./controllers/admin.controller');
-
+const notificationController = require('./controllers/notification.controller');
 
 app.use('/admin',adminController);
+app.use('/notification',notificationController);
 app.use('/user',userController);
 app.use('/request',requestController)
 app.use('/order',orderRequestController);

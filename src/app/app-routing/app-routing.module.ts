@@ -22,7 +22,7 @@ import { TailorSearchComponent } from '../user/tailor-search/tailor-search.compo
 import {BidViewComponent} from '../bid-view/bid-view.component';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {AccountNotificationsComponent} from '../notifications/account-notifications/account-notifications.component';
-import {BidNotificationsComponent} from '../notifications/bid-notifications/bid-notifications.component';
+import { RequestNotificationsComponent } from '../notifications/request-notifications/request-notifications.component';
 import { ChatComponent } from '../chat/chat.component';
 import { ChatRoomComponent} from '../chat/chat-room/chat-room.component';
 import { ChatListComponent} from '../chat/chat-list/chat-list.component';
@@ -92,7 +92,7 @@ const routes: Routes = [
   // Notifications
   {path: 'notifications', component: NotificationsComponent, children: [
       {path: 'account', component: AccountNotificationsComponent},
-      {path: 'bids', component: BidNotificationsComponent}
+      {path: 'bids', component: RequestNotificationsComponent}
     ]},
   {path: 'chat',component:ChatComponent,children:[
     {path:'active',component:ChatListComponent}

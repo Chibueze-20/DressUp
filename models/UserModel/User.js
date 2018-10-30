@@ -76,6 +76,10 @@ var User = new Schema({
     WorkAddress: {
       type: String
     },
+    Verified:{
+      type:Boolean,
+      default:false
+    }
   },
   Ratings:{
     Stars:{
@@ -93,7 +97,10 @@ var User = new Schema({
   },
   Profile: {
     type: Schema.Types.ObjectId, ref:'Profile'
-  }
+  },
+  Following:[
+    {type: Schema.Types.ObjectId, ref:'User'}
+  ]
   
 }, {
     collection: 'users'

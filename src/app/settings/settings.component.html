@@ -6,7 +6,8 @@
 
     <!-- Side Navigation START-->
 
-    <div class="col-md-3 col-sm-12 flex-md-column flex-sm-row d-flex justify-content-sm-start justify-content-md-between" id="side-nav">
+    <div class=" flex-column  d-flex  justify-content-between" id="side-nav">
+      <a href="javascript:void(0)" class="closebtn" (click)="closeNav()" rel="noopener noreferrer">&times;</a>
       <!-- Links -->
       <ul class="nav flex-md-column flex-sm-row mt-5">
         <li class="nav-item">
@@ -17,9 +18,9 @@
             Account Settings
           </a>
         </li>
-      <li class="nav-link link">
+      <li class="nav-link flex-center link">
         <!-- Back button -->
-        <button  class="nav-item btn mb-3 px-0">
+        <button   class="nav-item btn btn-block mb-3 px-0">
           Back
         </button>
       </li>
@@ -31,8 +32,9 @@
 
   <!-- Settings view START -->
 
-  <div class="col-md-9 col-sm-12" id="settings-view">
-    <div class="p-3 ml-3">
+  <div class="col-lg-9 offset-lg-3 col-md-12" id="settings-view">
+    <div class="p-3 d-flex justify-content-start ml-3">
+      <h3 class="open"> <a (click)="openNav()"><<--</a> </h3>
       <h3>Settings</h3>
     </div>
       <router-outlet></router-outlet>                                       
