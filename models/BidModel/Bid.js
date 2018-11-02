@@ -42,6 +42,9 @@ var Bid = new Schema({
 },{
   collection:'bids'
 })
+Bid.pre('find',function(){
+  this.populate('Request');
+})
 module.exports = mongoose.model('Bid',Bid);
 // Bids: [
 //     {

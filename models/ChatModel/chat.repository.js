@@ -24,7 +24,7 @@ exports.getChat = function(req,res){
 }
 
 exports.getChatByOrder = function(req,res){
-    Chat.findOne({Order: req.body.id})
+    Chat.findOne({Order: req.params.id})
     .populate('Order')
     .exec(function(err,chat){
         if (err) {
@@ -35,7 +35,7 @@ exports.getChatByOrder = function(req,res){
 }
 
 exports.UpdateChat = function(req,res){
-    Chat.findByIdAndUpdate(req.body.id,req.body.update,{new:true},function(err,chat){
+    Chat.findByIdAndUpdate(req.params.id,req.body,{new:true},function(err,chat){
         if (err) {
             return res.status(504).json({message:'something went wrong'})
         }

@@ -53,9 +53,9 @@ exports.findAllBids = function(req,res,next){
         res.send(requests);
     })
 }
-// gets all requests directed to a tailor
+// gets all direct requests 
 exports.getDirectOrders = function(req,res){
-    Request.find({Tailor:req.params.tailor,Type:"Direct"}).exec(function(err, order){
+    Request.find({Type:"Direct"}).exec(function(err, order){
         if(err){
             return res.status(404).send(err);
         }

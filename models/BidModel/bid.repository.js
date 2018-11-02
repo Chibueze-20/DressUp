@@ -57,8 +57,7 @@ exports.AcceptBid = function (req,res) {
       })
  }
 exports.showBids = function(req,res) {
-    Bid.find({Type:'Bid',Accepted:false,Rejected:false})
-    .populate('Request')
+    Bid.find({'Request.User':req.params.user,Type:'Bid',Accepted:false,Rejected:false})
     .exec(function(err,bids){
         if (err) {
             return res.status(404);
@@ -70,7 +69,6 @@ exports.showBids = function(req,res) {
 //shows all direct bids by a particular tailor often a response to an incomplete order such as direct order or post order
 exports.showDirectBids = function(req,res){
     Bid.find({Tailor:req.params.tailor,Type:'Direct',Accepted:false,Rejected:false})
-    .populate('Request')
     .exec(function(err,bids){
         if (err) {
             return res.status(404);

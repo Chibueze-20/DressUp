@@ -40,7 +40,8 @@ const feedbackController = require('./controllers/feedback.contoller');
 const searchController = require('./controllers/search.controller');
 const adminController = require('./controllers/admin.controller');
 const notificationController = require('./controllers/notification.controller');
-
+const bidController = require('./controllers/bid.controller');
+const chatController = require('./controllers/chat.controller');
 app.use('/admin',adminController);
 app.use('/notification',notificationController);
 app.use('/user',userController);
@@ -49,6 +50,8 @@ app.use('/order',orderRequestController);
 app.use('/post',postController);
 app.use('/feedback',feedbackController);
 app.use('/search',searchController);
+app.use('/bid',bidController);
+app.use('/chat',chatController);
 app.post('/upload',function(req,res,next){
   var form = formidable.IncomingForm();
   form.parse(req);
