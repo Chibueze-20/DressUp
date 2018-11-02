@@ -4,7 +4,8 @@ ObjectId = Schema.ObjectId;
 var Bid = new Schema({
     Type:{
         type:String,
-        enum:['Free','Direct'] // free bid for general bids ans direct bids for direct requests
+        enum:['Bid','Direct'], // free bid for general bids and direct bids for direct requests
+        default:'Bid'
     },
     Request:{
         type: Schema.Types.ObjectId,
@@ -15,7 +16,7 @@ var Bid = new Schema({
         ref: "User"
       },
     Price: {
-        type: String
+        type: Number
       },
     Schedule: {
         Duration: {
@@ -29,8 +30,19 @@ var Bid = new Schema({
             type: Number
           },
         }]
+      },
+      Accepted:{
+        type:Boolean,
+        default:false
+      },
+      Rejected:{
+        type:Boolean,
+        default:false
       }
+},{
+  collection:'bids'
 })
+module.exports = mongoose.model('Bid',Bid);
 // Bids: [
 //     {
 //       Duration: {

@@ -11,58 +11,11 @@ const currrentDate = () => {
   return new Date().toISOString()
 }
 
-var Request = new Schema({
-  Title: {
-    type: String
-  },
-  Description:{
-    type: String
-  },
-  Price: {
-    type: String
-  },
-  Picture: [{
-    type: String
-  }],
-  Tags: [{type: String}],
-  Schedule: {
-    Duration: {
-      type: Number
-    },
-    Milestones: [{
-      Milestone: {
-        type: String
-      },
-      Duration: {
-        type: Number
-      },
-    }]
-  },
-  Conditions: {
-    Negotiable: {
-      type: String,
-    },
-    BOYM: {
-      type: String,
-    },
-    Delivery: {
-      type: String,
-    },
-    Fitness: {
-      type: String
-    }
-  },
-  Type: {
-    type: String,
-    default: 'Bid'
-  },
-  Tailor: {
+var Order = new Schema({
+  
+  Order:{
     type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  User: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Bid"
   },
   Sizes: [{
     Name: {
@@ -93,4 +46,4 @@ var Request = new Schema({
   collection: 'orders'
 })
 
-module.exports = mongoose.model('Order', Request)
+module.exports = mongoose.model('Order', Order)

@@ -1,5 +1,5 @@
 var Request = require('./Request')
-
+var Bid = require('../BidModel/bid.repository');
 exports.CreateRequest = function(req,res,next){
     let request = new Request(req.body.request);
     request.CreatedAt = new Date().toISOString();
@@ -10,6 +10,13 @@ exports.CreateRequest = function(req,res,next){
     request.save( function(err, request){
         if(err){
             return res.staus(400)
+        }
+        if(req.body.Tailor){
+            if(req.body.Price){
+                Bid.createBid(res,req.body.Tailor,request._id,req.body.Price);
+            }else{
+                Bid.createBid(res,req.body.Tailor,request._id);
+            }
         }
         return res.status(200).json({Message:'Request sucessfully sent'});
     }) 
@@ -67,7 +74,17 @@ exports.allrequests = function(req,res,next){
         }
     })
 }
-
+exports.acceptRequest = function(id){
+    let Req;
+    Request.findByIdAndUpdate(id,{IsAccepted:true},{new:true},function (err,request) { 
+        if(err){
+            return null;
+        }else{
+            Req = request;
+        }
+     });
+     return Req;
+}
 exports.countBids = function(){
     let acceptedBids = 0
     let allBids = 0

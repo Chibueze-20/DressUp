@@ -1,23 +1,30 @@
 var OrderRequest = require('./OrderRequest');
-
+var Chat = require('../ChatModel/chat');
+var Bid = require('../BidModel/bid.repository');
+var Request = require('../RequestModel/request.repository');
 // create request direct or bid
-exports.createRequest = function(req,res){
-    let request = new OrderRequest(req.body.request)
-    request.Images = req.body.pic;
-    if(req.body.tags){
-        request.Tags = req.body.tags;
-    }
-    request.CreatedAt = new Date().toISOString();
-    request.save(function(err,request){
+exports.createRequest = function(res,id){
+    let Order = new OrderRequest();
+    Order.Order = id;
+    Order.CreatedAt = new Date().toISOString();
+    Order.save(function(err,Order){
         if (err) {
             return res.status(400).send(err);
         }
-        res.status(200).json({Message: 'request sucessfully created', type: 'Success'})
-    })
+        let newChat = new Chat()
+        newChat.Order = Order._id
+        newChat.save(function(err, chat){
+            if (err) {
+                return res.status(400).send(err);
+            }
+            res.status(200).json({Message: 'Order sucessfully created', type: 'Success'})
+        });
+        
+    });
 }
-// all request
+// all Order ongoing
 exports.allrequests = function(req,res,next){
-    OrderRequest.find()
+    OrderRequest.find({Completed:false})
     .sort('-CreatedAt -_id')
     .exec(function(err,posts){
         if(err){

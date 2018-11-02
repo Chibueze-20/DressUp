@@ -34,7 +34,7 @@ exports.allPosts = function(req,res,next){
     })
 }
 
-//the posts of a particuler tailor
+//the posts of a particular tailor
 exports.tailorPosts = function(req,res,next){
     Post.find({Tailor:req.body.tailor})
     .sort('-CreatedAt -_id')
