@@ -8,3 +8,4 @@ router.post('accept/direct/:id',repository.AcceptDirectBid);
 router.get('/reject/:id',repository.RejectBid);
 router.get('/bids/:user',repository.showBids);
 router.get('/bids/direct/:tailor',repository.showDirectBids);
+module.exports = router;

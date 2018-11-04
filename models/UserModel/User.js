@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 
-var Size = new Schema({
-  name: {
-      type: String
-  },
-  value:{
-      type: String
-  }
-})
+// var Size = new Schema({
+//   name: {
+//       type: String
+//   },
+//   value:{
+//       type: String
+//   }
+// })
 
-var CustomSize = new Schema({
-  Label:{
-      type: String
-  },
-  Sizes: [Size]
-})
+// var CustomSize = new Schema({
+//   Label:{
+//       type: String
+//   },
+//   Sizes: [Size]
+// })
 
 var User = new Schema({
   Account:{
@@ -50,7 +50,8 @@ var User = new Schema({
   },
   Contact:{
     State: {
-      type: String
+      type: String,
+      required:true
     },
     City: {
       type: String
@@ -71,14 +72,12 @@ var User = new Schema({
     },
     BrandDescription: {
       type: String,
-      default: 'this is a random description head on to settings to give a better description of your brand'
     },
     WorkAddress: {
       type: String
     },
     Verified:{
       type:Boolean,
-      default:false
     }
   },
   Ratings:{
@@ -91,9 +90,6 @@ var User = new Schema({
     AvgRating:{
       type: Number,
     }
-  },
-  Picture:{
-    type: String
   },
   Profile: {
     type: Schema.Types.ObjectId, ref:'Profile'

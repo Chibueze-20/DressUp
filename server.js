@@ -45,7 +45,7 @@ const chatController = require('./controllers/chat.controller');
 app.use('/admin',adminController);
 app.use('/notification',notificationController);
 app.use('/user',userController);
-app.use('/request',requestController)
+app.use('/request',requestController);
 app.use('/order',orderRequestController);
 app.use('/post',postController);
 app.use('/feedback',feedbackController);

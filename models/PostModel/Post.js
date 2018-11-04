@@ -5,14 +5,14 @@ ObjectId = Schema.ObjectId;
 const currrentDate = ()=>{
     return new Date().toISOString()
 }
-var Size = new Schema({
-    name: {
-        type: String
-    },
-    value:{
-        type: String
-    }
-})
+// var Size = new Schema({
+//     name: {
+//         type: String
+//     },
+//     value:{
+//         type: String
+//     }
+// })
 var Post = new Schema({
     Tailor : {type:Schema.Types.ObjectId, ref: "User"},
     Title: {type: String},

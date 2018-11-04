@@ -1,15 +1,17 @@
 var Bid = require('./Bid')
 var Order = require('../OrderRequestModel/OrderRequest.repository');
-exports.createBid = function (res,tailor,request,price) { 
+var mongoose = require('mongoose');
+
+exports.createBid = function (tailor,request,price) { 
     let bid = new Bid({Tailor:tailor,Request:request,Type:'Direct'})
     if(price){
         bid.Price = price;
     }
     bid.save(function (err,bid) { 
         if (err) {
-            return res.status(505).json({Message:"bid not sent"})
+            console.log(err);
         }else{
-            res.status(200).json({Message:'Bid sucessfully sent'})
+           console.log(bid);
         }
      })
  }
@@ -17,7 +19,7 @@ exports.PlaceBid = function(req,res){
     let bid = new Bid(req.body)
     bid.save(function (err,bid) { 
         if (err) {
-            return res.status(505).json({Message:"bid not sent"})
+            return res.status(500).json({Message:"bid not sent",Error:err})
         }else{
             res.status(200).json({Message:'Bid sucessfully sent'})
         }
@@ -57,12 +59,12 @@ exports.AcceptBid = function (req,res) {
       })
  }
 exports.showBids = function(req,res) {
-    Bid.find({'Request.User':req.params.user,Type:'Bid',Accepted:false,Rejected:false})
+    Bid.find({Type:'Bid',Accepted:false,Rejected:false})
     .exec(function(err,bids){
         if (err) {
             return res.status(404);
         }else{
-            res.send(bids);
+            res.send(bids.filter(bid=>bid.Request.User === mongoose.Types.ObjectId(req.params.user)));
         }
     });
 }

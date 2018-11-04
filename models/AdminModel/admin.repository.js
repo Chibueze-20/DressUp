@@ -9,15 +9,15 @@ var Post = require('../PostModel/Post');
 var Bid = require('../RequestModel/Request');
 
 exports.LogIn = function(req,res,next){
-    Admin.findOne({'Account.Email': req.body.Email, 'Account.Password': req.body.Password})
-    .exec(function(err,admin){
+    let details = {Email:req.body.Email,Password:req.body.Password}
+    Admin.findOne({'Account.Email':details.Email , 'Account.Password': details.Password},function(err,admin){
         if(err){
-            return res.status(404);
+            return res.status(404).send(err);
         }
         if(admin){
-            return res.json(admin)
+            return res.send(admin)
         }else{
-            return res.status(404)
+            return res.status(404).json({Message:"we cant find you"})
         }
     })
 }
@@ -36,6 +36,19 @@ exports.details = function(req,res,next){
     let bids = bidrepo.countBids();
     let post = postrepo.CountPosts();
 }
+exports.verifyTailor = function (req,res,next) { 
+    User.findByIdAndUpdate(req.params.id,{'Brand.Verified':true},{new:true},function(err,user){
+        if (err) {
+           return res.status(404).send(err)
+        } else {
+            if (user) {
+                return res.status(200).send(user);
+            } else {
+                return res.status(404).json({Message:"Couls not find User"});
+            }            
+        }
+    })
+ }
 exports.getAllTailors = function(req,res,next){
     User.find({Role:'Designer'},function(err,users){
         if(err){
@@ -60,22 +73,6 @@ exports.getAllOrders = function(req,res,next){
         return res.send(orders);
     })
 }
-exports.getCompletedOrders = function(res,res,next){
-    Order.find({Completed:true}).exec(function(err,orders){
-        if(err){
-            return res.status(404);
-        }
-        return res.send(orders);
-    })
-}
-exports.getOngoingOrders = function(res,res,next){
-    Order.find({Completed:false}).exec(function(err,orders){
-        if(err){
-            return res.status(404);
-        }
-        return res.send(orders);
-    })
-}
 exports.getAllPosts = function(req,res,next){
     Post.find(function(err,posts){
         if(err){
@@ -92,14 +89,14 @@ exports.getAllBids = function(req,res,next){
         res.send(bids);
     })
 }
-exports.detailsbyId = function(req,res,next){
-    if(req.body.role === 'User'){
-       order = orderrepo.CountOrdersbyUser(req.body.id,req.body.role);
-       bid = bidrepo.countBidsbyUser(req.body.id);
-       return res.send({OrderDetails: order,BidDetails:bid})
-    } else if (req.body.role === 'Designer'){
-        order = orderrepo.CountOrdersbyUser(req.body.id,req.body.role);
-        post = postrepo.CountPostsbyUser(req.body.id);
-        return res.send({OrderDetails: order,PostDetails:post})
-    }
-}
+// exports.detailsbyId = function(req,res,next){
+//     if(req.body.role === 'User'){
+//        order = orderrepo.CountOrdersbyUser(req.body.id,req.body.role);
+//        bid = bidrepo.countBidsbyUser(req.body.id);
+//        return res.send({OrderDetails: order,BidDetails:bid})
+//     } else if (req.body.role === 'Designer'){
+//         order = orderrepo.CountOrdersbyUser(req.body.id,req.body.role);
+//         post = postrepo.CountPostsbyUser(req.body.id);
+//         return res.send({OrderDetails: order,PostDetails:post})
+//     }
+// }

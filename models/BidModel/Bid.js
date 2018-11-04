@@ -23,10 +23,10 @@ var Bid = new Schema({
           type: Number
         },
         Milestones: [{
-          Milestone: {
+          task: {
             type: String
           },
-          Duration: {
+          duration: {
             type: Number
           },
         }]

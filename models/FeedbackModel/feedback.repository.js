@@ -34,6 +34,8 @@ exports.AverageRatings = function(req,res,next){
 
 exports.CreateFeedback = function(req,res,next){
     let feed = new Feedback(req.body);
+    feed.CreatedAt = new Date();
+    feed.UpdatedAt = new Date();
     feed.save(function(err,feedback){
         if(err){
             res.status(400).json({Message: "Error saving to database",type:"Error"})
@@ -63,14 +65,30 @@ exports.CreateFeedback = function(req,res,next){
     })
 }
 exports.getFeedbacks = function(req,res,next){
-    Feedback.find({Tailor: req.body.Tailor})
-    .skip(req.body.skip)
-    .limit(3)
+    Feedback.find({Tailor: req.params.Tailor})
+    .skip(Number(req.body.skip) || 0)
+    .limit(4)
     .exec(function(err,feedbacks){
         if(err){
-            res.status(400).json({Message: "Error getting records",type: "Error"})
+            res.status(404).json({Message: "Error getting records",type: "Error"})
         }else{
-            res.json(feedbacks)
+            res.send(feedbacks)
+        }
+    })
+}
+exports.getFeedbacksById = function(req,res,next){
+    let array = req.body.Feedbacks.map(feed =>  mongoose.Types.ObjectId(feed));
+    Feedback.find()
+    .where('_id').in(array)
+    .exec(function(err,feedbacks){
+        if (err) {
+           return res.status(404).send(err);    
+        } else {
+            if (feedbacks) {
+                return res.status(200).send(feedbacks);
+            } else {
+                return res.status(404).json({Message: "Error getting records",type: "Error"});
+            }
         }
     })
 }

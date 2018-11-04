@@ -2,7 +2,7 @@ var Request = require('./Request')
 var Bid = require('../BidModel/bid.repository');
 exports.CreateRequest = function(req,res,next){
     let request = new Request(req.body.request);
-    request.CreatedAt = new Date().toISOString();
+    request.CreatedAt = new Date();
     request.Picture = req.body.pic;
     if(req.body.tags){
         request.Tags = req.body.tags;
@@ -11,11 +11,11 @@ exports.CreateRequest = function(req,res,next){
         if(err){
             return res.staus(400)
         }
-        if(req.body.Tailor){
-            if(req.body.Price){
-                Bid.createBid(res,req.body.Tailor,request._id,req.body.Price);
+        if(req.body.tailor){
+            if(req.body.price){
+                Bid.createBid(req.body.tailor,request._id,req.body.price);
             }else{
-                Bid.createBid(res,req.body.Tailor,request._id);
+                Bid.createBid(req.body.tailor,request._id);
             }
         }
         return res.status(200).json({Message:'Request sucessfully sent'});
@@ -44,7 +44,8 @@ exports.findRequestbyID = function(req, res, next){
 
 exports.findAllBids = function(req,res,next){
     Request.find({IsAccepted: false, Type:'Bid'})
-    .skip(Number(req.params.skip))
+    .skip(Number(req.params.skip||0))
+    .limit(20)
     .sort('-CreatedAt')
     .exec(function(err,requests){
         if(err){
@@ -85,61 +86,60 @@ exports.acceptRequest = function(id){
      });
      return Req;
 }
-exports.countBids = function(){
-    let acceptedBids = 0
-    let allBids = 0
+// exports.countBids = function(){
+//     let acceptedBids = 0
+//     let allBids = 0
 
-    Request.count({IsAccepted:true}).exec(function(err,number){
-        let count;
-        if(err || number === null){
-            count = 0
-        }else{
-            count = number;
-        }
-        acceptedBids = count;
-    })
-    Request.count({IsAccepted:false}).exec(function(err,number){
-        let count;
-        if(err || number === null){
-            count = 0
-        }else{
-            count = number;
-        }
-        allBids = count;
-    })
-    let bidcount = {
-        closedBids: acceptedBids,
-        openBids: allBids,
-        totalBids: acceptedBids + allBids
-    }
-    return bidcount;
-}
-exports.countBidsbyUser = function(id){
-    let acceptedBids = 0
-    let allBids = 0
+//     Request.count({IsAccepted:true}).exec(function(err,number){
+//         let count;
+//         if(err || number === null){
+//             count = 0
+//         }else{
+//             count = number;
+//         }
+//         acceptedBids = count;
+//     })
+//     Request.count({IsAccepted:false}).exec(function(err,number){
+//         let count;
+//         if(err || number === null){
+//             count = 0
+//         }else{
+//             count = number;
+//         }
+//         allBids = count;
+//     })
+//     let bidcount = {
+//         closedBids: acceptedBids,
+//         openBids: allBids,
+//         totalBids: acceptedBids + allBids
+//     }
+//     return bidcount;
+// }
+// exports.countBidsbyUser = function(id){
+//     let acceptedBids = 0
+//     let allBids = 0
 
-    Request.count({IsAccepted:true, User:id}).exec(function(err,number){
-        let count;
-        if(err || number === null){
-            count = 0
-        }else{
-            count = number;
-        }
-        acceptedBids = count;
-    })
-    Request.count({IsAccepted:false, User:id}).exec(function(err,number){
-        let count;
-        if(err || number === null){
-            count = 0
-        }else{
-            count = number;
-        }
-        allBids = count;
-    })
-    let bidcount = {
-        closedBids: acceptedBids,
-        openBids: allBids,
-        totalBids: acceptedBids + allBids
-    }
-    return bidcount;
-}
+//     Request.countDocuments({IsAccepted:false, User:id}).exec(function(err,number){
+//         let count;
+//         if(err){
+//             count = err;
+//         }else{
+//             count = number;
+//         }
+//         acceptedBids = count;
+//     })
+//     Request.countDocuments({}).exec(function(err,number){
+//         let count;
+//         if(err){
+//             count = err
+//         }else{
+//             count = number;
+//         }
+//         allBids = count;
+//     })
+//     let bidcount = {
+//         closedBids: acceptedBids,
+//         openBids: allBids,
+//     }
+//     return bidcount;
+// }

@@ -7,7 +7,7 @@ exports.createPost = function(req,res,next){
     if(req.body.tags) {
         post.Tags = req.body.tags;
     }
-    post.CreatedAt = new Date().toISOString();
+    post.CreatedAt = new Date();
     // console.log(req.body);
     post.save(function(err,newPost){
         if(err){
@@ -22,7 +22,7 @@ exports.createPost = function(req,res,next){
 exports.allPosts = function(req,res,next){
     Post.find()
     .sort('-CreatedAt -_id')
-    .skip(Number(req.params.skip))
+    .skip(Number(req.params.skip)||0)
     .limit(20)
     .select('Picture _id')
     .exec(function(err,posts){
@@ -38,7 +38,7 @@ exports.allPosts = function(req,res,next){
 exports.tailorPosts = function(req,res,next){
     Post.find({Tailor:req.body.tailor})
     .sort('-CreatedAt -_id')
-    .skip(Number(req.params.skip))
+    .skip(Number(req.params.skip)||0)
     .limit(20)
     .select('Picture _id')
     .exec(function(err,posts){
@@ -55,7 +55,7 @@ exports.followedPosts = function(req,res,next){
     Post.find()
     .where('Tailor').in(req.body.Tailor)
     .sort('-CreatedAt')
-    .skip(Number(req.params.skip))
+    .skip(Number(req.params.skip)||0)
     .limit(20)
     .exec(function(err,posts){
         if(err){
@@ -71,7 +71,7 @@ exports.getPost = function(req, res, next){
     Post.findOne({_id: req.params.id})
     .populate({
         path: 'Tailor',
-        select: '_id Brand Profile',
+        select: '_id Brand.BrandName Profile',
         populate: { path: 'Profile', select: 'Display'}
     })
     .exec(function(err,post){

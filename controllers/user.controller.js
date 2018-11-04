@@ -15,6 +15,8 @@ router.post('/user/login',repository.getUser);
 router.post('/designer/login',repository.getDesigner);
 //get all users
 router.get('/',repository.getAllUsers);
+//follow tailor
+router.post('/follow',repository.follow);
 router.get('/hey',function (req,res,next) {
   return res.json({message:"hey there"});
 })
@@ -27,8 +29,8 @@ router.post('/update/names/:id',repository.updateUserNamesById);
 router.post('/update/brand/:id',repository.updateUserBrandById);
 
 //custom Sizes
-router.post('/sizes/add/:id',repository.AddCustomSize);
-router.post('/sizes/update/:id',repository.UpdateCustomSize);
+// router.post('/sizes/add/:id',repository.AddCustomSize);
+// router.post('/sizes/update/:id',repository.UpdateCustomSize);
 
 //profile for designers
 router.post('/profile/update/:id', profileRepo.UpdateProfile);

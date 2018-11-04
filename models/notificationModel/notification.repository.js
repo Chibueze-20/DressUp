@@ -30,7 +30,7 @@ var Message = require('./messages');
 exports.add = function (req, res) { 
     var newnotify = new Notifications(req.body);
     newnotify.save()
- }
+}
 
  exports.NotifyAllUsers =function(req,res){
      notificationPayload.notification.title = req.body.title;
@@ -59,11 +59,14 @@ exports.add = function (req, res) {
     })
  }
  exports.getMessages = function(req,res){
-     Message.find({To:req.params.id,Type:req.params.kind},function(err,msgs){
-         if (err) {
-             res.status(404).json({Message:"no messages found",type:"Error"})
-         } else {
-             res.status(200).send(msgs)
-         }
-     })
+     Message.find({To:req.params.id,Type:req.params.kind})
+     .skip(Number(req.body.skip || 0))
+     .limit(Number(req.body.limit || 10))
+     .exec(function(err,msgs){
+        if (err) {
+            res.status(404).json({Message:"no messages found",type:"Error"})
+        } else {
+            res.status(200).send(msgs)
+        }
+    })
  }

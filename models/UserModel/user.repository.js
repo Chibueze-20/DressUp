@@ -1,19 +1,22 @@
 var User = require('./User');
 var Profile = require('../ProfileModel/Profile');
+var mongoose = require('mongoose');
 //Create
 exports.createDesigner = function (req,res,next) {
-  let profile = new Profile({Tags:['weddings','casual','kiddies']});
+  let profile = new Profile();
     profile.save(function(err,Profile){
       if(err){
         console.log(err);
       }
       let newUser = new User(req.body);
       newUser.Profile = profile._id;
+      newUser.Verified = false;
+      newUser.Ratings = {Stars:0,Ratedby:0,AvgRating:0}
       newUser.save(function(err,newuser){
         if(err){
             res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
         }else{
-            res.status(200).json({Message: "User Successfully added",type:"Success", User: newuser})
+            res.status(200).json({Message: "User Successfully added",type:"Success", User: newUser})
         }
     });
   });
@@ -25,7 +28,7 @@ exports.createUser = function(req,res,next){
       if(err){
         res.status(400).json({Message:"unable to save to Database/n "+err,type:"Error"})
       }else{
-        res.status(200).json({Message: "User Successfully added",type:"Success", User: newuser})
+        res.status(200).json({Message: "User Successfully added",type:"Success", User: newUser})
       }
   });
 }
@@ -41,9 +44,11 @@ exports.getAllUsers = function (req,res,next) {
 }
 //Read -by id
 exports.getTailorById = function (req,res,next) {
+
   let id = req.params.id;
   User.findById(id)
   .populate('Profile')
+  .populate('Feedbacks')
   .exec(function (err, tailor){
     if(err){
     return  res.status(404).send(err)
@@ -83,6 +88,27 @@ exports.getDesigner = function(req,res,next){
       }
     }
   });
+}
+
+exports.follow = function(req,res,next){
+  User.findById(mongoose.Types.ObjectId(req.body.user),function(err,user){
+    if (err) {
+      return res.status(404).send({Message: "User Not Found",type:"Error"});
+    } else {
+      if(user){
+        user.Following.push(mongoose.Types.ObjectId(req.body.tailor));
+        user.save(function(err,user){
+          if (err) {
+            return res.status(500).send({Message: "Internal error, something did not go well",type:"Error"});
+          } else {
+            return res.status(200).send({Message:"Followed tailor",type:"Success"});
+          }
+        })
+      }else{
+        return res.status(404).send({Message: "User Not Found",type:"Error"});
+      }
+    }
+  })
 }
 
 //Update -by id
@@ -205,46 +231,46 @@ exports.updateUserBrandById = function (req, res, next) {
 }
 
 //USERs Custom sizes
-exports.AddCustomSize = function(req,res,next){
-  User.findById(req.params.id,function (err,user) {
-    if(!user){
-      return next(new Error("could not load document"))
-    } else {
-      if(req.body){
-        user.CustomSizes.push(req.body);
-      }else{
-        return res.json({Message: "No Changes", type: "Success"});
-      }
+// exports.AddCustomSize = function(req,res,next){
+//   User.findById(req.params.id,function (err,user) {
+//     if(!user){
+//       return next(new Error("could not load document"))
+//     } else {
+//       if(req.body){
+//         user.CustomSizes.push(req.body);
+//       }else{
+//         return res.json({Message: "No Changes", type: "Success"});
+//       }
 
-      user.save().then(user => {
-        console.log(user);
-        res.json(user);
-      }).catch(err => {
-        res.status(400).json({Message:"update unsuccessful",type:"Error"});
-      });
-    }
-  });
-}
-exports.UpdateCustomSize = function(req,res,next){
-  User.findById(req.params.id,function (err,user) {
-    if(!user){
-      return next(new Error("could not load document"))
-    } else {
-      if(req.body){
-        user.CustomSizes = req.body;
-      }else{
-        return res.json({Message: "No Changes", type: "Success"});
-      }
+//       user.save().then(user => {
+//         console.log(user);
+//         res.json(user);
+//       }).catch(err => {
+//         res.status(400).json({Message:"update unsuccessful",type:"Error"});
+//       });
+//     }
+//   });
+// }
+// exports.UpdateCustomSize = function(req,res,next){
+//   User.findById(req.params.id,function (err,user) {
+//     if(!user){
+//       return next(new Error("could not load document"))
+//     } else {
+//       if(req.body){
+//         user.CustomSizes = req.body;
+//       }else{
+//         return res.json({Message: "No Changes", type: "Success"});
+//       }
 
-      user.save().then(user => {
-        console.log(user);
-        res.json(user);
-      }).catch(err => {
-        res.status(400).json({Message:"update unsuccessful",type:"Error"});
-      });
-    }
-  });
-}
+//       user.save().then(user => {
+//         console.log(user);
+//         res.json(user);
+//       }).catch(err => {
+//         res.status(400).json({Message:"update unsuccessful",type:"Error"});
+//       });
+//     }
+//   });
+// }
 //Delete -by id
 exports.DeleteUserById = function (req,res,next) {
   User.findByIdAndRemove({_id: req.params.id}, function (err,user) {
