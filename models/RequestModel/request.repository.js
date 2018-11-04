@@ -1,5 +1,6 @@
 var Request = require('./Request')
 var Bid = require('../BidModel/bid.repository');
+var mongoose = require('mongoose');
 exports.CreateRequest = function(req,res,next){
     let request = new Request(req.body.request);
     request.CreatedAt = new Date();
@@ -86,6 +87,7 @@ exports.acceptRequest = function(id){
      });
      return Req;
 }
+
 // exports.countBids = function(){
 //     let acceptedBids = 0
 //     let allBids = 0

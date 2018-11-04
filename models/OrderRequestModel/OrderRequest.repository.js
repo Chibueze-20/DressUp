@@ -6,18 +6,18 @@ var Request = require('../RequestModel/request.repository');
 exports.createRequest = function(res,id){
     let Order = new OrderRequest();
     Order.Order = id;
-    Order.CreatedAt = new Date().toISOString();
-    Order.save(function(err,Order){
+    Order.CreatedAt = new Date();
+    Order.save(function(err,Orders){
         if (err) {
-            return res.status(400).send(err);
+            console.log(err)
         }
         let newChat = new Chat()
         newChat.Order = Order._id
         newChat.save(function(err, chat){
             if (err) {
-                return res.status(400).send(err);
+                console.log(err)
             }
-            res.status(200).json({Message: 'Order sucessfully created', type: 'Success'})
+            console.log({Message: 'Order sucessfully created', type: 'Success'})
         });
         
     });
@@ -35,23 +35,21 @@ exports.allrequests = function(req,res,next){
     })
 }
 
-// show all bids
-exports.getAllOrders = function(req,res,next){
-    OrderRequest.find({Type:'Bid'})
-    .sort('-CreatedAt -_id')
-    .skip(Number(req.params.skip))
-    .limit(20)
-    .exec( function(err, users){
-        if(err){
-         return  res.send(err);
-        }
-        res.json(users);
-    })
-}
+// exports.getInvalidOrders = function(req,res,next){
+//     OrderRequest.find({Valid:false})
+//     .populate({
+//         path:"Order",
+//         populate:{
+//             path:'Tailor',
+//             select:'Brand.BrandName'
+//         }
+//     })
+//     .populate('Request')
+// }
 
 // update order
 exports.updateOrder = function(req,res){
-    OrderRequest.findOneAndUpdate({_id: req.params.id},req.body,{new:true}).exec(function (err, update) {
+    OrderRequest.findByIdAndUpdate(req.params.id,req.body,{new:true}).exec(function (err, update) {
         if (err) {
             return res.status(404).send(err);
         }
@@ -61,22 +59,38 @@ exports.updateOrder = function(req,res){
 
 // gets a specified request or order
 exports.getOrder = function(req,res){
-    OrderRequest.findById(req.params.id).exec(function(err, order){
+    OrderRequest.findById(req.params.id)
+    .populate('Order')
+    .populate('Request')
+    .exec(function(err, order){
         if(err){
             return res.status(404).send(err);
         }
         res.json(order)
     })
 }
+// show all bids
+// exports.getAllOrders = function(req,res,next){
+//     OrderRequest.find({Type:'Bid'})
+//     .sort('-CreatedAt -_id')
+//     .skip(Number(req.params.skip))
+//     .limit(20)
+//     .exec( function(err, users){
+//         if(err){
+//          return  res.send(err);
+//         }
+//         res.json(users);
+//     })
+// }
 // gets all requests directed to a tailor
-exports.getDirectOrders = function(req,res){
-    OrderRequest.find({Tailor:req.params.tailor,Type:"Direct"}).exec(function(err, order){
-        if(err){
-            return res.status(404).send(err);
-        }
-        res.json(order)
-    })
-}
+// exports.getDirectOrders = function(req,res){
+//     OrderRequest.find({Tailor:req.params.tailor,Type:"Direct"}).exec(function(err, order){
+//         if(err){
+//             return res.status(404).send(err);
+//         }
+//         res.json(order)
+//     })
+// }
 exports.CountOrders = function(){
     let doneOrders = 0;
     let ongoingOrders = 0;

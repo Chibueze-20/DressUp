@@ -14,7 +14,18 @@ exports.addMessage = function(id,message){
 
 exports.getChat = function(req,res){
     Chat.findById(req.params.id)
-    .populate('Order')
+    .populate({
+        path:'Order',
+        populate:{
+            path:'Order',
+            populate:{
+                path:'Tailor',
+                select:'Brand.BrandName'
+            }
+        }
+    })
+    .populate('Request')
+    
     .exec(function(err,chat){
         if (err) {
             return res.status(404)
@@ -25,7 +36,17 @@ exports.getChat = function(req,res){
 
 exports.getChatByOrder = function(req,res){
     Chat.findOne({Order: req.params.id})
-    .populate('Order')
+    .populate({
+        path:'Order',
+        populate:{
+            path:'Order',
+            populate:{
+                path:'Tailor',
+                select:'Brand.BrandName'
+            }
+        }
+    })
+    .populate('Request')
     .exec(function(err,chat){
         if (err) {
             return res.status(404)
@@ -37,7 +58,7 @@ exports.getChatByOrder = function(req,res){
 exports.UpdateChat = function(req,res){
     Chat.findByIdAndUpdate(req.params.id,req.body,{new:true},function(err,chat){
         if (err) {
-            return res.status(504).json({message:'something went wrong'})
+            return res.status(404).json({message:'something went wrong'})
         }
         res.send(chat);
     })

@@ -15,7 +15,8 @@ var Chat = new Schema({
         type:Date
     },
     HasFeedback:{
-        type: Boolean
+        type: Boolean,
+        default:false
     },
     Messages: []
 },{

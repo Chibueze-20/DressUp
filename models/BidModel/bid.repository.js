@@ -1,4 +1,5 @@
-var Bid = require('./Bid')
+var Bid = require('./Bid');
+var Request = require('../RequestModel/Request');
 var Order = require('../OrderRequestModel/OrderRequest.repository');
 var mongoose = require('mongoose');
 
@@ -30,21 +31,22 @@ exports.AcceptBid = function (req,res) {
         if (err) {
             return res.status(404).json({Message:"Bid not found"});
         }else{
-            Bid.updateMany({Request:bid.Request,Accepted:false},{Rejected:true},function(err,update){
+            Bid.updateMany({Type:'Bid',Request:bid.Request,Accepted:false},{Rejected:true},function(err,update){
                 if (err) {
                     return res.status(504).json({Message:"Ran into some problem accepting bid"});
                 }else{
                     console.log('updated documents',update)
                 }
             })
-            bid.Accepted = true;
-            bid.save(function(err,newBid){
+            Bid.findByIdAndUpdate(bid._id,{Accepted:true,Rejected:false},{new:true},function(err,newBid){
                 if (err) {
                     return res.status(504).json({Message:"Ran into some problem accepting bid"});
                 }else{
+                    console.log(newBid);
                     Order.createRequest(res,newBid._id);
+                    return res.status(200).json({Message:"Bid accepted"});
                 }
-            });
+            })
         }
     })
  }
@@ -59,16 +61,27 @@ exports.AcceptBid = function (req,res) {
       })
  }
 exports.showBids = function(req,res) {
-    Bid.find({Type:'Bid',Accepted:false,Rejected:false})
-    .exec(function(err,bids){
-        if (err) {
+    Request.find({Type:'Bid',User:mongoose.Types.ObjectId(req.params.user)},function(err,requests){
+        if(err){
+            console.log(err);
             return res.status(404);
         }else{
-            res.send(bids.filter(bid=>bid.Request.User === mongoose.Types.ObjectId(req.params.user)));
+        //  console.log(requests.map(elem => elem._id));
+         let request = requests.map(elem => elem._id);
+         Bid.find({Type:'Bid',Accepted:false,Rejected:false})
+         .where('Request').in(request)
+         .exec(function(err,bids){
+             if (err) {
+                 return res.status(404);
+             }else{
+                 res.send(bids);
+             }
+         });
         }
-    });
+    })
+    
 }
-//shows all direct bids by a particular tailor often a response to an incomplete order such as direct order or post order
+//shows all direct bids to a particular tailor often a response to an incomplete order such as direct order or post order
 exports.showDirectBids = function(req,res){
     Bid.find({Tailor:req.params.tailor,Type:'Direct',Accepted:false,Rejected:false})
     .exec(function(err,bids){
@@ -81,18 +94,12 @@ exports.showDirectBids = function(req,res){
 }
 
 exports.AcceptDirectBid = function(req,res,next){
-    Bid.findByIdAndUpdate(req.params.id,req.body,{new:true},function (err,bid) { 
+    Bid.findByIdAndUpdate(req.body.Id,{Schedule:req.body.Schedule,Accepted:true},{new:true},function (err,bid) { 
         if (err) {
             return res.status(404).send(err)
         }else{
-            bid.Accepted = true;
-            bid.save(function(err,BID){
-                if (err) {
-                    return res.status(500).send(err)
-                } else {
-                    Order.createRequest(res,BID._id);
-                }
-            })
+            Order.createRequest(res,bid._id);
+            return res.status(200).json({Message:"Bid accepted"});
         }
      })
 }
