@@ -1,16 +1,22 @@
-<div class="container">
+<div class="container mt-3">
   <div [formGroup]="PostForm" class="card m-0">
     <!-- Post -->
 
     <div class="col-md-12 card-body m-0 p-0 col-xs-12">
       <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
         <li>
-          <p *ngIf="localUrl.length>0" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()">remove</p>
           <div class="row">
-            <div class="col-md-6 flex-center col-sm-12">
+            <div class="col-md-6  col-sm-12">
+                <div class="mb-2 mt-2">
+                    <p *ngIf="localUrl.length>0" class="font-italic  cursor-hand text-primary my-2 font-weight-bold" (click)="remove()">remove</p>
+                    <div class="custom-file">
+                      <input type="file" title="add picture" (change)="showPreviewImage($event)" class="custom-file-input" id="customFile">
+                      <label class="custom-file-label" for="customFile">Add picture (max 4)</label>
+                    </div>
+                  </div>
               <!--Image-->
               <!--carousel wrapper-->
-              <div id="mycarousel" class="carousel slide " data-ride="carousel">
+              <div id="mycarousel" style="height: 300px;" class="carousel slide " data-ride="carousel">
                 <!-- Indicators -->
                 <!-- Indicators -->
                 <!-- Slide wrapper -->
@@ -23,28 +29,19 @@
                 </div>
               </div>
               <!--Image-->
-            
-                <div class="mt-3">
-                  <h4 class="h1-responsive">Add picture</h4>
-                  <div class="custom-file">
-                    <input type="file" (change)="showPreviewImage($event)" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Add picture (max 4)</label>
-                  </div>
-                </div>
-              
             </div>
             <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
               <li class="list-inline-item" id="title">
-                <label for="title-input">Title</label>
+                <label for="title-input"><span class="text-danger">*</span>Title</label>
                 <input required formControlName="Title" class="form-control text-uppercase" type="text" id="title-input">
               </li>
               <li class="list-inline-item" id="price">
-                <label for="price-input">Price</label>
+                <label for="price-input"><span class="text-danger">*</span>Price</label>
                 <input required formControlName="Price" class="form-control " type="number" id="price-input">
               </li>
               <li id="description">
-                <label for="description-textarea">Description</label>
-                <textarea required formControlName="Description" class="form-control " type="text" id="description-textarea"></textarea>
+                <label for="description-textarea"><span class="text-danger">*</span>Description</label>
+                <textarea required formControlName="Description" rows="11" class="form-control " type="text" id="description-textarea"></textarea>
               </li>
             </ul>
           </div>
@@ -415,7 +412,8 @@
       </ul>
       <div class="w-100 d-flex justify-content-between align-self-end">
         <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
-        <button class="btn post-btn btn-success btn-flat" data-toggle="modal" data-target="#tagsmodal">Post</button>
+        <span><span class="text-danger">*</span> Fields must be filled</span>
+        <button [class.disabled]="PostForm.invalid" class="btn post-btn btn-success btn-flat" data-toggle="modal" data-target="#tagsmodal">Post</button>
       </div>
     </div>
   </div>
@@ -428,7 +426,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <button close (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button #close (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

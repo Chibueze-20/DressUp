@@ -1,6 +1,5 @@
 <div [formGroup] = "RequestForm" class="container-fluid my-3">
   <!-- title -->
-  {{show}}
   <div class="row d-flex justify-content-center">
     <div class="col-md-6 col-sm-12">
       <label for="title">Request Title</label>
@@ -123,18 +122,6 @@
             <input formControlName="Tailor" #tailor type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
               aria-describedby="basic-addon-1" name="" id="">
           </div>
-          <div class="col-md-6 col-sm-12 btn-group dropright">
-            <button style="height:fit-content;width: inherit" class="btn btn-danger px-2 btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              <span>tailors you follow</span>
-            </button>
-            <div class="dropdown-menu w-100 s-light">
-              <a class="dropdown-item dropdown-hover" (click)="tailor.value='tailor'">tailor!</a>
-              <a class="dropdown-item dropdown-hover">tailorXYZ</a>
-              <a class="dropdown-item dropdown-hover">tailor&</a>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>

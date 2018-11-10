@@ -1,13 +1,25 @@
 <div *ngIf="Loader" class="container mb-5 belleza px-md-3">
-  <div  *ngIf = "Posts.length > 0; else elseblock" class="row flex-center mx-md-5 mb-2">
+  <div *ngIf = "Posts.length > 0; else elseblock" class="row flex-center mx-md-5 mb-2">
     <!-- Card Wider -->
     <!-- Card -->
     <div *ngFor="let post of Posts" class="card my-3 mx-0 col-md-6 col-sm-12 card-cascade wider">
 
       <div class="view view-cascade overlay">
         <!--Image-->
-        <img class="card-img-top" [src]="post.Picture[0]" alt="Card image cap">
-        <!--Image-->
+                <!--carousel wrapper-->
+                <div id="mycarousel" style="height: 300px;" class="carousel  slide " data-ride="carousel">
+                    <!-- Indicators -->
+                    <!-- Indicators -->
+                    <!-- Slide wrapper -->
+                    <div class="carousel-inner" style="height: -webkit-fill-available;" role="listbox">
+                      <!--slides-->
+                      <div *ngFor="let image of post.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst"
+                        style="height: inherit;">
+                        <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
+                      </div>
+                    </div>
+                  </div>
+                  <!--Image-->
       </div>
       <!-- Card content -->
       <div class="card-body pb-2 card-body-cascade text-center">
@@ -34,6 +46,7 @@
     </div>
     <!-- Card Wider -->
   </div>
+  <a (click)="morePosts()" *ngIf = "Posts.length > 0" class="text-center nav-link text-primary p-5">More...</a>
   <ng-template #elseblock>
     <div  class="flex-center" style="height: 50vh">
       <div>

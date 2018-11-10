@@ -12,43 +12,56 @@
     <div class="mt-4 row">
       <div class="col-md-6 px-0 col-sm-12" [class.offset-md-3]="!acceptbid">
         <div class="container-fluid">
-            <div>
-              <div class="card card-cascade wider">
-                <div class="view view-cascade overlay">
-                  <!--Image-->
-                  <img class="card-img-top" [src]="Bid.Picture[0]" alt="Card image cap">
-                  <!--Image-->
-
-                  <!--visible on hover-->
-                  <a href="#!">
-                    <div class="mask rgba-stylish-light"></div>
-                  </a>
+          <div>
+            <div style="height: 400px;" class="card card-cascade wider">
+              <div class="view view-cascade overlay">
+                <!--Image-->
+                <!--carousel wrapper-->
+                <div id="mycarousel" class="carousel out slide " data-ride="carousel">
+                  <!-- Indicators -->
+                  <!-- Indicators -->
+                  <!-- Slide wrapper -->
+                  <div class="carousel-inner" style="height: -webkit-fill-available;" role="listbox">
+                    <!--slides-->
+                    <div *ngFor="let image of bid.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst"
+                      style="height: inherit;">
+                      <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="px-4 mt-3">
-                <h5>Description</h5>
-                <hr class="py-1 m-0">
-                <p class="text-center">
-                  {{Bid.Description}}
-                </p>
+                <!--Image-->
+
+                <!--visible on hover-->
+                <a href="#!">
+                  <div class="mask rgba-stylish-light"></div>
+                </a>
               </div>
             </div>
+            <div class="px-4 mt-3">
+              <h5>Description</h5>
+              <hr class="py-1 m-0">
+              <p class="text-center">
+                {{Bid.Description}}
+              </p>
+            </div>
+          </div>
           <hr class="py-1">
           <div class="mt-2 d-flex justify-content-between">
             <p class="font-italic">{{Bid.Conditions.Fitness}}</p>
             <p class="font-italic">{{Bid.Schedule.Duration}} days</p>
             <p class="font-italic">{{Bid.Conditions.Delivery}}</p>
           </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-dark" [class.hide]="acceptbid" (click)="maketerms()">Bid</button>
-          </div>
         </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-sm btn-dark" [class.hide]="acceptbid" (click)="maketerms()">Bid</button>
+        </div>
+      </div>
       <div *ngIf="acceptbid" class="col-md-6  col-sm-12 animated slideInRight p-bg">
         <h3 class="my-2">Set Schedule</h3>
         <form class="form-inline">
           <input id="task" [(ngModel)]="schedule.task" name="task" type="text" placeholder="task..." class="form-control mr-2">
-          <input id="duration" [(ngModel)]="schedule.duration" name="duration" type="number" min="1" placeholder="days.." class="form-control mr-1 my-sm-2">
+          <input id="duration" [(ngModel)]="schedule.duration" name="duration" type="number" min="1" placeholder="days.."
+            class="form-control mr-1 my-sm-2">
           <button class="btn-sm m-0 btn waves-effect p-2 btn-light" (click)="addSchedule()">Add task</button>
         </form>
         <div class="my-2" style="height: 200px;overflow-y: auto">
@@ -59,7 +72,8 @@
             <ul id="tasks" class="list-unstyled list-inline">
               <li *ngFor="let schedule of Schedules; index as j; first as isFirst; last as isLast;" class="card my-2">
                 <p class="text-center d-inline">{{schedule.task}}</p>
-                <footer class="d-flex justify-content-start blockquote-footer"><cite class="mr-auto" title="Days to complete">{{schedule.duration}} day(s)</cite>
+                <footer class="d-flex justify-content-start blockquote-footer"><cite class="mr-auto" title="Days to complete">{{schedule.duration}}
+                    day(s)</cite>
                   <a class="text-primary mx-2" *ngIf="!isFirst" (click)="moveScheduleUp(j)">move up</a>
                   <a class="text-primary mx-2" *ngIf="!isLast" (click)="moveScheduleDown(j)">move down</a>
                   <a class="text-danger mx-2" (click)="removeSchedule(j)">remove</a>
@@ -75,13 +89,16 @@
               <div class="input-group-prepend">
                 <span class="input-group-text md-addon">N</span>
               </div>
-              <input type="text" id="price" [(ngModel)]="bidprice" class="form-control focus pl-0 rounded-0" placeholder="00.00">
+              <input type="text" id="price" [(ngModel)]="bidprice" class="form-control focus pl-0 rounded-0"
+                placeholder="00.00">
             </div>
           </div>
           <div class="card card-body">
             <h2 class="font-weight-bold text-center">Bid Terms</h2>
-            <p class="font-weight-bold" style="font-size: large">Schedule: <span style="font-size: medium">{{timeline}} days</span> </p>
-            <p class="font-weight-bold" style="font-size: large">Bid: <span style="font-size: medium">{{bidprice | currency:"NGN ":true}}</span> </p>
+            <p class="font-weight-bold" style="font-size: large">Schedule: <span style="font-size: medium">{{timeline}}
+                days</span> </p>
+            <p class="font-weight-bold" style="font-size: large">Bid: <span style="font-size: medium">{{bidprice |
+                currency:"NGN ":true}}</span> </p>
           </div>
           <div class="my-2">
             <button class="btn btn-sm btn-block btn-dark m-0">Place Bid</button>

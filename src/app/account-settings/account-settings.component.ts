@@ -68,6 +68,13 @@ get User() {
   const user = JSON.parse(localStorage.getItem('User'));
    return user;
 }
+get UserBrand(){
+  if(this.User.Brand){
+    return this.User.Brand
+  }else{
+    return {};
+  }
+}
 get UserEmail() {
     return this.User.Account.Email;
 }

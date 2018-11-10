@@ -11,7 +11,7 @@
       <!-- Links -->
       <ul class="nav flex-md-column flex-sm-row mt-5">
         <li class="nav-item">
-          <a class="nav-link link" routerLink="customize" routerLinkActive="active">Customize</a>
+          <a *ngIf="isTailor" class="nav-link link" routerLink="customize" routerLinkActive="active">Customize</a>
         </li>
         <li class="nav-item">
           <a class="nav-link link" routerLink="account" routerLinkActive="active">

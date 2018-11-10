@@ -11,13 +11,14 @@ declare let window:MyWindow;
 })
 export class TailorJobComponent implements OnInit ,AfterViewInit {
   bids: any[] = [];
+  skip = 0;
   constructor(private bidservice: RequestserviceService) { 
     Navigation.Title = "Jobs"
   }
 
   ngOnInit() {
     this.bidservice.GetOrder('0', 'bids').subscribe(
-      (res: any[]) => { this.bids = res; }, error => alert(error)
+      (res: any[]) => { this.bids = res; }, error => window.toastr['error']('Failed to get bids')
     );
   }
   ngAfterViewInit(){
@@ -28,5 +29,17 @@ export class TailorJobComponent implements OnInit ,AfterViewInit {
 
   get Bids() {
     return this.bids;
+  }
+  morePosts(){
+    this.skip = this.skip+20
+    this.bidservice.GetOrder(String(this.skip),'bids').subscribe(
+      (res:any[]) => {
+        if(res.length>0){
+         this.bids = this.bids.concat(res);
+        }else{
+          window.toastr['info']('No more bids')
+        }
+      }, error =>{window.toastr['error']('Failed to get bids')}
+    );
   }
 }

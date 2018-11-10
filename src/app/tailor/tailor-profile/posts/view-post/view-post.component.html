@@ -15,7 +15,7 @@ Description, Price, Conditions, Permissions, Size, Image -->
           </div>
           <div class="modal-body">
             <div class="d-flex flex-column justify-content-between">
-              <span class="p-3 ">Place an order for {{Post.Title}}</span>
+              <span class="p-3 ">Place an order for {{Post.Title.trim()}}</span>
               <span class="p-3">Price: NGN {{Post.Price}}</span>
             </div>
           </div>
@@ -40,14 +40,14 @@ Description, Price, Conditions, Permissions, Size, Image -->
           </div>
           <div style="height: fit-content" class="card-footer border-top-0 p-2 rounded-0 bg-white ">
             <p>
-              {{Post.Description}}
+              {{Post.Description.trim()}}
             </p>
           </div>
         </div>
         <div class="col-lg-5 col-sm-12 p-1 bg-white">
           <div class="list-group bg-white">
             <div class="list-group-item py-1 border-0 d-flex justify-content-between px-0 mb-3">
-              <span class="text-uppercase h4 teal-text permanentmarker align-self-center pl-1">{{Post.Title}}</span>
+              <span class="text-uppercase h4 teal-text permanentmarker align-self-center pl-1">{{Post.Title.trim()}}</span>
               <!--<button class="btn btn-primary purple-gradient">Order</button>-->
             </div>
 
@@ -182,25 +182,25 @@ Description, Price, Conditions, Permissions, Size, Image -->
                   </div>
                   <!-- Material inline 6 -->
                   <div *ngIf="Post.Sizes.Women.XL == true" class="form-check li">
-                    <input name="size" (click)="selectSize('female','1X')" #women_x type="radio" class="form-check-input"
+                    <input name="size" (click)="selectSize('female','XL')" #women_x type="radio" class="form-check-input"
                       id="materialInline26">
-                    <label class="form-check-label" for="materialInline26">1X</label>
+                    <label class="form-check-label" for="materialInline26">XL</label>
                   </div>
                   <!-- Material inline 7 -->
                   <div *ngIf="Post.Sizes.Women.XXL == true" class="form-check li">
-                    <input name="size" (click)="selectSize('female','2X')" #women_xx type="radio" class="form-check-input"
+                    <input name="size" (click)="selectSize('female','XXL')" #women_xx type="radio" class="form-check-input"
                       id="materialInline27">
                     <label class="form-check-label" for="materialInline27">XXL</label>
                   </div>
                   <!-- Material inline 8 -->
                   <div *ngIf="Post.Sizes.Women.XXXL == true" class="form-check li">
-                    <input name="size" (click)="selectSize('female','3X')" #women_xxx type="radio" class="form-check-input"
+                    <input name="size" (click)="selectSize('female','XXXL')" #women_xxx type="radio" class="form-check-input"
                       id="materialInline28">
                     <label class="form-check-label" for="materialInline28">XXXL</label>
                   </div>
                   <!-- Material inline 9 -->
                   <div *ngIf="Post.Sizes.Women.XXXXL == true" class="form-check li">
-                    <input name="size" (click)="selectSize('female','4X')" #women_xxxx type="radio" class="form-check-input"
+                    <input name="size" (click)="selectSize('female','XXXXL')" #women_xxxx type="radio" class="form-check-input"
                       id="materialInline29">
                     <label class="form-check-label" for="materialInline29">XXXXL</label>
                   </div>

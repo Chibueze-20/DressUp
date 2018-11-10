@@ -33,14 +33,7 @@
     padding-top: 0.2em;
     padding-bottom: 0.5em;
 }
-a:not([href]):not([tabindex]):hover{
-    background-color: #e3ffff !important;
-  color: black !important;
-  }
-  .dropdown-item:active{
-    background-color: #b0e0e6 !important;
-    color: black !important;
-  }
+
 .textarea textarea.md-textarea:focus:not([readonly]){
     border-bottom: 1px solid blueviolet;
     box-shadow: 0 1px 0 0 blueviolet;

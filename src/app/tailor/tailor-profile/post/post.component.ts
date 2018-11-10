@@ -231,6 +231,7 @@ get user() {
         } else {
           this.localUrl.push(event.target.result);
         }
+        window.runcarosel();
       };
       reader.readAsDataURL(event.target.files[0]);
 

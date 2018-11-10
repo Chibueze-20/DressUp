@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {Schedule} from '../shared/schedule';
 import {ActivatedRoute} from '@angular/router';
 import {ViewserviceService} from '../services/viewservice.service';
 import {RequestserviceService} from '../services/requestservice.service';
 import {Navigation} from '../shared/Navigation';
+import { MyWindow } from '../shared/windowAlert';
 
+declare let window:MyWindow
 @Component({
   selector: 'app-bid-view',
   templateUrl: './bid-view.component.html',
   styleUrls: ['./bid-view.component.css']
 })
-export class BidViewComponent implements OnInit {
+export class BidViewComponent implements OnInit,AfterViewInit {
   loader = false;
   bid: any = null;
   acceptbid = false;
@@ -30,9 +32,14 @@ export class BidViewComponent implements OnInit {
     setInterval( () => {
       this.bidservice.PostOrder(body, 'view')
         .subscribe(
-          (res) => {this.bid = res; this.loader = true; }, err => {alert(err); this.loader = true; }
+          (res) => {this.bid = res; this.loader = true; }, err => {window.toastr['error']('Request not found'); this.loader = true; }
         );
     }, 2000);
+  }
+  ngAfterViewInit(){
+    setTimeout(() => {
+      window.runcarosel();
+    }, 5000);
   }
  get Loader() {
     return this.loader;

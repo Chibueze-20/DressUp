@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {V} from '@angular/core/src/render3';
 import {UserserviceService} from '../../userservice.service';
 import {RequestserviceService} from '../../services/requestservice.service';
+import { MyWindow } from 'src/app/shared/windowAlert';
 
+declare let window:MyWindow
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
@@ -22,11 +23,11 @@ export class RequestComponent implements OnInit {
       'Description': new FormControl(null, Validators.required),
       'Type': new FormControl('Bid', [Validators.required, Validators.pattern('^Bid$|^Direct$')]),
       'Conditions': new FormGroup({
-        'Fitness': new FormControl(null),
-        'Delivery': new FormControl(null)
+        'Fitness': new FormControl(null,Validators.required),
+        'Delivery': new FormControl(null,Validators.required)
       }),
       'Schedule': new FormGroup({
-        'Duration': new FormControl(null)
+        'Duration': new FormControl(null,Validators.required)
       })
     });
   }
@@ -123,22 +124,16 @@ export class RequestComponent implements OnInit {
         request: this.RequestForm.value,
         pic: picture
       };
+      this.requestservice.PostOrder(body, 'send').subscribe(
+        (res) => {
+          alert(JSON.stringify(res));
+        }, err => {
+          window.toastr['error']('Problem sending bid');
+        }
+      );
     } else {
-      body = withtags ? {
-        request: this.RequestForm.value,
-        pic: default_pic,
-        tags: this.tags
-      } : {
-        request: this.RequestForm.value,
-        pic: default_pic
-      };
+      window.toastr['error']('Problem uploading pictures, make sure you have selected pictures and have good connection')
     }
-    this.requestservice.PostOrder(body, 'send').subscribe(
-      (res) => {
-        alert(JSON.stringify(res));
-      }, err => {
-        alert(err);
-      }
-    );
+    
   }
 }

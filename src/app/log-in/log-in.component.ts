@@ -87,7 +87,7 @@ export class LogInComponent implements OnInit {
         }
       }, (err: HttpErrorResponse) => {
         window.toastr["error"]("Trouble logging in");
-        alert(err.error.Message);
+        // alert(err.error.Message);
       }
     );
   }
@@ -103,7 +103,7 @@ export class LogInComponent implements OnInit {
         }
       }, (err: HttpErrorResponse) => {
         window.toastr["error"]("Trouble logging in");
-        alert(err.error.Message);
+        // alert(err.error.Message);
       }
     );
   }
