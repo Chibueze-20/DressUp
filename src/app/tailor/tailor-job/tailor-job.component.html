@@ -12,10 +12,10 @@
             <!-- Indicators -->
             <!-- Indicators -->
             <!-- Slide wrapper -->
-            <div class="carousel-inner" style="height: inherit;" role="listbox" >
+            <div class="carousel-inner" style="height: -webkit-fill-available;" role="listbox" >
               <!--slides-->
-              <div *ngFor="let image of bid.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst" style="height: 100%;">
-                <img class="card-img-top" [src]="image" alt="Card image cap">
+              <div *ngFor="let image of bid.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst" style="height: inherit;">
+                <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
               </div>
             </div>
           </div>

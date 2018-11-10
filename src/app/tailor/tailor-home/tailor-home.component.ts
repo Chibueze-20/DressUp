@@ -21,4 +21,20 @@ export class TailorHomeComponent implements OnInit {
 
   }
 
+  gotoSettings(){
+    this.route.navigateByUrl('/tailor/settings')
+  }
+  gotoProfile(){
+    this.route.navigateByUrl('/tailor/home/profile');
+  }
+  gotoPost(){
+    this.route.navigateByUrl('/tailor/post/new');
+  }
+  gotoJob(){
+    this.route.navigateByUrl('/tailor/home/jobs')
+  }
+  Logout(){
+    localStorage.removeItem('User');
+    this.route.navigateByUrl('/login');
+  }
 }

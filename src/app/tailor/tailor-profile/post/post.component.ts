@@ -6,7 +6,9 @@ import {UserserviceService} from '../../../userservice.service';
 import {Navigation} from '../../../shared/Navigation';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostserviceService} from '../../../services/postservice.service';
+import { MyWindow } from 'src/app/shared/windowAlert';
 
+declare let window:MyWindow
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -15,14 +17,13 @@ import {PostserviceService} from '../../../services/postservice.service';
 export class PostComponent implements OnInit {
   type: String;
   image: any;
-  // dd = new Date().toISOString()
-  localUrl: any = null;
+  localUrl: any[] = [];
   formData = new FormData();
   filesize = 0;
   next = false;
   PostForm: FormGroup = null;
   tags: string[] = [];
-  constructor( private userservice: UserserviceService, private postservice: PostserviceService) {
+  constructor( private userservice: UserserviceService, private postservice: PostserviceService, private location:Location) {
     Navigation.Title = 'New Post';
     this.PostForm = new FormGroup({
       'Tailor': new FormControl(null),
@@ -47,10 +48,10 @@ export class PostComponent implements OnInit {
           'S': new FormControl(false),
           'M': new FormControl(false),
           'L': new FormControl(false),
-          '1X': new FormControl(false),
-          '2X': new FormControl(false),
-          '3X': new FormControl(false),
-          '4X': new FormControl(false),
+          'XL': new FormControl(false),
+          'XXL': new FormControl(false),
+          'XXXL': new FormControl(false),
+          'XXXXL': new FormControl(false),
         }),
         'Girl': new FormGroup({
           'Size4': new FormControl(false),
@@ -105,6 +106,86 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+  reset(){
+    this.PostForm.reset({
+      Tailor:null,
+      Title:null,
+      Description:null,
+      Price:null,
+      Conditions:{
+        BYOM: false,
+        Negotiable: false
+      },
+      Sizes:{
+        Men:{
+          S: false,
+          M: false,
+          L: false,
+          XL: false,
+          XXL: false
+        },
+        Women:{
+          XXS: false,
+          XS: false,
+          S: false,
+          M: false,
+          L: false,
+          XL: false,
+          XXL: false,
+          XXXL: false,
+          XXXXL: false
+        },
+        Girl:{
+          Size4: false,
+          Size5: false,
+          Size6: false,
+          Size7: false,
+          Size8: false,
+          Size9: false,
+          Size10: false,
+          Size12: false,
+          Size14: false,
+          Size16: false
+        },
+        Boy:{
+          Size4: false,
+          Size5: false,
+          Size6: false,
+          Size7: false,
+          Size8: false,
+          Size9: false,
+          Size10: false,
+          Size12: false,
+          Size14: false,
+          Size16: false
+        },
+        Kid:{
+          XXS: false,
+          XS: false,
+          S: false,
+          M: false,
+          L: false,
+          XL: false
+        },
+        Toddler:{
+          T1: false,
+          T2: false,
+          T3: false,
+          T4: false
+        },
+        Baby:{
+          B1: false,
+          B2: false,
+          B3: false,
+          B4: false,
+          B5: false,
+          B6: false
+        },
+        Custom: true
+    }
+  })
   }
   get Qhow() {
     return JSON.stringify(this.PostForm.value);
@@ -129,8 +210,7 @@ export class PostComponent implements OnInit {
     this.next = true;
   }
   goback() {
-    this.localUrl = null;
-    this.next = false;
+    this.location.back();
   }
 show(e) {
   console.log(e);
@@ -145,34 +225,54 @@ get user() {
       console.log(this.formData.get('file'));
       let reader = new FileReader();
       reader.onload = (event: any) => {
-        this.localUrl = event.target.result;
+        if (this.localUrl.length==4) {
+          this.localUrl.shift();
+          this.localUrl.push(event.target.result)
+        } else {
+          this.localUrl.push(event.target.result);
+        }
       };
       reader.readAsDataURL(event.target.files[0]);
 
     }
   }
 
-  uploadImage():any {
-    const arr_pic = []
+  upload(localUrl:any):any {
   const  payload = {
-      file: this.localUrl,
+      file: localUrl,
       upload_preset: 'postdress',
-      public_id: this.user._id + '/' + this.user.Role + '/' + this.localUrl.toString().slice(0, 5)
+      public_id: this.user._id + '/' + this.user.Role + '/' + localUrl.toString().slice(0, 5)
     };
     this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
       .subscribe(
         (res) => {
           console.log(res);
-          arr_pic.push(res);
-          return arr_pic;
+          return res;
         } , error1 => {
         console.log(error1);
         return null;
       } );
   }
+  uploadImage(){
+    const arr_pic = [];
+    if (this.localUrl.length<=0) {
+      return [];
+    } else {
+      for(let i=0;i<this.localUrl.length;i++){
+        const picture = this.upload(this.localUrl[i]);
+        if(picture){
+          arr_pic.push(picture);
+        }else{
+          return [];
+        }
+    }
+    return arr_pic;
+    }
+    
+  }
 
   remove() {
-    this.localUrl = null;
+    this.localUrl = [];
   }
 get imagesize() {
     return this.filesize / 1024;
@@ -182,7 +282,7 @@ sendPost(withtags: boolean) {
     this.PostForm.get('Tailor').setValue(this.user._id + '');
   const picture = this.uploadImage(); const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg']
   let body;
-  if (picture) {
+  if (picture.length>0) {
     body = withtags ? {
       post: this.PostForm.value,
       pic: picture,
@@ -191,23 +291,21 @@ sendPost(withtags: boolean) {
       post: this.PostForm.value,
       pic: picture
     };
-  } else {
-    body = withtags ? {
-      post: this.PostForm.value,
-      pic: default_pic,
-      tags: this.tags
-    } : {
-      post: this.PostForm.value,
-      pic: default_pic
-    };
-  }
-  this.postservice.Postpost(body, 'new').subscribe(
+    this.postservice.Postpost(body, 'new').subscribe(
       (res) => {
-        alert(JSON.stringify(res));
+        // alert(JSON.stringify(res));
+        this.reset();
+        window.toastr['success']('Successfully Posted');
+        
       }, err => {
-        alert(err);
+        // alert(err);
+        window.toastr['error']('Problem sending post');
       }
     );
+  } else {
+    window.toastr['error']('Problem uploading post pictures, make sure you selected pictures and have good connection');
+  }
+  
 }
 
 }

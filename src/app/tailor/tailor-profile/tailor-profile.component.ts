@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../settings.service';
-import { UserserviceService } from '../../userservice.service'
+import { UserserviceService } from '../../userservice.service';
+import { Navigation } from 'src/app/shared/Navigation';
 @Component({
   selector: 'app-tailor-profile',
   templateUrl: './tailor-profile.component.html',
@@ -9,9 +10,11 @@ import { UserserviceService } from '../../userservice.service'
 })
 export class TailorProfileComponent implements OnInit {
   public static Tailor: any = '5bb137f48ca4291efc515a7c';
-  details: any = null;
+  details: any = {};
   feedbacks: any = null;
-  constructor(private router: Router, private _settingsService: SettingsService, private userservice: UserserviceService) { }
+  constructor(private router: Router, public _settingsService: SettingsService, private userservice: UserserviceService) {
+    Navigation.Title = 'Profile';
+   }
 
   ngOnInit() {
     if (this.User.Role === 'Designer') {
@@ -25,10 +28,10 @@ export class TailorProfileComponent implements OnInit {
 
   }
   goToSettings() {
-    this.router.navigateByUrl('/settings');
+    this.router.navigateByUrl('/tailor/settings');
   }
   goToAddPost(): void {
-    this.router.navigateByUrl('/post');
+    this.router.navigateByUrl('tailor/post/new');
   }
   get Details() {
     return this.details;
@@ -39,24 +42,37 @@ export class TailorProfileComponent implements OnInit {
   get User() {
     return JSON.parse(localStorage.getItem('User'));
   }
-  get isFollowing(){
-   let user = this.User;
+  get isFollowing() {
+   const user = this.User;
    return user.Following.includes(TailorProfileComponent.Tailor);
   }
-  follow(){
-    if(this.isFollowing == true){
+  follow() {
+    if (this.isFollowing === true) {
       // remove tailor
-    }else{
+    } else {
       this.User.Following.push(TailorProfileComponent.Tailor);
-      //update database
+      // update database
     }
   }
    get headerStyles() {
-    if (this.details.Profile.Background) {
+    if (this.details.Profile) {
       return 'url(' + this.details.Profile.Background + ')';
     } else {
       return 'url(../../assets/images/header-bg-2.jpeg)';
     }
    }
-
+  get ProfileTags() {
+    if (this.details.Profile) {
+      return this.details.Profile.Tags;
+    } else {
+      return ['no tags'];
+    }
+  }
+  get ProfileTheme() {
+    if (this.details.Profile) {
+      return this.details.Profile.Theme;
+    } else {
+      return 'Default Theme';
+    }
+  }
 }

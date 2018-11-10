@@ -11,16 +11,16 @@
       <!-- Links -->
       <ul class="nav flex-md-column flex-sm-row mt-5">
         <li class="nav-item">
-          <a class="nav-link link" routerLink="/tailor/settings/customize" routerLinkActive="active">Customize</a>
+          <a class="nav-link link" routerLink="customize" routerLinkActive="active">Customize</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" routerLink="/tailor/settings/account" routerLinkActive="active">
+          <a class="nav-link link" routerLink="account" routerLinkActive="active">
             Account Settings
           </a>
         </li>
       <li class="nav-link flex-center link">
         <!-- Back button -->
-        <button   class="nav-item btn btn-block mb-3 px-0">
+        <button  (click)="goBack()" class="nav-item btn btn-block mb-3 px-0">
           Back
         </button>
       </li>

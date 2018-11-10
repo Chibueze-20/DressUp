@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location} from '@angular/common';
 import {PostserviceService} from '../../../services/postservice.service';
+import { Navigation } from 'src/app/shared/Navigation';
 
 @Component({
   selector: 'app-posts',

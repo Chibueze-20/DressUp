@@ -27,7 +27,7 @@ import { ChatComponent } from '../chat/chat.component';
 import { ChatRoomComponent} from '../chat/chat-room/chat-room.component';
 import { ChatListComponent} from '../chat/chat-list/chat-list.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'chat', pathMatch: 'full' },
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'index', component: LandingComponent },
   { path: 'login', component: LogInComponent },
   { path: 'register', component: SignUpComponent },

@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ViewserviceService} from '../../../../services/viewservice.service';
 import {PostserviceService} from '../../../../services/postservice.service';
 import { IRaveOptions, ravePay } from 'src/app/shared/Payment';
+import { Navigation } from 'src/app/shared/Navigation';
 
 interface MyWindow extends Window {
   getpaidSetup: (options: IRaveOptions) => void;
@@ -20,6 +21,7 @@ export class ViewPostComponent implements OnInit {
   post: any = null;
   selectedSize: any = {Name: null, Value: null};
   constructor( private route: ActivatedRoute, private service: ViewserviceService, private postservice: PostserviceService) {
+    Navigation.Title = 'Post';
   }
 
   ngOnInit() {

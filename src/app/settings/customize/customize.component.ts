@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../settings.service';
 import { UserserviceService } from '../../userservice.service';
+import {MyWindow} from '../../shared/windowAlert';
+
+declare let window:MyWindow;
+
 @Component({
   selector: 'app-customize',
   templateUrl: './customize.component.html',
@@ -19,8 +23,22 @@ export class CustomizeComponent implements OnInit {
   Tailor() {
     return JSON.parse(localStorage.getItem('User'));
   }
+  get Details() {
+    if (this.details) {
+      return this.details;
+    }
+  }
   changeTheme(i) {
     this._settingsService.changeTheme(i);
+  }
+  updateTheme(theme) {
+    const body = {Theme: theme.name};
+    this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
+      .subscribe(
+        (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
+          this.updateLocalStorage(this.details.Profile); },
+        err => {window.toastr['error']('Update unsuccessful'); }
+      );
   }
   previewDisplay(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -33,7 +51,7 @@ export class CustomizeComponent implements OnInit {
     }
   }
   removeDisplay() {
-    this.localDisplayUrl = '../../../assets/images/tailor-profile-dp.jpg';
+    this.localDisplayUrl = null;
   }
 
   updateDisplay() {
@@ -42,11 +60,12 @@ export class CustomizeComponent implements OnInit {
       const body = {Display: this.localDisplayUrl};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
-          (res) => {this.details.Profile = res; },
-          err => alert('Unable to make update')
+          (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
+          this.updateLocalStorage(this.details.Profile); },
+          err => {window.toastr['error']('Update unsuccessful'); }
         );
     } else {
-      alert('cannot change display picture');
+      window.toastr['error']('Update unsuccessful');
     }
   }
   previewHeader(event: any) {
@@ -60,20 +79,25 @@ export class CustomizeComponent implements OnInit {
     }
   }
   removeHeader() {
-    this.localHeaderUrl = '../../../assets/images/header-bg-2.jpeg';
+    this.localHeaderUrl = null;
   }
-
+  updateLocalStorage(newProfile) {
+    const tailor = this.Tailor();
+    tailor.Profile = newProfile;
+    localStorage.setItem('User', JSON.stringify(tailor));
+  }
   updateHeader() {
     const picture = this.uploadImage(this.localHeaderUrl);
     if (picture) {
       const body = {Background: this.localHeaderUrl};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
-          (res) => {this.details.Profile = res; },
-          err => alert('Unable to make update')
+          (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
+          this.updateLocalStorage(this.details.Profile); },
+          err => {window.toastr['error']('Update unsuccessful'); }
         );
     } else {
-      alert('cannot update header image');
+      window.toastr['error']('Update unsuccessful');
     }
   }
 
@@ -90,8 +114,9 @@ export class CustomizeComponent implements OnInit {
    const body = {Tags: this.localTags };
     this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
     .subscribe(
-      (res) => {this.details.Profile = res; },
-      err => alert('Unable to make update')
+      (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
+      this.updateLocalStorage(this.details.Profile); },
+      err => {window.toastr['error']('Update unsuccessful'); }
     );
   }
 

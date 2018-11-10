@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from '../shared/confirm-password.directive';
 import { UserserviceService } from '../userservice.service';
+import { MyWindow } from '../shared/windowAlert';
+import {  Router } from '@angular/router';
 
-
+declare let window:MyWindow;
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -27,7 +29,7 @@ export class SignUpComponent implements OnInit {
   // the whole reactive form
   signUpForm: FormGroup;
 
-  constructor( private userservice: UserserviceService) {
+  constructor( private userservice: UserserviceService,private Navigation:Router) {
     // initialize reactive form
     this.signUpForm = new FormGroup({
       'role' : new FormControl('...', Validators.pattern('^Clients$|^Designers$')),
@@ -109,7 +111,8 @@ export class SignUpComponent implements OnInit {
                       };
         this.userservice.postData(this.userservice.uri + '/designer/new', signUpDetails)
           .subscribe(
-            (res) => {alert('User successfully added'); }, error1 => alert(error1)
+            (res) => {window.toastr["success"]("Welcome to the DressUp community"); this.Navigation.navigateByUrl('/login') }, 
+            error1 => {window.toastr["error"]("Trouble signing you up"); alert(error1);}
           );
       } else {
         signUpDetails = { Role: this.realRole(this.getrole.value),
@@ -121,7 +124,8 @@ export class SignUpComponent implements OnInit {
                         };
         this.userservice.postData(this.userservice.uri + '/user/new', signUpDetails)
           .subscribe(
-            (res) => {alert('User successfully added'); }, error1 => alert(error1)
+            (res) => {window.toastr["success"]("Welcome to the DressUp community"); this.Navigation.navigateByUrl('/login') },
+            error1 => {window.toastr["error"]("Trouble signing you up"); alert(error1); }
           );
       }
       return;

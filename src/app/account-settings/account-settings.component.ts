@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {passwordValidator} from '../shared/confirm-password.directive';
 import {UserserviceService} from '../userservice.service';
 import {HttpClient, HttpErrorResponse, HttpEvent, HttpEventType} from '@angular/common/http';
+import { MyWindow } from '../shared/windowAlert';
+
+declare let window:MyWindow
 
 @Component({
   selector: 'app-account-settings',
@@ -112,9 +115,11 @@ updateAccountClick() {
            this.accountform = false;
            this.settingsForm.get('Account').reset();
            localStorage.setItem('User', JSON.stringify(res));
+           window.toastr['success']('update successfull');
          }, (err: HttpErrorResponse) => {
-           alert(err.error.Message);
+          //  alert(err.error.Message);
            this.accountform = false;
+           window.toastr['error']('update unsuccessfull');
          });
        this.Account.get('Email').setValue(this.UserEmail);
      }
@@ -132,9 +137,11 @@ updateContactClick() {
       .subscribe( (res: any) => {
         this.contactform = false;
         localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.contactform = false;
+        window.toastr['error']('update unsuccessfull');
       });
     this.settingsForm.get('Contact').setValue(this.User.Contact);
   }
@@ -151,9 +158,11 @@ updateNameClick() {
       .subscribe( (res: Response) => {
         this.nameform = false;
         localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.nameform = false;
+        window.toastr['error']('update unsuccessfull');
       });
     this.Name.setValue(this.User.Name);
   }
@@ -169,9 +178,11 @@ updateBrandClick() {
       .subscribe( (res: any) => {
         this.brandform = false;
         localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.brandform = false;
+        window.toastr['success']('update unsuccessfull');
       });
     this.Brand.setValue(this.User.Brand);
   }

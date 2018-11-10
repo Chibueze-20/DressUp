@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
+import { Navigation } from '../shared/Navigation';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -8,12 +10,14 @@ import {Location} from '@angular/common';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private location:Location) { }
+  constructor(private location:Location,private router:Router) { 
+    Navigation.Title ='Settings'
+  }
 
   ngOnInit() {
   }
   goBack():void{
-    this.location.back();
+    this.router.navigateByUrl('/tailor/home/profile')
   }
   openNav() {
     document.getElementById('side-nav').style.width = '280px';

@@ -42,6 +42,13 @@
   <script type="text/javascript" src="assets/js/mdb.min.js"></script>
   <!--initializations-->
   <script type="text/javascript">
+  function runcarosel(){
+    $('.carousel').carousel()
+  }
+  toastr.options = {
+        "closeButton":true,
+        "positionClass":"toast-top-right"
+      }
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
     });

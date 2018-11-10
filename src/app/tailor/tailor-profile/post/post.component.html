@@ -5,23 +5,35 @@
     <div class="col-md-12 card-body m-0 p-0 col-xs-12">
       <ul class="carosel-margin py-2 px-4 mb-0 list-unstyled list-inline">
         <li>
-          <p *ngIf="localUrl" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()">remove</p>
+          <p *ngIf="localUrl.length>0" class="font-italic ml-5 pl-5 cursor-hand text-primary my-2 font-weight-bold" (click)="remove()">remove</p>
           <div class="row">
             <div class="col-md-6 flex-center col-sm-12">
-              <div class="flex-center" *ngIf="localUrl; else uploadblock">
-                <img class="img-thumbnail" style="width:55%;max-height: fit-content;border-radius: 42px 0 42px 0" [src]="localUrl">
-              </div>
-              <ng-template #uploadblock>
-                <div>
-                  <h4 class="h1-responsive">Select picture</h4>
-                  <div class="custom-file">
-                    <input type="file" (change)="showPreviewImage($event)" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose picture</label>
+              <!--Image-->
+              <!--carousel wrapper-->
+              <div id="mycarousel" class="carousel slide " data-ride="carousel">
+                <!-- Indicators -->
+                <!-- Indicators -->
+                <!-- Slide wrapper -->
+                <div class="carousel-inner" style="height: -webkit-fill-available;" role="listbox">
+                  <!--slides-->
+                  <div *ngFor="let image of localUrl; first as isFirst" class="carousel-item" [class.active]="isFirst"
+                    style="height: inherit;">
+                    <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
                   </div>
                 </div>
-              </ng-template>
+              </div>
+              <!--Image-->
+            
+                <div class="mt-3">
+                  <h4 class="h1-responsive">Add picture</h4>
+                  <div class="custom-file">
+                    <input type="file" (change)="showPreviewImage($event)" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Add picture (max 4)</label>
+                  </div>
+                </div>
+              
             </div>
-            <ul  class="list-unstyled col-md-6 col-sm-12 list-inline">
+            <ul class="list-unstyled col-md-6 col-sm-12 list-inline">
               <li class="list-inline-item" id="title">
                 <label for="title-input">Title</label>
                 <input required formControlName="Title" class="form-control text-uppercase" type="text" id="title-input">
@@ -45,7 +57,7 @@
                 <ul class="list-unstyled list-inline carosel-margin">
                   <li>
                     <div class="card">
-                      <div  class="card-heading">Sizes</div>
+                      <div class="card-heading">Sizes</div>
                       <div formGroupName="Sizes" class="card-body p-1">
                         <!-- Material inline 1 -->
                         <div class="form-check form-check-inline">
@@ -53,7 +65,7 @@
                           <label class="form-check-label" [class.font-weight-bold]="custom.checked" for="materialInlinecust">Custom</label>
                         </div>
                         <div class="card card-default" *ngIf="!custom.checked" style="max-height: 300px; overflow-y: scroll">
-                          <div  class="card-body">
+                          <div class="card-body">
                             <div formGroupName="Men" class="mb-3">
                               <p>Men sizes</p>
                               <!-- Material inline 1 -->
@@ -86,7 +98,7 @@
                               <p>Women sizes</p>
                               <div class="m-0 p-0">
                                 <!-- Material inline 1 -->
-                              <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline">
                                   <input formControlName="XXS" #women_xxs type="checkbox" class="form-check-input" id="materialInline21">
                                   <label class="form-check-label" [class.font-weight-bold]="women_xxs.checked" for="materialInline21">XXS</label>
                                 </div>
@@ -131,59 +143,69 @@
                                   <label class="form-check-label" [class.font-weight-bold]="women_xxxx.checked" for="materialInline29">4X</label>
                                 </div>
                               </div>
-                              
+
                             </div>
                             <div formGroupName="Boy" class="mb-3">
                               <p>Young Boys</p>
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size4" #yb_4 type="checkbox" class="form-check-input" id="materialInline31">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_4.checked" for="materialInline31">sz 4</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_4.checked" for="materialInline31">sz
+                                  4</label>
                               </div>
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size5" #yb_5 type="checkbox" class="form-check-input" id="materialInline32">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_5.checked" for="materialInline32">sz 5</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_5.checked" for="materialInline32">sz
+                                  5</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size6" type="checkbox" #yb_6 class="form-check-input" id="materialInline33">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_6.checked" for="materialInline33">sz 6</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_6.checked" for="materialInline33">sz
+                                  6</label>
                               </div>
                               <!-- Material inline 4 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size7" #yb_7 type="checkbox" class="form-check-input" id="materialInline34">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_7.checked" for="materialInline34">sz 7</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_7.checked" for="materialInline34">sz
+                                  7</label>
                               </div>
                               <!-- Material inline 5 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size8" #yb_8 type="checkbox" class="form-check-input" id="materialInline35">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_8.checked" for="materialInline35">sz 8</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_8.checked" for="materialInline35">sz
+                                  8</label>
                               </div>
                               <!-- Material inline 6 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size9" #yb_9 type="checkbox" class="form-check-input" id="materialInline36">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_9.checked" for="materialInline36">sz 9</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_9.checked" for="materialInline36">sz
+                                  9</label>
                               </div>
                               <!-- Material inline 7 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size10" #yb_10 type="checkbox" class="form-check-input" id="materialInline37">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_10.checked" for="materialInline37">sz 10</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_10.checked" for="materialInline37">sz
+                                  10</label>
                               </div>
                               <!-- Material inline 8 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size12" #yb_12 type="checkbox" class="form-check-input" id="materialInline38">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_12.checked" for="materialInline38">sz 12</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_12.checked" for="materialInline38">sz
+                                  12</label>
                               </div>
                               <!-- Material inline 9 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size14" #yb_14 type="checkbox" class="form-check-input" id="materialInline39">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_14.checked" for="materialInline39">sz 14</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_14.checked" for="materialInline39">sz
+                                  14</label>
                               </div>
                               <!-- Material inline 10 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size16" #yb_16 type="checkbox" class="form-check-input" id="materialInline310">
-                                <label class="form-check-label" [class.font-weight-bold]="yb_16.checked" for="materialInline310">sz 16</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yb_16.checked" for="materialInline310">sz
+                                  16</label>
                               </div>
                             </div>
                             <div formGroupName="Girl" class="mb-3">
@@ -191,52 +213,62 @@
                               <!-- Material inline 1 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size4" #yg_4 type="checkbox" class="form-check-input" id="materialInline41">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_4.checked" for="materialInline41">sz 4</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_4.checked" for="materialInline41">sz
+                                  4</label>
                               </div>
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size5" #yg_5 type="checkbox" class="form-check-input" id="materialInline42">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_5.checked" for="materialInline42">sz 5</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_5.checked" for="materialInline42">sz
+                                  5</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size6" #yg_6 type="checkbox" class="form-check-input" id="materialInline43">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_6.checked" for="materialInline43">sz 6</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_6.checked" for="materialInline43">sz
+                                  6</label>
                               </div>
                               <!-- Material inline 4 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size7" #yg_7 type="checkbox" class="form-check-input" id="materialInline44">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_7.checked" for="materialInline44">sz 7</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_7.checked" for="materialInline44">sz
+                                  7</label>
                               </div>
                               <!-- Material inline 5 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size8" #yg_8 type="checkbox" class="form-check-input" id="materialInline45">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_8.checked" for="materialInline45">sz 8</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_8.checked" for="materialInline45">sz
+                                  8</label>
                               </div>
                               <!-- Material inline 6 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size9" #yg_9 type="checkbox" class="form-check-input" id="materialInline46">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_9.checked" for="materialInline46">sz 9</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_9.checked" for="materialInline46">sz
+                                  9</label>
                               </div>
                               <!-- Material inline 7 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size10" #yg_10 type="checkbox" class="form-check-input" id="materialInline47">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_10.checked" for="materialInline47">sz 10</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_10.checked" for="materialInline47">sz
+                                  10</label>
                               </div>
                               <!-- Material inline 8 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size12" #yg_12 type="checkbox" class="form-check-input" id="materialInline48">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_12.checked" for="materialInline48">sz 12</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_12.checked" for="materialInline48">sz
+                                  12</label>
                               </div>
                               <!-- Material inline 9 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size14" #yg_14 type="checkbox" class="form-check-input" id="materialInline49">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_14.checked" for="materialInline49">sz 14</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_14.checked" for="materialInline49">sz
+                                  14</label>
                               </div>
                               <!-- Material inline 10 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="Size16" #yg_16 type="checkbox" class="form-check-input" id="materialInline410">
-                                <label class="form-check-label" [class.font-weight-bold]="yg_16.checked" for="materialInline410">sz 16</label>
+                                <label class="form-check-label" [class.font-weight-bold]="yg_16.checked" for="materialInline410">sz
+                                  16</label>
                               </div>
                             </div>
                             <div formGroupName="Kid" class="mb-3">
@@ -306,27 +338,32 @@
                               <!-- Material inline 2 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="B2" #bby_2 type="checkbox" class="form-check-input" id="materialInline72">
-                                <label class="form-check-label" [class.font-weight-bold]="bby_2.checked" for="materialInline72">0-3 months</label>
+                                <label class="form-check-label" [class.font-weight-bold]="bby_2.checked" for="materialInline72">0-3
+                                  months</label>
                               </div>
                               <!-- Material inline 3 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="B3" #bby_3 type="checkbox" class="form-check-input" id="materialInline73">
-                                <label class="form-check-label" [class.font-weight-bold]="bby_3.checked" for="materialInline73">3-6 months</label>
+                                <label class="form-check-label" [class.font-weight-bold]="bby_3.checked" for="materialInline73">3-6
+                                  months</label>
                               </div>
                               <!-- Material inline 4 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="B4" #bby_4 type="checkbox" class="form-check-input" id="materialInline74">
-                                <label class="form-check-label" [class.font-weight-bold]="bby_4.checked" for="materialInline74">6-12 months</label>
+                                <label class="form-check-label" [class.font-weight-bold]="bby_4.checked" for="materialInline74">6-12
+                                  months</label>
                               </div>
                               <!-- Material inline 5 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="B5" #bby_5 type="checkbox" class="form-check-input" id="materialInline75">
-                                <label class="form-check-label" [class.font-weight-bold]="bby_5.checked" for="materialInline75">12-16 months</label>
+                                <label class="form-check-label" [class.font-weight-bold]="bby_5.checked" for="materialInline75">12-16
+                                  months</label>
                               </div>
                               <!-- Material inline 6 -->
                               <div class="form-check form-check-inline">
                                 <input formControlName="B6" #bby_6 type="checkbox" class="form-check-input" id="materialInline76">
-                                <label class="form-check-label" [class.font-weight-bold]="bby_6.checked" for="materialInline76">16-24 months</label>
+                                <label class="form-check-label" [class.font-weight-bold]="bby_6.checked" for="materialInline76">16-24
+                                  months</label>
                               </div>
 
                             </div>
@@ -335,7 +372,8 @@
                         <div style="height: 300px" class="flex-center" *ngIf="custom.checked">
                           <div class="animated bounceIn">
                             <h4 class="text-uppercase text-muted">Customers would specifiy their sizes</h4>
-                            <h6 class="text-truncate animated fadeIn text-warning">note this means this is available for all</h6>
+                            <h6 class="text-truncate animated fadeIn text-warning">note this means this is available
+                              for all</h6>
                           </div>
                         </div>
                       </div>
@@ -353,21 +391,21 @@
                     <span class="conditions">Conditions</span>
                   </span>
                   <ul class="m-0 p-0">
-                  <li class="li">
-                    <h4 class="checkbox-text  text-uppercase">buy/bring your material</h4>
-                    <input formControlName="BYOM" id="check-1" type="checkbox">
-                    <label for="check-1"><i class="fa fa-check"></i></label>
-                  </li>
-                  <li class="li">
-                    <h4 class="checkbox-text  text-uppercase">Negotiable price</h4>
-                    <input formControlName="Negotiable" id="check-2" type="checkbox">
-                    <label for="check-2"><i class="fa fa-check"></i></label>
-                  </li>
-                  <li class="li">
-                    <h4 class="checkbox-text text-uppercase">Fixed Schedule</h4>
-                    <input id="check-3" type="checkbox">
-                    <label for="check-3"><i class="fa fa-check"></i></label>
-                  </li>
+                    <li class="li">
+                      <h4 class="checkbox-text  text-uppercase">buy/bring your material</h4>
+                      <input formControlName="BYOM" id="check-1" type="checkbox">
+                      <label for="check-1"><i class="fa fa-check"></i></label>
+                    </li>
+                    <li class="li">
+                      <h4 class="checkbox-text  text-uppercase">Negotiable price</h4>
+                      <input formControlName="Negotiable" id="check-2" type="checkbox">
+                      <label for="check-2"><i class="fa fa-check"></i></label>
+                    </li>
+                    <li class="li">
+                      <h4 class="checkbox-text text-uppercase">Fixed Schedule</h4>
+                      <input id="check-3" type="checkbox">
+                      <label for="check-3"><i class="fa fa-check"></i></label>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -379,7 +417,6 @@
         <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
         <button class="btn post-btn btn-success btn-flat" data-toggle="modal" data-target="#tagsmodal">Post</button>
       </div>
-      {{Qhow}}
     </div>
   </div>
 
@@ -391,21 +428,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <button (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button close (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <span class="alert-light text-info">Add some tags to better describe your post, this allows users to gain interest faster</span>
+        <span class="alert-light text-info">Add some tags to better describe your post, this allows users to gain
+          interest faster</span>
         <div class="my-3 container-fluid p-0 m-0">
           <span class="font-italic font-small text-warning">*only a maximum of 5 tags may be added</span>
           <div class="border-bottom row mt-2">
             <div class="col-12 pr-0" style="overflow-x: auto">
               <span class="chip mx-2 mb-1" *ngFor="let tag of Tags">
-              {{tag}}
-            </span>
+                {{tag}}
+              </span>
               <div class="md-form m-0 w-100">
-                <input title="tags" maxlength="5" [readonly]="Tags.length === 5" (keyup.enter)="addTag($event)" type="text" placeholder="enter a tag.." class="form-control m-0">
+                <input title="tags" maxlength="5" [readonly]="Tags.length === 5" (keyup.enter)="addTag($event)" type="text"
+                  placeholder="enter a tag.." class="form-control m-0">
               </div>
             </div>
           </div>
@@ -413,8 +452,8 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-deep-orange" (click)="sendPost(false)">Skip</button>
-        <button class="btn btn-success" (click)="sendPost(true)">Add tags and Post</button>
+        <button class="btn btn-deep-orange" (click)="sendPost(false);close.click()">Skip</button>
+        <button class="btn btn-success" (click)="sendPost(true);close.click()">Add tags and Post</button>
       </div>
     </div>
   </div>

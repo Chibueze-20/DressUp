@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Navigation} from '../shared/Navigation';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tailor',
@@ -9,7 +10,7 @@ import {Navigation} from '../shared/Navigation';
 
 export class TailorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location:Location) { }
 
   ngOnInit() {
   }
@@ -17,5 +18,7 @@ export class TailorComponent implements OnInit {
   get getCurrentNavigation() {
     return Navigation.Title;
   }
-
+ goback(){
+  this.location.back();
+ }
 }
