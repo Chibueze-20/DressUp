@@ -53,7 +53,16 @@
     background-size: cover;
     height: 610px;
 }
-
+.signup{
+  border: 3px solid #9fa8da;
+  color: black;
+  background-color: white;
+}
+.signup:hover{
+  background-color: #9fa8da;
+  border-color: #b0e0e6;
+  color: white !important;
+}
 .carousel-item p {
     color: white !important;
 }
@@ -125,3 +134,4 @@
 /* .my{ color: #FFB7F3} */
 /* rgba(102, 143, 61, 0.92) */
 /* #FFF6BA */
+

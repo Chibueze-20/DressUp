@@ -1,0 +1,6 @@
+button[data-toggle="collapse"]{
+  background-color: #99CCFF;
+  text-align: left;
+  font-weight: bold;
+  color: #161C1D !important;
+}

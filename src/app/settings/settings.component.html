@@ -1,0 +1,40 @@
+<!-- Settings page -->
+
+<!-- Two columns  -->
+<div class="container-fluid m-0" id = "main-view">
+  <div class="row">
+
+    <!-- Side Navigation START-->
+
+    <div class="col-md-3 flex-md-column flex-sm-row d-flex justify-content-between" id="side-nav">
+      <!-- Links -->
+      <ul class="nav flex-md-column flex-sm-row mt-5">
+        <li class="nav-item">
+          <a class="nav-link link" routerLink="/settings/customize" routerLinkActive="active">Customize</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link" routerLink="/settings/account" routerLinkActive="active">
+            Account Settings
+          </a>
+        </li>
+      </ul>
+      <!-- Back button -->
+      <button (click)="goback()" class="nav-item btn mb-3 px-0">
+        Back
+      </button>
+  </div>
+
+  <!-- Side Navigation END -->
+
+  <!-- Settings view START -->
+
+  <div class="col-md-9" id="settings-view">
+    <div class="p-3 ml-3">
+      <h3>Settings</h3>
+    </div>
+      <router-outlet></router-outlet>                                       
+  </div>
+
+  <!-- Settings view END -->
+
+</div>

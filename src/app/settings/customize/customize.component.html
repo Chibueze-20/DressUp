@@ -1,0 +1,284 @@
+<!-- Container -->
+<div class="container">
+
+  <!-- Collapsible buttons START -->
+
+  <div class="d-flex flex-column justify-content-around text-left">
+    <!-- Change Theme section START -->
+      <!-- Collapse Toggle START-->
+    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#change-theme" aria-expanded="false" aria-controls="change-theme">
+      Themes
+    </button>
+      <!-- Collapse Toggle END -->
+      <!-- Collapse Content START -->
+      <div class="collapse mb-4 mt-4" id = "change-theme">
+          <div class="row d-flex flex-md-row flex-sm-column">
+            <!-- <h3>Pick a theme</h3> -->
+            <div class="col-5">
+               
+              <ul class="list-group text-primary">
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(0)">
+                    Default Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Default Theme'"></i>
+                </li>
+        
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(1)">
+                    Savanna Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Savanna Theme'"></i>
+                </li>
+        
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(2)">
+                    Clay Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Clay Theme'"></i>
+                </li>
+        
+                <li class="list-group-item waves-effect d-flex justify-content-between" (click)="changeTheme(3)">
+                    Dark Theme <i class="fas fa-check text-success" *ngIf="_settingsService.getTheme.name == 'Dark Theme'"></i>
+                </li>
+        
+                </ul>
+              </div>
+        
+              <!-- Preview Theme -->
+              <div class="col-7">
+                <div class="card">
+
+                  <img class="card-img" src={{_settingsService.getTheme.src}}>
+    
+                  <div class="text-muted card-footer">
+                      {{_settingsService.getTheme.name}}
+                  </div>
+    
+                </div>
+              </div> 
+          </div>
+      </div>
+  
+      <!-- Collapse Content END -->
+
+    <!-- Change Theme section END -->
+
+    <!-- Change Profile Image Section START -->
+
+      <!-- Toggle Button START -->
+
+    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#change-profileSettings " aria-expanded="false" aria-controls="change-profileSettings">
+      Profile
+    </button>
+
+      <!-- Toggle Button END -->
+
+    <!-- Collapse Content START -->
+    <div class="collapse mb-4 mt-4" id="change-profileSettings">
+
+      <div class="row">
+        <div class="col-12 text-center d-flex flex-column align-items-center">
+            <h4 class="pt-3">Preview</h4>
+
+            <div class="card" style="width: 300px; height: 300px">
+
+              <img class="card-img" src="../../../assets/images/tailor-profile-dp.jpg">
+  
+            </div>
+
+          <div class="mt-2">
+            <button class="btn btn-info">Browse</button>
+            <button class="btn ">Remove Image</button>
+          </div>
+
+          </div>
+      </div>
+
+    </div>
+    <!-- Collapse Content END -->
+
+    <!-- Change Header Image Section START  -->
+    
+    <!-- Toggle Button START -->
+    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#change-headerImage" aria-expanded="false" aria-controls="change-headerImage">
+      Header Image
+    </button>
+    <!-- Toggle Button END -->
+
+    <!-- Collapse Content START -->
+
+    <div class="collapse mb-4 mt-4" id="change-headerImage">
+
+        <div class="row">
+          <div class="col-12 text-center d-flex flex-column align-items-center">
+            <h4 class="pt-3">Preview Header Image</h4>
+  
+            <div class="card" style="width: 60%" >
+  
+                <img class="card-img" src="../../../assets/images/header-bg-2.jpeg">
+    
+              </div>
+  
+            <div class="mt-2">
+              <button class="btn btn-info">Browse</button>
+              <button class="btn ">Remove Image</button>
+            </div>
+  
+            </div>
+          </div>
+  
+      </div>
+
+    <!-- Collapse Content END -->
+
+    <!-- Change Header Image Section END -->
+    
+    <!-- Change Font Size Section START -->
+
+      <!-- Toggle Button START -->
+      <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#change-fontSize" aria-expanded="false" aria-controls="change-fontSize">
+      Font Size
+      </button>
+      <!-- Toggle Button END -->
+
+      <!-- Collapse Content START -->
+
+      <div class="collapse mb-4 mt-4" id="change-fontSize">
+
+        <div class="row d-flex flex-md-row flex-sm-column">
+          <!-- Font size selection START -->
+          <div class="col-5">
+
+            <ul class="list-group  d-flex flex-sm-row flex-md-column">
+
+              <li class="list-group-item">
+                <h1>Biggest</h1>
+              </li>
+
+              <li class="list-group-item">
+                <h2>Big</h2>
+              </li>
+
+              <li class="list-group-item">
+                <h3>Medium</h3>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Small</h4>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Smallest</h5>
+              </li>
+
+            </ul>
+          </div>
+          <!-- Font size selection END -->
+
+          <div class="col-7">
+            <!-- Preview remark -->
+            <div class="card list-group-item mx-md-4 my-sm-2">
+                <p class="text-center d-inline">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+              fugiat.</p>
+              <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+                  <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+              </div>
+              
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Collapse Content END -->
+
+    <!-- Change Font Size Section END -->
+    
+
+    <!-- Select Feedback Section START --> 
+
+      <!-- Toggle button START -->
+      <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#select-feedback" aria-expanded="false" aria-controls="change-feedback">
+       Feedback
+      </button>
+      <!-- Toggle button END -->
+
+      <!-- Collapse Content START -->
+
+      <div class="collapse mb-4 mt-4" id="select-feedback">
+
+        <h4>Select Feedback</h4>
+        <p class="text-muted">Selected ones will be displayed on your profile. 
+        A maximum of three can be selected</p>
+
+        <!-- Sample feedback START -->
+
+        <div class="row d-flex flex-md-row flex-sm-column">
+
+          <div class="col-6">
+            <!-- 1 -->
+            <input type="checkbox" style="background-color: none !important">
+            <div class="card list-group-item mx-md-4 my-sm-2">
+                <p class="text-center d-inline">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+              fugiat.</p>
+              <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+                  <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+              </div>
+
+              <!-- 2 -->
+              <input type="checkbox" style="background-color: none !important">
+            <div class="card list-group-item mx-md-4 my-sm-2">
+                <p class="text-center d-inline">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+              fugiat.</p>
+              <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+                  <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+              </div>
+              
+            </div>
+
+            <div class="col-6">
+                <!-- 1 -->
+                <input type="checkbox" style="background-color: none !important">
+                <div class="card list-group-item mx-md-4 my-sm-2">
+                    <p class="text-center d-inline">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+                  fugiat.</p>
+                  <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+                      <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+                  </div>
+    
+                  <!-- 2 -->
+                  <input type="checkbox" style="background-color: none !important">
+                <div class="card list-group-item mx-md-4 my-sm-2">
+                    <p class="text-center d-inline">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+                  fugiat.</p>
+                  <footer class="blockquote-footer">Kunle Lawal<cite title="Remark from">Tue, 6<sup>th</sup></cite></footer>
+                      <p class="">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
+                  </div>
+                  
+                </div>
+
+          </div>
+
+        <!-- Sample feedback END -->
+
+        <!-- Action buttons -->
+
+          <div class="row">
+            <div class="col-12 d-flex justify-content-md-end justify-content-sm-middle">
+
+              <button class="btn btn-primary btn-lg">
+                Refresh
+              </button>
+
+              <button class="btn btn-info btn-lg">
+                Done
+              </button>
+
+            </div>
+          </div>
+        
+      </div>
+
+      <!-- Collapse Content END -->
+
+  </div>
+
+  <!-- Collapsible buttons END -->
+
+</div>

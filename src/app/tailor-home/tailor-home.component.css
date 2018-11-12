@@ -1,0 +1,21 @@
+
+.icon{
+  height: 50%;
+  width: 50%;
+}
+.in{
+  display: none !important;
+}
+
+@media screen and (max-width:375px){
+  .in{
+    display: flex !important;
+  }
+  .out{
+    display: none !important;
+  }
+}
+
+.menu-btn{
+  padding: .4rem 1rem !important;
+}

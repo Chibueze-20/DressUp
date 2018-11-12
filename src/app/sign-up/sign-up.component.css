@@ -1,8 +1,6 @@
 .signup{
-    border-style: solid;
-    border-width: 3px;
-    border-color: #9fa8da;
-    color: black;
+  border: 3px solid #9fa8da;
+  color: black;
     background-color: white;
 }
 .signup:hover{
@@ -22,10 +20,6 @@
 /* Style the form */
 #regForm {
     background-color: #ffffff;
-    margin: 100px auto;
-    padding: 40px;
-    width: 70%;
-    min-width: 300px;
   }
   
   /* Style the input fields */
@@ -33,7 +27,7 @@
     padding: 10px;
     width: 100%;
     font-size: 17px;
-    font-family: Raleway;
+    font-family: Raleway, fantasy;
     border: 1px solid #aaaaaa;
   }
   
@@ -41,7 +35,13 @@
   input.invalid {
     background-color: #ffdddd;
   }
-  
+  .selected{
+    color:blue;
+  }
+  .valid{
+    outline-color: #4CAF50;
+    outline-style: solid;
+  }
   /* Hide all steps by default: */
   /* .tab {
     display: none;
@@ -51,21 +51,34 @@
   }
   /* Make circles that indicate the steps of the form: */
   .step {
-    height: 15px;
-    width: 15px;
+    height: 25px;
+    width: 25px;
     margin: 0 2px;
     background-color: #bbbbbb;
     border: none; 
     border-radius: 50%;
     display: inline-block;
     opacity: 0.5;
+    font-size: medium;
+    font-weight: bold;
+    color: white;
   }
   
   /* Mark the active step: */
   .step.active {
     opacity: 1;
   }
-  
+
+  /* Mark the step for valid entry*/
+  .step.good{
+    background-color: green;
+  }
+
+  /* Mark step for invalid entry*/
+  .step.error{
+    background-color: red;
+  }
+
   /* Mark the steps that are finished and valid: */
   .step.finish {
     background-color: #4CAF50;

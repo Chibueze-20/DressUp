@@ -1,0 +1,104 @@
+<header>
+  <nav class="navbar mx-0 px-0 navbar-light navbar-sticky s-bg">
+    <div class="container">
+
+       <!-- Brand -->
+       <a routerLink="/index" class="ml-sm-0 mr-sm-0 navbar-text mr-md-auto  permanentmarker s-bg-text p-bg"><strong>Dress Up</strong></a>
+
+       <!--links-->
+      <div class="form-inline ml-md-auto ml-sm-0 mr-sm-0">
+        <div class="md-form my-0">
+            <a routerLink="/register"  class="btn btn-rounded btn-sm font-weight-bold signup waves-effect lato">Sign Up <i class="fas fa-user-plus"></i></a>
+            <a href="#" class="btn btn-sm btn-rounded login font-weight-bold s-bg s-text waves-effect lato">Log In <i class="fas fa-sign-in-alt"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="mt-5">
+  <div class="container">
+    <div class="card row">
+        <div class="card-header s-light col-md-12 flex-center">
+          <div class="text-center belleza">
+            <h1>Log In</h1>
+          </div>
+        </div>
+        <div class="card-body" style="max-height: 500px">
+            <!-- Material checked -->
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" (click)="design()"  id="dchecked">
+                <label class="form-check-label lato" for="dchecked">I'm a designer</label>
+              </div>
+
+            <!-- Default form login -->
+            <form id="logForm"   *ngIf="!isdesigner" [formGroup]="clientForm" #formDir="ngForm" action="" class="text-center raleway col-sm-12 col-md-6 offset-md-3 animated bounceIn border border-light p-5">
+              <!-- Email -->
+              <input type="email" required [class.error]="client_email.invalid && (client_email.dirty || client_email.touched)" id="LoginFormEmail" formControlName="email"   class="form-control" placeholder="E-mail...">
+              <div class="d-flex justify-content-start" *ngIf="client_email.invalid && (client_email.dirty || client_email.touched)">
+                <span class="text-danger text-right font-italic font-small">*Enter a valid E-mail address</span>
+              </div>
+              <!-- Password -->
+              <input type="password" id="logpass" required [class.error]="client_password.invalid && (client_password.dirty || client_password.touched)"  formControlName="password" class="form-control mt-4" placeholder="Password...">
+              <a id="logeye" [class.s-bg-text]="!isShown" (click)="showpass()">show </a>
+              <div class="d-flex justify-content-start" *ngIf="client_password.invalid && (client_password.dirty || client_password.touched)">
+                <span class="text-danger text-right font-italic font-small">*Password must be set</span>
+              </div>
+              <div class="d-flex justify-content-around mt-4">
+                  <div>
+                      <!-- Forgot password -->
+                      <a href="">Forgot password?</a>
+                  </div>
+              </div>
+
+              <!-- Sign in button -->
+              <button class="btn s-bg lato waves-effect mx-0 btn-block my-4" type="submit" (click)="userLogin()">Login</button>
+
+              <!-- Register -->
+              <p>Not a member?
+                  <a routerLink="/register">Register</a>
+              </p>
+
+
+            </form>
+            <!-- Default form login -->
+
+            <!-- Designer form login -->
+            <form [formGroup]="designerForm" *ngIf="isdesigner" #formDir="ngForm" action="" class="text-center raleway col-sm-12 col-md-6 offset-md-3  animated bounceIn border border-light p-5">
+
+              <!-- Brand name -->
+              <input type="text" [class.error]="designer_brand.invalid && (designer_brand.dirty || designer_brand.touched)" formControlName="designerbrand" required name="brand" class="form-control" placeholder="Brand Name...">
+              <div class="d-flex justify-content-start" *ngIf="designer_brand.invalid && (designer_brand.dirty || designer_brand.touched)">
+                <p class="text-danger font-italic font-small">*Brand name [business name] is required </p>
+              </div>
+              <!-- Email -->
+              <input type="email" [class.error]="designer_email.invalid && (designer_email.dirty || designer_email.touched)" formControlName="designeremail" required name="email" class="form-control mt-4" placeholder="E-mail....">
+              <div class="d-flex justify-content-start" *ngIf="designer_email.invalid && (designer_email.dirty || designer_email.touched)">
+                <p class="text-danger font-italic font-small">*Enter a valid E-mail address</p>
+              </div>
+              <!-- Password -->
+              <input type="password" [class.error]="designer_password.invalid && (designer_password.dirty || designer_password.touched)" formControlName="designerpassword" required name="password" class="form-control mt-4" placeholder="Password...">
+              <div class="d-flex justify-content-start" *ngIf="designer_password.invalid && (designer_password.dirty || designer_password.touched)">
+                <p class="text-danger font-italic font-small">*Password must be set</p>
+              </div>
+              <div class="d-flex mt-4 justify-content-around">
+                  <div>
+                      <!-- Forgot password -->
+                      <a href="">Forgot password?</a>
+                  </div>
+              </div>
+
+              <!-- Sign in button -->
+              <button class="btn s-bg mx-0 lato btn-block my-4 waves-effect" type="submit" (click)="designerLogin()">Login</button>
+
+              <!-- Register -->
+              <p>Not a member?
+                  <a routerLink="/register">Register</a>
+              </p>
+
+
+            </form>
+            <!-- Designer form login -->
+        </div>
+    </div>
+  </div>
+</main>

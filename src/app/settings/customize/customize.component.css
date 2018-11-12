@@ -1,0 +1,17 @@
+button[data-toggle="collapse"]{
+    background-color: #99CCFF;
+    text-align: left;
+    font-weight: bold;
+    color: #161C1D !important;
+}
+#change-theme {
+    margin: 0px 6px;
+}
+#change-theme div div .card .card-img {
+    border-radius: 0px;
+}
+#change-theme div div .card {
+    border-radius: 0px;
+    text-align: center;
+    background-color: transparent;
+}

@@ -1,0 +1,205 @@
+<div class="container">
+  <div class="d-flex flex-column justify-content-around text-left" [formGroup] = "settingsForm" >
+    <!-- Collapse buttons -->
+    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Account
+    </button>
+
+    <!-- Collapsible element -->
+    <div class="collapse mb-4 mt-4" id="collapseExample">
+      <div class="view">
+        <div class="mt-3">
+          <form formGroupName="Account" class="offset-md-3 col-md-6 col-sm-12 form">
+            <p>Email: {{UserEmail}} <span><a class="blue-text" (click)="changeemail()"> change</a></span></p>
+            <input formControlName="CurrentEmail" type="hidden"  name="CurrentEmail">
+            <div *ngIf="email">
+              <input type="email" name="Email" formControlName="Email" placeholder="enter new email.." class="form-control">
+            </div>
+            <p class="mb-2 mt-3"> <a class="blue-text" (click)="changepassword()">Change Password</a></p>
+            <div *ngIf="password">
+              <input type="password" name="CurrentPassword" formControlName="CurrentPassword" placeholder="enter current password" class="form-control mb-2">
+              <input type="password"  name="Password" formControlName="Password" placeholder="enter new password" class="form-control">
+            </div>
+            <div  class="row mt-3 d-flex justify-content-between">
+              <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato" [class.disabled]="email && password" (click)="discardAccountUpdateclick()">Discard changes</button>
+              <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato" [class.disabled]="email && password" (click)="updateAccountClick()">Accept changes</button>
+            </div>
+          </form>
+      </div>
+        <div *ngIf="accountformbool" id="account-loader" class="mask flex-center">
+          <!--Big circle-->
+          <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Collapsible element -->
+
+    <button class="btn btn-lg"    data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+      Contact
+    </button>
+    <!-- Collapsible element -->
+    <div class="collapse mb-4 mt-4" id="collapseExample1">
+      <div class="view">
+        <div class=" mt-3 flex-center" *ngIf="contactbool; else contact">
+          <div>
+            <h4 class="text-muted  my-2">City: <span class="my-0" style="font-size: x-large">{{User.Contact.City}}</span></h4>
+
+            <h4 class="text-muted  my-2">State: <span class="my-0" style="font-size: x-large">{{User.Contact.State}}</span></h4>
+
+            <h4 class="text-muted  my-2">Phone Number: <span class="my-0" style="font-size: x-large">{{User.Contact.PhoneNumber}}</span></h4>
+
+            <h4 class="text-muted  my-2">Home Address: <span class="my-0" style="font-size: x-large">{{User.Contact.HomeAddress}}</span></h4>
+
+            <h4 class="text-muted  my-2">Post Address: <span class="my-0" style="font-size: x-large">{{User.Contact.PostAddress}}</span></h4>
+
+            <div class="flex-center">
+
+              <button class="btn s-bg s-text lato waves-effect my-4" (click)="contacttoggle()">Update</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #contact>
+          <div class=" mt-3">
+            <p style="font-size: small" class="alert alert-info">Please enter your current address details as this helps us to locate you better</p>
+            <form formGroupName="Contact" class="col-md-6 offset-md-3 col-sm-12 form">
+              <input type="text" name="City" formControlName="City" placeholder="City..." class="form-control mb-2">
+              <input type="text" name="State" formControlName="State" placeholder="State..." class="form-control mb-2">
+              <input type="text" name="PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number..." class="form-control mb-2">
+              <input type="text" name="HomeAddress" formControlName="HomeAddress" placeholder="Home address..." class="form-control mb-2">
+              <input type="text" name="PostAddress" formControlName="PostAddress" placeholder="Post address..." class="form-control"> <span style="font-size: x-small" class="font-weight-light text-warning font-italic">*this is where you would like us to send your ordered goods</span>
+              <div  class="row mt-3 d-flex justify-content-between">
+                <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato" (click)= "discardContactUpdateClick()">Discard changes</button>
+                <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)= "updateContactClick()">Accept changes</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+        <div *ngIf="contactformbool" id="contact-loader" class="mask flex-center">
+          <!--Big circle-->
+          <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Collapsible element -->
+    <button class="btn btn-lg"  data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+      Names
+    </button>
+    <!-- Collapsible element -->
+    <div class="collapse mb-4 mt-4" id="collapseExample2">
+      <div class="view">
+        <div class="mt-3 flex-center" *ngIf="namebool; else name">
+          <div>
+            <h4 class="text-muted my-2">First Name:</h4>
+            <h4 class="text-muted my-2">Middle Name:</h4>
+            <h4 class="text-muted my-2">Last Name</h4>
+            <div class="flex-center">
+              <button class="btn s-bg s-text waves-effect my-4" (click)="nametoggle()">Update</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #name>
+          <div class=" mt-3">
+            <form formGroupName="Name" class="col-md-6 offset-md-3 col-sm-12 form">
+              <input type="text" name="FirstName" formControlName="FirstName" placeholder="First name..." class="form-control mb-2">
+              <input type="text" name="MiddleName" formControlName="MiddleName" placeholder="Middle name..." class="form-control mb-2">
+              <input type="text" name="LastName" formControlName="LastName" placeholder="Last Name..." class="form-control">
+              <div  class="row mt-3 d-flex justify-content-between">
+                <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardNameUpdateClick()">Discard changes</button>
+                <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateNameClick()" >Accept changes</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+        <div *ngIf="nameformbool" id="name-loader" class="mask flex-center">
+          <!--Big circle-->
+          <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Collapsible element -->
+    <div *ngIf="userRole=='Designer'">
+      <button class="btn btn-lg"  data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+        Brand
+      </button>
+      <!-- Collapsible element -->
+      <div class="collapse mb-4 mt-4" id="collapseExample3">
+        <div class="view">
+          <div class="flex-center mt-3" *ngIf="brandbool; else brand">
+            <div>
+              <h2 class="text-muted my-2">Bio</h2>
+              <h4 class="text-muted my-2">Business Address: </h4>
+              <div class="flex-center">
+                <button class="btn s-bg s-text waves-effect my-4" (click)="brandtoggle()">Update</button>
+              </div>
+            </div>
+          </div>
+          <ng-template #brand>
+            <div class=" mt-3">
+              <form formGroupName="Brand" class="col-md-6 offset-md-3 col-sm-12 form">
+                <textarea name="BrandDescription" formControlName="BrandDescription" cols="5" rows="2" style="resize: vertical" type="text" placeholder="Bio.." class="form-control mb-2"></textarea>
+                <input name="WorkAddress" formControlName="WorkAddress" type="text" placeholder="Work address..." class="form-control mb-2"> <span class="text-warning" style="font-size: x-small">Please a valid address of your work place is required for verification</span>
+                <div  class="row mt-3 d-flex justify-content-between">
+                  <button class="waves-effect col-md-4 col-sm-6 btn btn-sm s-bg lato " (click)="discardBrandUpdateClick()">Discard changes</button>
+                  <button class="waves-effect  col-md-4 col-sm-6 btn btn-sm s-bg lato " (click) = "updateBrandClick()" >Accept changes</button>
+                </div>
+              </form>
+            </div>
+          </ng-template>
+          <div *ngIf="brandformbool" id="brand-loader" class="mask flex-center">
+            <!--Big circle-->
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / Collapsible element -->
+    </div>
+  </div>
+</div>
