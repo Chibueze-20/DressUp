@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../settings.service';
 import { UserserviceService } from '../../userservice.service';
 import { Navigation } from 'src/app/shared/Navigation';
@@ -12,13 +12,15 @@ export class TailorProfileComponent implements OnInit {
   public static Tailor: any = '5bb137f48ca4291efc515a7c';
   details: any = {};
   feedbacks: any = null;
-  constructor(private router: Router, public _settingsService: SettingsService, private userservice: UserserviceService) {
+  constructor(private route: ActivatedRoute,private router: Router, public _settingsService: SettingsService, private userservice: UserserviceService) {
     Navigation.Title = 'Profile';
    }
 
   ngOnInit() {
     if (this.User.Role === 'Designer') {
       TailorProfileComponent.Tailor = this.User._id;
+    }else{
+      TailorProfileComponent.Tailor = this.route.snapshot.paramMap.get('id');
     }
     this.userservice.getData(this.userservice.uri + '/' + 'tailor/' + TailorProfileComponent.Tailor)
     .subscribe(

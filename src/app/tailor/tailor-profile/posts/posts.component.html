@@ -1,72 +1,12 @@
 <!-- Posts view -->
 
-<div style="height:90vh; overflow-y: auto " class="mb-5 container-fluid">
+<div style="max-height:90vh; overflow-y: auto " class="mb-5 container-fluid">
     <div class="row">
-      <div class="col-md-3 mb-3">
+      <div *ngFor="let post of Posts" class="col-md-3 mb-3">
         <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img src="assets/images/pete-bellis-396528-unsplash.jpg" class="img-fluid h-100">
+          <img [src]="post.Picture[0]" class="img-fluid h-100">
           <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img src="assets/images/pete-bellis-396528-unsplash.jpg" class="img-fluid h-100">
-          <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
-          </div>
-        </div>
-        </div>
-
-        <div  class="col-md-3 mb-3">
-            <div class="card view view-cascade overlay rgba-stylish-strong">
-              <img class="img-fluid h-100" src="assets\images\tailor-profile-dp.jpg">
-              <div class="mask flex-center rgba-stylish-slight">
-                <a class="font-weight-bold text-white">View</a>
-              </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card view view-cascade overlay rgba-stylish-strong">
-              <img class="img-fluid h-100" src="assets\images\tailor-profile-dp.jpg">
-              <div class="mask flex-center rgba-stylish-slight">
-                <a class="font-weight-bold text-white">View</a>
-              </div>
-            </div>
-        </div>
-      <div class="col-md-3 mb-3">
-        <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img src="assets/images/pete-bellis-396528-unsplash.jpg" class="img-fluid h-100">
-          <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img src="assets/images/pete-bellis-396528-unsplash.jpg" class="img-fluid h-100">
-          <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
-          </div>
-        </div>
-      </div>
-
-      <div  class="col-md-3 mb-3">
-        <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img class="img-fluid h-100" src="assets\images\tailor-profile-dp.jpg">
-          <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 mb-3">
-        <div class="card view view-cascade overlay rgba-stylish-strong">
-          <img class="img-fluid h-100" src="assets\images\tailor-profile-dp.jpg">
-          <div class="mask flex-center rgba-stylish-slight">
-            <a class="font-weight-bold text-white">View</a>
+            <a *ngIf="User.Role === 'User'" routerLink="/user/view/order/{{post._id}}" class="font-weight-bold text-white">View</a>
           </div>
         </div>
       </div>

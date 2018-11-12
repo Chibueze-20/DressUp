@@ -14,20 +14,22 @@
           <h6>Select picture</h6>
           <div class="custom-file mb-2">
             <input type="file" title="add pictures" multiple (change)='addImage($event)' class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">add images <i class="fas fa-images"></i></label>
+            <label class="custom-file-label" for="customFile">add images(max 4) <i class="fas fa-images"></i></label>
           </div>
         </div>
-        <div class="image-view px-5">
-          <div *ngIf="allimages.length > 0; else elseblock">
-            <div class="m-2" *ngFor="let image of allimages; index as k; first as isFirst; last as isLast">
-              <div class="d-flex justify-content-end m-0 p-0">
-                <span (click)='removeImage(k)' class="closeimg badge badge-danger">x</span>
+        <div class="flex-center px-5">
+          <div class="flex-center" *ngIf="allimages.length > 0; else elseblock">
+            <div class="w-50 image-view ">
+              <div class="m-2" *ngFor="let image of allimages; index as k; first as isFirst; last as isLast">
+                <div class="d-flex justify-content-end m-0 p-0">
+                  <span (click)='removeImage(k)' class="closeimg badge badge-danger">x</span>
+                </div>
+                <img class="img-thumbnail imgthumb" [src]="image">
               </div>
-              <img class="img-thumbnail imgthumb" [src]="image">
             </div>
           </div>
           <ng-template #elseblock>
-            <div class="imgthumb flex-center" style="height:200px">
+            <div class="imgthumb text-center" style="height:200px">
               <h4 class="font-weight-bold font-italic text-muted">
                 No pictures selected....
               </h4>
@@ -118,9 +120,14 @@
           </div>
         </div>
         <div [class.hide]="!isDirect" class="animated fadeIn row">
-          <div class="input-group col-md-6 col-sm-12 mb-3">
-            <input formControlName="Tailor" #tailor type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
+          <div class="col-md-6 col-sm-12 mb-3">
+            <input [(ngModel)]="tailor" [ngModelOptions]="{standalone: true}" (change)="search(Tailor.value)" #Tailor type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
               aria-describedby="basic-addon-1" name="" id="">
+              <div class="mt-2" style="max-height: 100px;overflow-y: auto">
+                <a *ngFor="let tailor of results" style="border-bottom: solid thin" (click)="select(tailor)" class="nav-link text-primary">
+                    {{tailor.Brand.BrandName}}
+                </a>
+              </div>
           </div>
         </div>
       </div>
@@ -132,8 +139,8 @@
         </div>
       </div>
       <div class="col-6 flex-center">
-        <div class="div-btn w-100 text-center" (click)="modal.click()">
-          <a data-toggle="modal" #modal data-target="#tagsmodal">Send<i class="fas fa-paper-plane"></i></a>
+        <div class="div-btn w-100 text-center" [class.disabled]="!validForm" (click)="modal.click()">
+          <a data-toggle="modal" [class.disabled]="!validForm" #modal data-target="#tagsmodal">Send<i class="fas fa-paper-plane"></i></a>
         </div>
       </div>
     </div>
@@ -149,7 +156,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <span class="alert-light text-info">Add some tags to better describe your post, this allows users to gain interest faster</span>
+        <span class="alert-light text-info">Add some tags to better describe your bid, this allows the tailor to better understand</span>
         <div class="my-3 container-fluid p-0 m-0">
           <span class="font-italic font-small text-warning">*only a maximum of 5 tags may be added</span>
           <div class="border-bottom row mt-2">

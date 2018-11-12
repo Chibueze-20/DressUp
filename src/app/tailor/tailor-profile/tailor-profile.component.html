@@ -146,8 +146,8 @@
       <a class="nav-link p-dark-text"><i class="fa fa-2x fa-th-large"></i></a>
     </li>
 
-    <li class="nav-item flex-fill text-center waves-effect">
-      <a class="nav-link p-dark-text" (click)="goToAddPost()"><i class="fa fa-2x fa-plus"></i></a>
+    <li *ngIf = "User.Role === 'Designer'" class="nav-item flex-fill text-center waves-effect">
+      <a  class="nav-link p-dark-text" (click)="goToAddPost()"><i class="fa fa-2x fa-plus"></i></a>
     </li>
   <!-- Nav END -->
   </nav>

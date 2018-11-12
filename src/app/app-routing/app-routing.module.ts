@@ -13,7 +13,7 @@ import { TailorProfileComponent } from '../tailor/tailor-profile/tailor-profile.
 import { CustomizeComponent } from '../settings/customize/customize.component';
 import { PostsComponent } from '../tailor/tailor-profile/posts/posts.component';
 import { PostComponent } from '../tailor/tailor-profile/post/post.component';
-import { ViewPostComponent } from '../tailor/tailor-profile/posts/view-post/view-post.component';
+import { ViewPostComponent } from '../user/view-post/view-post.component';
 import { UserComponent } from '../user/user.component';
 import { UserHomeComponent } from '../user/user-home/user-home.component';
 import { TailorFeedsComponent } from '../user/tailor-feeds/tailor-feeds.component';
@@ -75,7 +75,10 @@ const routes: Routes = [
           { path: 'order', component: RequestComponent }
         ]
       },
-      { path: 'tailor/:id', component: TailorProfileComponent },
+      { path: 'tailor/:id', component: TailorProfileComponent, children:[
+        { path: '', redirectTo: 'home', pathMatch: 'full' },
+        { path: 'home', component: PostsComponent }
+      ] },
       {path: 'view', children: [
           { path: 'order/:id', component: ViewPostComponent }
         ]

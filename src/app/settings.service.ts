@@ -24,11 +24,12 @@ export class SettingsService {
     }
     Theme(name) {
       const currentTheme = this.themes.find((val) => val.name === name);
+      this.selectedTheme = currentTheme;
       return currentTheme.class;
     }
     get getProfile() {
       if (localStorage.getItem('User')) {
-       return JSON.parse(localStorage.getItem('User')).Profile;
+       return JSON.parse(localStorage.getItem('User')).Profile||'';
       }
     }
     get getTheme() {

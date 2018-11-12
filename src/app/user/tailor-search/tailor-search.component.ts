@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserserviceService} from '../../userservice.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tailor-search',
@@ -9,11 +11,13 @@ import {UserserviceService} from '../../userservice.service';
 export class TailorSearchComponent implements OnInit {
   isSearching = false;
   results: any[] = [];
-  constructor(private userSercive: UserserviceService) { }
+  constructor(private userSercive: UserserviceService,private router:Router) { }
 
   ngOnInit() {
   }
-
+  goback(){
+    this.router.navigateByUrl('/user/home/feeds')
+  }
   search(value) {
     if (value === '' || value === null) {
       return;

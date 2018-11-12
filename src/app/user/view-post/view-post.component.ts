@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
-import {ViewserviceService} from '../../../../services/viewservice.service';
-import {PostserviceService} from '../../../../services/postservice.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import { IRaveOptions, ravePay } from 'src/app/shared/Payment';
 import { Navigation } from 'src/app/shared/Navigation';
+import { ViewserviceService } from 'src/app/services/viewservice.service';
+import { PostserviceService } from 'src/app/services/postservice.service';
 
 interface MyWindow extends Window {
   getpaidSetup: (options: IRaveOptions) => void;
@@ -20,11 +20,13 @@ declare let window: MyWindow
 export class ViewPostComponent implements OnInit {
   post: any = null;
   selectedSize: any = {Name: null, Value: null};
-  constructor( private route: ActivatedRoute, private service: ViewserviceService, private postservice: PostserviceService) {
+  constructor( private route: ActivatedRoute, private service: ViewserviceService, private postservice: PostserviceService,private router:Router) {
     Navigation.Title = 'Post';
+    
   }
 
   ngOnInit() {
+    
     const id = this.route.snapshot.paramMap.get('id');
     this.service.viewPost(id)
       .subscribe(
@@ -33,7 +35,12 @@ export class ViewPostComponent implements OnInit {
   }
 
   
-
+  gotoProfile(){
+    if(this.post){
+      this.router.navigateByUrl('/user/tailor/'+this.Post.Tailor._id);
+    }
+    
+  }
 get User(){
   return JSON.parse(localStorage.getItem('User'));
 }

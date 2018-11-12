@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {PostserviceService} from '../../services/postservice.service';
 import { AppComponent } from 'src/app/app.component';
 import { MyWindow } from 'src/app/shared/windowAlert';
+import { Navigation } from 'src/app/shared/Navigation';
 declare let window:MyWindow
 @Component({
   selector: 'app-tailor-feeds',
@@ -13,7 +14,9 @@ export class TailorFeedsComponent implements OnInit,AfterViewInit {
   posts: any[] = [];
   skip=0;
 //  tailors = ['5b72baf2bd81530ed0de7aaf'];
-  constructor(private postservice: PostserviceService) { }
+  constructor(private postservice: PostserviceService) {
+    Navigation.Title= 'Home';
+   }
 
   ngOnInit() {
    const body = {Tailor: AppComponent.User.Following};

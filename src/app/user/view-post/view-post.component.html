@@ -31,8 +31,8 @@ Description, Price, Conditions, Permissions, Size, Image -->
       <div class="row bg-white shadow-sm">
         <div class="col-lg-7 col-sm-12 p-1 shadow-none rounded-0 bg-white">
           <div class=" card-header p-1 border-bottom-0 rounded-0 bg-transparent">
-            <div class="chip bg-transparent m-1">
-              <img src="assets/images/person-flat.png" alt="alt-text"> <span class="h5">Tailor name</span>
+            <div (click)="gotoProfile()" class="chip bg-transparent m-1">
+              <img [src]="Post.Tailor.Profile.Display" alt="alt-text"> <span class="h5">{{Post.Tailor.Brand.BrandName}}</span>
             </div>
           </div>
           <div class="card-body p-0">

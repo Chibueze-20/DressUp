@@ -19,7 +19,7 @@ import { CustomizeComponent } from './settings/customize/customize.component';
 import { PostsComponent } from './tailor/tailor-profile/posts/posts.component';
 import { DirectOrderComponent } from './tailor/tailor-profile/direct-order/direct-order.component';
 import { PostComponent } from './tailor/tailor-profile/post/post.component';
-import { ViewPostComponent } from './tailor/tailor-profile/posts/view-post/view-post.component';
+import { ViewPostComponent } from './user/view-post/view-post.component';
 import { TailorComponent } from './tailor/tailor.component';
 import { ExtensionsPipe } from './extensions.pipe';
 import { UserComponent } from './user/user.component';
