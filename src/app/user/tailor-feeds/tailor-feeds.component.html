@@ -1,0 +1,110 @@
+<div *ngIf="Loader" class="container mb-5 belleza px-md-3">
+  <div *ngIf = "Posts.length > 0; else elseblock" class="row flex-center mx-md-5 mb-2">
+    <!-- Card Wider -->
+    <!-- Card -->
+    <div *ngFor="let post of Posts" class="card my-3 mx-0 col-md-6 col-sm-12 card-cascade wider">
+
+      <div class="view view-cascade overlay">
+        <!--Image-->
+                <!--carousel wrapper-->
+                <div id="mycarousel" style="height: 300px;" class="carousel  slide " data-ride="carousel">
+                    <!-- Indicators -->
+                    <!-- Indicators -->
+                    <!-- Slide wrapper -->
+                    <div class="carousel-inner" style="height: -webkit-fill-available;" role="listbox">
+                      <!--slides-->
+                      <div *ngFor="let image of post.Picture; first as isFirst" class="carousel-item" [class.active]="isFirst"
+                        style="height: inherit;">
+                        <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
+                      </div>
+                    </div>
+                  </div>
+                  <!--Image-->
+      </div>
+      <!-- Card content -->
+      <div class="card-body pb-2 card-body-cascade text-center">
+        <!-- Title -->
+        <h4 class="card-title mb-2"><strong>{{post.Title}}</strong></h4>
+        <!-- made for who? tags -->
+        <span class="mx-2 badge badge-pill p-bg p-text" *ngFor="let tag of post.Tags">{{tag}}</span>
+        <hr class="my-1">
+        <!--descriptions-->
+        <div class="text-center d-flex justify-content-between out waves-effect">
+          <div class="mx-md-2">
+            {{post.Description}}
+          </div>
+          <hr class="my-1">
+        </div>
+        <!--descriptions-->
+        <!--Button-->
+        <div class="d-flex justify-content-end">
+          <a routerLink="/user/view/order/{{post._id}}" class="black-text waves-effect"><span class="text-uppercase px-2">View</span></a>
+        </div>
+        <!--Button-->
+      </div>
+      <!-- Card -->
+    </div>
+    <!-- Card Wider -->
+  </div>
+  <a (click)="morePosts()" *ngIf = "Posts.length > 0" class="text-center nav-link text-primary p-5">More...</a>
+  <ng-template #elseblock>
+    <div  class="flex-center" style="height: 50vh">
+      <div>
+        <h1 class="text-muted h1-responsive font-italic font-weight-bold">
+          you are currently not following any tailors or the tailors you follow have not posted any content.
+        </h1>
+        <h1 class="text-muted h1-responsive font-italic font-weight-bold">
+          you can find tailors and more tailor contents <a class="card-link text-primary" routerLink="/search">here</a>,
+        </h1>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<div *ngIf="!Loader" style="height: 90vh;" class="flex-center mask pattern-1">
+  <div class="preloader-wrapper big active crazy">
+    <div class="spinner-layer spinner-blue">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+    <div class="spinner-layer spinner-red">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+    <div class="spinner-layer spinner-yellow">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+    <div class="spinner-layer spinner-green">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>

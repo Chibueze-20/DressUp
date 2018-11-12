@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() { }
-
+  public static get User(){
+    return JSON.parse(localStorage.getItem('User'))
+  }
 }

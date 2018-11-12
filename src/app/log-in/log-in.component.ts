@@ -4,7 +4,9 @@ import { UserserviceService } from '../userservice.service';
 import { Router } from '@angular/router';
 import {Response} from '../shared/Response';
 import {HttpErrorResponse} from '@angular/common/http';
+import { MyWindow } from '../shared/windowAlert';
 
+declare let window:MyWindow
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -80,11 +82,12 @@ export class LogInComponent implements OnInit {
       (res: Response) => {
         if (res.User && res.type !== 'Error') {
           localStorage.setItem('User', JSON.stringify(res.User));
-          this.route.navigateByUrl('/home')
+          this.route.navigateByUrl('/user/home')
             .then(sm => console.log('routed' + sm));
         }
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        window.toastr["error"]("Trouble logging in");
+        // alert(err.error.Message);
       }
     );
   }
@@ -95,11 +98,12 @@ export class LogInComponent implements OnInit {
       (res: Response) => {
         if (res.User && res.type !== 'Error') {
           localStorage.setItem('User', JSON.stringify(res.User));
-          this.route.navigateByUrl('/home')
+          this.route.navigateByUrl('/tailor/home/profile')
             .then(sm => console.log('routed' + sm));
         }
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        window.toastr["error"]("Trouble logging in");
+        // alert(err.error.Message);
       }
     );
   }

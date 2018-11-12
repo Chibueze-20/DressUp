@@ -1,0 +1,76 @@
+.hide{
+  visibility: hidden;
+}
+ul li.list-group-item {
+  background: none !important;
+  border-style: none;
+  border: none;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+ul li.list-group-item input[type="checkbox"] {
+  -webkit-appearance: button;
+  width: 30px;
+  height: auto;
+  border: 1px solid #ced4da;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.conditions {
+  font-size: x-large;
+}
+
+.true {
+  background-color: #00c851;
+}
+
+div.input-group.mb-3 {
+  width: fit-content;
+}
+
+/*todo move to styles.css*/
+.cursor-hand {
+  cursor: default !important;
+}
+
+ul li.list-group-item span[name="byom"] {
+  padding-left: 23px !important;
+  padding-right: 30px !important;
+}
+
+.ul {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.sizes-list {
+  height: 100px;
+  overflow: auto;
+}
+
+span.badge {
+  font-size: 12px;
+}
+
+@media screen and (max-width:375px) {
+  .size-text {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .ul {
+    padding: 0 !important;
+  }
+}
+
+.post-btn {
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 50px;
+}
+
+

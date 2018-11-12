@@ -11,13 +11,17 @@ export class UserserviceService {
 
   constructor(private http: HttpClient) { }
 
-  addUser(signUpDetails) {
-    this.http.post(this.uri + '/new', signUpDetails)
-      .subscribe(res => console.log('Done'));
-  }
+  // addUser(signUpDetails) {
+  //   this.http.post(this.uri + '/new', signUpDetails)
+  //     .subscribe(res => console.log('Done'));
+  // }
 
   postData(url, payload) {
     return this.http.post(url, payload);
+  }
+
+  getData(url) {
+    return this.http.get(url)
   }
 
 }

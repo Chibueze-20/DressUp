@@ -37,8 +37,8 @@ var Feedback  = new Schema({
 })
 Feedback.pre('find',function(next){
     this.populate({
-        path: 'Tailor',
-        select: 'Brand.BrandName'
+        path: 'User',
+        select: 'Name'
     });
     next();
 });

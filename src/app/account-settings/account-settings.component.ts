@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {passwordValidator} from '../shared/confirm-password.directive';
 import {UserserviceService} from '../userservice.service';
 import {HttpClient, HttpErrorResponse, HttpEvent, HttpEventType} from '@angular/common/http';
+import { MyWindow } from '../shared/windowAlert';
+
+declare let window:MyWindow
 
 @Component({
   selector: 'app-account-settings',
@@ -49,12 +52,28 @@ export class AccountSettingsComponent implements OnInit {
       })
     });
   }
-changeemail() {
-    this.email = !this.email;
+get Account() {
+    return this.settingsForm.get('Account');
+}
+get Name() {
+    return this.settingsForm.get('Name');
+}
+get Contact() {
+    return this.settingsForm.get('Contact');
+}
+get Brand() {
+    return this.settingsForm.get('Brand');
 }
 get User() {
   const user = JSON.parse(localStorage.getItem('User'));
    return user;
+}
+get UserBrand(){
+  if(this.User.Brand){
+    return this.User.Brand
+  }else{
+    return {};
+  }
 }
 get UserEmail() {
     return this.User.Account.Email;
@@ -76,27 +95,21 @@ get contactbool() {
     // alert(this.contact);
     return this.contact;
 }
-contacttoggle() {
-    this.contact  = false;
-}
+
 get nameformbool() {
     return this.nameform;
 }
 get namebool() {
     return this.name;
 }
-nametoggle() {
-    this.name = false;
-}
+
 get brandformbool() {
     return this.brandform;
 }
 get brandbool() {
     return this.brand;
 }
-brandtoggle() {
-    this.brand = false;
-}
+
 get userRole() {
 return this.User.Role;
 }
@@ -105,37 +118,44 @@ updateAccountClick() {
        this.settingsForm.get('Account').get('CurrentEmail').setValue(this.UserEmail);
        this.accountform = true;
        this.service.postData(this.service.uri + '/update/account/' + this.Userid, this.settingsForm.get('Account').value)
-         .subscribe( (res: Response) => {
+         .subscribe( (res: any) => {
            this.accountform = false;
            this.settingsForm.get('Account').reset();
+           localStorage.setItem('User', JSON.stringify(res));
+           window.toastr['success']('update successfull');
          }, (err: HttpErrorResponse) => {
-           alert(err.error.Message);
+          //  alert(err.error.Message);
            this.accountform = false;
+           window.toastr['error']('update unsuccessfull');
          });
-
+       this.Account.get('Email').setValue(this.UserEmail);
      }
 }
 discardAccountUpdateclick() {
-    this.email = false;
-    this.nameform = false;
+    this.password = false;
+    this.accountform = false;
     this.settingsForm.get('Account').reset();
+    this.Account.get('Email').setValue(this.UserEmail);
 }
 updateContactClick() {
   if (this.contactform === false) {
     this.contactform = true;
     this.service.postData(this.service.uri + '/update/contact/' + this.Userid, this.settingsForm.get('Contact').value)
-      .subscribe( (res: Response) => {
+      .subscribe( (res: any) => {
         this.contactform = false;
-        this.settingsForm.get('Contact').reset();
+        localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.contactform = false;
+        window.toastr['error']('update unsuccessfull');
       });
+    this.settingsForm.get('Contact').setValue(this.User.Contact);
   }
 }
 discardContactUpdateClick() {
     this.contact = true;
-    this.settingsForm.get('Contact').reset();
+    this.Contact.setValue(this.User.Contact);
 
 }
 updateNameClick() {
@@ -144,33 +164,39 @@ updateNameClick() {
     this.service.postData(this.service.uri + '/update/names/' + this.Userid, this.settingsForm.get('Name').value)
       .subscribe( (res: Response) => {
         this.nameform = false;
-        this.settingsForm.get('Name').reset();
+        localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.nameform = false;
+        window.toastr['error']('update unsuccessfull');
       });
+    this.Name.setValue(this.User.Name);
   }
   }
   discardNameUpdateClick() {
     this.name = true;
-    this.settingsForm.get('Name').reset();
+    this.Name.setValue(this.User.Name);
   }
 updateBrandClick() {
   if (this.brandform === false) {
     this.brandform = true;
     this.service.postData(this.service.uri + '/update/brand/' + this.Userid, this.settingsForm.get('Brand').value)
-      .subscribe( (res: Response) => {
+      .subscribe( (res: any) => {
         this.brandform = false;
-        this.settingsForm.get('Brand').reset();
+        localStorage.setItem('User', JSON.stringify(res));
+        window.toastr['success']('update successfull');
       }, (err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        // alert(err.error.Message);
         this.brandform = false;
+        window.toastr['success']('update unsuccessfull');
       });
+    this.Brand.setValue(this.User.Brand);
   }
 
 }
 discardBrandUpdateClick() {
     this.brand = true;
-    this.settingsForm.get('Brand').reset();
+    this.Brand.setValue(this.User.Brand);
 }
 }

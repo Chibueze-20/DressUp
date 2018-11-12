@@ -1,0 +1,15 @@
+.in{
+  display: none !important;
+}
+.out{
+  max-height: 310px;
+}
+@media screen and (max-width:375px){
+  .in{
+    display: block;
+  }
+  .out{
+    /*display: none !important;*/
+    max-height: 226px;
+  }
+}

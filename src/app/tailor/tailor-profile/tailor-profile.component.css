@@ -1,0 +1,40 @@
+.main-header {
+    background-image: url("../../../assets/images/header-bg.jpeg");
+    background-size: cover;
+    background-color: #7faeb4;
+    margin: 0;
+} 
+
+
+.col-md-3 {
+    padding-bottom: 30px;
+}
+nav {
+    background: none;
+    box-shadow: none;
+}
+nav li {
+    display: inline-block;
+    font-weight: bold;
+}
+.py-1 , .list-group-flush {
+    background: none !important;
+}
+.star-on , .star-off {
+    font-size: 20px;
+    font-weight: 600;
+}
+.star-on {
+    color: gold;
+}
+.star-off {
+    color: grey;
+}
+div.chip {
+    -webkit-animation: background-color 1s;
+    animation: background-color 1s;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}

@@ -1,0 +1,28 @@
+<div class="px-3 black-text">
+  <div class="card card-body shadow-lg">
+    <h3 class="text-center text-uppercase text-success">Push notifications</h3>
+    <div class="p-2">
+      <div class="form-check form-check-inline">
+        <input id="user" class="form-check-input" value="user" name="to" type="radio">
+        <label for="user" class="form-check-label">To all users</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="tailor" class="form-check-input" value="tailor" name="to" type="radio">
+        <label for="tailor" class="form-check-label">To all tailors</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="custom" class="form-check-input" value="custom" name="to" type="radio">
+        <label for="custom" class="form-check-label">Custom selection</label>
+      </div>
+    </div>
+    <div class="p-2">
+      <label for="condition">Condition</label>
+      <input id="condition" class="form-control" type="text" placeholder="conditions in json format such as {'prop':'value','prop':'value'...}">
+      <label for="message">Message</label>
+      <textarea id="message" class="form-control" cols="5" rows="2" placeholder="notification message"></textarea>
+      <div class="d-flex mt-2 justify-content-center">
+        <button class="btn-lg btn-outline-success">Send Notification</button>
+      </div>
+    </div>
+  </div>
+</div>

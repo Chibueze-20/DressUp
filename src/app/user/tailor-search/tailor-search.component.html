@@ -1,0 +1,35 @@
+<nav class="bg-white">
+  <div class="container-fluid">
+    <div class="d-flex row justify-content-start">
+      <div class="d-flex justify-content-between">
+        <a (click)="goback()" class="mx-3 waves-effect d-flex flex-column mt-auto mb-auto flex-center">
+          <i class="fas fa-long-arrow-alt-left fa-2x"></i>
+        </a>
+        <!-- todo: make ml-0 be ml-5 on home pages alone with ngclass -->
+        <a class="navbar-text navtext-margin-in ml-0 mr-auto permanentmarker font-weight-bold black-text" style="font-size: x-large;align-self: center;">DressUp</a>
+      </div>
+      <div class="form-inline ml-3 w-75">
+        <div class="form-group md-form w-100">
+          <i class="fas fa-search prefix"></i>
+          <label for="search">tailor username</label>
+          <input type="search" name="" #Search (change)="search(Search.value)" id="search" class="form-control" placeholder="">
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div style="margin-top: 10px">
+  <div *ngIf="SearchResults.length > 0" class="search-view">
+    <!--todo tailor search view-->
+    <ul style="max-height:100vh; overflow-y: auto" class="list-unstyled  list-inline">
+      <li *ngFor="let tailor of SearchResults; first as isfirst" class="w-100">
+        <div class="bottom-border animated fadeIn d-flex justify-content-between" [class.top-border]="isfirst">
+          <div class="avatar img-size p-light-1"><img [src]="tailor.Profile.Display" class="rounded-circle img-fluid"></div>
+          <a routerLink = "/user/tailor/{{tailor._id}}" class="nav-link text-primary" style="align-self: center">{{tailor.Brand.BrandName}}</a>
+          <span style="align-self: center">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <app-tailor-posts></app-tailor-posts>
+</div>

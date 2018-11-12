@@ -63,7 +63,13 @@
     font-weight: bold;
     color: white;
   }
-  
+  a.dropdown-item:hover {
+    box-shadow: 5px 5px 4px gainsboro;
+    background-color: #e3ffff;
+}
+.below{
+  margin-top: 20vh !important;
+}
   /* Mark the active step: */
   .step.active {
     opacity: 1;

@@ -3,23 +3,22 @@ const Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 
 
-
-
 var Profile = new Schema({
 
     Theme: {
-        type: String
+        type: String,
+        default:'Clay Theme'
     },
     Background:{
-        type: String
+        type: String,
+        default: '../../assets/images/clark-street-mercantile-33931-unsplash.jpg'
     },
-    Profile:{
-        type:String
-    },
-    Font:{
-        type: String
-    },
-    Feedbacks:[{type: Schema.Types.ObjectId, rel:'Feedback'}],
+  Display:{
+      type: String,
+      default: 'assets/images/person-flat.png'
+  },
+    Tags: [{type: String}],
+    Feedbacks:[{type: Schema.Types.ObjectId, ref:'Feedback'}],
 
 },{
     collection: 'profiles'
