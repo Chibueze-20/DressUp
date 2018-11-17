@@ -13,10 +13,19 @@ export class RequestNotificationsComponent implements OnInit {
   constructor(private service:NotificationService) { }
 
   ngOnInit() {
-    Navigation.Title = 'Bids';
-    this.service.getmessage(AppComponent.User._id,'Bid').subscribe(
-      (res:any) => this.notifications = res, err => alert('error getting notificaions') 
+    Navigation.Title = 'Requests';
+    
+    this.service.getDirectBids(AppComponent.User._id).subscribe(
+      (res:any) => {this.notifications = res; console.log(res)}, err => console.log(err)
     )
   }
+
+  get Notifications(){
+    return this.notifications;
+  }
+ getDate(iso_date):string{
+   let date = new Date(iso_date);
+   return date.toDateString();
+ }
  
 }

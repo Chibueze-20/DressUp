@@ -41,6 +41,9 @@ export class TailorProfileComponent implements OnInit {
   get Feedbacks() {
     return this.feedbacks;
   }
+  get Theme(){
+    return this._settingsService.Theme(this.ProfileTheme);
+  }
   get User() {
     return JSON.parse(localStorage.getItem('User'));
   }

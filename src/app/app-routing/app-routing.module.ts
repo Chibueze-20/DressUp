@@ -26,6 +26,7 @@ import { RequestNotificationsComponent } from '../notifications/request-notifica
 import { ChatComponent } from '../chat/chat.component';
 import { ChatRoomComponent} from '../chat/chat-room/chat-room.component';
 import { ChatListComponent} from '../chat/chat-list/chat-list.component';
+import { BidNotificationsComponent } from '../notifications/bid-notifications/bid-notifications.component';
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'index', component: LandingComponent },
@@ -95,7 +96,8 @@ const routes: Routes = [
   // Notifications
   {path: 'notifications', component: NotificationsComponent, children: [
       {path: 'account', component: AccountNotificationsComponent},
-      {path: 'bids', component: RequestNotificationsComponent}
+      {path: 'bids', component: BidNotificationsComponent},
+      {path: 'requests',component:RequestNotificationsComponent}
     ]},
   {path: 'chat',component:ChatComponent,children:[
     {path:'active',component:ChatListComponent}

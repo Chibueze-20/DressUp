@@ -94,7 +94,13 @@ exports.showDirectBids = function(req,res){
 }
 
 exports.AcceptDirectBid = function(req,res,next){
-    Bid.findByIdAndUpdate(req.body.Id,{Schedule:req.body.Schedule,Accepted:true},{new:true},function (err,bid) { 
+    let body;
+    if(req.body.Update.Price){
+       body = {Price:req.body.Update.Price,Schedule:req.body.Update.Schedule,Accepted:true}
+    }else{
+        body = {Schedule:req.body.Update.Schedule,Accepted:true}
+    }
+    Bid.findByIdAndUpdate(req.body.Id,body,{new:true},function (err,bid) { 
         if (err) {
             return res.status(404).send(err)
         }else{

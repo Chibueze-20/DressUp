@@ -3,7 +3,7 @@
 
 <!-- Main Container -->
 
-<div class={{_settingsService.Theme(ProfileTheme)}}>
+<div [class.default-theme]="Theme === 'default-theme'" [class.savanna-theme]="Theme === 'savanna-theme'" [class.clay-theme]="Theme === 'clay-theme'" [class.dark-theme]="Theme === 'dark-theme'">
 <!-- Header container START -->
 
 <div class="p-0 main-header" [ngStyle]="{'background-image': headerStyles}" >
