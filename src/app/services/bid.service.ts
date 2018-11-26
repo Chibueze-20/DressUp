@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BidService {
-  private uri = 'http//localhost:4000/bid';
+  private uri = 'http://localhost:4000/bid';
   constructor(private http:HttpClient) { }
 
   placeBid(body:any){
@@ -21,5 +21,8 @@ export class BidService {
 
   rejectBid(id:any){
     return this.http.get(this.uri+'/reject/'+id)
+  }
+  getBidByRequest(requestid:any){
+    return this.http.get(this.uri+'/direct/request/'+requestid)
   }
 }

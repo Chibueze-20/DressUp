@@ -69,6 +69,25 @@ exports.getOrder = function(req,res){
         res.json(order)
     })
 }
+exports.getOrderByUser =  function(req,res){
+    OrderRequest.find({Completed:false})
+    .populate({
+        path:'Order',
+        populate:{
+            path:'Tailor',
+            select:'Brand.BrandName'
+        }
+    })
+    .populate('Request')
+    .sort('-CreatedAt -_id')
+    .exec(function(err, order){
+        if(err){
+            return res.status(404).send(err);
+        }
+        res.send(order)
+        
+    })
+}
 // show all bids
 // exports.getAllOrders = function(req,res,next){
 //     OrderRequest.find({Type:'Bid'})

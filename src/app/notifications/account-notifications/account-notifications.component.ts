@@ -11,7 +11,9 @@ export class AccountNotificationsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    Navigation.Title = 'Account';
+    Navigation.Title = 'Notifications';
   }
-
+  getDate(){
+    return new Date().toLocaleDateString();
+  }
 }

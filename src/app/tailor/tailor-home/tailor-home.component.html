@@ -1,30 +1,17 @@
 <main class="container-fluid p-0">
   <router-outlet></router-outlet>
 </main>
-<!--For large screens-->
-<footer class="d-flex bg-white out justify-content-center container-fluid" style="bottom: 0px; position: fixed; z-index: 1040;">
-  <nav class="container-fluid">
-    <div class="d-flex justify-content-center">
-      <a (click)="gotoSettings()" title="Settings" class="btn-flat menu-btn btn-lg mx-5 waves-effect"><i class="fas fa-cog fa-2x"></i></a>
-      <a (click)="gotoProfile()" title="Profile" class="btn-flat menu-btn mx-5 btn-lg waves-effect"><i class="fa fa-user fa-2x"></i></a>
-      <a (click)="gotoPost()" title="New product" class="btn-flat menu-btn btn-lg mx-5 waves-effect"><i class="fas fa-plus fa-2x"></i></a>
-      <a (click)="gotoJob()" title="Jobs" class="btn-flat mx-5 menu-btn btn-lg waves-effect"><i class="fas fa-money-bill fa-2x"></i></a>
-      <a (click)="Logout()" title="Logout" class="btn-flat mx-5 menu-btn btn-lg waves-effect"> <i class="fas fa-sign-out-alt fa-2x"></i></a>
-    </div>
-  </nav>
-</footer>
-<!--For large screens-->
+<!--For small screens-->
+<footer class="d-flex bg-white justify-content-center container-fluid p-0" style="bottom: 0px; position: fixed; z-index: 1040;">
+    <nav class="container">
+      <div class="d-flex  justify-content-center p-0">
+        <a  (click)="gotoSettings()" title="Settings"  class="menu-space btn-flat btn-sm  mx-md-5 mx-sm-0 waves-effect"><i class="fas fa-cog fa-2x"></i></a>
+        <a  (click)="gotoProfile()" title="Profile" class="menu-space btn-flat mx-md-5 mx-sm-0 btn-sm waves-effect"><i class="fa  fa-user fa-2x"></i></a>
+        <a (click)="gotoPost()" title="New product" class="menu-space btn-flat btn-sm mx-md-5 mx-sm-0 waves-effect"><i class="fas fa-plus fa-3x"></i></a>
+        <a (click)="gotoJob()" title="Jobs" class="menu-space btn-flat mx-md-5 mx-sm-0 btn-sm waves-effect"><i class="fas  fa-money-bill fa-2x"></i></a>
+        <a (click)="Logout()" title="Logout" class="menu-space btn-flat mx-md-5 mx-sm-0 btn-sm waves-effect"> <i class="fas fa-sign-out-alt fa-2x"></i></a>
+      </div>
+    </nav>
+  </footer>
+  <!--For small screens-->
 
-<!--For small screens-->
-<footer class="d-flex bg-white in justify-content-center container-fluid p-0" style="bottom: 0px; position: fixed; z-index: 1040;">
-  <nav class="container-fluid p-0">
-    <div class="d-flex  justify-content-between p-0">
-      <a (click)="gotoSettings()" title="Settings" class="btn-flat btn-sm  mx-3 waves-effect"><i class="fas fa-cog"></i></a>
-      <a (click)="gotoProfile()" title="Profile" class="btn-flat mx-3 btn-sm waves-effect"><i class="fa  fa-user"></i></a>
-      <a (click)="gotoPost()" title="New product" class="btn-flat btn-sm mx-3 waves-effect"><i class="fas fa-plus fa-2x"></i></a>
-      <a (click)="gotoJob()" title="Jobs" class="btn-flat mx-3 btn-sm waves-effect"><i class="fas  fa-money-bill"></i></a>
-      <a (click)="Logout()" title="Logout" class="btn-flat mx-3 btn-sm waves-effect"> <i class="fas fa-sign-out-alt"></i></a>
-    </div>
-  </nav>
-</footer>
-<!--For small screens-->

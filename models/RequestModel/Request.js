@@ -16,6 +16,15 @@ var Request = new Schema({
     Description:{
         type: String
     },
+    Sizes: [{
+      Name: {
+        type: String
+      },
+      Value: {
+        type: String
+      }
+  
+    }],
     Schedule: {
         Duration: {
           type: Number

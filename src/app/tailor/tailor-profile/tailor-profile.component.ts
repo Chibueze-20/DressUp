@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../settings.service';
 import { UserserviceService } from '../../userservice.service';
 import { Navigation } from 'src/app/shared/Navigation';
+import { MyWindow } from 'src/app/shared/windowAlert';
+
+declare let window:MyWindow;
+
 @Component({
   selector: 'app-tailor-profile',
   templateUrl: './tailor-profile.component.html',
@@ -38,6 +42,26 @@ export class TailorProfileComponent implements OnInit {
   get Details() {
     return this.details;
   }
+  get Email(){
+    if(this.details){
+      return this.details.Account.Email || 'dummy@dressup.com'
+    }else{
+      return 'dummy@dressup.com'
+    }
+  }
+  get PhoneNumber(){
+    if(this.details.Contact){
+      let number = this.details.Contact.PhoneNumber||'xxxxxxxxxxx'
+      return '+234'+number.substring(1)
+    }
+  }
+  get Rating(){
+    if(this.details.Ratings){
+      return this.details.Ratings.AvgRating;
+    }else{
+      return 'X';
+    }
+  }
   get Feedbacks() {
     return this.feedbacks;
   }
@@ -52,10 +76,31 @@ export class TailorProfileComponent implements OnInit {
    return user.Following.includes(TailorProfileComponent.Tailor);
   }
   follow() {
+    const user = this.User;
+   // let fallback = user;
     if (this.isFollowing === true) {
       // remove tailor
+      let v:any[] = user.Following
+      console.log('before',v,user.Following)
+      v = v.filter((tailor)=> tailor !== TailorProfileComponent.Tailor)
+      console.log(v);
+      this.userservice.postData(this.userservice.uri+'/follow',{user:this.User._id,followers:v})
+      .subscribe(
+        (res:any)=>{localStorage.setItem('User',JSON.stringify(res.User)); window.toastr['info']('Unfollowed');
+      },err=>window.toastr['error']('Unable to perform')
+      )
+      
     } else {
-      this.User.Following.push(TailorProfileComponent.Tailor);
+      const user = this.User;
+      let v:any[] = user.Following
+      console.log('before',v,user.Following)
+      v.push(TailorProfileComponent.Tailor);
+      console.log(v);
+      this.userservice.postData(this.userservice.uri+'/follow',{user:this.User._id,followers:v})
+      .subscribe(
+        (res:any)=>{localStorage.setItem('User',JSON.stringify(res.User)); window.toastr['success']('following');
+      },err=>window.toastr['error']('Unable to perform')
+      )
       // update database
     }
   }

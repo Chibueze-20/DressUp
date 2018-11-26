@@ -11,7 +11,7 @@
         </div>
         <div class="d-flex justify-content-between text-primary">
           <span class="nav-link font-italic">{{getDate(request.Request.CreatedAt)}}</span>
-          <h6><a class="nav-link">View</a></h6>
+          <h6 class="m-0"><a (click)="view(request)" class="nav-link">View</a></h6>
         </div>
       </div> 
        

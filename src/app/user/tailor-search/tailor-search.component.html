@@ -23,10 +23,10 @@
     <!--todo tailor search view-->
     <ul style="max-height:100vh; overflow-y: auto" class="list-unstyled  list-inline">
       <li *ngFor="let tailor of SearchResults; first as isfirst" class="w-100">
-        <div class="bottom-border animated fadeIn d-flex justify-content-between" [class.top-border]="isfirst">
+        <div class="bottom-border animated p-1 fadeIn d-flex justify-content-between" [class.top-border]="isfirst">
           <div class="avatar img-size p-light-1"><img [src]="tailor.Profile.Display" class="rounded-circle img-fluid"></div>
           <a routerLink = "/user/tailor/{{tailor._id}}" class="nav-link text-primary" style="align-self: center">{{tailor.Brand.BrandName}}</a>
-          <span style="align-self: center">*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</span>
+          <span style="align-self: center">{{tailor.Ratings.AvgRating}}/5.00</span>
         </div>
       </li>
     </ul>

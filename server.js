@@ -27,7 +27,7 @@ io.on('connection', function(socket){
   console.log('connection!');
   socket.on('new-message', (message) => {
     console.log('message from angular:',JSON.stringify(message));
-    socket.broadcast.emit('new-message',message)
+    socket.broadcast.emit('new-message-'+message.To,message)
   });
 });
 

@@ -70,6 +70,7 @@ exports.showBids = function(req,res) {
          let request = requests.map(elem => elem._id);
          Bid.find({Type:'Bid',Accepted:false,Rejected:false})
          .where('Request').in(request)
+         .populate({path:'Tailor', select:'Brand.BrandName'})
          .exec(function(err,bids){
              if (err) {
                  return res.status(404);
@@ -108,4 +109,14 @@ exports.AcceptDirectBid = function(req,res,next){
             return res.status(200).json({Message:"Bid accepted"});
         }
      })
+}
+
+exports.GetBidFromRequest = function(req,res,next){
+    Bid.findOne({Request:req.params.id,Type:'Direct'},function(err,bid){
+        if (err) {
+            return res.status(404).send(err)
+        }else{
+            return res.status(200).send(bid);
+        }
+    })
 }

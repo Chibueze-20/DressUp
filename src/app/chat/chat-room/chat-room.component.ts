@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {ChatService} from '../chat.service';
 import { Message } from 'src/app/shared/Message';
 import { Schedule } from 'src/app/shared/schedule';
+import { OrderService } from '../order.service';
+import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
@@ -9,74 +12,140 @@ import { Schedule } from 'src/app/shared/schedule';
 })
 export class ChatRoomComponent implements OnInit, AfterViewInit {
   id ="1111"
-  schedules:Schedule[] = [
-    {
-      task: 'Buy material',
-      duration: 3
-    },
-    {
-      task: 'Cut material to size',
-      duration: 5
-    },
-    {
-      task: 'Sew up shirt',
-      duration: 2
-    },
-    {
-      task: 'Sew trousers and add pockets',
-      duration: 3
-    },
-    {
-      task:'Iron and package for sending',
-      duration:1
-    }
-  ]
+  schedules:Schedule[] = []
   startDate = Date.parse('10-16-2018');
   endDate = this.startDate;
-  nowDate = Date.now();
   daysPast:number;
-  percentageDone:number;
+  percentageDone:number =0;
   message: string;
   messages:Message[] = [];
-  widget=false;
+  cansend = false;
+  widget=true;
+  chat:any={}
   TaskTitle:string;TaskDuration:number;
   PictueWidget = false;PictureUrl:any;PictureText:string;
   PriceWidget = false;Price:number;PriceDescription:string;
   SizeWidget = false;Size:string;SizeValue:number;
-  constructor(private chatService:ChatService) { }
+  done = false;
+  picnum = 0;
+  constructor(private chatService:ChatService,private orderService:OrderService,private route: ActivatedRoute) { 
+    const id = this.route.snapshot.paramMap.get('id');
+    this.orderService.getChat(id)
+    .subscribe(
+      (res:any)=>{this.chat = res;this.done = true;
+      // console.log(this.startDate,'start',this.endDate,'end');
+      // this.schedules.forEach((sch) =>console.log(this.daysToMillisecs(sch.duration),'days',sch.duration));
+      // console.log(this.endDate,'end',new Date(this.endDate),this.EndDate);
+      // console.log(this.startDate,'end',new Date(this.startDate),this.StartDate);
+      }, err => alert(JSON.stringify(err))
+    )
+  }
 
   ngOnInit() {
-    document.getElementById('details').style.display = 'none'
-    this.schedules.forEach((sch) => this.endDate= this.endDate+this.daysToMillisecs(sch.duration));
-    console.log(new Date(this.endDate));
-    this.chatService
-      .getMessages().subscribe((message:Message) => {
-        this.messages.push(message);
-        // document.querySelector('.chat-window').scrollTo(0, document.querySelector('#chat-window').scrollHeight)
-      });
+      setTimeout(() => {
+        this.taskDone();
+        this.chatService
+        .getMessages(this.chat._id).subscribe((message:Message) => {
+          this.messages.push(message);
+        });
+        this.widget = false;
+        console.log('task done');
+      }, 8000);
+      
   }
-  ngAfterViewInit(){
-    this.taskDone();
+  ngAfterViewInit(){  
+  //  let inter = setInterval(() => {
+  //     if(this.Done){
+  //       this.taskDone();
+  //       clearInterval(inter)
+  //     }else{
+  //       console.log('awaiting..');
+  //     }
+  //   }, 1000);
     //send feedback widget when today is a day after end date or more
   }
-
+  get Id(){
+    return AppComponent.User._id;
+  }
+  get Role(){
+    return AppComponent.User.Role;
+  }
+get Chat(){
+  if(this.chat){
+    return this.chat;
+  }
+}
+get Messages(){
+  if(this.chat){
+    return this.chat.Messages.concat(this.messages)
+  }
+}
+ get Order(){
+   if (this.chat) {
+     return this.chat.Order
+   }
+ }
+ get Bid(){
+   if(this.Order){
+     return this.Order.Order
+   }
+ }
+ get Request(){
+   if(this.Bid){
+     return this.Bid.Request;
+   }
+ }
+ get Schedule(){
+   if(this.Bid){
+     return this.Bid.Schedule.Milestones;
+   }
+   else{ return []}
+ }
+ get Sizes(){
+   if(this.Request){
+    return this.Request.Sizes.length > 0 ?  this.Request.Sizes:[{Name:'Size',Value:'Not available'}]
+     }else{
+     return [{Name:'Size',Value:'Not available'}];
+   }
+ }
+ get Picture(){
+   if(this.Request){
+     return this.Request.Picture[this.picnum];
+   }else{
+     return 'assets/images/clem-onojeghuo-197847-unsplash.jpg';
+   }
+ }
+ nextPic(){
+  if(this.Request){
+    if((this.Request.Picture.length -1) > this.picnum){
+      this.picnum ++
+    }
+  }
+ }
+ prevPic(){
+    if(0<this.picnum){
+      this.picnum--;
+    }
+ }
   sendMessage() {
+    if(!this.widget){
     let msg = {
       Type:'chat',
-      From:'129299',
-      To:'1111',
+      From:this.Id,
+      To:this.chat._id,
       Content:this.message
     }
     this.messages.push(msg);
     this.chatService.sendMessage(msg);
     this.message = '';
   }
+}
   taskWidget(){
     if(!this.widget){
       let msg ={
         Type:'task',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
         Content:null
       }
       this.widget = true;
@@ -87,8 +156,8 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if (!this.widget) {
       let msg ={
         Type:'picture',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
         Content:null
       }
       this.messages.push(msg);
@@ -99,8 +168,8 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if(!this.widget){
       let msg = {
         Type: 'price',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
         Content:null
       }
       this.messages.push(msg);
@@ -111,8 +180,8 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if(!this.widget){
       let msg = {
         Type: 'size',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
         Content:null
       }
       this.messages.push(msg);
@@ -224,45 +293,79 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
 
     }
   }
-  doneTime(){
-    this.daysPast =this.nowDate-this.startDate;
-    this.daysPast = (((this.daysPast/1000)/60)/60)/24
-    console.log(this.daysPast);
+   doneTime(){
+    let nowDate = Date.now();
+    let dayspast =nowDate-Date.parse(this.chat.Order.CreatedAt)
+    dayspast = Number((this.daysPast/(1000*24*60*60)).toFixed(0));
+    return dayspast;
+    
   }
-//   percentageComplete(){
-//    return ((this.endDate-this.nowDate)/(this.endDate-this.startDate))*100;
-//  }
   get taskWidth(){
-    let val = 100/this.schedules.length
+    let val = 100/this.Schedule.length
     return val+'%';
   }
   taskDone(){
-    this.percentageDone=0;
-    this.doneTime();
-    for (let index = 0; index < this.schedules.length; index++) {
-      if(this.daysPast >= this.schedules[index].duration){
-          document.getElementById(String(index)).classList.add('bg-success');
-          this.daysPast -= this.schedules[index].duration;
-          this.percentageDone +=1;
+    console.log(this.Schedule,this.chat.Order.Order.Schedule.Milestones)
+    let percentageDone=0;
+    let dayspast = Date.now()-Date.parse(this.chat.Order.CreatedAt)
+    dayspast = Number((dayspast/(1000*24*60*60)).toFixed(0));
+    console.log(dayspast);
+    for (let index = 0; index < this.Schedule.length; index++) {
+      if(dayspast >= this.Schedule[index].duration){
+          document.getElementById(String(index)).classList.add('bg-success') 
+          console.log(dayspast,this.Schedule[index].duration,document.getElementById(String(index)))
+          dayspast -= this.Schedule[index].duration;
+          percentageDone +=1;
       }
       
     }
-    this.percentageDone = Number(((this.percentageDone/this.schedules.length)*100).toFixed(0));
+    document.getElementById('percent').innerHTML = ((percentageDone/this.Schedule.length)*100).toFixed(0) + '%';
   }
   daysToMillisecs( day:number){
     return (day*24*60*60)*1000;
   }
   get StartDate(){
-    return new Date(this.startDate).toLocaleDateString()
+    if(this.Order){ 
+    return Date.parse(this.Order.CreatedAt)
+    }
+  }
+  get Start(){
+    if(this.StartDate){
+      return new Date(this.StartDate).toLocaleDateString();
+    }
   }
   get EndDate(){
-    return new Date(this.endDate).toLocaleDateString()
+    if(this.Bid && this.StartDate && this.Schedule){
+      let enddate = this.StartDate
+      this.Schedule.forEach((sch) => enddate= enddate+this.daysToMillisecs(sch.duration));
+      return enddate;
+    } 
   }
-
+  get End(){
+    if(this.EndDate){
+      return new Date(this.EndDate).toLocaleDateString();
+    }
+  }
+  get Percentage(){
+    return this.percentageDone;
+  }
+  get Done(){
+    return this.done;
+  }
+  get CanSend(){
+    return this.cansend;
+  }
   isOdd(i:number){
     return i % 2  !== 0;
   }
   isEven(i:number){
     return i % 2 === 0;
+  }
+  isDone(i){
+    let daystodate
+    for(let j = 0;j<=i;j++ ){
+      daystodate+=Schedule[i].duration
+    }
+    return (this.EndDate - this.StartDate)>=daystodate
   }
 }

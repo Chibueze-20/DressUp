@@ -15,12 +15,62 @@ Description, Price, Conditions, Permissions, Size, Image -->
           </div>
           <div class="modal-body">
             <div class="d-flex flex-column justify-content-between">
-              <span class="p-3 ">Place an order for {{Post.Title.trim()}}</span>
-              <span class="p-3">Price: NGN {{Post.Price}}</span>
+              <span class="p-2 ">Place an order for {{Post.Title.trim()}}</span>
+              <span class="p-2">Price: NGN {{Post.Price}}</span>
+              <span class="p-2 ">Size: {{Size}}</span>
+              <span class="p-2">Fitness: {{Fitness}}</span>
+              <span class="p-2">Delivery: {{Delivery}}</span>
+            </div>
+            <div class="mt-3 px-2">
+              <p>How do you want it?.</p>
+              <div class="p-2">
+                <div class="form-check form-check-inline">
+                  <input (click)="setFitness('No fitting')" type="radio" name="Fitness" class="form-check-input" id="no-fitted">
+                  <label class="form-check-label" for="no-fitted">No fitting</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)= "setFitness('Close Fitting')" type="radio" name="Fitness" class="form-check-input" id="close-fitted">
+                  <label class="form-check-label" for="close-fitted">Close Fitting</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)= "setFitness('Fitted')"  type="radio" name="Fitness" class="form-check-input" id="fitted">
+                  <label class="form-check-label" for="fitted">Fitted</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)= "setFitness('Semi-Fitted')" type="radio" name="Fitness" class="form-check-input" id="semi-fitted">
+                  <label class="form-check-label" for="semi-fitted">Semi-Fitted</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)= "setFitness('Loose Fitting')" type="radio" name="Fitness" class="form-check-input" id="loose-fitted">
+                  <label class="form-check-label" for="loose-fitted">Loose Fitting</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)= "setFitness('Very Loose Fitting')"  type="radio" name="Fitness" class="form-check-input" id="vl-fitted">
+                  <label class="form-check-label" for="vl-fitted">Very Loose Fitting</label>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 px-2">
+              <p>Delivery</p>
+              <div class="p-2">
+                <div class="form-check form-check-inline">
+                  <input (click)="setDelivery('Direct Collection')" type="radio" name="Delivery" class="form-check-input" id="direct">
+                  <label class="form-check-label" for="direct">Direct Collection</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)="setDelivery('Postal Service')" type="radio" name="Delivery" class="form-check-input" id="postal">
+                  <label class="form-check-label" for="postal">Postal Service</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input (click)="setDelivery('Pickup Station')"  type="radio" name="Delivery" class="form-check-input" id="pickup">
+                  <label class="form-check-label" for="pickup">Pickup Station</label>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button class="btn btn-outline-light-blue" (click)="modal_close.click();showPayment()" >Accept and Proceed to payment</button>
+            <button *ngIf="canOrder" class="btn btn-outline-light-blue" (click)="modal_close.click();showPayment()">Accept and Proceed
+              to payment</button>
           </div>
         </div>
       </div>

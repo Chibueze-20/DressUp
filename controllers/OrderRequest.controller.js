@@ -8,7 +8,7 @@ var router = express.Router();
 router.post('/update/:id',repository.updateOrder);
 router.get('/:id',repository.getOrder);
 router.get('/',repository.allrequests);
-// router.get('/direct/:tailor',repository.getDirectOrders);
+router.get('/active/all',repository.getOrderByUser);
 router.get('/',function(req,res,next){
     res.send("<h1>Order Request API</h1>");
 })

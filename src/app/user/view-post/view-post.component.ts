@@ -5,9 +5,11 @@ import { IRaveOptions, ravePay } from 'src/app/shared/Payment';
 import { Navigation } from 'src/app/shared/Navigation';
 import { ViewserviceService } from 'src/app/services/viewservice.service';
 import { PostserviceService } from 'src/app/services/postservice.service';
+import { RequestserviceService } from 'src/app/services/requestservice.service';
 
 interface MyWindow extends Window {
   getpaidSetup: (options: IRaveOptions) => void;
+  toastr:any;
 }
 declare let window: MyWindow
 
@@ -20,7 +22,8 @@ declare let window: MyWindow
 export class ViewPostComponent implements OnInit {
   post: any = null;
   selectedSize: any = {Name: null, Value: null};
-  constructor( private route: ActivatedRoute, private service: ViewserviceService, private postservice: PostserviceService,private router:Router) {
+  delivery:string;fitness:string;
+  constructor( private route: ActivatedRoute, private service: ViewserviceService, private requestservice: RequestserviceService,private router:Router) {
     Navigation.Title = 'Post';
     
   }
@@ -48,7 +51,7 @@ get Price(){
   if(this.Post && this.Post.Price){
     return this.Post.Price;
   }else{
-    return 100;
+    return 0;
   }
 }
 get Post() {
@@ -58,6 +61,42 @@ get Post() {
 selectSize(type: string, size: string) {
   this.selectedSize = {Name: type, Value: size};
   console.log(this.selectedSize);
+}
+setDelivery(type:string){
+  this.delivery = type;
+  console.log(this.delivery);
+}
+setFitness(type:string){
+  this.fitness = type;
+  console.log(this.fitness);
+}
+get Delivery(){
+  if(this.delivery){
+    return this.delivery
+  }else{
+    return 'None selected... please select'
+  }
+}
+get Fitness(){
+  if(this.fitness){
+    return this.fitness
+  }else{
+    return 'None selected... please select'
+  }
+}
+get Size(){
+  if(this.selectedSize.Name && this.selectedSize.Value){
+    return this.selectedSize.Name +' : '+this.selectedSize.Value
+  }else{
+    return 'No size selected... please select'
+  }
+}
+get canOrder():boolean{
+  if(this.delivery && this.fitness && this.selectedSize.Name && this.selectedSize.Value){
+    return true;
+  }else{
+    return false;
+  }
 }
 show(e) {
   console.log(e);
@@ -83,6 +122,25 @@ toggleEdit(e: Event) {
 }
 confirmPayment(response: object): void {
   console.log(response);
+  let Request = {
+    User:this.User._id,
+    Title:this.post.Ttile,
+    Description:this.post.Description,
+    Sizes:[this.selectedSize],
+    Conditions:{Delivery:this.delivery,Fitness:this.fitness},
+    Type:'Direct'
+  };
+  let Body ={
+    request:Request,
+    pic:this.post.Picture,
+    tags:this.post.Tags,
+    tailor:this.post.Tailor._id,
+    price:this.post.Price
+  };
+  this.requestservice.PostOrder(Body,'send')
+  .subscribe(
+    (res)=>{window.toastr['success']('Request Created and Sent')},err=>{window.toastr['error']('Error Contact Customer service');console.log(err)}
+  )
 }
 
 cancelledPayment(): void {

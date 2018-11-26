@@ -23,4 +23,7 @@ export class UserComponent implements OnInit {
   get currentNavigation(){
     return Navigation.Title;
   }
+  Home(){
+    this.router.navigateByUrl('/user/home');
+  }
 }

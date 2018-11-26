@@ -96,12 +96,12 @@ exports.follow = function(req,res,next){
       return res.status(404).send({Message: "User Not Found",type:"Error"});
     } else {
       if(user){
-        user.Following.push(mongoose.Types.ObjectId(req.body.tailor));
+        user.Following = req.body.followers
         user.save(function(err,user){
           if (err) {
             return res.status(500).send({Message: "Internal error, something did not go well",type:"Error"});
           } else {
-            return res.status(200).send({Message:"Followed tailor",type:"Success"});
+            return res.status(200).send({User:user,Message:"(Un)Followed tailor",type:"Success"});
           }
         })
       }else{

@@ -19,3 +19,10 @@
 .menu-btn{
   padding: .4rem 1rem !important;
 }
+@media screen and (max-width:425px){
+  .menu-space{
+    margin-left: .7em;
+    margin-right: .7em;
+  }
+  
+}

@@ -19,10 +19,10 @@ export class UserHomeComponent implements OnInit {
     this.router.navigateByUrl('/search')
    }
    gotoOrder(){
-
+    this.router.navigateByUrl('/user/chat/active')
    }
    gotoNotification(){
-
+    this.router.navigateByUrl('/notifications/bids')
    }
    logout(){
       localStorage.removeItem('User');

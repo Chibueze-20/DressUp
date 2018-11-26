@@ -238,38 +238,24 @@ get user() {
     }
   }
 
-  upload(localUrl:any):any {
-  const  payload = {
-      file: localUrl,
-      upload_preset: 'postdress',
-      public_id: this.user._id + '/' + this.user.Role + '/' + localUrl.toString().slice(0, 5)
-    };
-    this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
-      .subscribe(
-        (res) => {
-          console.log(res);
-          return res;
-        } , error1 => {
-        console.log(error1);
-        return null;
-      } );
-  }
-  uploadImage(){
+  uploadImage() {
     const arr_pic = [];
-    if (this.localUrl.length<=0) {
-      return [];
-    } else {
-      for(let i=0;i<this.localUrl.length;i++){
-        const picture = this.upload(this.localUrl[i]);
-        if(picture){
-          arr_pic.push(picture);
-        }else{
-          return [];
-        }
+    for (let i = 0; i <  this.localUrl.length; i++) {
+      const  payload = {
+        file: this.localUrl[i],
+        upload_preset: 'postdress',
+        public_id: this.user._id + '/' + this.user.Role + '/' + this.localUrl.toString().slice(0, 5)
+      };
+      this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
+        .subscribe(
+          (res:any) => {
+            console.log(res);
+            arr_pic.push(res.secure_url);
+          } , error1 => {
+            console.log(error1);
+          } );
     }
     return arr_pic;
-    }
-    
   }
 
   remove() {

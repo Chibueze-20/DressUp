@@ -28,22 +28,26 @@
                   <h3 *ngIf="Details.Brand" class="font-bold mb-3 px-3 text-shadow white-text text-left">{{Details.Brand.BrandName||'Tailor'}}</h3>
                   <!-- Edit Profile button -->
                   <a *ngIf = "User.Role === 'Designer'"class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0 bg-transparent" (click)="goToSettings()"><i class="fas fa-2x fa-pen-fancy red-text"></i> </a>
-                  <a *ngIf = "User.Role === 'User'" (click) ="follow()" [class.bg-info]="isFollowing" [class.bg-transparent]="!isFollowing" class="btn btn-floating btn-action waves-effect mt-0 mb-3 p-0" ><i class="fas fa-2x fa-user-plus green-text"></i> </a>
+                  <a *ngIf = "User.Role === 'User'" (click) ="follow()"  [class.bg-success]="isFollowing" [class.bg-white]="!isFollowing" class="btn btn-sm waves-effect mt-0 mb-3" >
+                    <i *ngIf="!isFollowing" class="fas fa-2x fa-user-plus green-text"></i> <span *ngIf="!isFollowing" class="ml-1 green-text font-weight-bold">Follow</span>
+                    <i *ngIf="isFollowing" class="fas fa-2x fa-user-plus white-text"></i> <span *ngIf="isFollowing" class="ml-1 white-text font-weight-bold">Unfollow</span>
+                  </a>
 
               </div>
               <!-- Average Rating START-->
-                <h2 class="px-3 star-on">
+              <h2 class="white-text text-center text-shadow">{{Rating}}<span style="font-size: large">/5.00</span></h2>
+                <!-- <h2 class="px-3 star-on"> -->
                     <!-- Stars ON -->
+                    <!-- <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> -->
 
-                  <span class="star-off">
+                  <!-- <span class="star-off"> -->
                   <!-- Stars OFF -->
-                    <i class="fa fa-star"></i>
-                    </span>
-                </h2>
+                    <!-- <i class="fa fa-star"></i> -->
+                    <!-- </span> -->
+                <!-- </h2> -->
 
                   <!-- Average Rating END -->
             </div>
@@ -52,13 +56,13 @@
       <div class="">
             <ul class=" py-0 d-flex flex-column list-group-flush text-white">
               <li class="list-group-item py-1">
-                <i class="fa fa-address-card"></i><a *ngIf="Details.Brand" href="" class="pl-1 green-text text-shadow">{{Details.Brand.WorkAddress||'address'}}</a>
+                <i class="fa fa-address-card"></i><a *ngIf="Details.Brand" href="javascript:void(0)" class="pl-1 green-text text-shadow">{{Details.Brand.WorkAddress||'address'}}</a>
               </li>
               <li class="list-group-item py-1">
-                <i class="fa fa-at"></i><a *ngIf="Details.Account" href="" class="pl-1 orange-text text-shadow">{{Details.Account.Email||'none'}}</a>
+                <i class="fa fa-at"></i><a *ngIf="Details.Account" href="mailto:{{Email}}" class="pl-1 orange-text text-shadow">{{Details.Account.Email||'none'}}</a>
               </li>
               <li class="list-group-item py-1">
-               <i class="fa fa-phone"></i> <a href="" class="pl-1 amber-text text-shadow">+234 80 123 456 78</a>
+               <i class="fa fa-phone"></i> <a href="tel:+{{PhoneNumber}}" class="pl-1 amber-text text-shadow">{{PhoneNumber}}</a> 
               </li>
             </ul>
           </div>
@@ -81,11 +85,11 @@
             
             <div class="row">
         
-              <div class="col-md-12 py-2 my-2 d-flex justify-content-center">
+              <!-- <div class="col-md-12 py-2 my-2 d-flex justify-content-center"> -->
         
                 <!-- Tailor Remarks & Ratings -->
         
-                <div class="list-group d-flex justify-content-md-between flex-md-row flex-sm-column justify-content-sm-between">
+                <!-- <div class="list-group d-flex justify-content-md-between flex-md-row flex-sm-column justify-content-sm-between">
                   
                   <div class="card list-group-item mx-md-4 my-sm-2">
                     <p class="text-center d-inline">
@@ -111,13 +115,13 @@
                           <p>*&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;</p>
                   </div>
         
-                </div>
+                </div> -->
                 <!-- Tailor Remarks and Ratings END -->
-              </div>
+              <!-- </div> -->
         
               <!-- Tailor Badges START -->
         
-              <div class="col-md-12 d-flex justify-content-sm-center justify-content-md-end">
+              <div class="col-md-12 d-flex justify-content">
         
                 <div *ngFor="let tag of ProfileTags" class="chip darken-4">
                   <a>{{tag}}</a>

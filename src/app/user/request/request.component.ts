@@ -138,9 +138,9 @@ export class RequestComponent implements OnInit {
       };
       this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
         .subscribe(
-          (res) => {
+          (res:any) => {
             console.log(res);
-            arr_pic.push(res);
+            arr_pic.push(res.secure_url);
           } , error1 => {
             console.log(error1);
           } );

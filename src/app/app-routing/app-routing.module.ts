@@ -60,6 +60,10 @@ const routes: Routes = [
           { path: 'account', component: AccountSettingsComponent }
         ]
       },
+      {path: 'chat',component:ChatComponent,children:[
+        {path:'active',component:ChatListComponent}
+      ]},
+      {path:'chat/active/room/:id',component:ChatRoomComponent}
     ]
   },
   { path: 'post', component: PostComponent },
@@ -88,7 +92,11 @@ const routes: Routes = [
         { path: 'account', component: AccountSettingsComponent },
         { path: '', redirectTo: 'account', pathMatch: 'full' }
       ]
-    }
+    },
+    {path: 'chat',component:ChatComponent,children:[
+      {path:'active',component:ChatListComponent}
+    ]},
+    {path:'chat/active/room/:id',component:ChatRoomComponent}
     ]
   },
   { path: 'search', component: TailorSearchComponent },
@@ -102,7 +110,7 @@ const routes: Routes = [
   {path: 'chat',component:ChatComponent,children:[
     {path:'active',component:ChatListComponent}
   ]},
-  {path:'chat/room',component:ChatRoomComponent}
+  {path:'chat/room/:id',component:ChatRoomComponent}
 ];
 @NgModule({
   imports: [

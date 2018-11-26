@@ -57,7 +57,7 @@ export class CustomizeComponent implements OnInit {
   updateDisplay() {
     const picture = this.uploadImage(this.localDisplayUrl);
     if (picture) {
-      const body = {Display: this.localDisplayUrl};
+      const body = {Display: picture};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
           (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
@@ -89,7 +89,7 @@ export class CustomizeComponent implements OnInit {
   updateHeader() {
     const picture = this.uploadImage(this.localHeaderUrl);
     if (picture) {
-      const body = {Background: this.localHeaderUrl};
+      const body = {Background: picture};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
           (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
@@ -126,14 +126,16 @@ export class CustomizeComponent implements OnInit {
       upload_preset: 'postdress',
       public_id: this.Tailor()._id + '/' + this.Tailor().Role + '/' + localUrl.toString().slice(0, 5)
     };
+    let url = null;
     this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
       .subscribe(
-        (res) => {
-          return res;
+        (res:any) => {
+          url = res.secure_url;
         } , error1 => {
           console.log(error1);
-          return null;
+          url = null;
         } );
+     return url 
   }
 
 }
