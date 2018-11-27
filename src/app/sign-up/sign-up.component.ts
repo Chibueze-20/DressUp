@@ -28,11 +28,13 @@ export class SignUpComponent implements OnInit {
   cansubmit: Boolean;
   // the whole reactive form
   signUpForm: FormGroup;
+  // the role of the prospective user
+  public static Role:string = 'select one'
 
   constructor( private userservice: UserserviceService,private Navigation:Router) {
     // initialize reactive form
     this.signUpForm = new FormGroup({
-      'role' : new FormControl('...', Validators.pattern('^Clients$|^Designers$')),
+      'role' : new FormControl(SignUpComponent.Role, Validators.pattern('^Clients$|^Designers$')),
       'state': new FormControl('Choose state', Validators.pattern('^Abuja$|^Ibadan$|^Lagos$|^Kaduna$')),
       'account': new FormGroup({
         'email': new FormControl(null, [Validators.email, Validators.required] ),

@@ -96,7 +96,6 @@
     font-family: 'Belleza', sans-serif !important;
 }
 .parallax1{
-    background-color: white;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -124,7 +123,7 @@
     display: none
 }
 
-@media screen and (max-width:375px){
+@media screen and (max-width:425px){
     .in{
         display: block;
     }
@@ -137,6 +136,7 @@
         font-size: initial;
     }
 }
+
 /* .my{ color: #FFB7F3} */
 /* rgba(102, 143, 61, 0.92) */
 /* #FFF6BA */
