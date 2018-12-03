@@ -27,13 +27,13 @@
         <h4 class="card-title mb-2"><strong>{{post.Title}}</strong></h4>
         <!-- made for who? tags -->
         <span class="mx-2 badge badge-pill p-bg p-text" *ngFor="let tag of post.Tags">{{tag}}</span>
-        <hr class="my-1">
+        <hr style="height: 1px;" class="my-1">
         <!--descriptions-->
         <div class="text-center d-flex justify-content-between out waves-effect">
           <div class="mx-md-2">
-            {{post.Description}}
-          </div>
-          <hr class="my-1">
+            <p class="m-0 quicksand">{{post.Description}}</p>
+            <hr style="height: 1px;" class="my-1">
+          </div> 
         </div>
         <!--descriptions-->
         <!--Button-->

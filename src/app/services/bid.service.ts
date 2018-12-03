@@ -25,4 +25,7 @@ export class BidService {
   getBidByRequest(requestid:any){
     return this.http.get(this.uri+'/direct/request/'+requestid)
   }
+  update(id:any,body:any){
+    return this.http.post(this.uri+'/update/'+id,body)
+  }
 }

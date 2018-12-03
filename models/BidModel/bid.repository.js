@@ -1,5 +1,6 @@
 var Bid = require('./Bid');
 var Request = require('../RequestModel/Request');
+var RequestRepo = require('../RequestModel/request.repository');
 var Order = require('../OrderRequestModel/OrderRequest.repository');
 var mongoose = require('mongoose');
 
@@ -44,6 +45,7 @@ exports.AcceptBid = function (req,res) {
                 }else{
                     console.log(newBid);
                     Order.createRequest(res,newBid._id);
+                    RequestRepo.acceptRequest(newBid.Request);
                     return res.status(200).json({Message:"Bid accepted"});
                 }
             })
@@ -107,6 +109,16 @@ exports.AcceptDirectBid = function(req,res,next){
         }else{
             Order.createRequest(res,bid._id);
             return res.status(200).json({Message:"Bid accepted"});
+        }
+     })
+}
+exports.Update = function(req,res,next){
+    Bid.findByIdAndUpdate(req.params.id,req.body,{new:true},function (err,bid) { 
+        if (err) {
+            return res.status(404).send(err)
+        }else{
+            console.log('updating');
+            return res.status(200).json({Message:"Bid updated"});
         }
      })
 }

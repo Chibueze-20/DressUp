@@ -9,4 +9,5 @@ router.get('/reject/:id',repository.RejectBid);
 router.get('/bids/:user',repository.showBids);
 router.get('/bids/direct/:tailor',repository.showDirectBids);
 router.get('/direct/request/:id',repository.GetBidFromRequest);
+router.post('/update/:id',repository.Update);
 module.exports = router;

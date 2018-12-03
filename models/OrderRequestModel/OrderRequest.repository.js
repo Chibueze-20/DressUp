@@ -57,6 +57,22 @@ exports.updateOrder = function(req,res){
     })
 }
 
+//update sizes
+exports.updateSize = function(req,res){
+    OrderRequest.findById(req.params.id,function(err,order){
+        if (err) {
+            return res.status(404).send(err); 
+        }
+        order.Sizes.push(req.body)
+        order.save(function(err,orders){
+            if(err){
+                return res.status(504).send(err);
+            }
+            res.status(200).send({Message:'Updated Size',type:'Success'})
+        })
+    })
+}
+
 // gets a specified request or order
 exports.getOrder = function(req,res){
     OrderRequest.findById(req.params.id)

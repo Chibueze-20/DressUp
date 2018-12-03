@@ -84,10 +84,11 @@
             </div>
 
           <div class="mt-2">
+            <a *ngIf="Dupload" class="btn btn-info">Uploading....please wait</a>
             <input type="file"  style="display: none" (change)="previewDisplay($event)" #file accept="image/png">
-            <button class="btn btn-info mx-3" (click)="file.click()">Browse</button>
-            <button (click)="updateDisplay()" class="btn btn-success mx-3" [class.disabled]="!localDisplayUrl">Set as Display Pic</button>
-            <button [class.disabled]="!localDisplayUrl" class="btn mx-3" (click)="removeDisplay()">Reset</button>
+            <button *ngIf="!Dupload" class="btn btn-info mx-3" (click)="file.click()">Browse</button>
+            <button *ngIf="!Dupload" (click)="updateDisplay()" class="btn btn-success mx-3" [class.disabled]="!localDisplayUrl">Set as Display Pic</button>
+            <button *ngIf="!Dupload" [class.disabled]="!localDisplayUrl" class="btn mx-3" (click)="removeDisplay()">Reset</button>
           </div>
 
           </div>
@@ -120,10 +121,11 @@
             </div>
 
             <div class="mt-2">
+              <a *ngIf="Upload" class="btn btn-info">Uploading...please wait</a>
               <input type="file"  style="display: none" (change)="previewHeader($event)" #file2  accept="image/png,image/jpeg">
-              <button class="btn btn-info mx-3" (click)="file2.click()">Browse</button>
-              <button (click)="updateHeader()" class="btn btn-success mx-3" [class.disabled]="!localHeaderUrl">Set as Display Pic</button>
-              <button class="btn mx-3" [class.disabled]="!localHeaderUrl" (click)="removeHeader()">Reset</button>
+              <button *ngIf="!Upload" class="btn btn-info mx-3" (click)="file2.click()">Browse</button>
+              <button *ngIf="!Upload" (click)="updateHeader()" class="btn btn-success mx-3" [class.disabled]="!localHeaderUrl">Set as Display Pic</button>
+              <button *ngIf="!Upload" class="btn mx-3 btn-warning" [class.disabled]="!localHeaderUrl" (click)="removeHeader()">Reset</button>
             </div>
   
             </div>

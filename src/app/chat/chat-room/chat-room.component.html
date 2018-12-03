@@ -16,7 +16,7 @@
         <small id="percent" class="mr-4">xxx% completed</small>
         <small><a (click)="showDetails()" class="card-link text-info">Details</a></small>
       </span>
-      <a class="card-link text-primary" (click)="taskWidget()">Add a task</a>
+      <a class="card-link text-primary" *ngIf="Role!='User'" (click)="taskWidget()">Add a task</a>
     </div>
   </div>
 </header>
@@ -78,7 +78,10 @@
   <!-- DETAILS -->
   <div class="container py-3 chat-window" #chat_window [scrollTop]="chat_window.scrollHeight" id="chat-window" style="height: 70vh;background-color: rgba(0, 184, 255, 0.1);overflow-y: auto">
     <div class="px-2">
-      <div class="d-flex px-3 mb-2 justify-content-start">
+      <div *ngIf="Messages.length === 0" class="flex-center">
+        <h6>LOADING.... if this persists and and you can not see xxx%, just send a message</h6>
+      </div>
+      <!-- <div class="d-flex px-3 mb-2 justify-content-start">
         <div class="px-2 to" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
@@ -111,28 +114,28 @@
             </div>
           </div>
         </div>
-      </div>
-      <div *ngFor="let message of messages; index as i" [class.justify-content-end]="message.From === Id" [class.justify-content-start]="message.From !== Id" class="d-flex px-3 mb-2">
+      </div> -->
+      <div *ngFor="let message of Messages; index as i" [class.justify-content-end]="message.From === Id" [class.justify-content-start]="message.From !== Id" class="d-flex px-3 mb-2">
         <div *ngIf="message.Type === 'chat'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
               <p style="margin: 0;" class="pt-1">{{message.Content}}</p>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'task'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'task'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
-            <div class="d-flex justify-content-start">
-              <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
-                src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
-            </div>
+              <div class="d-flex justify-content-start">
+                  <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
+                    src="assets\images\person-flat.png">
+                  <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
+                </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Task-widget</p>
               <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">New schedule task added <strong>{{message.Content.Title||'..'}}
@@ -145,16 +148,16 @@
                   <a class="btn-sm mx-3 btn-outline-danger" (click)="removeWidget(i)">cancel</a>
                 </div>
               </div>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'picture'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'picture'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Picture-widget</p>
@@ -179,22 +182,23 @@
                 </div>
                 <div style="height: fit-content;" class="col-12 d-flex justify-content-between py-0">
                   <input type="file" (change)="setPicture($event)" #file style="display: none;" title="attach image"
-                    placeholder="select image">
-                  <a (click)="file.click()" class="btn-sm mx-3 btn-outline-primary">choose file</a>
-                  <a (click)="updatePicture(i)"  class="btn-sm mx-3 btn-outline-success">send</a>
-                  <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
+                      placeholder="select image">
+                  <a *ngIf="!Upload" (click)="file.click()" class="btn-sm mx-3 btn-outline-primary">choose file</a>
+                  <a *ngIf="!Upload" (click)="updatePicture(i)"  class="btn-sm mx-3 btn-outline-success">send</a>
+                  <span *ngIf="Upload" class="mx-1">Uploading... please wait</span>
+                  <a *ngIf="!Upload" (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
                 </div>
               </div>
             </div>
-            <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            <p class="px-3 date">{{message.Date}}</p>
         </div>
       </div>
-      <div *ngIf="message.Type === 'price'" class="px-2 p-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+      <div *ngIf="message.Type === 'price' && message.From === Id" class="px-2 p-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Price-widget</p>
@@ -209,15 +213,15 @@
                 <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
               </div>
             </div>
-            <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            <p class="px-3 date">{{message.Date}}</p>
           </div>
         </div>
-        <div *ngIf="message.Type === 'size'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'size' && message.From === Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Size-widget</p>
@@ -229,16 +233,16 @@
                   <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
                 </div>
               </div>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'price-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'price-req' && message.From !== Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Price-widget</p>
@@ -256,16 +260,17 @@
                   <a (click)="rejectPrice(i)" class="btn-sm mx-3 btn-outline-danger">reject</a>
                 </div>
               </div>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>  
           
         </div>
-        <div *ngIf="message.Type === 'size-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'size-req' && message.From !== Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
               <p class="mb-1">Size-widget</p>
@@ -279,6 +284,7 @@
                   <a (click)="sendSize(i)" class="btn-sm mx-3 btn-outline-success">send</a>
                 </div>
               </div>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>  
           
@@ -297,9 +303,9 @@
             <!-- <button class="btn-rounded px-4 btn btn-flat waves-effect transparent"></button> -->
           </a>
           <ul class="list-unstyled">
-            <li><a (click)="pictureWidget()" class="btn-floating btn-sm text-center yellow">pic</a></li>
-            <li><a (click)="priceWidget()" class="btn-floating btn-sm text-center green">ngn</a></li>
-            <li><a (click)="sizeWidget()" class="btn-floating btn-sm text-center blue">sz</a></li>
+            <li><a (click)="pictureWidget()" class="btn-floating black-text btn-sm text-center yellow" title="picture"><i class="far fa-image"></i></a></li>
+            <li><a (click)="priceWidget()" class="btn-floating black-text btn-sm text-center green" title="price request"><i class="fas fa-money-bill-alt"></i></a></li>
+            <li><a *ngIf="Role!='User'" (click)="sizeWidget()" class="btn-floating black-text btn-sm text-center blue" title="size request" ><i class="fas fa-ruler"></i></a></li>
           </ul>
         </div>
       </div>

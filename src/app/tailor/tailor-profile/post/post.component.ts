@@ -18,11 +18,13 @@ export class PostComponent implements OnInit {
   type: String;
   image: any;
   localUrl: any[] = [];
+  arr_pic = [];
   formData = new FormData();
   filesize = 0;
   next = false;
   PostForm: FormGroup = null;
   tags: string[] = [];
+  upload=false;
   constructor( private userservice: UserserviceService, private postservice: PostserviceService, private location:Location) {
     Navigation.Title = 'New Post';
     this.PostForm = new FormGroup({
@@ -107,6 +109,9 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+  get Upload(){
+    return this.upload;
   }
   reset(){
     this.PostForm.reset({
@@ -238,24 +243,8 @@ get user() {
     }
   }
 
-  uploadImage() {
-    const arr_pic = [];
-    for (let i = 0; i <  this.localUrl.length; i++) {
-      const  payload = {
-        file: this.localUrl[i],
-        upload_preset: 'postdress',
-        public_id: this.user._id + '/' + this.user.Role + '/' + this.localUrl.toString().slice(0, 5)
-      };
-      this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
-        .subscribe(
-          (res:any) => {
-            console.log(res);
-            arr_pic.push(res.secure_url);
-          } , error1 => {
-            console.log(error1);
-          } );
-    }
-    return arr_pic;
+  async uploadImage()  {
+    
   }
 
   remove() {
@@ -265,11 +254,25 @@ get imagesize() {
     return this.filesize / 1024;
 }
 
-sendPost(withtags: boolean) {
+async sendPost(withtags: boolean) {
+  this.upload=true;
     this.PostForm.get('Tailor').setValue(this.user._id + '');
-  const picture = this.uploadImage(); const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg']
+    for (let i = 0; i <  this.localUrl.length; i++) {
+      const  payload = {
+        file: this.localUrl[i],
+        upload_preset: 'postdress',
+      };
+       await this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload).toPromise()
+       .then((res:any) =>{console.log(res);
+        this.arr_pic.push(String(res.secure_url));})
+        .catch((err)=>{console.log(err)})
+        console.log('done',i);
+    }
+   //this.uploadImage(); 
+   const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg']
   let body;
-  if (picture.length>0) {
+  if (this.arr_pic.length>0) {
+    let picture = this.arr_pic;
     body = withtags ? {
       post: this.PostForm.value,
       pic: picture,
@@ -282,15 +285,19 @@ sendPost(withtags: boolean) {
       (res) => {
         // alert(JSON.stringify(res));
         this.reset();
+        this.arr_pic=[];
         window.toastr['success']('Successfully Posted');
+        this.upload=false;
         
       }, err => {
         // alert(err);
         window.toastr['error']('Problem sending post');
+        this.upload=false;
       }
     );
   } else {
     window.toastr['error']('Problem uploading post pictures, make sure you selected pictures and have good connection');
+    this.upload=false;
   }
   
 }

@@ -1,4 +1,4 @@
-<div [formGroup] = "RequestForm" class="container-fluid my-3">
+<div [formGroup]="RequestForm" class="container-fluid my-3">
   <!-- title -->
   <div class="row d-flex justify-content-center">
     <div class="col-md-6 col-sm-12">
@@ -9,7 +9,7 @@
   <div class="row my-4">
     <!-- picture -->
     <div class="col-md-5 col-sm-12">
-      <div class="s-bg p-2">
+      <div class="p-2">
         <div>
           <h6>Select picture</h6>
           <div class="custom-file mb-2">
@@ -49,101 +49,117 @@
       </div>
 
       <div formGroupName="Conditions" class="my-4 ml-5">
-          <p>How do you want it?.</p>
-          <div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="No fitting" type="radio" name="Fitness" class="form-check-input" id="no-fitted">
-              <label class="form-check-label" for="no-fitted">No fitting</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="Close Fitting" type="radio" name="Fitness" class="form-check-input" id="close-fitted">
-              <label class="form-check-label" for="close-fitted">Close Fitting</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="Fitted" type="radio" name="Fitness" class="form-check-input" id="fitted">
-              <label class="form-check-label" for="fitted">Fitted</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="Semi-Fitted" type="radio" name="Fitness" class="form-check-input" id="semi-fitted">
-              <label class="form-check-label" for="semi-fitted">Semi-Fitted</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="Loose Fitting" type="radio" name="Fitness" class="form-check-input" id="loose-fitted">
-              <label class="form-check-label" for="loose-fitted">Loose Fitting</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="Fitness" value="Very Loose Fitting" type="radio" name="Fitness" class="form-check-input" id="vl-fitted">
-              <label class="form-check-label" for="vl-fitted">Very Loose Fitting</label>
-            </div>
-          </div>
-      </div>
-    </div>
-    
-  </div>
-  <div class="row my-4 mx-3 mb-5">
-      <!-- order options -->
-      <div  class="col-md-6 col-sm-12">
+        <p>How do you want it?.</p>
         <div>
-          <div formGroupName="Schedule" class="md-form my-0">
-            <i class="fas fa-calendar prefix"></i>
-            <input type="number" min="0" formControlName="Duration" id="duration" class="form-control w-75">
-            <label for="duration">order duration (days)</label>
-          </div>
-        </div>
-        <div formGroupName="Conditions">
-          <span class="my-3 font-weight-bold text-uppercase">delivery options</span>
-          <div class="form-check form-check">
-            <input type="radio" formControlName="Delivery" value="Direct Collection" name="Delivery" class="form-check-input" id="materialInline1">
-            <label class="form-check-label" for="materialInline1">direct collection</label>
-          </div>
-          <div class="form-check form-check">
-            <input type="radio" formControlName="Delivery" value="Postal Service" name="Delivery" class="form-check-input" id="materialInline2">
-            <label class="form-check-label" for="materialInline2">3rd party postal service</label>
-          </div>
-          <div class="form-check form-check">
-            <input type="radio" formControlName="Delivery" value="Pickup Station" name="Delivery" class="form-check-input" id="materialInline3">
-            <label class="form-check-label" for="materialInline3">pickup station</label>
-          </div>
-        </div>
-      </div>
-      <!-- extra terms and types -->
-      <div class="col-md-6 col-sm-12">
-        <div class="my-3">
-          <p>Request type</p>
-          <div class="form-check form-check-inline ">
-            <input formControlName="Type" value="Bid" type="radio" name="Type" class="form-check-input" id="materialInline7">
-            <label class="form-check-label" for="materialInline7">Bid</label>
+          <div class="form-check form-check-inline">
+            <input formControlName="Fitness" value="No fitting" type="radio" name="Fitness" class="form-check-input" id="no-fitted">
+            <label class="form-check-label" for="no-fitted">No fitting</label>
           </div>
           <div class="form-check form-check-inline">
-            <input formControlName="Type" value="Direct" type="radio" name="Type" class="form-check-input" id="materialInline8">
-            <label class="form-check-label" for="materialInline8">Direct</label>
+            <input formControlName="Fitness" value="Close Fitting" type="radio" name="Fitness" class="form-check-input"
+              id="close-fitted">
+            <label class="form-check-label" for="close-fitted">Close Fitting</label>
           </div>
-        </div>
-        <div [class.hide]="!isDirect" class="animated fadeIn row">
-          <div class="col-md-6 col-sm-12 mb-3">
-            <input [(ngModel)]="tailor" [ngModelOptions]="{standalone: true}" (change)="search(Tailor.value)" #Tailor type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
-              aria-describedby="basic-addon-1" name="" id="">
-              <div class="mt-2" style="max-height: 100px;overflow-y: auto">
-                <a *ngFor="let tailor of results" style="border-bottom: solid thin" (click)="select(tailor)" class="nav-link text-primary">
-                    {{tailor.Brand.BrandName}}
-                </a>
-              </div>
+          <div class="form-check form-check-inline">
+            <input formControlName="Fitness" value="Fitted" type="radio" name="Fitness" class="form-check-input" id="fitted">
+            <label class="form-check-label" for="fitted">Fitted</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input formControlName="Fitness" value="Semi-Fitted" type="radio" name="Fitness" class="form-check-input"
+              id="semi-fitted">
+            <label class="form-check-label" for="semi-fitted">Semi-Fitted</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input formControlName="Fitness" value="Loose Fitting" type="radio" name="Fitness" class="form-check-input"
+              id="loose-fitted">
+            <label class="form-check-label" for="loose-fitted">Loose Fitting</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input formControlName="Fitness" value="Very Loose Fitting" type="radio" name="Fitness" class="form-check-input"
+              id="vl-fitted">
+            <label class="form-check-label" for="vl-fitted">Very Loose Fitting</label>
           </div>
         </div>
       </div>
     </div>
-    <div class="mt-5 row mb-0">
-      <div class="col-6 flex-center">
-        <div class="div-btn w-100 text-center">
-          <a (click)="goback()">Cancel</a>
+
+  </div>
+  <div class="row my-4 mx-3 mb-5">
+    <!-- order options -->
+    <div class="col-md-6 col-sm-12">
+      <div>
+        <div formGroupName="Schedule" class="md-form my-0">
+          <i class="fas fa-calendar prefix"></i>
+          <input type="number" min="0" formControlName="Duration" id="duration" class="form-control w-75">
+          <label for="duration">order duration (days)</label>
         </div>
       </div>
-      <div class="col-6 flex-center">
-        <div class="div-btn w-100 text-center" [class.disabled]="!validForm" (click)="modal.click()">
-          <a data-toggle="modal" [class.disabled]="!validForm" #modal data-target="#tagsmodal">Send<i class="fas fa-paper-plane"></i></a>
+      <div formGroupName="Conditions">
+        <span class="my-3 font-weight-bold text-uppercase">delivery options</span>
+        <div class="form-check form-check">
+          <input type="radio" formControlName="Delivery" value="Direct Collection" name="Delivery" class="form-check-input"
+            id="materialInline1">
+          <label class="form-check-label" for="materialInline1">direct collection</label>
+        </div>
+        <div class="form-check form-check">
+          <input type="radio" formControlName="Delivery" value="Postal Service" name="Delivery" class="form-check-input"
+            id="materialInline2">
+          <label class="form-check-label" for="materialInline2">3rd party postal service</label>
+        </div>
+        <div class="form-check form-check">
+          <input type="radio" formControlName="Delivery" value="Pickup Station" name="Delivery" class="form-check-input"
+            id="materialInline3">
+          <label class="form-check-label" for="materialInline3">pickup station</label>
         </div>
       </div>
     </div>
+    <!-- extra terms and types -->
+    <div class="col-md-6 col-sm-12">
+      <div class="my-3">
+        <p>Request type</p>
+        <div class="form-check form-check-inline ">
+          <input formControlName="Type" value="Bid" type="radio" name="Type" class="form-check-input" id="materialInline7">
+          <label class="form-check-label" for="materialInline7">Bid</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input formControlName="Type" value="Direct" type="radio" name="Type" class="form-check-input" id="materialInline8">
+          <label class="form-check-label" for="materialInline8">Direct</label>
+        </div>
+      </div>
+      <div [class.hide]="!isDirect" class="animated fadeIn row">
+        <div class="col-md-6 col-sm-12 mb-3">
+          <input [(ngModel)]="tailor" [ngModelOptions]="{standalone: true}" (change)="search(Tailor.value)" #Tailor
+            type="text" class="form-control" placeholder="tailor's username" aria-label="tailor's username"
+            aria-describedby="basic-addon-1" name="" id="">
+          <div class="mt-2" style="max-height: 100px;overflow-y: auto">
+            <a *ngFor="let tailor of results" style="border-bottom: solid thin" (click)="select(tailor)" class="nav-link text-primary">
+              {{tailor.Brand.BrandName}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5 row mb-0">
+    <div *ngIf="Upload" class="col-12 flex-center">
+      <div class="div-btn w-100 text-center">
+        <a class="mr-2">Creating bid.... please wait</a>
+        <div class="progress md-progress primary-color-dark">
+            <div class="indeterminate"></div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!Upload" class="col-6 flex-center">
+      <div class="div-btn w-100 text-center">
+        <a (click)="goback()">Cancel</a>
+      </div>
+    </div>
+    <div *ngIf="!Upload" class="col-6 flex-center">
+      <div class="div-btn w-100 text-center" [class.disabled]="!validForm" (click)="modal.click()">
+        <a data-toggle="modal" [class.disabled]="!validForm" #modal data-target="#tagsmodal">Send</a>
+      </div>
+    </div>
+  </div>
 </div>
 <!--MODAL-->
 <!--tags modal-->
@@ -151,21 +167,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <button (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button #close (click)="clearTags()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <span class="alert-light text-info">Add some tags to better describe your bid, this allows the tailor to better understand</span>
+        <span class="alert-light text-info">Add some tags to better describe your bid, this allows the tailor to better
+          understand</span>
         <div class="my-3 container-fluid p-0 m-0">
           <span class="font-italic font-small text-warning">*only a maximum of 5 tags may be added</span>
           <div class="border-bottom row mt-2">
             <div class="col-12 pr-0" style="overflow-x: auto">
               <span class="chip mx-2 mb-1" *ngFor="let tag of Tags">
-              {{tag}}
-            </span>
+                {{tag}}
+              </span>
               <div class="md-form m-0 w-100">
-                <input title="tags" maxlength="10" [readonly]="Tags.length === 5" (keyup.enter)="addTag($event)" type="text" placeholder="enter a tag.." class="form-control m-0">
+                <input title="tags" maxlength="10" [readonly]="Tags.length === 5" (keyup.enter)="addTag($event)" type="text"
+                  placeholder="enter a tag.." class="form-control m-0">
               </div>
             </div>
           </div>
@@ -173,8 +191,8 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-deep-orange" (click)="SendRequest(false)">Skip</button>
-        <button class="btn btn-success" (click)="SendRequest(true)">Add tags and Send</button>
+        <button class="btn btn-deep-orange" (click)="SendRequest(false);close.click();">Skip</button>
+        <button class="btn btn-success" (click)="SendRequest(true);close.click();">Add tags and Send</button>
       </div>
     </div>
   </div>

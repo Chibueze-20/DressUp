@@ -5,6 +5,9 @@ import { Schedule } from 'src/app/shared/schedule';
 import { OrderService } from '../order.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { BidService } from 'src/app/services/bid.service';
+import { Navigation } from 'src/app/shared/Navigation';
+import { UserserviceService } from 'src/app/userservice.service';
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
@@ -27,8 +30,10 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   PriceWidget = false;Price:number;PriceDescription:string;
   SizeWidget = false;Size:string;SizeValue:number;
   done = false;
+  upload=false;
   picnum = 0;
-  constructor(private chatService:ChatService,private orderService:OrderService,private route: ActivatedRoute) { 
+  constructor(private chatService:ChatService,private orderService:OrderService,private bidservice:BidService,private userservice:UserserviceService,private route: ActivatedRoute) { 
+    Navigation.Title = 'Chat';
     const id = this.route.snapshot.paramMap.get('id');
     this.orderService.getChat(id)
     .subscribe(
@@ -48,6 +53,7 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
         .getMessages(this.chat._id).subscribe((message:Message) => {
           this.messages.push(message);
         });
+        this.messages = this.chat.Messages;
         this.widget = false;
         console.log('task done');
       }, 8000);
@@ -70,6 +76,20 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   get Role(){
     return AppComponent.User.Role;
   }
+  get Upload(){
+    return this.upload;
+  }
+  sentBy(id):string{
+    if(this.Id === id){
+      return this.Role;
+    }else{
+      if(this.Role === 'User'){
+        return 'Tailor';
+      }else{
+        return 'User';
+      }
+    }
+  }
 get Chat(){
   if(this.chat){
     return this.chat;
@@ -77,8 +97,8 @@ get Chat(){
 }
 get Messages(){
   if(this.chat){
-    return this.chat.Messages.concat(this.messages)
-  }
+    return this.messages;
+  }else {return []}
 }
  get Order(){
    if (this.chat) {
@@ -132,7 +152,9 @@ get Messages(){
     let msg = {
       Type:'chat',
       From:this.Id,
+      Date: new Date().toDateString(),
       To:this.chat._id,
+      
       Content:this.message
     }
     this.messages.push(msg);
@@ -146,6 +168,7 @@ get Messages(){
         Type:'task',
         From:this.Id,
         To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.widget = true;
@@ -158,6 +181,7 @@ get Messages(){
         Type:'picture',
         From:this.Id,
         To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -170,6 +194,7 @@ get Messages(){
         Type: 'price',
         From:this.Id,
         To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -182,6 +207,7 @@ get Messages(){
         Type: 'size',
         From:this.Id,
         To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -203,24 +229,58 @@ get Messages(){
       task: this.TaskTitle,
       duration: this.TaskDuration
     };
-    this.messages[i].Content = content;
-    this.schedules.push(schedule);
-    this.endDate = this.endDate+this.daysToMillisecs(this.TaskDuration);
-    this.taskDone();
-    this.widget = false;
-    this.TaskTitle=null;
-    this.TaskDuration=null;
-    this.chatService.sendMessage(this.messages[i]);
+    this.Schedule.push(schedule)
+    let milestones = this.Schedule;
+    // milestones.push(schedule);
+    let duration = Number(this.Bid.Schedule.Duration) + this.TaskDuration;
+    let body = {Duration:duration,Milestones:milestones};
+    //this.endDate = this.endDate+this.daysToMillisecs(this.TaskDuration);
+    this.bidservice.update(this.Bid._id,{Schedule:body})
+    .subscribe(
+      (res) =>{
+        this.messages[i].Content = content;
+        setTimeout(() => {
+          this.taskDone();
+        }, 2000);
+        this.TaskTitle=null;
+        this.TaskDuration=null;
+        this.chatService.sendMessage(this.messages[i]);
+        this.widget = false;
+      }, err =>{
+        console.log(err),alert('Error');
+        this.Schedule.pop();
+        setTimeout(() => {
+          this.taskDone();
+        }, 2000);
+      } 
+    )
+    
+    //
   }
   updatePicture(i:number){
-    let content = {
-      Picture:this.PictureUrl||'assets/images/header-bg-2.jpeg',
-      Description:this.PictureText
-    }
-    this.messages[i].Content = content;
-    this.widget = false;
-    this.PictureUrl=null;this.PictureText=null;
-    this.chatService.sendMessage(this.messages[i]);
+    const  payload = {
+      file: this.PictureUrl,
+      upload_preset: 'postdress',
+    };
+    this.upload=true;
+    this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
+      .subscribe(
+        (res:any) => {
+          console.log(res);//
+          let content = {
+                  Picture:String(res.secure_url),
+                  Description:this.PictureText
+                }
+                this.messages[i].Content = content;
+                this.widget = false;
+                this.PictureUrl=null;this.PictureText=null;this.upload=false;
+                this.chatService.sendMessage(this.messages[i]);
+        } , error1 => {
+          console.log(error1);
+          this.widget = false;
+          this.PictureUrl=null;this.PictureText=null;this.upload=false;
+        } );
+    //     this.chatService.sendMessage(this.messages[i]);
   }
   updatePrice(i:number){
     let content = {
@@ -229,8 +289,9 @@ get Messages(){
     }
     let msg ={
       Type: 'price-req',
-        From:'129299',
-        To:'1111',
+      From:this.Id,
+      Date: new Date().toDateString(),
+      To:this.chat._id,
         Content:{
           Price: this.Price,
           Description: this.PriceDescription,
@@ -250,15 +311,16 @@ get Messages(){
     }
     let msg ={
       Type: 'size-req',
-        From:'129299',
-        To:'1111',
+      From:this.Id,
+      Date: new Date().toDateString(),
+      To:this.chat._id,
       Content:{
         Size: this.Size,
         Value:null
       }
     }
     this.messages[i].Content = content;
-    let sendmsg =this.messages[i];
+    //let sendmsg =this.messages[i];
     this.chatService.sendMessage(msg);
     this.widget = false;
     this.Size =null;
@@ -271,17 +333,44 @@ get Messages(){
     this.widget = false
   }
   acceptPrice(i:number){
-    this.messages[i].Content.Accepted = true;
-    this.chatService.sendMessage(this.messages[i]);
+    this.widget = true;
+    this.Bid.Price = Number(this.messages[i].Content.Price)+this.Bid.Price;
+    this.Messages[i].Content.Accepted = true;
+    let msgs  = this.Messages
+    this.bidservice.update(this.Bid._id,{Price:this.Bid.Price})
+    .subscribe(
+      (res)=>{
+        this.orderService.updateChat(this.Chat._id,{Messages:msgs})
+        .subscribe((res)=>{console.log('updated chat',res),this.widget=false},(err)=>console.error('update fail',err))
+      },
+      err =>{
+        console.log(err);
+        this.Messages[i].Content.Accepted = false;
+        alert('Error');
+      }
+    )
   }
   rejectPrice(i:number){
     this.messages[i].Content.Accepted = false;
     this.chatService.sendMessage(this.messages[i]);
   }
   sendSize(i:number){
+    this.widget = true;
     this.messages[i].Content.Value = this.SizeValue;
+    let msgs  = this.Messages
     this.SizeValue = null;
-    this.chatService.sendMessage(this.messages[i]);
+    this.orderService.updateSize(this.Order._id,this.messages[i].Content)
+    .subscribe(
+      (res) => {
+        this.orderService.updateChat(this.Chat._id,{Messages:msgs})
+        .subscribe((res)=>{console.log('updated chat',res),this.widget=false},(err)=>console.error('update fail',err))
+      }, err => {
+        console.log(err);
+        this.messages[i].Content.Value = null;
+        alert('Error');
+      }
+    )
+    
   }
   setPicture(event:any){
     if (event.target.files && event.target.files[0]) {

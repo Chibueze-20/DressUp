@@ -131,19 +131,24 @@ export class BidViewComponent implements OnInit,AfterViewInit {
       )
   }
   AcceptDirectBid(){
-    let Body ={
-      Update:{
-        Price:this.staticPrice||Number(this.bidprice),
-        Schedule:{
-          Duration: this.totalTimeline,
-          Milestones:this.schedules
+    if(this.bid){
+      let Body ={
+        Id:this.bid._id,
+        Update:{
+          Price:this.staticPrice||Number(this.bidprice),
+          Schedule:{
+            Duration: this.totalTimeline,
+            Milestones:this.schedules
+          }
         }
       }
+      this.bidservice.acceptDirectBid(Body)
+      .subscribe(
+        (res)=>{window.toastr['success']('Request Accepted');this.Location.navigateByUrl('/notifications/requests');},err =>{window.toastr['error']('Problem Accepting Request');console.log(err);}
+      )
+    }else{
+      window.toastr['error']('problem accepting bid');
     }
-    this.bidservice.acceptDirectBid(Body)
-    .subscribe(
-      (res)=>{window.toastr['success']('Request Accepted');this.Location.navigateByUrl('/notifications/requests');},err =>{window.toastr['error']('Problem Accepting Request');console.log(err);}
-    )
   }
 
   rejectBid(){

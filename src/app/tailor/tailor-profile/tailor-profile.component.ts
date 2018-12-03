@@ -42,6 +42,11 @@ export class TailorProfileComponent implements OnInit {
   get Details() {
     return this.details;
   }
+  get DP(){
+    if(this.details){
+      return this.details.Profile.Display
+    }
+  }
   get Email(){
     if(this.details){
       return this.details.Account.Email || 'dummy@dressup.com'

@@ -23,3 +23,9 @@
 .to{
     max-width: 500px;background-color: rgba(0, 184, 255, 0.27);border-radius: 40px;
 }
+.date{
+    margin: 0;float: right; font-size: small;word-spacing: 0.01mm
+}
+.hide{
+    display: none !important;
+}

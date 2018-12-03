@@ -38,11 +38,13 @@ mongoose.connect(config.DB,{ useNewUrlParser: true}).then(
   err => {console.log("can not connect to database")}
 );
 
+var chatrepo = require('./models/ChatModel/chat.repository');
 // socket IO
 io.on('connection', function(socket){
   console.log('connection!');
   socket.on('new-message', (message) => {
-    console.log('message from angular:',JSON.stringify(message));
+    chatrepo.addMessage(message.To,message)
+   // console.log('message from angular:',JSON.stringify(message));
     socket.broadcast.emit('new-message-'+message.To,message)
   });
 });
@@ -63,12 +65,12 @@ app.post('/upload',function(req,res,next){
   var form = formidable.IncomingForm();
   form.parse(req);
   form.on('fileBegin', function (name, file){
-    file.path = __dirname + '/src/assets/images/' + file.name;
+    file.path = __dirname + '\\src\\assets\\images\\' + file.name;
 });
 
 form.on('file', function (name, file){
   console.log(file);
-  res.send('assets/images/'+file.name);
+  res.status(200).json({file:file.path});
     console.log('Uploaded ' + file.name);
 });
   

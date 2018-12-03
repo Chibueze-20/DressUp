@@ -24,7 +24,7 @@
                   <!--slides-->
                   <div *ngFor="let image of localUrl; first as isFirst" class="carousel-item" [class.active]="isFirst"
                     style="height: inherit;">
-                    <img class="card-img-top" style="height: inherit;" [src]="image" alt="Card image cap">
+                    <img class="card-img-top" style="height: inherit;margin-left: 25%;width: 50%" [src]="image" alt="Card image cap">
                   </div>
                 </div>
               </div>
@@ -121,22 +121,22 @@
                                 </div>
                                 <!-- Material inline 6 -->
                                 <div class="form-check form-check-inline">
-                                  <input formControlName="1X" #women_x type="checkbox" class="form-check-input" id="materialInline26">
+                                  <input formControlName="XL" #women_x type="checkbox" class="form-check-input" id="materialInline26">
                                   <label class="form-check-label" [class.font-weight-bold]="women_x.checked" for="materialInline26">1X</label>
                                 </div>
                                 <!-- Material inline 7 -->
                                 <div class="form-check form-check-inline">
-                                  <input formControlName="2X" #women_xx type="checkbox" class="form-check-input" id="materialInline27">
+                                  <input formControlName="XXL" #women_xx type="checkbox" class="form-check-input" id="materialInline27">
                                   <label class="form-check-label" [class.font-weight-bold]="women_xx.checked" for="materialInline27">2X</label>
                                 </div>
                                 <!-- Material inline 8 -->
                                 <div class="form-check form-check-inline">
-                                  <input formControlName="3X" #women_xxx type="checkbox" class="form-check-input" id="materialInline28">
+                                  <input formControlName="XXXL" #women_xxx type="checkbox" class="form-check-input" id="materialInline28">
                                   <label class="form-check-label" [class.font-weight-bold]="women_xxx.checked" for="materialInline28">3X</label>
                                 </div>
                                 <!-- Material inline 9 -->
                                 <div class="form-check form-check-inline">
-                                  <input formControlName="4X" #women_xxxx type="checkbox" class="form-check-input" id="materialInline29">
+                                  <input formControlName="XXXXL" #women_xxxx type="checkbox" class="form-check-input" id="materialInline29">
                                   <label class="form-check-label" [class.font-weight-bold]="women_xxxx.checked" for="materialInline29">4X</label>
                                 </div>
                               </div>
@@ -411,9 +411,13 @@
         </li>
       </ul>
       <div class="w-100 d-flex justify-content-between align-self-end">
-        <button class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
-        <span><span class="text-danger">*</span> Fields must be filled</span>
-        <button [class.disabled]="PostForm.invalid" class="btn post-btn btn-success btn-flat" data-toggle="modal" data-target="#tagsmodal">Post</button>
+        <button *ngIf="!Upload" class="btn post-btn btn-danger btn-flat" (click)="goback()">Discard</button>
+        <span *ngIf="!Upload"><span class="text-danger">*</span> Fields must be filled</span>
+        <span *ngIf="Upload" class="font-weight-bold m-3">Creating Post...please wait</span>
+        <div *ngIf="Upload" class="progress md-progress primary-color-dark">
+          <div class="indeterminate"></div>
+      </div>
+        <button *ngIf="!Upload" [class.disabled]="PostForm.invalid" class="btn post-btn btn-success btn-flat" data-toggle="modal" data-target="#tagsmodal">Post</button>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ exports.addMessage = function(id,message){
             console.log(err)
         }
         if(chat){
+            console.log('saving');
             chat.Messages.push(message);
             chat.save();
         }
@@ -60,6 +61,6 @@ exports.UpdateChat = function(req,res){
         if (err) {
             return res.status(404).json({message:'something went wrong'})
         }
-        res.send(chat);
+        res.send({Message:'Updated',type:'Success'});
     })
 }

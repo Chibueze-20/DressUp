@@ -69,8 +69,10 @@ Description, Price, Conditions, Permissions, Size, Image -->
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button *ngIf="canOrder" class="btn btn-outline-light-blue" (click)="modal_close.click();showPayment()">Accept and Proceed
+            <button *ngIf="canOrder && !Pay && !Loader" class="btn btn-outline-light-blue" (click)="showPayment();modal_close.click()">Accept and Proceed
               to payment</button>
+              <span *ngIf="Pay" class="mx-3">Paid: True</span>
+              <a *ngIf="Pay"  class="nav-link text-danger" (click)="modal_close.click()">close</a>
           </div>
         </div>
       </div>
@@ -88,7 +90,7 @@ Description, Price, Conditions, Permissions, Size, Image -->
           <div class="card-body p-0">
             <img class="card-img rounded-0" [src]="Post.Picture[0]">
           </div>
-          <div style="height: fit-content" class="card-footer border-top-0 p-2 rounded-0 bg-white ">
+          <div style="height: fit-content" class="card-footer quicksand border-top-0 p-2 rounded-0 bg-white ">
             <p>
               {{Post.Description.trim()}}
             </p>
@@ -492,8 +494,12 @@ Description, Price, Conditions, Permissions, Size, Image -->
         </div>
         <!--buutons-->
         <div class="col-12 py-1 border-0 d-flex justify-content-end px-0 my-3">
-          <span class="h4 text-success mr-5 success align-self-center pl-1">NGN {{Post.Price}}</span>
-          <button class="btn btn-primary purple-gradient" data-toggle="modal" data-target="#paymodal">Order now</button>
+          <span *ngIf="!Loader" class="h4 text-success mr-5 success align-self-center pl-1">NGN {{Post.Price}}</span>
+          <button *ngIf="!Loader" class="btn btn-primary purple-gradient" data-toggle="modal" data-target="#paymodal">Order now</button>
+          <div *ngIf="Loader" class="progress md-progress primary-color-dark">
+            <div class="indeterminate"></div>
+        </div>
+        <span *ngIf="Loader">Processing payment</span>
         </div>
       </div>
     </div>
@@ -503,4 +509,5 @@ Description, Price, Conditions, Permissions, Size, Image -->
       <h1 style="padding: 3rem" class="font-italic text-muted h1-responsive">Post not found...</h1>
     </div>
   </ng-template>
+  
 </div>
