@@ -38,5 +38,8 @@ export class ChatListComponent implements OnInit {
    console.log(start,now,end,diff,dd)
    return dd.toFixed(0);
  }
+  innerDivStyles(picture) {
+    return 'url('+picture+')';
+  }
 
 }
