@@ -96,23 +96,23 @@
     font-family: 'Belleza', sans-serif !important;
 }
 .parallax1{
-    background-color: white;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
 }
+
 .parallax2{
     background-image: url("hunt.jpg") !important;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
     background-position: center center;
 }
 .parallax3{
-    background-image: url("hunt.jpg") !important;
+    background-image: url("clark-street.jpg") !important;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
     background-position: center center;
 }
@@ -123,7 +123,7 @@
     display: none
 }
 
-@media screen and (max-width:375px){
+@media screen and (max-width:425px){
     .in{
         display: block;
     }
@@ -131,6 +131,12 @@
         display: none;
     }
 }
+@media screen and (max-width:425px){
+    .te-xt{
+        font-size: initial;
+    }
+}
+
 /* .my{ color: #FFB7F3} */
 /* rgba(102, 143, 61, 0.92) */
 /* #FFF6BA */

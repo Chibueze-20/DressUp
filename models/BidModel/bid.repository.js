@@ -1,5 +1,6 @@
 var Bid = require('./Bid');
 var Request = require('../RequestModel/Request');
+var RequestRepo = require('../RequestModel/request.repository');
 var Order = require('../OrderRequestModel/OrderRequest.repository');
 var mongoose = require('mongoose');
 
@@ -44,6 +45,7 @@ exports.AcceptBid = function (req,res) {
                 }else{
                     console.log(newBid);
                     Order.createRequest(res,newBid._id);
+                    RequestRepo.acceptRequest(newBid.Request);
                     return res.status(200).json({Message:"Bid accepted"});
                 }
             })
@@ -70,6 +72,7 @@ exports.showBids = function(req,res) {
          let request = requests.map(elem => elem._id);
          Bid.find({Type:'Bid',Accepted:false,Rejected:false})
          .where('Request').in(request)
+         .populate({path:'Tailor', select:'Brand.BrandName'})
          .exec(function(err,bids){
              if (err) {
                  return res.status(404);
@@ -94,7 +97,13 @@ exports.showDirectBids = function(req,res){
 }
 
 exports.AcceptDirectBid = function(req,res,next){
-    Bid.findByIdAndUpdate(req.body.Id,{Schedule:req.body.Schedule,Accepted:true},{new:true},function (err,bid) { 
+    let body;
+    if(req.body.Update.Price){
+       body = {Price:req.body.Update.Price,Schedule:req.body.Update.Schedule,Accepted:true}
+    }else{
+        body = {Schedule:req.body.Update.Schedule,Accepted:true}
+    }
+    Bid.findByIdAndUpdate(req.body.Id,body,{new:true},function (err,bid) { 
         if (err) {
             return res.status(404).send(err)
         }else{
@@ -102,4 +111,24 @@ exports.AcceptDirectBid = function(req,res,next){
             return res.status(200).json({Message:"Bid accepted"});
         }
      })
+}
+exports.Update = function(req,res,next){
+    Bid.findByIdAndUpdate(req.params.id,req.body,{new:true},function (err,bid) { 
+        if (err) {
+            return res.status(404).send(err)
+        }else{
+            console.log('updating');
+            return res.status(200).json({Message:"Bid updated"});
+        }
+     })
+}
+
+exports.GetBidFromRequest = function(req,res,next){
+    Bid.findOne({Request:req.params.id,Type:'Direct'},function(err,bid){
+        if (err) {
+            return res.status(404).send(err)
+        }else{
+            return res.status(200).send(bid);
+        }
+    })
 }

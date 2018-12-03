@@ -1,124 +1,88 @@
-<header>
+<header >
   <div #header class="container-fluid  pt-3 pb-1">
-    <div class="d-flex row text-center px-2 justify-content-center">
-      <a *ngFor="let schedule of schedules; index as j;first as isFirst; last as isLast;" [ngStyle]="{'width':taskWidth}" 
+    <div *ngIf="Done" class="d-flex row text-center px-2 justify-content-center">
+      <a *ngFor="let schedule of Schedule; index as j;first as isFirst; last as isLast;" [ngStyle]="{'width':taskWidth}" 
        class="font-small font-70 schedule font-weight-bold border-top border-bottom black-text" title="{{schedule.duration}} days"
-      id="{{j}}" [class.border-left]="isFirst" [class.border-right]="isLast">
+      id="{{j}}"  [class.border-left]="isFirst" [class.border-right]="isLast">
        {{schedule.task}}</a>
       <!-- <a style="width: 20%;font-size: 70%;" class="font-small  bg-white border-top border-bottom">Schedule 2</a>
       <a style="width: 20%;font-size: 70%;" class="font-small  bg-white border-top border-bottom">Schedule 3</a>
       <a style="width: 20%;font-size: 70%;" class="font-small  bg-white border-top border-bottom">Schedule 4</a>
       <a style="width: 20%;font-size: 70%;" class="font-small  bg-white border-top border-bottom ">Schedule 5</a> -->
     </div>
-    <div class="d-flex mt-2 justify-content-between">
-      <small>created {{StartDate}}</small>
+    <div *ngIf="Done" class="d-flex mt-2 justify-content-between">
+      <small>created {{Start}}</small>
       <span class="text-success font-italic">
-        <small class="mr-4">{{percentageDone || 0}}% completed</small>
+        <small id="percent" class="mr-4">xxx% completed</small>
         <small><a (click)="showDetails()" class="card-link text-info">Details</a></small>
       </span>
-      <a class="card-link text-primary" (click)="taskWidget()">Add a task</a>
+      <a class="card-link text-primary" *ngIf="Role!='User'" (click)="taskWidget()">Add a task</a>
     </div>
   </div>
 </header>
-<main>
+<main *ngIf="Done">
   <!-- DETAILS -->
-  <div id="details" class="bg-info detail-view animated fadeIn container-fluid">
+  <div id="details" style="display:none" class="bg-info detail-view animated fadeIn container-fluid">
     <div class="flex-center">
       <ul class="list-unstyled list-inline" style="height: fit-content">
         <li>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex" [class.justify-content-between]="Role === 'Designer'" [class.justify-content-end]="Role !== 'Designer'">
+            <a *ngIf="Role === 'Designer'" href="javascript:void(0)"  style="font-size: xx-large;text-decoration: underline" class="text-success">Request Delivery</a>
             <a class="text-danger" (click)="hideDetails()" style="font-size: xx-large">X</a>
           </div>
         </li>
         <li class="mt-3">
-          <h1 class="text-center">TITLE OF ORDER</h1>
+          <h1 class="text-center">{{Request.Title}}</h1>
         </li>
         <li>
           <h4>Description</h4>
-          <h6>description.........</h6>
+          <h6>{{Request.Description}}</h6>
         </li>
         <li class="list-inline-item mx-4">
-          <h4>Price: xxx.xxx</h4>
+          <h4>Price: {{Bid.Price}}</h4>
         </li>
         <li class="list-inline-item mx-4">
-          <h4>Start Date: {{StartDate}}</h4>
+          <h4>Start Date: {{Start}}</h4>
         </li>
         <li class="list-inline-item mx-4">
-          <h4>Date of Completion: {{EndDate}}</h4>
+          <h4>Date of Completion: {{End}} </h4>
         </li>
         <li>
-          <div class="container">
-            <div class="p-0 d-flex row justify-content-center pic-view">
-              <div id="mycarousel" style="height: inherit;" class="carousel col-md-6 col-sm-12 slide " data-ride="carousel">
-                <!-- Indicators -->
-                <!-- Indicators -->
-                <!-- Slides -->
-                <div class="carousel-inner" style="height: inherit;" role="listbox">
-                  <!-- first slide -->
-                  <div class="carousel-item active" style="height: inherit;">
-                    <div class="carosel-padding">
-                      <img class="img-fluid" src="assets\images\lauren-fleischmann-469994-unsplash.jpg" style="height: inherit;width: 100%;" />
-                    </div>
-                  </div>
-                  <!-- first slide -->
-                  <!-- second slide -->
-                  <div class="carousel-item">
-                    <div class="carosel-padding">
-                      <img class="img-fluid" src="assets/images/ashim-d-silva-89336-unsplash.jpg" style="height: inherit;width: 100%;" />
-                    </div>
-                  </div>
-                  <!-- second slide -->
-                  <!-- third slide -->
-                  <div class="carousel-item">
-                    <div class="carosel-padding">
-                      <img class="img-fluid" src="assets/images/clem-onojeghuo-197847-unsplash.jpg" style="height: inherit;width: 100%;" />
-                    </div>
-                  </div>
-                  <!-- third slide -->
-                </div>
-                <!-- Slides -->
-                <!-- Controls -->
-              </div>
-              <!-- Carousel wrapper -->
-              <div class="col-md-6 col-sm-12 flex-center">
-                <div class="m-2">
-                  <h5>Schedule</h5>
-                  <ol class="list-unstyled">
-                    <li>
-                      <span>schedule 1: </span>
-                      <span>x days</span>
-                    </li>
-                    <li>
-                      <span>schedule 2: </span>
-                      <span>x days</span>
-                    </li>
-                    <li>
-                      <span>schedule 3: </span>
-                      <span>x days</span>
-                    </li>
-                    <li>
-                      <span>schedule 4: </span>
-                      <span>x days</span>
-                    </li>
-                    <li>
-                      <span>schedule 5: </span>
-                      <span>x days</span>
-                    </li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          <h4 class="mb-2">Sizes</h4>
+          <span *ngFor="let size of Sizes" style="font-size: large" class="mx-2">{{size.Name}}: {{size.Value}}</span>
         </li>
       </ul>
+    </div>
+    <div class="row pt-3 pb-2">
+      <div class="col-md-6 text-center px-2 col-sm-12">
+        <h4 class="mb-2">Schedule</h4>
+        <ol class="text-center list-unstyled">
+          <li *ngFor="let schedule of Schedule;">
+            <h5>{{schedule.task}} : {{schedule.duration}} day(s)</h5>
+          </li>
+        </ol>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="d-flex justify-content-end">
+          <img style="
+          width: 450px;
+          height: 300px;" [src]="Picture" alt="">
+          <div style="align-self: center" class="d-flex flex-column">
+            <a (click)="nextPic()" class="btn btn-sm">next</a>
+            <a (click)="prevPic()" class="btn btn-sm">prev</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- DETAILS -->
   <div class="container py-3 chat-window" #chat_window [scrollTop]="chat_window.scrollHeight" id="chat-window" style="height: 70vh;background-color: rgba(0, 184, 255, 0.1);overflow-y: auto">
     <div class="px-2">
-      <div class="d-flex px-3 mb-2 justify-content-start">
-        <div class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.13);border-radius: 40px;">
+      <div *ngIf="Messages.length === 0" class="flex-center">
+        <h6>LOADING.... if this persists and and you can not see xxx%, just send a message</h6>
+      </div>
+      <!-- <div class="d-flex px-3 mb-2 justify-content-start">
+        <div class="px-2 to" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -135,7 +99,7 @@
         </div>
       </div>
       <div class="d-flex px-3 mb-2 justify-content-end">
-        <div class="px-2" style="max-width: 500px;background-color: rgba(0, 184, 255, 0.27);border-radius: 40px;">
+        <div class="px-2 from" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
@@ -150,28 +114,28 @@
             </div>
           </div>
         </div>
-      </div>
-      <div *ngFor="let message of messages; index as i" [class.justify-content-end]="isEven(i)" [class.justify-content-start]="isOdd(i)" class="d-flex px-3 mb-2">
-        <div *ngIf="message.Type === 'chat'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)" >
+      </div> -->
+      <div *ngFor="let message of Messages; index as i" [class.justify-content-end]="message.From === Id" [class.justify-content-start]="message.From !== Id" class="d-flex px-3 mb-2">
+        <div *ngIf="message.Type === 'chat'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id" >
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
               <p style="margin: 0;" class="pt-1">{{message.Content}}</p>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'task'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'task'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
-            <div class="d-flex justify-content-start">
-              <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
-                src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
-            </div>
+              <div class="d-flex justify-content-start">
+                  <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
+                    src="assets\images\person-flat.png">
+                  <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
+                </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Task-widget</p>
               <p *ngIf="message.Content !== null" style="margin: 0;" class="pt-1">New schedule task added <strong>{{message.Content.Title||'..'}}
@@ -184,16 +148,16 @@
                   <a class="btn-sm mx-3 btn-outline-danger" (click)="removeWidget(i)">cancel</a>
                 </div>
               </div>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'picture'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'picture'" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Picture-widget</p>
@@ -216,24 +180,25 @@
                 <div class="col-12">
                   <textarea class="w-100" [(ngModel)]="PictureText" placeholder="text-description" cols="2" rows="1"></textarea>
                 </div>
-                <div style="height: fit-content;" class="col-12 py-1 text-center">
+                <div style="height: fit-content;" class="col-12 d-flex justify-content-between py-0">
                   <input type="file" (change)="setPicture($event)" #file style="display: none;" title="attach image"
-                    placeholder="select image">
-                  <a (click)="file.click()" class="btn-sm mx-3 btn-outline-primary">choose file</a>
-                  <a (click)="updatePicture(i)"  class="btn-sm mx-3 btn-outline-success">send</a>
-                  <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
+                      placeholder="select image">
+                  <a *ngIf="!Upload" (click)="file.click()" class="btn-sm mx-3 btn-outline-primary">choose file</a>
+                  <a *ngIf="!Upload" (click)="updatePicture(i)"  class="btn-sm mx-3 btn-outline-success">send</a>
+                  <span *ngIf="Upload" class="mx-1">Uploading... please wait</span>
+                  <a *ngIf="!Upload" (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
                 </div>
               </div>
             </div>
-            <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            <p class="px-3 date">{{message.Date}}</p>
         </div>
       </div>
-      <div *ngIf="message.Type === 'price'" class="px-2 p-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+      <div *ngIf="message.Type === 'price' && message.From === Id" class="px-2 p-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width:17%;height:50px; min-width:53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Price-widget</p>
@@ -248,15 +213,15 @@
                 <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
               </div>
             </div>
-            <p class="px-3" style="margin: 0;float: right;">10/20</p>
+            <p class="px-3 date">{{message.Date}}</p>
           </div>
         </div>
-        <div *ngIf="message.Type === 'size'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'size' && message.From === Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Size-widget</p>
@@ -268,16 +233,16 @@
                   <a (click)="removeWidget(i)" class="btn-sm mx-3 btn-outline-danger">cancel</a>
                 </div>
               </div>
-              <p class="px-3" style="margin: 0;float: right;">10/20</p>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>
         </div>
-        <div *ngIf="message.Type === 'price-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'price-req' && message.From !== Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
                 <p class="mb-1">Price-widget</p>
@@ -295,16 +260,17 @@
                   <a (click)="rejectPrice(i)" class="btn-sm mx-3 btn-outline-danger">reject</a>
                 </div>
               </div>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>  
           
         </div>
-        <div *ngIf="message.Type === 'size-req'" class="px-2" [class.from]="isOdd(i)" [class.to]="isEven(i)">
+        <div *ngIf="message.Type === 'size-req' && message.From !== Id" class="px-2" [class.from]="message.From === Id" [class.to]="message.From !== Id">
           <div class="p-2">
             <div class="d-flex justify-content-start">
               <img class="img-fluid rounded-circle" style="max-width: 53.13px;width: 17%;height: 50px; min-width: 53px;"
                 src="assets\images\person-flat.png">
-              <span class="mx-2 align-self-center font-weight-bold">Tailor</span>
+              <span class="mx-2 align-self-center font-weight-bold">{{sentBy(message.From)}}</span>
             </div>
             <div class="ml-2 w-100">
               <p class="mb-1">Size-widget</p>
@@ -318,6 +284,7 @@
                   <a (click)="sendSize(i)" class="btn-sm mx-3 btn-outline-success">send</a>
                 </div>
               </div>
+              <p class="px-3 date">{{message.Date}}</p>
             </div>
           </div>  
           
@@ -336,14 +303,19 @@
             <!-- <button class="btn-rounded px-4 btn btn-flat waves-effect transparent"></button> -->
           </a>
           <ul class="list-unstyled">
-            <li><a (click)="pictureWidget()" class="btn-floating btn-sm text-center yellow">pic</a></li>
-            <li><a (click)="priceWidget()" class="btn-floating btn-sm text-center green">ngn</a></li>
-            <li><a (click)="sizeWidget()" class="btn-floating btn-sm text-center blue">sz</a></li>
+            <li><a (click)="pictureWidget()" class="btn-floating black-text btn-sm text-center yellow" title="picture"><i class="far fa-image"></i></a></li>
+            <li><a (click)="priceWidget()" class="btn-floating black-text btn-sm text-center green" title="price request"><i class="fas fa-money-bill-alt"></i></a></li>
+            <li><a *ngIf="Role!='User'" (click)="sizeWidget()" class="btn-floating black-text btn-sm text-center blue" title="size request" ><i class="fas fa-ruler"></i></a></li>
           </ul>
         </div>
       </div>
       <button (click)="sendMessage()" class="btn-rounded px-4 btn btn-primary align-self-center"><i style="font-size: 1.5em"
           class="fas fa-share white-text"></i></button>
     </div>
+  </div>
+</main>
+<main *ngIf="!Done">
+  <div class="container flex-center">
+    <h1 class="font-italic text-muted">LOADING...</h1>
   </div>
 </main>

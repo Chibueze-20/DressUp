@@ -1,11 +1,10 @@
 <header class="header quicksand">
   <div class="container-fluid bg-white p-4">
     <div class="d-flex navbtn justify-content-start">
-      <span style="font-size: 1.6rem" (click)="openNav()"> > </span>
+      <span style="font-size: 1.6rem" (click)="openNav()"> <i class="fas fa-bars"></i> </span>
       <div class="flex-center flex-grow-1">
         <div class="d-flex text-center text-uppercase flex-column justify-content-between">
-          <h1 class="h1-responsive">Notifications</h1>
-          <span style="font-size: larger" class="font-italic">{{Navigation}}</span>
+          <h1  class="font-italic h1-responsive">{{Navigation}}</h1>
         </div>
       </div>
     </div>
@@ -13,8 +12,9 @@
 </header>
 <div class="sidenav quicksand" id="mySidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()" rel="noopener noreferrer">&times;</a>
-  <a routerLink="bids" routerLinkActive="menu-active">Bids</a>
+  <a *ngIf="UserRole === 'User'" routerLink="bids" routerLinkActive="menu-active">Bids</a>
+  <a *ngIf="UserRole === 'Designer'" routerLink="requests" routerLinkActive="menu-active">Requests</a>
   <a routerLink="account" routerLinkActive="menu-active">Notifications</a>
-  <a href="javascript:void(0)">back</a>
+  <a (click)="back()">Back</a>
 </div>
 <router-outlet></router-outlet>

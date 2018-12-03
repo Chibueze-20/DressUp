@@ -1,34 +1,22 @@
 <div id="main" class="container-fluid belleza">
   <div class="row">
-    <div class="px-5 py-4 col-lg-8 offset-lg-3 col-md-8 offset-md-3 col-sm-12">
+    <div class="px-5 py-4 col-lg-9 row offset-lg-3 col-md-8 d-flex justify-content-start offset-md-3 col-sm-12">
       <button style="display: none" #modal data-toggle="modal" data-target="#tagsmodal">modal</button>
-      <div style="background-color: #b0e6b294" class="px-2 mx-5 my-3 pt-2 card">
-        <div style="font-size: larger" class="d-flex justify-content-start">
-          <i class="fas fa-info-circle px-5"style="font-size: 3rem;"></i>
-          <div class="flex-grow-1" style="align-self:center">
-            <div class="d-flex mb-0 justify-content-between">
-              <div class="w-100 text-center">
-                <p class="mb-0">somebody did this to you</p>
-              </div>
-              <div>
-                <ul class="list-unstyled mb-0 list-inline">
-                  <li>
-                    <div class="text-center flex-center pt-1">
-                      <a class="card-link text-primary" (click)="modal.click()">View</a>
-                      <a class="card-link ml-5 mr-1 text-danger">Cancel</a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end mt-2">
-              <p class="ml-4 font-italic mb-0">x days ago</p>
-            </div>
-          </div>
-          </div>
+      
+      <div *ngFor="let request of Notifications" class="card col-md-7 col-sm-12 mx-5 mb-4">
+        <div>
+          <p>
+            You have recieved a request for <strong>{{request.Request.Title}}</strong>
+          </p>
         </div>
-    </div>
+        <div class="d-flex justify-content-between text-primary">
+          <span class="nav-link font-italic">{{getDate(request.Request.CreatedAt)}}</span>
+          <h6 class="m-0"><a (click)="view(request)" class="nav-link">View</a></h6>
+        </div>
+      </div> 
+       
   </div>
+</div>
 </div>
 <!--MODAL-->
 <!--tags modal-->
@@ -62,3 +50,29 @@
     </div>
   </div>
   <!--MODAL-->
+
+  <!-- <div style="background-color: #b0e6b294" class="px-2 mx-5 my-3 pt-2 card">
+    <div style="font-size: larger" class="d-flex justify-content-start">
+      <i class="fas fa-info-circle px-5"style="font-size: 3rem;"></i>
+      <div class="flex-grow-1" style="align-self:center">
+        <div class="d-flex mb-0 justify-content-between">
+          <div class="w-100 text-center">
+            <p class="mb-0">somebody did this to you</p>
+          </div>
+          <div>
+            <ul class="list-unstyled mb-0 list-inline">
+              <li>
+                <div class="text-center flex-center pt-1">
+                  <a class="card-link text-primary" (click)="modal.click()">View</a>
+                  <a class="card-link ml-5 mr-1 text-danger">Cancel</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
+          <p class="ml-4 font-italic mb-0">x days ago</p>
+        </div>
+      </div>
+      </div>
+    </div> -->

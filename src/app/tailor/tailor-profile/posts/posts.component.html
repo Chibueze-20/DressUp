@@ -1,7 +1,7 @@
 <!-- Posts view -->
 
 <div style="max-height:90vh; overflow-y: auto " class="mb-5 container-fluid">
-    <div class="row">
+    <div *ngIf="Posts.length > 0" class="row">
       <div *ngFor="let post of Posts" class="col-md-3 mb-3">
         <div class="card view view-cascade overlay rgba-stylish-strong">
           <img [src]="post.Picture[0]" class="img-fluid h-100">
@@ -11,5 +11,9 @@
         </div>
       </div>
     </div>
-
+    <div *ngIf="Posts.length <= 0" class="row">
+      <div class="col-md-12 flex-center">
+        <h1 class="text-muted font-weight-bold">No posts yet...</h1>
+      </div>
+    </div>
   </div>

@@ -19,9 +19,9 @@ export class ChatService {
     this.socket.emit('widget-message',message)
   }
 
-  public getMessages = () =>{
+  public getMessages = (chat_id) =>{
     return Observable.create((observer) =>{
-      this.socket.on('new-message', (message) =>{
+      this.socket.on('new-message-'+chat_id, (message) =>{
         observer.next(message);
       });
       // this.socket.on('widget-message',(message) =>{

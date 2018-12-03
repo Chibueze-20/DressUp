@@ -14,6 +14,6 @@ export class ViewserviceService {
   }
 
   viewBid(id) {
-    return this.http.get('\'http://localhost:4000/request/view/' + id);
+    return this.http.get('http://localhost:4000/request/view/' + id);
   }
 }

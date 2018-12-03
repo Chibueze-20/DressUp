@@ -19,6 +19,8 @@ export class RequestComponent implements OnInit {
   selectedTailor:any = null;
   isSearching = false;
   results: any[] = [];
+  arr_pic = [];
+  upload=false;
   RequestForm: FormGroup = null;
   constructor(private userservice: UserserviceService, private requestservice: RequestserviceService) {
     Navigation.Title = 'New Bid';
@@ -53,7 +55,7 @@ export class RequestComponent implements OnInit {
   clearTags() {
     this.tags = [];
   }
-
+  get Upload(){return this.upload}
   goback() {
     alert('go back');
   }
@@ -134,13 +136,12 @@ export class RequestComponent implements OnInit {
       const  payload = {
         file: this.images[i],
         upload_preset: 'postdress',
-        public_id: this.user._id + '/' + this.user.Role + '/' + this.images[i].toString().slice(0, 5)
       };
       this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
         .subscribe(
-          (res) => {
+          (res:any) => {
             console.log(res);
-            arr_pic.push(res);
+            arr_pic.push(String(res.secure_url));
           } , error1 => {
             console.log(error1);
           } );
@@ -148,33 +149,50 @@ export class RequestComponent implements OnInit {
     return arr_pic;
   }
 
-  SendRequest(withtags: boolean) {
+  async SendRequest(withtags: boolean) {
+    this.upload=true;
     this.RequestForm.get('User').setValue(this.user._id + '');
-    const picture = this.uploadImages(); const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg'];
+    for (let i = 0; i <  this.images.length; i++) {
+      const  payload = {
+        file: this.images[i],
+        upload_preset: 'postdress',
+      };
+       await this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload).toPromise()
+       .then((res:any) =>{console.log(res);
+        this.arr_pic.push(String(res.secure_url));})
+        .catch((err)=>{console.log(err)})
+        console.log('done',i);
+    }
+    console.log('http over');
+    const default_pic: string[] = ['assets/images/pete-bellis-396528-unsplash.jpg'];
     let body;
-    if (picture.length > 0) {
+    if (this.arr_pic.length > 0) {
+      const picture = this.arr_pic
       body = withtags ? {
         request: this.RequestForm.value,
         pic: picture,
         tags: this.tags,
-        Tailor:this.selectedTailor
+        tailor:this.selectedTailor
       } : {
         request: this.RequestForm.value,
         pic: picture,
-        Tailor:this.selectedTailor
+        tailor:this.selectedTailor
       };
       this.requestservice.PostOrder(body, 'send').subscribe(
         (res) => {
           // alert(JSON.stringify(res));
           this.RequestForm.reset();
           this.RequestForm.get('Type').setValue('Bid');
+          this.arr_pic=[];this.images=[];this.upload=false;
           window.toastr['success']('Bid sent succesfully');
         }, err => {
           window.toastr['error']('Problem sending bid');
+          this.upload=false;
         }
       );
     } else {
-      window.toastr['error']('Problem uploading pictures, make sure you have selected pictures and have good connection')
+      window.toastr['error']('Problem uploading pictures, make sure you have selected pictures and have good connection');
+      this.upload=false;
     }
     
   }

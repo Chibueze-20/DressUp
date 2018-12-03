@@ -18,7 +18,7 @@ var Order = new Schema({
     ref: "Bid"
   },
   Sizes: [{
-    Name: {
+    Size: {
       type: String
     },
     Value: {

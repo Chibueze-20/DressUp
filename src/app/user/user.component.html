@@ -1,16 +1,16 @@
 <nav class="bg-white">
-  <div class="container-fluid">
-    <div class="d-flex row justify-content-between">
-      <div class="d-flex justify-content-between">
-        <a *ngIf="currentNavigation!='Home'" (click)="goback()" class="mx-3 waves-effect d-flex flex-column mt-auto mb-auto flex-center">
-          <i class="fas fa-long-arrow-alt-left fa-2x"></i></a>
-          <!-- todo: make ml-0 be ml-5 on home pages alone with ngclass -->
-          <a class="navbar-text navtext-margin-in ml-0 mr-auto permanentmarker font-weight-bold black-text" style="font-size: x-large">DressUp</a>
-      </div>
-      <div class="text-center out my-margin-right d-flex justify-content-center mb-0 ml-auto">
-        <h2 class="my-2">{{currentNavigation}}</h2>
-      </div>
-      <div class="ml-auto d-flex flex-column justify-content-center">
+  <div class="container">
+    <div class="d-flex row justify-content-center">
+        <div class="d-flex justify-content-start">
+            <a (click)="goback()" *ngIf="currentNavigation!='Home'" class="mx-3 waves-effect d-flex flex-column mt-auto mb-auto flex-center">
+              <i class="fas fa-long-arrow-alt-left fa-2x"></i>
+            </a>
+            <a (click)="Home()" class="navbar-text ml-2 mr-auto permanentmarker font-weight-bold black-text" style="font-size: x-large">DressUp</a>
+          </div>
+          <div class="text-center d-flex out justify-content-center mb-0 ml-auto mr-5">
+            <h2 class="my-2">{{currentNavigation}}</h2>
+          </div>
+      <div class="form-inline ml-auto">
         <div class="md-form my-0">
           <a id="link" (click)="gotoSettings()" class="font-weight-bold d-flex flex-column mt-auto mb-auto flex-center mx-3 waves-effect lato"  title="settings">
             <i class="fas fa-cog fa-2x"></i>
@@ -18,10 +18,29 @@
         </div>
     </div>
   </div>
-  <!-- for small screens -->
-  <div class="text-center in d-flex justify-content-center my-0">
+  <!-- for small screens  -->
+  <!-- <div class="text-center in d-flex justify-content-center my-0">
     <h2 class="my-2">Home</h2>
-  </div>
+  </div> -->
   </div>
 </nav>
 <router-outlet></router-outlet>
+<!-- <header class="mb-0">
+    <nav class="bg-white">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          
+          <div class="form-inline ml-auto">
+            <div class="md-form my-0">
+              <a routerLink="/notifications" class="font-weight-bold mx-3 waves-effect lato" data-placement="bottom" data-toggle="tooltip" title="Notifications">
+                <i class="far fa-2x fa-bell icon"></i>
+              </a>
+              <a class="mx-3 font-weight-bold waves-effect lato" data-placement="bottom" data-toggle="tooltip" title="Orders">
+                <i class="fas fa-2x fa-envelope black-text icon"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header> -->

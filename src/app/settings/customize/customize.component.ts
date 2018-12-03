@@ -15,6 +15,7 @@ export class CustomizeComponent implements OnInit {
   localHeaderUrl = null;
   localTags: any[] = [];
   details = null;
+  upload=false;dupload=false;
   constructor(public _settingsService: SettingsService, private userservice: UserserviceService) { }
   ngOnInit() {
     this.details = this.Tailor();
@@ -28,6 +29,8 @@ export class CustomizeComponent implements OnInit {
       return this.details;
     }
   }
+  get Upload(){return this.upload}
+  get Dupload(){return this.dupload}
   changeTheme(i) {
     this._settingsService.changeTheme(i);
   }
@@ -54,18 +57,30 @@ export class CustomizeComponent implements OnInit {
     this.localDisplayUrl = null;
   }
 
-  updateDisplay() {
-    const picture = this.uploadImage(this.localDisplayUrl);
+  async updateDisplay() {
+    this.dupload=true; 
+    let picture = null;
+    const  payload = {
+      file: this.localDisplayUrl,
+      upload_preset: 'postdress',
+    };
+   await this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload).toPromise()
+   .then((res:any)=>{
+     picture = String(res.secure_url);
+   })
+   .catch((err)=> picture=null);
+   console.log('http over');
     if (picture) {
-      const body = {Display: this.localDisplayUrl};
+      const body = {Display: picture};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
           (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
-          this.updateLocalStorage(this.details.Profile); },
-          err => {window.toastr['error']('Update unsuccessful'); }
+          this.updateLocalStorage(this.details.Profile); this.dupload=false;},
+          err => {window.toastr['error']('Update unsuccessful'); this.dupload=false;}
         );
     } else {
       window.toastr['error']('Update unsuccessful');
+      this.dupload=false;
     }
   }
   previewHeader(event: any) {
@@ -86,18 +101,30 @@ export class CustomizeComponent implements OnInit {
     tailor.Profile = newProfile;
     localStorage.setItem('User', JSON.stringify(tailor));
   }
-  updateHeader() {
-    const picture = this.uploadImage(this.localHeaderUrl);
+ async updateHeader() {
+   this.upload=true;
+    let picture = null;
+    const  payload = {
+      file: this.localHeaderUrl,
+      upload_preset: 'postdress',
+    };
+   await this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload).toPromise()
+   .then((res:any)=>{
+     picture = String(res.secure_url);
+   })
+   .catch((err)=> picture=null);
+   console.log('http over');
     if (picture) {
-      const body = {Background: this.localHeaderUrl};
+      const body = {Background: picture};
       this.userservice.postData(this.userservice.uri + '/profile/update/' + this.details.Profile._id, body)
         .subscribe(
           (res) => {this.details.Profile = res; window.toastr['success']('Update successful');
-          this.updateLocalStorage(this.details.Profile); },
-          err => {window.toastr['error']('Update unsuccessful'); }
+          this.updateLocalStorage(this.details.Profile); this.upload=false},
+          err => {window.toastr['error']('Update unsuccessful'); this.upload=false;}
         );
     } else {
       window.toastr['error']('Update unsuccessful');
+      this.upload=false
     }
   }
 
@@ -124,16 +151,17 @@ export class CustomizeComponent implements OnInit {
     const  payload = {
       file: localUrl,
       upload_preset: 'postdress',
-      public_id: this.Tailor()._id + '/' + this.Tailor().Role + '/' + localUrl.toString().slice(0, 5)
     };
+    let url = null;
     this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
       .subscribe(
-        (res) => {
-          return res;
+        (res:any) => {
+          url = String(res.secure_url);
         } , error1 => {
           console.log(error1);
-          return null;
+          url = null;
         } );
+     return url 
   }
 
 }

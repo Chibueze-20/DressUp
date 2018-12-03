@@ -1,3 +1,4 @@
+// requirements
 let express = require('express'),
   path = require('path'),
   bodyParser = require('body-parser'),
@@ -5,6 +6,20 @@ let express = require('express'),
   mongoose = require('mongoose'),
   config = require('./config/DB');
   formidable = require('formidable');
+
+// controllers
+const userController = require('./controllers/user.controller');
+const requestController = require('./controllers/request.controller')
+const orderRequestController = require('./controllers/OrderRequest.controller');
+const postController = require('./controllers/post.controller');
+const feedbackController = require('./controllers/feedback.contoller');
+const searchController = require('./controllers/search.controller');
+const adminController = require('./controllers/admin.controller');
+const notificationController = require('./controllers/notification.controller');
+const bidController = require('./controllers/bid.controller');
+const chatController = require('./controllers/chat.controller');
+
+// initialization of servers  
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -16,32 +31,26 @@ server.listen(4100,'localhost',function(){
 })
 var io = require('socket.io')(server)
 
+// Database
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB,{ useNewUrlParser: true}).then(
   () => {console.log("Database connection successful")},
   err => {console.log("can not connect to database")}
 );
 
+var chatrepo = require('./models/ChatModel/chat.repository');
 // socket IO
 io.on('connection', function(socket){
   console.log('connection!');
   socket.on('new-message', (message) => {
-    console.log('message from angular:',JSON.stringify(message));
-    socket.broadcast.emit('new-message',message)
+    chatrepo.addMessage(message.To,message)
+   // console.log('message from angular:',JSON.stringify(message));
+    socket.broadcast.emit('new-message-'+message.To,message)
   });
 });
 
 
-const userController = require('./controllers/user.controller');
-const requestController = require('./controllers/request.controller')
-const orderRequestController = require('./controllers/OrderRequest.controller');
-const postController = require('./controllers/post.controller');
-const feedbackController = require('./controllers/feedback.contoller');
-const searchController = require('./controllers/search.controller');
-const adminController = require('./controllers/admin.controller');
-const notificationController = require('./controllers/notification.controller');
-const bidController = require('./controllers/bid.controller');
-const chatController = require('./controllers/chat.controller');
+// Path definitions
 app.use('/admin',adminController);
 app.use('/notification',notificationController);
 app.use('/user',userController);
@@ -56,17 +65,19 @@ app.post('/upload',function(req,res,next){
   var form = formidable.IncomingForm();
   form.parse(req);
   form.on('fileBegin', function (name, file){
-    file.path = __dirname + '/src/assets/images/' + file.name;
+    file.path = __dirname + '\\src\\assets\\images\\' + file.name;
 });
 
 form.on('file', function (name, file){
   console.log(file);
+  res.status(200).json({file:file.path});
     console.log('Uploaded ' + file.name);
 });
-  res.send(__dirname+'/src/assets/images');
+  
 })
-app.get('/*',function(req,res,next){res.send("<h1>Nothing to find here hehe..</h1>")})
+app.get('/*',function(req,res,next){res.send(404,"<h1>Nothing to find here hehe..</h1>")})
 
+// app listen
 app.listen(port);
 console.log("server listening on port "+port);
 

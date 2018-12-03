@@ -28,7 +28,7 @@
               <div class="d-block " style="position: absolute;bottom: 0px">
 
                 <div class="px-2" style="background-color: rgba(30,40,20,0.5)">
-                  <p class="card-text white-text"> {{bid.Description}} </p>
+                  <p class="card-text quicksand white-text"> {{bid.Description}} </p>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
           <h4 class="card-title mb-2"><strong>{{bid.Title}}</strong></h4>
           <!-- Subtitle/tags -->
           <span *ngFor="let tag of bid.Tags" class="mx-2 badge badge-pill p-bg p-text">{{tag}}</span>
-          <hr class="my-1">
+          <hr style="height: 1px;" class="my-1">
           <!--Bidding constraints-->
           <div class="text-center d-flex justify-content-between out waves-effect">
             <div class="mx-md-2">
@@ -54,7 +54,7 @@
               <i class="far pt-1 fa-clock "></i><p class="m-0 font-small pt-1">Schedule: {{bid.Schedule.Duration}} days</p>
             </div>
             <div class="mx-md-2">
-              <i class="far pt-1 fa-clock "></i><p class="m-0 font-small pt-1">Delivery: {{bid.Conditions.Delivery}}</p>
+              <i class="far pt-1 fa-clock "></i><p class="m-0 font-small px-1 pt-1">Delivery: {{bid.Conditions.Delivery}}</p>
             </div>
             <hr class="my-1">
           </div>

@@ -55,6 +55,7 @@ exports.findAllBids = function(req,res,next){
         res.send(requests);
     })
 }
+
 // gets all direct requests 
 exports.getDirectOrders = function(req,res){
     Request.find({Type:"Direct"}).exec(function(err, order){
@@ -77,15 +78,13 @@ exports.allrequests = function(req,res,next){
     })
 }
 exports.acceptRequest = function(id){
-    let Req;
     Request.findByIdAndUpdate(id,{IsAccepted:true},{new:true},function (err,request) { 
         if(err){
             return null;
         }else{
-            Req = request;
+            console.log('accepted',request)
         }
      });
-     return Req;
 }
 
 // exports.countBids = function(){

@@ -2,6 +2,12 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {ChatService} from '../chat.service';
 import { Message } from 'src/app/shared/Message';
 import { Schedule } from 'src/app/shared/schedule';
+import { OrderService } from '../order.service';
+import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+import { BidService } from 'src/app/services/bid.service';
+import { Navigation } from 'src/app/shared/Navigation';
+import { UserserviceService } from 'src/app/userservice.service';
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
@@ -9,74 +15,160 @@ import { Schedule } from 'src/app/shared/schedule';
 })
 export class ChatRoomComponent implements OnInit, AfterViewInit {
   id ="1111"
-  schedules:Schedule[] = [
-    {
-      task: 'Buy material',
-      duration: 3
-    },
-    {
-      task: 'Cut material to size',
-      duration: 5
-    },
-    {
-      task: 'Sew up shirt',
-      duration: 2
-    },
-    {
-      task: 'Sew trousers and add pockets',
-      duration: 3
-    },
-    {
-      task:'Iron and package for sending',
-      duration:1
-    }
-  ]
+  schedules:Schedule[] = []
   startDate = Date.parse('10-16-2018');
   endDate = this.startDate;
-  nowDate = Date.now();
   daysPast:number;
-  percentageDone:number;
+  percentageDone:number =0;
   message: string;
   messages:Message[] = [];
-  widget=false;
+  cansend = false;
+  widget=true;
+  chat:any={}
   TaskTitle:string;TaskDuration:number;
   PictueWidget = false;PictureUrl:any;PictureText:string;
   PriceWidget = false;Price:number;PriceDescription:string;
   SizeWidget = false;Size:string;SizeValue:number;
-  constructor(private chatService:ChatService) { }
+  done = false;
+  upload=false;
+  picnum = 0;
+  constructor(private chatService:ChatService,private orderService:OrderService,private bidservice:BidService,private userservice:UserserviceService,private route: ActivatedRoute) { 
+    Navigation.Title = 'Chat';
+    const id = this.route.snapshot.paramMap.get('id');
+    this.orderService.getChat(id)
+    .subscribe(
+      (res:any)=>{this.chat = res;this.done = true;
+      // console.log(this.startDate,'start',this.endDate,'end');
+      // this.schedules.forEach((sch) =>console.log(this.daysToMillisecs(sch.duration),'days',sch.duration));
+      // console.log(this.endDate,'end',new Date(this.endDate),this.EndDate);
+      // console.log(this.startDate,'end',new Date(this.startDate),this.StartDate);
+      }, err => alert(JSON.stringify(err))
+    )
+  }
 
   ngOnInit() {
-    document.getElementById('details').style.display = 'none'
-    this.schedules.forEach((sch) => this.endDate= this.endDate+this.daysToMillisecs(sch.duration));
-    console.log(new Date(this.endDate));
-    this.chatService
-      .getMessages().subscribe((message:Message) => {
-        this.messages.push(message);
-        // document.querySelector('.chat-window').scrollTo(0, document.querySelector('#chat-window').scrollHeight)
-      });
+      setTimeout(() => {
+        this.taskDone();
+        this.chatService
+        .getMessages(this.chat._id).subscribe((message:Message) => {
+          this.messages.push(message);
+        });
+        this.messages = this.chat.Messages;
+        this.widget = false;
+        console.log('task done');
+      }, 8000);
+      
   }
-  ngAfterViewInit(){
-    this.taskDone();
+  ngAfterViewInit(){  
+  //  let inter = setInterval(() => {
+  //     if(this.Done){
+  //       this.taskDone();
+  //       clearInterval(inter)
+  //     }else{
+  //       console.log('awaiting..');
+  //     }
+  //   }, 1000);
     //send feedback widget when today is a day after end date or more
   }
-
+  get Id(){
+    return AppComponent.User._id;
+  }
+  get Role(){
+    return AppComponent.User.Role;
+  }
+  get Upload(){
+    return this.upload;
+  }
+  sentBy(id):string{
+    if(this.Id === id){
+      return this.Role;
+    }else{
+      if(this.Role === 'User'){
+        return 'Tailor';
+      }else{
+        return 'User';
+      }
+    }
+  }
+get Chat(){
+  if(this.chat){
+    return this.chat;
+  }
+}
+get Messages(){
+  if(this.chat){
+    return this.messages;
+  }else {return []}
+}
+ get Order(){
+   if (this.chat) {
+     return this.chat.Order
+   }
+ }
+ get Bid(){
+   if(this.Order){
+     return this.Order.Order
+   }
+ }
+ get Request(){
+   if(this.Bid){
+     return this.Bid.Request;
+   }
+ }
+ get Schedule(){
+   if(this.Bid){
+     return this.Bid.Schedule.Milestones;
+   }
+   else{ return []}
+ }
+ get Sizes(){
+   if(this.Request){
+    return this.Request.Sizes.length > 0 ?  this.Request.Sizes:[{Name:'Size',Value:'Not available'}]
+     }else{
+     return [{Name:'Size',Value:'Not available'}];
+   }
+ }
+ get Picture(){
+   if(this.Request){
+     return this.Request.Picture[this.picnum];
+   }else{
+     return 'assets/images/clem-onojeghuo-197847-unsplash.jpg';
+   }
+ }
+ nextPic(){
+  if(this.Request){
+    if((this.Request.Picture.length -1) > this.picnum){
+      this.picnum ++
+    }
+  }
+ }
+ prevPic(){
+    if(0<this.picnum){
+      this.picnum--;
+    }
+ }
   sendMessage() {
+    if(!this.widget){
     let msg = {
       Type:'chat',
-      From:'129299',
-      To:'1111',
+      From:this.Id,
+      Date: new Date().toDateString(),
+      To:this.chat._id,
+      
       Content:this.message
     }
     this.messages.push(msg);
     this.chatService.sendMessage(msg);
     this.message = '';
   }
+}
   taskWidget(){
     if(!this.widget){
       let msg ={
         Type:'task',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.widget = true;
@@ -87,8 +179,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if (!this.widget) {
       let msg ={
         Type:'picture',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -99,8 +192,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if(!this.widget){
       let msg = {
         Type: 'price',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -111,8 +205,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     if(!this.widget){
       let msg = {
         Type: 'size',
-        From:'129299',
-        To:'1111',
+        From:this.Id,
+        To:this.chat._id,
+        Date: new Date().toDateString(),
         Content:null
       }
       this.messages.push(msg);
@@ -134,24 +229,58 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
       task: this.TaskTitle,
       duration: this.TaskDuration
     };
-    this.messages[i].Content = content;
-    this.schedules.push(schedule);
-    this.endDate = this.endDate+this.daysToMillisecs(this.TaskDuration);
-    this.taskDone();
-    this.widget = false;
-    this.TaskTitle=null;
-    this.TaskDuration=null;
-    this.chatService.sendMessage(this.messages[i]);
+    this.Schedule.push(schedule)
+    let milestones = this.Schedule;
+    // milestones.push(schedule);
+    let duration = Number(this.Bid.Schedule.Duration) + this.TaskDuration;
+    let body = {Duration:duration,Milestones:milestones};
+    //this.endDate = this.endDate+this.daysToMillisecs(this.TaskDuration);
+    this.bidservice.update(this.Bid._id,{Schedule:body})
+    .subscribe(
+      (res) =>{
+        this.messages[i].Content = content;
+        setTimeout(() => {
+          this.taskDone();
+        }, 2000);
+        this.TaskTitle=null;
+        this.TaskDuration=null;
+        this.chatService.sendMessage(this.messages[i]);
+        this.widget = false;
+      }, err =>{
+        console.log(err),alert('Error');
+        this.Schedule.pop();
+        setTimeout(() => {
+          this.taskDone();
+        }, 2000);
+      } 
+    )
+    
+    //
   }
   updatePicture(i:number){
-    let content = {
-      Picture:this.PictureUrl||'assets/images/header-bg-2.jpeg',
-      Description:this.PictureText
-    }
-    this.messages[i].Content = content;
-    this.widget = false;
-    this.PictureUrl=null;this.PictureText=null;
-    this.chatService.sendMessage(this.messages[i]);
+    const  payload = {
+      file: this.PictureUrl,
+      upload_preset: 'postdress',
+    };
+    this.upload=true;
+    this.userservice.postData('https://api.cloudinary.com/v1_1/chibuezeassets/image/upload', payload)
+      .subscribe(
+        (res:any) => {
+          console.log(res);//
+          let content = {
+                  Picture:String(res.secure_url),
+                  Description:this.PictureText
+                }
+                this.messages[i].Content = content;
+                this.widget = false;
+                this.PictureUrl=null;this.PictureText=null;this.upload=false;
+                this.chatService.sendMessage(this.messages[i]);
+        } , error1 => {
+          console.log(error1);
+          this.widget = false;
+          this.PictureUrl=null;this.PictureText=null;this.upload=false;
+        } );
+    //     this.chatService.sendMessage(this.messages[i]);
   }
   updatePrice(i:number){
     let content = {
@@ -160,8 +289,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     }
     let msg ={
       Type: 'price-req',
-        From:'129299',
-        To:'1111',
+      From:this.Id,
+      Date: new Date().toDateString(),
+      To:this.chat._id,
         Content:{
           Price: this.Price,
           Description: this.PriceDescription,
@@ -181,15 +311,16 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     }
     let msg ={
       Type: 'size-req',
-        From:'129299',
-        To:'1111',
+      From:this.Id,
+      Date: new Date().toDateString(),
+      To:this.chat._id,
       Content:{
         Size: this.Size,
         Value:null
       }
     }
     this.messages[i].Content = content;
-    let sendmsg =this.messages[i];
+    //let sendmsg =this.messages[i];
     this.chatService.sendMessage(msg);
     this.widget = false;
     this.Size =null;
@@ -202,17 +333,44 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
     this.widget = false
   }
   acceptPrice(i:number){
-    this.messages[i].Content.Accepted = true;
-    this.chatService.sendMessage(this.messages[i]);
+    this.widget = true;
+    this.Bid.Price = Number(this.messages[i].Content.Price)+this.Bid.Price;
+    this.Messages[i].Content.Accepted = true;
+    let msgs  = this.Messages
+    this.bidservice.update(this.Bid._id,{Price:this.Bid.Price})
+    .subscribe(
+      (res)=>{
+        this.orderService.updateChat(this.Chat._id,{Messages:msgs})
+        .subscribe((res)=>{console.log('updated chat',res),this.widget=false},(err)=>console.error('update fail',err))
+      },
+      err =>{
+        console.log(err);
+        this.Messages[i].Content.Accepted = false;
+        alert('Error');
+      }
+    )
   }
   rejectPrice(i:number){
     this.messages[i].Content.Accepted = false;
     this.chatService.sendMessage(this.messages[i]);
   }
   sendSize(i:number){
+    this.widget = true;
     this.messages[i].Content.Value = this.SizeValue;
+    let msgs  = this.Messages
     this.SizeValue = null;
-    this.chatService.sendMessage(this.messages[i]);
+    this.orderService.updateSize(this.Order._id,this.messages[i].Content)
+    .subscribe(
+      (res) => {
+        this.orderService.updateChat(this.Chat._id,{Messages:msgs})
+        .subscribe((res)=>{console.log('updated chat',res),this.widget=false},(err)=>console.error('update fail',err))
+      }, err => {
+        console.log(err);
+        this.messages[i].Content.Value = null;
+        alert('Error');
+      }
+    )
+    
   }
   setPicture(event:any){
     if (event.target.files && event.target.files[0]) {
@@ -224,45 +382,79 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
 
     }
   }
-  doneTime(){
-    this.daysPast =this.nowDate-this.startDate;
-    this.daysPast = (((this.daysPast/1000)/60)/60)/24
-    console.log(this.daysPast);
+   doneTime(){
+    let nowDate = Date.now();
+    let dayspast =nowDate-Date.parse(this.chat.Order.CreatedAt)
+    dayspast = Number((this.daysPast/(1000*24*60*60)).toFixed(0));
+    return dayspast;
+    
   }
-//   percentageComplete(){
-//    return ((this.endDate-this.nowDate)/(this.endDate-this.startDate))*100;
-//  }
   get taskWidth(){
-    let val = 100/this.schedules.length
+    let val = 100/this.Schedule.length
     return val+'%';
   }
   taskDone(){
-    this.percentageDone=0;
-    this.doneTime();
-    for (let index = 0; index < this.schedules.length; index++) {
-      if(this.daysPast >= this.schedules[index].duration){
-          document.getElementById(String(index)).classList.add('bg-success');
-          this.daysPast -= this.schedules[index].duration;
-          this.percentageDone +=1;
+    console.log(this.Schedule,this.chat.Order.Order.Schedule.Milestones)
+    let percentageDone=0;
+    let dayspast = Date.now()-Date.parse(this.chat.Order.CreatedAt)
+    dayspast = Number((dayspast/(1000*24*60*60)).toFixed(0));
+    console.log(dayspast);
+    for (let index = 0; index < this.Schedule.length; index++) {
+      if(dayspast >= this.Schedule[index].duration){
+          document.getElementById(String(index)).classList.add('bg-success') 
+          console.log(dayspast,this.Schedule[index].duration,document.getElementById(String(index)))
+          dayspast -= this.Schedule[index].duration;
+          percentageDone +=1;
       }
       
     }
-    this.percentageDone = Number(((this.percentageDone/this.schedules.length)*100).toFixed(0));
+    document.getElementById('percent').innerHTML = ((percentageDone/this.Schedule.length)*100).toFixed(0) + '%';
   }
   daysToMillisecs( day:number){
     return (day*24*60*60)*1000;
   }
   get StartDate(){
-    return new Date(this.startDate).toLocaleDateString()
+    if(this.Order){ 
+    return Date.parse(this.Order.CreatedAt)
+    }
+  }
+  get Start(){
+    if(this.StartDate){
+      return new Date(this.StartDate).toLocaleDateString();
+    }
   }
   get EndDate(){
-    return new Date(this.endDate).toLocaleDateString()
+    if(this.Bid && this.StartDate && this.Schedule){
+      let enddate = this.StartDate
+      this.Schedule.forEach((sch) => enddate= enddate+this.daysToMillisecs(sch.duration));
+      return enddate;
+    } 
   }
-
+  get End(){
+    if(this.EndDate){
+      return new Date(this.EndDate).toLocaleDateString();
+    }
+  }
+  get Percentage(){
+    return this.percentageDone;
+  }
+  get Done(){
+    return this.done;
+  }
+  get CanSend(){
+    return this.cansend;
+  }
   isOdd(i:number){
     return i % 2  !== 0;
   }
   isEven(i:number){
     return i % 2 === 0;
+  }
+  isDone(i){
+    let daystodate
+    for(let j = 0;j<=i;j++ ){
+      daystodate+=Schedule[i].duration
+    }
+    return (this.EndDate - this.StartDate)>=daystodate
   }
 }

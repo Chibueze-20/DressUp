@@ -35,6 +35,7 @@ import {RavepaymentModule} from './shared/ravepayment/ravepayment.module';
 import { ChatRoomComponent } from './chat/chat-room/chat-room.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatListComponent } from './chat/chat-list/chat-list.component';
+import { BidNotificationsComponent } from './notifications/bid-notifications/bid-notifications.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ChatListComponent } from './chat/chat-list/chat-list.component';
     AccountNotificationsComponent,
     ChatRoomComponent,
     ChatComponent,
-    ChatListComponent
+    ChatListComponent,
+    BidNotificationsComponent
   ],
   imports: [
     BrowserModule,

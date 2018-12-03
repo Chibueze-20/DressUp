@@ -57,6 +57,22 @@ exports.updateOrder = function(req,res){
     })
 }
 
+//update sizes
+exports.updateSize = function(req,res){
+    OrderRequest.findById(req.params.id,function(err,order){
+        if (err) {
+            return res.status(404).send(err); 
+        }
+        order.Sizes.push(req.body)
+        order.save(function(err,orders){
+            if(err){
+                return res.status(504).send(err);
+            }
+            res.status(200).send({Message:'Updated Size',type:'Success'})
+        })
+    })
+}
+
 // gets a specified request or order
 exports.getOrder = function(req,res){
     OrderRequest.findById(req.params.id)
@@ -67,6 +83,25 @@ exports.getOrder = function(req,res){
             return res.status(404).send(err);
         }
         res.json(order)
+    })
+}
+exports.getOrderByUser =  function(req,res){
+    OrderRequest.find({Completed:false})
+    .populate({
+        path:'Order',
+        populate:{
+            path:'Tailor',
+            select:'Brand.BrandName'
+        }
+    })
+    .populate('Request')
+    .sort('-CreatedAt -_id')
+    .exec(function(err, order){
+        if(err){
+            return res.status(404).send(err);
+        }
+        res.send(order)
+        
     })
 }
 // show all bids

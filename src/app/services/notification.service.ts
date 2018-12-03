@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class NotificationService {
-  private uri = 'http://localhost:4000/notification'
+  private uri = 'http://localhost:4000/notification';
+  private bid_uri = 'http://localhost:4000/bid';
   constructor(private http: HttpClient) { }
 
   sendMessage(to:any,message:any){
@@ -16,4 +17,11 @@ export class NotificationService {
   getmessage(id:any,type:any){
     return this.http.get(this.uri+'/messages/'+id+'/type/'+type)
   }
+  getBids(userid:any){
+    return this.http.get(this.bid_uri+'/bids/'+userid)
+  }
+  getDirectBids(tailorid:any){
+    return this.http.get(this.bid_uri+'/bids/direct/'+tailorid)
+  }
+
 }

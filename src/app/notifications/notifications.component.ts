@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Navigation} from '../shared/Navigation';
+import { AppComponent } from '../app.component';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -8,7 +11,7 @@ import {Navigation} from '../shared/Navigation';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
@@ -16,11 +19,20 @@ export class NotificationsComponent implements OnInit {
   openNav() {
     document.getElementById('mySidenav').style.width = '250px';
   }
-
+  back(){
+    if (this.UserRole === 'Designer') {
+      this.router.navigateByUrl('/tailor/home/jobs')
+    } else {
+      this.router.navigateByUrl('/user/home/feeds')
+    }
+  }
   closeNav() {
     document.getElementById('mySidenav').style.width = '0';
   }
   get Navigation() {
     return Navigation.Title;
+  }
+  get UserRole(){
+    return AppComponent.User.Role;
   }
 }

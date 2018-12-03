@@ -1,0 +1,54 @@
+<div id="main" class="container-fluid belleza">
+  <div class="row">
+    <div class="px-5 py-4 col-lg-9 row offset-lg-3 col-md-8 d-flex justify-content-start offset-md-3 col-sm-12">
+      <button style="display: none" #modal data-toggle="modal" data-target="#tagsmodal">modal</button>
+      
+      <div *ngFor="let bid of Bids" class="card col-md-7 mx-5 mb-4">
+        <div>
+          <p>
+              {{bid.Tailor.Brand.BrandName}} placed a bid on <strong>{{bid.Request.Title}}</strong>
+          </p>
+        </div>
+        <div class="d-flex justify-content-end text-primary">
+          <h6 class="m-0"><a (click)="view(bid);modal.click()" class="nav-link">View</a></h6>
+        </div>
+      </div> 
+       
+  </div>
+</div>
+</div>
+<!--MODAL-->
+<!--tags modal-->
+<div class="modal fade" id="tagsmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-header text-center">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <p class="quicksand mb-0" style="font-size: 2.1em">{{Bid.Tailor.Brand.BrandName}}'s Bid</p>
+          </div>
+          <div *ngIf="Bid !== {}" class="card-body">
+            <div style="width: 100%;max-height: 300px">
+              <img class="card-img-top img-fluid" style="
+              height: -ms-fill-available;
+              height: -webkit-fill-available;
+              height: -moz-fill-available;
+              max-height: 300px;" 
+              [src]="Bid.Request.Picture[0]">
+            </div>
+            <div class="card-text my-2 flex-center">
+              <p class="mb-0 mx-2">Duration: {{Bid.Schedule.Duration}} days</p>
+              <p class="mb-0 mx-2">Price: NGN {{Bid.Price}}</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button (click)="accept(Bid._id)" class="btn btn-success mx-3">Accept</button>
+                <button (click)="reject(Bid._id)" class="btn btn-danger mx-3">Reject</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MODAL-->
